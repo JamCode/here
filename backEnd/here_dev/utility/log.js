@@ -5,7 +5,7 @@
  */
 var path = require('path');
 var config = require('../config/config');
-var global_config = require('../../here_dev_config/config');
+var global_config = require('../config/env_config');
 var log4js = require('log4js');
 var logger;
 

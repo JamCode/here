@@ -2,7 +2,7 @@ var log = require('./utility/log');
 log.SetLogFileName('logServer_');
 global.log = log; //设置全局
 
-var global_config = require('../here_dev_config/config');
+var global_config = require('./config/env_config');
 global.global_config = global_config;
 
 
