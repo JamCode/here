@@ -6,15 +6,18 @@ exports.weimi = {
 	cid: 'iHHPZMcJNFxD'
 };
 
+/*上传图片路径配置*/
 exports.imageInfo = {
 	url: '/image?name=',
 	imageRootDir:  '/images/'
 };
 
+/*语音路径配置*/
 exports.voiceInfo = {
 	voiceRootDir: '/voice/'
 };
 
+/*消息中图片路径配置*/
 exports.msgImageInfo = {
 	msgImageInfoRootDir: '/msgImages/'	
 };
