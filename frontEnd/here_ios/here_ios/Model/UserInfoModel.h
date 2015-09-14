@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CarInfoModel.h"
-
+#import <UIKit/UIKit.h>
 @interface UserInfoModel : NSObject
 {
     
@@ -39,7 +38,6 @@
 @property int lastMessageTimestamp;
 
 @property BOOL isCertificated; //是否认证车型
-@property CarInfoModel* carInfoModel;
 @property NSString* sign; //个人签名
 
 @property NSString* phoneNum;

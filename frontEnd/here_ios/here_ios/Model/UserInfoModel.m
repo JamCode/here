@@ -25,7 +25,6 @@
         self.gender = -1;
         self.email = [[NSString alloc] init];
         self.faceImage = [[UIImage alloc] init];
-        _carInfoModel = [[CarInfoModel alloc] init];
         _userImageURLArray = [[NSMutableArray alloc] init];
     }
     return self;
@@ -63,9 +62,7 @@
     _interest = [data objectForKey:@"user_interest"] == [NSNull null]?@"":[data objectForKey:@"user_interest"];
     
     _certificateProcess = [[data objectForKey:@"user_certificated_process"] intValue];
-    _carInfoModel.carBrandImageURL = [[data objectForKey:@"car_info"] objectForKey:@"car_brand_image_url"];
-    _carInfoModel.carBrandDesc = [[data objectForKey:@"car_info"] objectForKey:@"car_brand_desc"];
-    _carInfoModel.carTypeDesc = [[data objectForKey:@"car_info"] objectForKey:@"car_type_desc"];
+    
     
     _user_background_image_url = [data objectForKey:@"user_background_image_url"];
     

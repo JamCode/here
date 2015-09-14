@@ -15,7 +15,7 @@
 #import "LocDatabase.h"
 #import "PriMsgModel.h"
 #import "TimeFunction.h"
-#import "socket.IO-objc/SocketIO.h"
+#import "SocketIO.h"
 #import "Constant.h"
 #import "NetWork.h"
 #import "Constant.h"

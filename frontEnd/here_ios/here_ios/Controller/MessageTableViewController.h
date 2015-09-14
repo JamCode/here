@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "socket.IO-objc/SocketIO.h"
+#import "SocketIO.h"
 @interface MessageTableViewController : UITableViewController<SocketIODelegate>
 - (void)checkMissedMsg;
 

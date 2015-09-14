@@ -7,6 +7,7 @@
 //
 
 #import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
 
 
 @protocol UUAVAudioPlayerDelegate <NSObject>

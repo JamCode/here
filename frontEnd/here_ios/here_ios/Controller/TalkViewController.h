@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UserInfoModel.h"
-#import "socket.IO-objc/SocketIO.h"
+#import "SocketIO.h"
 #import <AVFoundation/AVFoundation.h>
 #import "Mp3Recorder.h"
 #import "PriMsgModel.h"

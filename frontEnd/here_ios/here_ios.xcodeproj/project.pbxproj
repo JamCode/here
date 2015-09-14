@@ -286,8 +286,6 @@
 		B24D68151BA6C06800F33A96 /* OptionFunView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D68041BA6C06800F33A96 /* OptionFunView.m */; };
 		B24D68601BA6C3F200F33A96 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D684B1BA6C3F200F33A96 /* UserInfoModel.m */; };
 		B24D68611BA6C3F200F33A96 /* MapPointModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D684D1BA6C3F200F33A96 /* MapPointModel.m */; };
-		B24D68621BA6C3F200F33A96 /* CarInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D684F1BA6C3F200F33A96 /* CarInfoModel.m */; };
-		B24D68631BA6C3F200F33A96 /* CarBrandInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D68511BA6C3F200F33A96 /* CarBrandInfo.m */; };
 		B24D68641BA6C3F200F33A96 /* ImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D68531BA6C3F200F33A96 /* ImageModel.m */; };
 		B24D68651BA6C3F200F33A96 /* ContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D68551BA6C3F200F33A96 /* ContentModel.m */; };
 		B24D68661BA6C3F200F33A96 /* PriMsgModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D68571BA6C3F200F33A96 /* PriMsgModel.m */; };
@@ -669,10 +667,6 @@
 		B24D684B1BA6C3F200F33A96 /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		B24D684C1BA6C3F200F33A96 /* MapPointModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPointModel.h; sourceTree = "<group>"; };
 		B24D684D1BA6C3F200F33A96 /* MapPointModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPointModel.m; sourceTree = "<group>"; };
-		B24D684E1BA6C3F200F33A96 /* CarInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarInfoModel.h; sourceTree = "<group>"; };
-		B24D684F1BA6C3F200F33A96 /* CarInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarInfoModel.m; sourceTree = "<group>"; };
-		B24D68501BA6C3F200F33A96 /* CarBrandInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarBrandInfo.h; sourceTree = "<group>"; };
-		B24D68511BA6C3F200F33A96 /* CarBrandInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarBrandInfo.m; sourceTree = "<group>"; };
 		B24D68521BA6C3F200F33A96 /* ImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageModel.h; sourceTree = "<group>"; };
 		B24D68531BA6C3F200F33A96 /* ImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageModel.m; sourceTree = "<group>"; };
 		B24D68541BA6C3F200F33A96 /* ContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentModel.h; sourceTree = "<group>"; };
@@ -1294,10 +1288,6 @@
 				B24D684B1BA6C3F200F33A96 /* UserInfoModel.m */,
 				B24D684C1BA6C3F200F33A96 /* MapPointModel.h */,
 				B24D684D1BA6C3F200F33A96 /* MapPointModel.m */,
-				B24D684E1BA6C3F200F33A96 /* CarInfoModel.h */,
-				B24D684F1BA6C3F200F33A96 /* CarInfoModel.m */,
-				B24D68501BA6C3F200F33A96 /* CarBrandInfo.h */,
-				B24D68511BA6C3F200F33A96 /* CarBrandInfo.m */,
 				B24D68521BA6C3F200F33A96 /* ImageModel.h */,
 				B24D68531BA6C3F200F33A96 /* ImageModel.m */,
 				B24D68541BA6C3F200F33A96 /* ContentModel.h */,
@@ -1876,7 +1866,6 @@
 				B24D68AF1BA6C46900F33A96 /* SignInViewController.m in Sources */,
 				B24D68141BA6C06800F33A96 /* OptionFunButtonView.m in Sources */,
 				B24D68151BA6C06800F33A96 /* OptionFunView.m in Sources */,
-				B24D68631BA6C3F200F33A96 /* CarBrandInfo.m in Sources */,
 				B24D68A91BA6C46900F33A96 /* MessageTableViewController.m in Sources */,
 				B24D68641BA6C3F200F33A96 /* ImageModel.m in Sources */,
 				B24D68B31BA6C46900F33A96 /* SettingViewController.m in Sources */,
@@ -1919,7 +1908,6 @@
 				B24D65E01BA6B9D300F33A96 /* Model.xcdatamodeld in Sources */,
 				B24D68A81BA6C46900F33A96 /* NearByPersonAction.m in Sources */,
 				B24D680D1BA6C06800F33A96 /* RegisterCellViewTableViewCell.m in Sources */,
-				B24D68621BA6C3F200F33A96 /* CarInfoModel.m in Sources */,
 				B24D68A51BA6C46900F33A96 /* MyContentAction.m in Sources */,
 				B24D69351BA6C8A400F33A96 /* SocketIOJSONSerialization.m in Sources */,
 				B24D693F1BA6C8A400F33A96 /* Waver.m in Sources */,
