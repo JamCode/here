@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "UserInfoModel.h"
-#import "socket.IO-objc/SocketIO.h"
+#import "SocketIO.h"
+//#import "socket.IO-objc/SocketIO.h"
 #import "TWTSideMenuViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, SocketIODelegate>
