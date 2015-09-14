@@ -1,25 +1,28 @@
 //
 //  AppDelegate.h
-//  here_ios
+//  CarSocial
 //
-//  Created by wang jam on 9/14/15.
-//  Copyright (c) 2015 jam wang. All rights reserved.
+//  Created by wang jam on 8/5/14.
+//  Copyright (c) 2014 jam wang. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
+#import "UserInfoModel.h"
+#import "socket.IO-objc/SocketIO.h"
+#import "TWTSideMenuViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, SocketIODelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
-@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
-@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property UserInfoModel* myInfo;
+@property SocketIO* mysocket;
+@property UITabBarController* tabBarViewController;
+@property TWTSideMenuViewController* sideMenu;
 
-- (void)saveContext;
-- (NSURL *)applicationDocumentsDirectory;
 
++ (SocketIO*) getMySocket;
++ (UserInfoModel*)getMyUserInfo;
+- (NSString*)getMyID;
 
 @end
-
