@@ -1,0 +1,28 @@
+exports.env = {
+        homedir: '/home/wanghan/dev'
+};
+
+exports.httpServerInfo = {
+        url: 'http://112.74.102.178',
+        listen_port: 8080
+};
+
+exports.socketServerInfo = {
+        listen_port: 10666
+};
+
+exports.mysql_dev = {
+    host: 'rdsruiaj3v2uaiv.mysql.rds.aliyuncs.com',
+    user: 'wanghan',
+    password: 'wanghan',
+    database: 'online',
+    port: 3306
+};
+
+exports.redisInfo = {
+        host: 'redis.duapp.com',
+        port: 80,
+        database: 'sBueHswMTrkUFpMhxdrE',
+        user: 'cKomPBpLUyTnCY7eGI8LnSD3',
+        password: 'YSWY5lLfURaUN7U9BWPS8b7cloDRrHPD'
+};
