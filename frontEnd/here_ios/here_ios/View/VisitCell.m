@@ -7,8 +7,13 @@
 //
 
 #import "VisitCell.h"
+#import "Constant.h"
+#import "macro.h"
 
 @implementation VisitCell
+{
+    NSMutableArray* faceImageViewArray;
+}
 
 - (void)awakeFromNib {
     // Initialization code
@@ -18,6 +23,14 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+-(void)setModels:(NSMutableArray*)visitModels{
+    
+}
+
+-(CGFloat)cellHeight{
+    return ScreenHeight/4;
 }
 
 @end

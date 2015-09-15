@@ -98,18 +98,32 @@
 
 - (UITableViewCell*)generateCell:(UITableView*)tableview indexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    VisitCell *cell = [tableview dequeueReusableCellWithIdentifier:@"VisitCell"];
+    
+    if (cell==nil) {
+        cell = [[VisitCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"VisitCell"];
+        NSLog(@"new cell");
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    NSMutableArray* visitmodels = (NSMutableArray*)[dataList objectAtIndex:indexPath.row];
+    
+    [cell setModels:visitmodels];
+    
+    return cell;
 }
 
 
 - (void)initAction:(ComTableViewCtrl*)comTableViewCtrl
 {
     dataList = [[NSMutableArray alloc] init];
+    comTableViewCtrl.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (CGFloat)cellHeight:(UITableView*)tableView indexPath:(NSIndexPath *)indexPath
 {
-    return 0;
+    return [VisitCell cellHeight];
 }
 
 

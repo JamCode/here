@@ -10,4 +10,7 @@
 
 @interface VisitCell : UITableViewCell
 
+-(void)setModels:(NSMutableArray*)visitModels;
+-(CGFloat)cellHeight;
+
 @end
