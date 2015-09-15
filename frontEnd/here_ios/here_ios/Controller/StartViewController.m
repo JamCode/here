@@ -40,13 +40,13 @@ static const int button_height = 46;
     backgroundImage.userInteractionEnabled = YES;
     backgroundImage.frame = self.view.frame;
     
-    UIButton* registerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, button_y, button_width, button_height)];
+    UIButton* registerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, ScreenHeight - ScreenHeight/10, ScreenWidth/2, ScreenHeight/10)];
     registerButton.userInteractionEnabled = YES;
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [registerButton addTarget:self action:@selector(registerButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     
-    UIButton* loginButton = [[UIButton alloc] initWithFrame:CGRectMake(button_width, button_y, button_width, button_height)];
+    UIButton* loginButton = [[UIButton alloc] initWithFrame:CGRectMake(ScreenWidth/2, registerButton.frame.origin.y, registerButton.frame.size.width, registerButton.frame.size.height)];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
     [loginButton addTarget:self action:@selector(loginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
 
