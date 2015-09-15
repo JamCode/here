@@ -12,6 +12,8 @@
 @implementation VisitListAction
 {
     NSMutableArray* dataList;
+    pullCompleted completed;
+
 }
 
 - (void)pullUpAction:(pullCompleted)completedBlock; //上拉响应函数
