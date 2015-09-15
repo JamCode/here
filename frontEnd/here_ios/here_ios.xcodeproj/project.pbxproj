@@ -345,6 +345,8 @@
 		B24D693D1BA6C8A400F33A96 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69111BA6C8A300F33A96 /* UIPlaceHolderTextView.m */; };
 		B24D693E1BA6C8A400F33A96 /* UUAVAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69131BA6C8A300F33A96 /* UUAVAudioPlayer.m */; };
 		B24D693F1BA6C8A400F33A96 /* Waver.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69151BA6C8A300F33A96 /* Waver.m */; };
+		B267C63D1BA7F45900D12035 /* VisitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63C1BA7F45900D12035 /* VisitCell.m */; };
+		B267C6401BA7F55600D12035 /* VisitListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63F1BA7F55600D12035 /* VisitListAction.m */; };
 		E777BF15ECD86C660D85C8AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF27723DED1CCDC21653282 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -785,6 +787,10 @@
 		B24D69131BA6C8A300F33A96 /* UUAVAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUAVAudioPlayer.m; sourceTree = "<group>"; };
 		B24D69141BA6C8A300F33A96 /* Waver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Waver.h; sourceTree = "<group>"; };
 		B24D69151BA6C8A300F33A96 /* Waver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waver.m; sourceTree = "<group>"; };
+		B267C63B1BA7F45900D12035 /* VisitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitCell.h; sourceTree = "<group>"; };
+		B267C63C1BA7F45900D12035 /* VisitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitCell.m; sourceTree = "<group>"; };
+		B267C63E1BA7F55600D12035 /* VisitListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitListAction.h; sourceTree = "<group>"; };
+		B267C63F1BA7F55600D12035 /* VisitListAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitListAction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1268,6 +1274,8 @@
 				B24D67F91BA6C06800F33A96 /* TalkTimeTableViewCell.h */,
 				B24D67FA1BA6C06800F33A96 /* TalkTimeTableViewCell.m */,
 				B24D67FB1BA6C06800F33A96 /* FaceView.h */,
+				B267C63B1BA7F45900D12035 /* VisitCell.h */,
+				B267C63C1BA7F45900D12035 /* VisitCell.m */,
 				B24D67FC1BA6C06800F33A96 /* FaceView.m */,
 				B24D67FD1BA6C06800F33A96 /* CommentTableViewCell.h */,
 				B24D67FE1BA6C06800F33A96 /* CommentTableViewCell.m */,
@@ -1316,6 +1324,8 @@
 				B24D686F1BA6C46900F33A96 /* TabBarViewController.m */,
 				B24D68701BA6C46900F33A96 /* TalkViewController.h */,
 				B24D68711BA6C46900F33A96 /* TalkViewController.m */,
+				B267C63E1BA7F55600D12035 /* VisitListAction.h */,
+				B267C63F1BA7F55600D12035 /* VisitListAction.m */,
 				B24D68721BA6C46900F33A96 /* NearByContentAction.h */,
 				B24D68731BA6C46900F33A96 /* NearByContentAction.m */,
 				B24D68741BA6C46900F33A96 /* MyContentAction.h */,
@@ -1881,7 +1891,9 @@
 				B24D693A1BA6C8A400F33A96 /* TimeFunction.m in Sources */,
 				B24D68BA1BA6C46900F33A96 /* PublishCommentViewController.m in Sources */,
 				B24D69181BA6C8A300F33A96 /* CBStoreHouseRefreshControl.m in Sources */,
+				B267C63D1BA7F45900D12035 /* VisitCell.m in Sources */,
 				B24D68B51BA6C46900F33A96 /* SettingChildViewController.m in Sources */,
+				B267C6401BA7F55600D12035 /* VisitListAction.m in Sources */,
 				B24D68691BA6C3F200F33A96 /* FriendMsgMode.m in Sources */,
 				B24D680A1BA6C06800F33A96 /* ContentView.m in Sources */,
 				B24D68A21BA6C46900F33A96 /* TabBarViewController.m in Sources */,
