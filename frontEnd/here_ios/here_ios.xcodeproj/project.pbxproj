@@ -347,6 +347,7 @@
 		B24D693F1BA6C8A400F33A96 /* Waver.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69151BA6C8A300F33A96 /* Waver.m */; };
 		B267C63D1BA7F45900D12035 /* VisitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63C1BA7F45900D12035 /* VisitCell.m */; };
 		B267C6401BA7F55600D12035 /* VisitListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63F1BA7F55600D12035 /* VisitListAction.m */; };
+		B267C6431BA8085400D12035 /* VisitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C6421BA8085400D12035 /* VisitModel.m */; };
 		E777BF15ECD86C660D85C8AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF27723DED1CCDC21653282 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -791,6 +792,8 @@
 		B267C63C1BA7F45900D12035 /* VisitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitCell.m; sourceTree = "<group>"; };
 		B267C63E1BA7F55600D12035 /* VisitListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitListAction.h; sourceTree = "<group>"; };
 		B267C63F1BA7F55600D12035 /* VisitListAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitListAction.m; sourceTree = "<group>"; };
+		B267C6411BA8085400D12035 /* VisitModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitModel.h; sourceTree = "<group>"; };
+		B267C6421BA8085400D12035 /* VisitModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1293,6 +1296,8 @@
 			isa = PBXGroup;
 			children = (
 				B24D684A1BA6C3F200F33A96 /* UserInfoModel.h */,
+				B267C6411BA8085400D12035 /* VisitModel.h */,
+				B267C6421BA8085400D12035 /* VisitModel.m */,
 				B24D684B1BA6C3F200F33A96 /* UserInfoModel.m */,
 				B24D684C1BA6C3F200F33A96 /* MapPointModel.h */,
 				B24D684D1BA6C3F200F33A96 /* MapPointModel.m */,
@@ -1935,6 +1940,7 @@
 				B24D691D1BA6C8A400F33A96 /* NetWork.m in Sources */,
 				B24D68B81BA6C46900F33A96 /* PublishContentViewController.m in Sources */,
 				B24D686A1BA6C3F200F33A96 /* LastMsgModel.m in Sources */,
+				B267C6431BA8085400D12035 /* VisitModel.m in Sources */,
 				B24D693C1BA6C8A400F33A96 /* TWTSideMenuViewController.m in Sources */,
 				B24D68B01BA6C46900F33A96 /* CommentDetailAction.m in Sources */,
 				B24D68601BA6C3F200F33A96 /* UserInfoModel.m in Sources */,
