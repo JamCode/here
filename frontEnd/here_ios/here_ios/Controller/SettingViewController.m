@@ -23,6 +23,7 @@
 #import "ComTableViewCtrl.h"
 #import "MyContentAction.h"
 #import "ImageBrowseAction.h"
+#import "VisitListAction.h"
 
 //#import "ImageBrowseViewCtrl.h"
 //#import "VisitListCtrl.h"
@@ -957,10 +958,10 @@ const int sectionCount = 4;
     }else if(indexPath.section == 1){
         if (indexPath.row == 0) {
             //最近来访
-            //VisitListCtrl* visit = [[VisitListCtrl alloc] init];
-            //visit.userinfo = _userInfo;
-            //visit.hidesBottomBarWhenPushed = YES;
-            //[self.navigationController pushViewController:visit animated:YES];
+            ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[VisitListAction alloc] init]];
+            comTable.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:comTable animated:YES];
+            
         }
         if (indexPath.row == 1) {
             //去过的城市
