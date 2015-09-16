@@ -34,6 +34,8 @@
 	<string>请打开定位，才能使用应用相关功能</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>app在前台、后台、挂起、结束进程状态时，都可以获取到定位信息</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
