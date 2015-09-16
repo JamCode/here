@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FaceView.h"
 
 @interface VisitCell : UITableViewCell
 
 -(void)setModels:(NSMutableArray*)visitModels;
--(CGFloat)cellHeight;
++(CGFloat)cellHeight;
 
 @end
+
+

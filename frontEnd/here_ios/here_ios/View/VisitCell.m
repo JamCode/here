@@ -12,11 +12,32 @@
 
 @implementation VisitCell
 {
-    NSMutableArray* faceImageViewArray;
+    NSMutableArray* visitViewArray;
 }
+
+static int spaceWidth = 10;
+
 
 - (void)awakeFromNib {
     // Initialization code
+}
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        visitViewArray = [[NSMutableArray alloc] init];
+        int imageWidth = (ScreenWidth-5*spaceWidth)/4;
+        
+        for (int i=0; i<4; ++i) {
+//            VisitView* visitView = [[VisitView alloc] init];
+//            visitView.faceView = [[FaceView alloc] initWithFrame:CGRectMake(i*(imageWidth+spaceWidth)+spaceWidth, 0, imageWidth, imageWidth)];
+//            
+//            [self addSubview:visitView.faceView];
+//            [visitViewArray addObject:visitView];
+        }
+    }
+    return self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -29,7 +50,7 @@
     
 }
 
--(CGFloat)cellHeight{
++(CGFloat)cellHeight{
     return ScreenHeight/4;
 }
 
