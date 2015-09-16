@@ -345,6 +345,7 @@
 		B24D693D1BA6C8A400F33A96 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69111BA6C8A300F33A96 /* UIPlaceHolderTextView.m */; };
 		B24D693E1BA6C8A400F33A96 /* UUAVAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69131BA6C8A300F33A96 /* UUAVAudioPlayer.m */; };
 		B24D693F1BA6C8A400F33A96 /* Waver.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69151BA6C8A300F33A96 /* Waver.m */; };
+		B29B5ED21BA9499D00D62757 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29B5ED11BA9499D00D62757 /* InfoPlist.strings */; };
 		E777BF15ECD86C660D85C8AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF27723DED1CCDC21653282 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -785,6 +786,7 @@
 		B24D69131BA6C8A300F33A96 /* UUAVAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUAVAudioPlayer.m; sourceTree = "<group>"; };
 		B24D69141BA6C8A300F33A96 /* Waver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Waver.h; sourceTree = "<group>"; };
 		B24D69151BA6C8A300F33A96 /* Waver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waver.m; sourceTree = "<group>"; };
+		B29B5ED11BA9499D00D62757 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -874,6 +876,7 @@
 			isa = PBXGroup;
 			children = (
 				B24D65B11BA6AC5800F33A96 /* Info.plist */,
+				B29B5ED11BA9499D00D62757 /* InfoPlist.strings */,
 				B24D65B21BA6AC5800F33A96 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -1678,6 +1681,7 @@
 				B24D67B21BA6BB1F00F33A96 /* select.png in Resources */,
 				B24D67181BA6BB1F00F33A96 /* guanzhi.png in Resources */,
 				B24D67541BA6BB1F00F33A96 /* bentian.png in Resources */,
+				B29B5ED21BA9499D00D62757 /* InfoPlist.strings in Resources */,
 				B24D67DE1BA6BB1F00F33A96 /* womanSetting.png in Resources */,
 				B24D67BA1BA6BB1F00F33A96 /* nearbylocation.png in Resources */,
 				B24D674C1BA6BB1F00F33A96 /* yiqi.png in Resources */,
