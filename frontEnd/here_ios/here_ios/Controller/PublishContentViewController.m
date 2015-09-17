@@ -24,7 +24,6 @@
     TextFieldView* commentTextField;
     TextFieldView* destinationTextField;
     
-    UIActionSheet* sheet;
     UIDatePicker *datePicker;
     UIPickerView *countPickerView;
     
@@ -46,8 +45,6 @@
     
     CGFloat oldOffset;
     CLLocationManager* locationManager;
-    
-    AMapSearchAPI* searchLocation;
     
     NSString* cityDesc;
     
@@ -71,7 +68,7 @@
     
     
     
-    UINavigationItem * navigationBarTitle = [[UINavigationItem alloc] initWithTitle:nil];
+    UINavigationItem * navigationBarTitle = [[UINavigationItem alloc] initWithTitle:@""];
     
     navigationBarTitle.leftBarButtonItem = leftitem;
     navigationBarTitle.rightBarButtonItem = rightitem;
@@ -260,32 +257,32 @@
 //    [searchLocation AMapReGoecodeSearch: regeoRequest];
 }
 
-//实现逆地理编码的回调函数
-- (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
-{
-    
-    if(response.regeocode != nil){
-        //通过AMapReGeocodeSearchResponse对象处理搜索结果
-        NSString *result = [NSString stringWithFormat:@"ReGeocode: %@", response.regeocode];
-        NSLog(@"ReGeo: %@", result);
-        NSLog(@"%@", response.regeocode.addressComponent.province);
-        NSLog(@"%@", response.regeocode.addressComponent.city);
-        NSLog(@"%@", response.regeocode.addressComponent.building);
-        
-        //        AMapPOI* noChoose = [[AMapPOI alloc] init];
-        //        noChoose.name = @"未选择";
-        //        [addrArray addObject:noChoose];
-        
-        AMapPOI* cityPoint = [[AMapPOI alloc] init];
-        cityPoint.name = [[NSString alloc] initWithFormat:@"%@%@", response.regeocode.addressComponent.province, response.regeocode.addressComponent.city];
-        _address = cityPoint.name;
-        cityDesc = cityPoint.name;
-    }
-    
-    [tableView reloadData];
-    
-    //[searchLocation am]
-}
+////实现逆地理编码的回调函数
+//- (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response
+//{
+//    
+//    if(response.regeocode != nil){
+//        //通过AMapReGeocodeSearchResponse对象处理搜索结果
+//        NSString *result = [NSString stringWithFormat:@"ReGeocode: %@", response.regeocode];
+//        NSLog(@"ReGeo: %@", result);
+//        NSLog(@"%@", response.regeocode.addressComponent.province);
+//        NSLog(@"%@", response.regeocode.addressComponent.city);
+//        NSLog(@"%@", response.regeocode.addressComponent.building);
+//        
+//        //        AMapPOI* noChoose = [[AMapPOI alloc] init];
+//        //        noChoose.name = @"未选择";
+//        //        [addrArray addObject:noChoose];
+//        
+//        AMapPOI* cityPoint = [[AMapPOI alloc] init];
+//        cityPoint.name = [[NSString alloc] initWithFormat:@"%@%@", response.regeocode.addressComponent.province, response.regeocode.addressComponent.city];
+//        _address = cityPoint.name;
+//        cityDesc = cityPoint.name;
+//    }
+//    
+//    [tableView reloadData];
+//    
+//    //[searchLocation am]
+//}
 
 
 - (void)searchRequest:(id)request didFailWithError:(NSError *)error

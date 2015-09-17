@@ -1,21 +1,21 @@
+////
+////  MapPointModel.m
+////  CarSocial
+////
+////  Created by wang jam on 5/5/15.
+////  Copyright (c) 2015 jam wang. All rights reserved.
+////
 //
-//  MapPointModel.m
-//  CarSocial
+//#import "MapPointModel.h"
 //
-//  Created by wang jam on 5/5/15.
-//  Copyright (c) 2015 jam wang. All rights reserved.
+//@implementation MapPointModel
 //
-
-#import "MapPointModel.h"
-
-@implementation MapPointModel
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
-@end
+///*
+//// Only override drawRect: if you perform custom drawing.
+//// An empty implementation adversely affects performance during animation.
+//- (void)drawRect:(CGRect)rect {
+//    // Drawing code
+//}
+//*/
+//
+//@end

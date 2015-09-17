@@ -369,7 +369,7 @@
 + (void)resizeLabel:(UILabel*)label maxHeight:(int)maxHeight maxWidth:(int)maxWidth fontSize:(int)fontSize
 {
     CGSize nameSize = [Tools getTextArrange:label.text maxRect:CGSizeMake(maxWidth, maxHeight) fontSize:fontSize];
-    label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, nameSize.width, nameSize.height);
+    label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, nameSize.width+2, nameSize.height);
 }
 
 

@@ -483,13 +483,13 @@ static const int ageWidth = 18;
     [Tools showDistance:userLocation otherLocation:myLocation];
     
     _goodCountLabel.text = [[NSString alloc] initWithFormat:@"%ld赞", model.goodCount];
-    [Tools resizeLabel:_goodCountLabel maxHeight:contentDetailInfoHeight maxWidth:88 fontSize:timeFontSize];
+    [Tools resizeLabel:_goodCountLabel maxHeight:contentDetailInfoHeight maxWidth:100 fontSize:timeFontSize];
     
     _commentCountLabel.text = [[NSString alloc] initWithFormat:@"%ld评论", model.commentCount];
-    [Tools resizeLabel:_commentCountLabel maxHeight:contentDetailInfoHeight maxWidth:88 fontSize:timeFontSize];
+    [Tools resizeLabel:_commentCountLabel maxHeight:contentDetailInfoHeight maxWidth:100 fontSize:timeFontSize];
     
     _distanceLabel.text = [[NSString alloc] initWithFormat:@"%@", [Tools showDistance:userLocation otherLocation:myLocation]];
-    [Tools resizeLabel:_distanceLabel maxHeight:contentDetailInfoHeight maxWidth:88 fontSize:timeFontSize];
+    [Tools resizeLabel:_distanceLabel maxHeight:contentDetailInfoHeight maxWidth:100 fontSize:timeFontSize];
     
 }
 

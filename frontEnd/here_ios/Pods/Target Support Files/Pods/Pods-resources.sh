@@ -43,9 +43,7 @@ install_resource()
       ;;
   esac
 }
-          install_resource "AMap2DMap/MAMapKit.framework/Versions/2.4.0.a00d0c2/Resources/AMap.bundle"
-                    install_resource "AMap3DMap/MAMapKit.framework/Versions/2.4.0.601e6b9.60159/Resources/AMap.bundle"
-                    install_resource "EGOTableViewPullRefresh/EGOTableViewPullRefresh/Resources/blackArrow.png"
+          install_resource "EGOTableViewPullRefresh/EGOTableViewPullRefresh/Resources/blackArrow.png"
                     install_resource "EGOTableViewPullRefresh/EGOTableViewPullRefresh/Resources/blackArrow@2x.png"
                     install_resource "EGOTableViewPullRefresh/EGOTableViewPullRefresh/Resources/blueArrow.png"
                     install_resource "EGOTableViewPullRefresh/EGOTableViewPullRefresh/Resources/blueArrow@2x.png"

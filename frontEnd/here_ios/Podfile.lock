@@ -20,9 +20,6 @@ PODS:
   - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - AMap2DMap (2.4.0)
-  - AMap3DMap (2.4.0)
-  - AMapSearch (2.4.0)
   - ASIHTTPRequest (1.8.2):
     - ASIHTTPRequest/ASIWebPageRequest
     - ASIHTTPRequest/CloudFiles
@@ -47,9 +44,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
-  - AMap2DMap
-  - AMap3DMap
-  - AMapSearch
   - ASIHTTPRequest
   - EGOTableViewPullRefresh
   - LBBlurredImage
@@ -59,9 +53,6 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
-  AMap2DMap: 7a766f815f1d4fb0b52f1ee2e8c1615b5044387e
-  AMap3DMap: b349b239e4ec00cbb283ad9a50a7a8428390f1d7
-  AMapSearch: da094172e29cf3c86fe35c8eadd42f225e95af6b
   ASIHTTPRequest: 2c8335b49410c0e2ad42829c438e74d454b77590
   EGOTableViewPullRefresh: 04bb7d115f660c91a036ebade5e6678c7ef26c59
   LBBlurredImage: 30cc42be977bbcece286d26d2d9c08b8be7f05e8
