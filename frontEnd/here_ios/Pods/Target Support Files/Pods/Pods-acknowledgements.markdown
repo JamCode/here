@@ -24,21 +24,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## AMap2DMap
-
-Copyright © 2014 AutoNavi. All Rights Reserved.
-
-
-## AMap3DMap
-
-Copyright © 2014 AutoNavi. All Rights Reserved.
-
-
-## AMapSearch
-
-Copyright © 2014 AutoNavi. All Rights Reserved.
-
-
 ## ASIHTTPRequest
 
 * Copyright (c) 2007-2011, All-Seeing Interactive

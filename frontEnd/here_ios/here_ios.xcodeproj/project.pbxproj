@@ -345,6 +345,7 @@
 		B24D693D1BA6C8A400F33A96 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69111BA6C8A300F33A96 /* UIPlaceHolderTextView.m */; };
 		B24D693E1BA6C8A400F33A96 /* UUAVAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69131BA6C8A300F33A96 /* UUAVAudioPlayer.m */; };
 		B24D693F1BA6C8A400F33A96 /* Waver.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69151BA6C8A300F33A96 /* Waver.m */; };
+		B24EC9641BAAA90C006E12CB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B24EC9631BAAA90B006E12CB /* MapKit.framework */; };
 		B267C63D1BA7F45900D12035 /* VisitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63C1BA7F45900D12035 /* VisitCell.m */; };
 		B267C6401BA7F55600D12035 /* VisitListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63F1BA7F55600D12035 /* VisitListAction.m */; };
 		B267C6431BA8085400D12035 /* VisitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C6421BA8085400D12035 /* VisitModel.m */; };
@@ -789,6 +790,7 @@
 		B24D69131BA6C8A300F33A96 /* UUAVAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUAVAudioPlayer.m; sourceTree = "<group>"; };
 		B24D69141BA6C8A300F33A96 /* Waver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Waver.h; sourceTree = "<group>"; };
 		B24D69151BA6C8A300F33A96 /* Waver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waver.m; sourceTree = "<group>"; };
+		B24EC9631BAAA90B006E12CB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B267C63B1BA7F45900D12035 /* VisitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitCell.h; sourceTree = "<group>"; };
 		B267C63C1BA7F45900D12035 /* VisitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitCell.m; sourceTree = "<group>"; };
 		B267C63E1BA7F55600D12035 /* VisitListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitListAction.h; sourceTree = "<group>"; };
@@ -803,8 +805,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B24D691A1BA6C8A300F33A96 /* libmp3lame.a in Frameworks */,
 				B24D65E31BA6BAB200F33A96 /* FIR.framework in Frameworks */,
+				B24EC9641BAAA90C006E12CB /* MapKit.framework in Frameworks */,
+				B24D691A1BA6C8A300F33A96 /* libmp3lame.a in Frameworks */,
 				E777BF15ECD86C660D85C8AE /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -822,6 +825,7 @@
 		23C85522DA4AC8412939DEFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B24EC9631BAAA90B006E12CB /* MapKit.framework */,
 				8DF27723DED1CCDC21653282 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -2087,6 +2091,7 @@
 			baseConfigurationReference = 9911EC87AD469992DE0EB08F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/here_ios",
@@ -2107,6 +2112,7 @@
 			baseConfigurationReference = 636B860494494DAFB67B35FB /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/here_ios",

@@ -9,10 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ContentViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>
-#import <MAMapKit/MAMapKit.h>
-#import <AMapSearchKit/AMapSearchAPI.h>
 
-@interface PublishContentViewController : UIViewController<UITextViewDelegate,UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, MBProgressHUDDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CLLocationManagerDelegate, MAMapViewDelegate, AMapSearchDelegate>
+@interface PublishContentViewController : UIViewController<UITextViewDelegate,UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, MBProgressHUDDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CLLocationManagerDelegate>
 
 @property ContentViewController* contentViewController;
 
