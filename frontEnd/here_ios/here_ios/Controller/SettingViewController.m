@@ -958,7 +958,7 @@ const int sectionCount = 4;
     }else if(indexPath.section == 1){
         if (indexPath.row == 0) {
             //最近来访
-            ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[VisitListAction alloc] init]];
+            ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[VisitListAction alloc] init]];
             comTable.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:comTable animated:YES];
             

@@ -170,6 +170,7 @@
 		B24D693E1BA6C8A400F33A96 /* UUAVAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69131BA6C8A300F33A96 /* UUAVAudioPlayer.m */; };
 		B24D693F1BA6C8A400F33A96 /* Waver.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69151BA6C8A300F33A96 /* Waver.m */; };
 		B24EC9641BAAA90C006E12CB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B24EC9631BAAA90B006E12CB /* MapKit.framework */; };
+		B24EC9671BAAB98D006E12CB /* visitView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24EC9661BAAB98D006E12CB /* visitView.m */; settings = {ASSET_TAGS = (); }; };
 		B267C63D1BA7F45900D12035 /* VisitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63C1BA7F45900D12035 /* VisitCell.m */; };
 		B267C6401BA7F55600D12035 /* VisitListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63F1BA7F55600D12035 /* VisitListAction.m */; };
 		B267C6431BA8085400D12035 /* VisitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C6421BA8085400D12035 /* VisitModel.m */; };
@@ -439,6 +440,8 @@
 		B24D69141BA6C8A300F33A96 /* Waver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Waver.h; sourceTree = "<group>"; };
 		B24D69151BA6C8A300F33A96 /* Waver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waver.m; sourceTree = "<group>"; };
 		B24EC9631BAAA90B006E12CB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		B24EC9651BAAB98D006E12CB /* visitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = visitView.h; sourceTree = "<group>"; };
+		B24EC9661BAAB98D006E12CB /* visitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = visitView.m; sourceTree = "<group>"; };
 		B267C63B1BA7F45900D12035 /* VisitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitCell.h; sourceTree = "<group>"; };
 		B267C63C1BA7F45900D12035 /* VisitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitCell.m; sourceTree = "<group>"; };
 		B267C63E1BA7F55600D12035 /* VisitListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitListAction.h; sourceTree = "<group>"; };
@@ -732,9 +735,11 @@
 				B24D67F91BA6C06800F33A96 /* TalkTimeTableViewCell.h */,
 				B24D67FA1BA6C06800F33A96 /* TalkTimeTableViewCell.m */,
 				B24D67FB1BA6C06800F33A96 /* FaceView.h */,
+				B24D67FC1BA6C06800F33A96 /* FaceView.m */,
 				B267C63B1BA7F45900D12035 /* VisitCell.h */,
 				B267C63C1BA7F45900D12035 /* VisitCell.m */,
-				B24D67FC1BA6C06800F33A96 /* FaceView.m */,
+				B24EC9651BAAB98D006E12CB /* visitView.h */,
+				B24EC9661BAAB98D006E12CB /* visitView.m */,
 				B24D67FD1BA6C06800F33A96 /* CommentTableViewCell.h */,
 				B24D67FE1BA6C06800F33A96 /* CommentTableViewCell.m */,
 				B24D67FF1BA6C06800F33A96 /* MenuCell.h */,
@@ -1202,6 +1207,7 @@
 				B24D68051BA6C06800F33A96 /* ImageEnlarge.m in Sources */,
 				B24D65DF1BA6B9D300F33A96 /* Last_pri_msg.m in Sources */,
 				B24D691C1BA6C8A400F33A96 /* Mp3Recorder.m in Sources */,
+				B24EC9671BAAB98D006E12CB /* visitView.m in Sources */,
 				B24D65E01BA6B9D300F33A96 /* Model.xcdatamodeld in Sources */,
 				B24D68A81BA6C46900F33A96 /* NearByPersonAction.m in Sources */,
 				B24D680D1BA6C06800F33A96 /* RegisterCellViewTableViewCell.m in Sources */,

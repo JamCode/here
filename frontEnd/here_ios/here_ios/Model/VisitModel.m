@@ -13,7 +13,10 @@
 
 - (void)setModels:(NSDictionary*)dict
 {
-    
+    _thumbnailStr = [dict objectForKey:@"user_facethumbnail"];
+    _nickName = [dict objectForKey:@"user_name"];
+    _visitTimeStamp = [[dict objectForKey:@"visit_timestamp"] integerValue];
+    _userID = [dict objectForKey:@"visit_user_id"];
 }
 
 @end
