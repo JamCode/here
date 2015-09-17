@@ -17,3 +17,7 @@
 @end
 
 
+@interface VisitView : NSObject
+
+@end
+
