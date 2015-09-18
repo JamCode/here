@@ -18,11 +18,3 @@ exports.mysql_dev = {
     database: 'online',
     port: 3306
 };
-
-exports.redisInfo = {
-        host: 'redis.duapp.com',
-        port: 80,
-        database: 'sBueHswMTrkUFpMhxdrE',
-        user: 'cKomPBpLUyTnCY7eGI8LnSD3',
-        password: 'YSWY5lLfURaUN7U9BWPS8b7cloDRrHPD'
-};
