@@ -18,13 +18,16 @@ typedef void(^pullCompleted)();
 - (void)pullDownAction:(pullCompleted)completedBlock; //下拉响应函数
 - (NSInteger)rowNum;
 - (NSInteger)sectionNum;
-- (UITableViewCell*)generateCell:(UITableView*)tableview indexPath:(NSIndexPath *)indexPath;
 - (void)didSelectedCell:(ComTableViewCtrl*)comTableViewCtrl IndexPath:(NSIndexPath *)indexPath;
 - (void)initAction:(ComTableViewCtrl*)comTableViewCtrl;
 - (CGFloat)cellHeight:(UITableView*)tableView indexPath:(NSIndexPath *)indexPath;
 - (void)tableViewWillAppear:(ComTableViewCtrl*)comTableViewCtrl;
 - (void)tableViewWillDisappear:(ComTableViewCtrl*)comTableViewCtrl;
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
+@required
+- (UITableViewCell*)generateCell:(UITableView*)tableview indexPath:(NSIndexPath *)indexPath;
+
+
 @end
 
 @interface ComTableViewCtrl : UITableViewController

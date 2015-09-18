@@ -195,7 +195,7 @@ const int sectionCount = 4;
     [loadingView show:YES];
     [loadingView hide:YES afterDelay:2];
     
-    
+    [self.navigationController popViewControllerAnimated:YES];
     
     //[showView show:YES];
     
@@ -226,6 +226,8 @@ const int sectionCount = 4;
     loadingView.removeFromSuperViewOnHide = YES;
     [loadingView show:YES];
     [loadingView hide:YES afterDelay:2];
+    
+    //[self.navigationController popViewControllerAnimated:YES];
 
 }
 
@@ -242,6 +244,7 @@ const int sectionCount = 4;
 
 - (void)deleteFromBlackList
 {
+    [loadingView removeFromSuperview];
     loadingView = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:loadingView];
     [loadingView show:YES];
@@ -266,6 +269,7 @@ const int sectionCount = 4;
 
 - (void)setToBlackList
 {
+    [loadingView removeFromSuperview];
     loadingView = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:loadingView];
     [loadingView show:YES];
