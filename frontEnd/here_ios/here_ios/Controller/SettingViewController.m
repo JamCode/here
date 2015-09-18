@@ -24,6 +24,7 @@
 #import "MyContentAction.h"
 #import "ImageBrowseAction.h"
 #import "VisitListAction.h"
+#import "BlackListAction.h"
 
 //#import "ImageBrowseViewCtrl.h"
 //#import "VisitListCtrl.h"
@@ -904,9 +905,12 @@ const int sectionCount = 4;
 }
 
 
-- (void)blackList
+- (void)showBlackList
 {
     //[self.navigationController pushViewController:[[BlackListTableViewCtrl alloc] init] animated:YES];
+    
+    [self.navigationController pushViewController:[[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[BlackListAction alloc] init]] animated:YES];
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -922,7 +926,7 @@ const int sectionCount = 4;
     if (indexPath.section ==3) {
         //logout
         if (indexPath.row == 0) {
-            [self blackList];
+            [self showBlackList];
         }else if(indexPath.row == 1){
             [self logout];
         }

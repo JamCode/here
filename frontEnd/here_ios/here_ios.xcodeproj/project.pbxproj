@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2392B441BABF183009FE00C /* BlackListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B2392B431BABF183009FE00C /* BlackListAction.m */; settings = {ASSET_TAGS = (); }; };
 		B24D65B31BA6AC5800F33A96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D65B21BA6AC5800F33A96 /* main.m */; };
 		B24D65B61BA6AC5800F33A96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D65B51BA6AC5800F33A96 /* AppDelegate.m */; };
 		B24D65B91BA6AC5800F33A96 /* here_ios.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B24D65B71BA6AC5800F33A96 /* here_ios.xcdatamodeld */; };
@@ -192,6 +193,8 @@
 		636B860494494DAFB67B35FB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8DF27723DED1CCDC21653282 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9911EC87AD469992DE0EB08F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B2392B421BABF183009FE00C /* BlackListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackListAction.h; sourceTree = "<group>"; };
+		B2392B431BABF183009FE00C /* BlackListAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackListAction.m; sourceTree = "<group>"; };
 		B24D65AD1BA6AC5800F33A96 /* here_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = here_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B24D65B11BA6AC5800F33A96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B24D65B21BA6AC5800F33A96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -783,6 +786,8 @@
 			isa = PBXGroup;
 			children = (
 				B24D686B1BA6C46900F33A96 /* Property List.plist */,
+				B2392B421BABF183009FE00C /* BlackListAction.h */,
+				B2392B431BABF183009FE00C /* BlackListAction.m */,
 				B24D686C1BA6C46900F33A96 /* ComTableViewCtrl.h */,
 				B24D686D1BA6C46900F33A96 /* ComTableViewCtrl.m */,
 				B24D686E1BA6C46900F33A96 /* TabBarViewController.h */,
@@ -1227,6 +1232,7 @@
 				B24D68B81BA6C46900F33A96 /* PublishContentViewController.m in Sources */,
 				B24D686A1BA6C3F200F33A96 /* LastMsgModel.m in Sources */,
 				B267C6431BA8085400D12035 /* VisitModel.m in Sources */,
+				B2392B441BABF183009FE00C /* BlackListAction.m in Sources */,
 				B24D693C1BA6C8A400F33A96 /* TWTSideMenuViewController.m in Sources */,
 				B24D68B01BA6C46900F33A96 /* CommentDetailAction.m in Sources */,
 				B24D68601BA6C3F200F33A96 /* UserInfoModel.m in Sources */,
