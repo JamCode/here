@@ -152,6 +152,8 @@ static const int separate_height = 10;
     
     counter_face.contentMode = UIViewContentModeScaleAspectFill;
     counter_face.clipsToBounds = YES;
+    counter_face.userInteractionEnabled = YES;
+    [counter_face setUserInfo:commentModel.sendUserInfo nav:nil];
     
     [counter_face sd_setImageWithURL:[[NSURL alloc] initWithString:commentModel.sendUserInfo.faceImageThumbnailURLStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
     }];
