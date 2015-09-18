@@ -37,57 +37,28 @@
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            
-            
+
             SEL outSelector = nil;
             
-            
-            
-            
-            if (callObject == nil) {
-                NSLog(@"%d", [[feedback objectForKey:@"code"] intValue]);
-                return ;
-            }
-            
-            
-            
             if (netError) {
-                if (feedbackcall == nil) {
-                    [Tools AlertMsg:netError.localizedDescription];
-                }else{
-                    [[feedbackcall objectForKey:[NSNumber numberWithInt:EXCEPTION]] getValue:&outSelector];
-                    if(outSelector == nil){
-                        NSLog(@"outSelect is nil");
-                        return;
-                    }
-                    [callObject performSelector:outSelector withObject:feedback];
-                }
-                
-                //viewController.view.hidden = NO;
+                //回包不在期望格式范围内,json转换失败
+                [self msgException:netError];
                 
             }else{
-                if (feedbackcall == nil) {
-                    return;
+                if(feedbackcall != nil){
+                    [[feedbackcall objectForKey:[feedback objectForKey:@"code"]] getValue:&outSelector];
+                    if(outSelector == nil){
+                        NSLog(@"outSelect is nil");
+                        [Tools AlertMsg:[feedback objectForKey:@"code"]];
+                    }else{
+                        [callObject performSelector:outSelector withObject:feedback];
+                    }
                 }
-                [[feedbackcall objectForKey:[feedback objectForKey:@"code"]] getValue:&outSelector];
-                if (outSelector == nil) {
-                    [[feedbackcall objectForKey:[NSNumber numberWithInt:EXCEPTION]] getValue:&outSelector];
-                }
-                
-                if(outSelector == nil){
-                    NSLog(@"outSelect is nil");
-                    [Tools AlertMsg:[feedback objectForKey:@"code"]];
-                    return;
-                }
-                
-                [callObject performSelector:outSelector withObject:feedback];
             }
             
             if (complete!=nil) {
                 complete();
             }
-            
         });
     });
 }
@@ -95,11 +66,14 @@
 - (void)msgException:(id)sender
 {
     //alertMsg(@"msg exception");
+    [Tools AlertMsg:@"msg exception"];
+    
 }
 
 - (void)msgError:(id)sender
 {
     //alertMsg(@"msg error");
+    [Tools AlertMsg:@"msg error"];
 }
 
 
