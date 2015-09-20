@@ -398,7 +398,7 @@ const int sectionCount = 4;
     [faceBackgroundView addGestureRecognizer:tapGesture];
     
     
-    faceImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, faceBackgroundView.frame.origin.y+ faceBackgroundView.frame.size.height - faceImage_height/3, faceImage_width, faceImage_height)];
+    faceImageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, faceBackgroundView.frame.origin.y+ faceBackgroundView.frame.size.height - faceImage_height/2, faceImage_width, faceImage_height)];
     faceImageView.backgroundColor = [UIColor clearColor];
     faceImageView.layer.masksToBounds = YES;
     
@@ -416,7 +416,7 @@ const int sectionCount = 4;
     
 //    [faceImageView sd_setImageWithURL:[[NSURL alloc] initWithString:_userInfo.faceImageURLStr] placeholderImage:[UIImage imageNamed:@"loading.png"]];
     
-    headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, faceBackgroundView.frame.origin.y+ faceBackgroundView.frame.size.height+70)];
+    headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, faceBackgroundView.frame.origin.y+ faceBackgroundView.frame.size.height+60)];
     headerView.backgroundColor = [UIColor whiteColor];
     headerView.layer.borderWidth = 0.0;
     
@@ -428,8 +428,8 @@ const int sectionCount = 4;
     [headerView addSubview:faceImageView];
     
     
-    genderView = [[UIImageView alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x + faceImageView.frame.size.width +10, faceImageView.frame.origin.y+faceImageView.frame.size.height/2, genderView_width, genderView_height)];
-    [headerView addSubview:genderView];
+//    genderView = [[UIImageView alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x + faceImageView.frame.size.width +10, faceImageView.frame.origin.y+faceImageView.frame.size.height/2, genderView_width, genderView_height)];
+//    [headerView addSubview:genderView];
 
     
     
