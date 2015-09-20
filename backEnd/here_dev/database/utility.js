@@ -1,6 +1,10 @@
 var mysql = require('mysql');
 var config = require('../config/config');
 var global_config = require('../config/env_config');
+var crypto = require('crypto'); 
+
+global_config.mysql_dev = decodeDBStr(global_config.mysql_dev);
+
 var pool = mysql.createPool(global_config.mysql_dev);
 var log = global.log;
 var domain = require('domain');
@@ -8,9 +12,20 @@ var domainObj = domain.create();
 var path = require('path');
 
 
+exports.decodeDBStr = function(mysqlDev){
+
+	var decipher = crypto.createDecipher('aes-256-cbc', '123');
+    var decrypted = decipher.update(mysqlDev.user, 'hex', 'binary');
+    decrypted += decipher.final('binary');
+    mysqlDev.user = decrypted;
+    decrypted = decipher.update(mysqlDev.password, 'hex', 'binary');
+    decrypted += decipher.final('binary');
+    mysqlDev.password = decrypted;
+    log.debug(mysqlDev.user+","+mysqlDev.password, log.getFileNameAndLineNum(__filename));
+    return mysqlDev;
+}
 
 exports.sha1Cryp = function(str){
-	var crypto = require('crypto'); 
 	var shasum = crypto.createHash('sha1'); 
 	shasum.update(str); 
 	return shasum.digest('hex');
