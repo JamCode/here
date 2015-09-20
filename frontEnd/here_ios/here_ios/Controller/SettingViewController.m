@@ -443,11 +443,11 @@ const int sectionCount = 4;
     
     
     
-    ageAndStar = [[UILabel alloc] initWithFrame:CGRectMake(genderView.frame.origin.x+genderView.frame.size.width + 10, genderView.frame.origin.y, ageLabel_width, 20)];
-    ageAndStar.font = [UIFont fontWithName:@"Arial" size:15];
-    ageAndStar.textColor = [UIColor grayColor];
-    
-    [headerView addSubview: ageAndStar];
+//    ageAndStar = [[UILabel alloc] initWithFrame:CGRectMake(genderView.frame.origin.x+genderView.frame.size.width + 10, genderView.frame.origin.y, ageLabel_width, 20)];
+//    ageAndStar.font = [UIFont fontWithName:@"Arial" size:15];
+//    ageAndStar.textColor = [UIColor grayColor];
+//    
+//    [headerView addSubview: ageAndStar];
     
 //    visitCityLabel = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x + zanImageView.frame.size.width +10, zanImageView.frame.origin.y, 120, 20)];
 //    visitCityLabel.font = [UIFont fontWithName:@"Arial" size:15];
@@ -587,13 +587,13 @@ const int sectionCount = 4;
     contentStr = [Tools getJsonObject:[feedback objectForKey:@"content"]];
     contentImageUrlStr =  [Tools getJsonObject:[feedback objectForKey:@"content_image_url"]];
     contentPublishTime = [[feedback objectForKey:@"content_publish_timestamp"] intValue];
-    visitCityCount = [[feedback objectForKey:@"city_visit_count"] intValue];
-    int goodCount = [[feedback objectForKey:@"good_count"] intValue];
+    //visitCityCount = [[feedback objectForKey:@"city_visit_count"] intValue];
+    //int goodCount = [[feedback objectForKey:@"good_count"] intValue];
     
     
-    visitCityLabel.text = [[NSString alloc] initWithFormat:@"%d", goodCount];
+    //visitCityLabel.text = [[NSString alloc] initWithFormat:@"%d", goodCount];
     
-    ageAndStar.text = [[NSString alloc] initWithFormat:@"%ld | 去过%d个城市", _userInfo.age, visitCityCount];
+//    ageAndStar.text = [[NSString alloc] initWithFormat:@"%ld | 去过%d个城市", _userInfo.age, visitCityCount];
     
     
     [settingStrArray removeAllObjects];
