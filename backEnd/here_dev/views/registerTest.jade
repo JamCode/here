@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+  body
+    header
+      h1
+        | for register test
+    form(action='http://automobilesocial.duapp.com/register', method='post', enctype='multipart/form-data')
+      input(type='text', name='user_phone')
+      br
+      input(type='text', name='user_name')
+      br
+      input(type='text', name='user_age')
+      br
+      input(type='text', name='user_gender')
+      br
+      input(type='text', name='user_password')
+      br
+      input(type='file', name='user_facethumbnail')
+      br
+      input(type='submit')

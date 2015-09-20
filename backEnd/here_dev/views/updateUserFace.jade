@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+  body
+    header
+      h1
+        | for update User Face test
+    form(action='http://automobilesocial.duapp.com/updateUserFace', method='post', enctype='multipart/form-data')
+      input(type='text', name='user_id')
+      br
+      input(type='file', name='user_facethumbnail')
+      br
+      input(type='submit')

@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+  body
+    header
+      h1
+        | for upload Car_brand_info 
+    form(action='http://automobilesocial.duapp.com/uploadImageToBrandInfo', method='post', enctype='multipart/form-data')
+      | car_desc
+      input(type='text', name='car_brand_desc')
+      br
+      | image
+      input(type='file', name='brandImage')
+      br
+      | thumbnail
+      input(type='file', name='brandThumbnail')
+      br
+      input(type='submit')
