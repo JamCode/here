@@ -1,3 +1,5 @@
+var log = global.log;
+
 var mysql = require('mysql');
 var config = require('../config/config');
 var global_config = require('../config/env_config');
@@ -6,7 +8,6 @@ var crypto = require('crypto');
 global_config.mysql_dev = decodeDBStr(global_config.mysql_dev);
 
 var pool = mysql.createPool(global_config.mysql_dev);
-var log = global.log;
 var domain = require('domain');
 var domainObj = domain.create();
 var path = require('path');
