@@ -433,10 +433,10 @@ const int sectionCount = 4;
 
     
     
-    zanImageView = [[UIImageView alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x + faceImageView.frame.size.width +10, genderView.frame.origin.y+genderView.frame.size.height+10, genderView_width, genderView_height)];
-    zanImageView.image = [UIImage imageNamed:@"zan-active.png"];
-    
-    [headerView addSubview:zanImageView];
+//    zanImageView = [[UIImageView alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x + faceImageView.frame.size.width +10, genderView.frame.origin.y+genderView.frame.size.height+10, genderView_width, genderView_height)];
+//    zanImageView.image = [UIImage imageNamed:@"zan-active.png"];
+//    
+//    [headerView addSubview:zanImageView];
     
     
     
@@ -449,11 +449,11 @@ const int sectionCount = 4;
     
     [headerView addSubview: ageAndStar];
     
-    visitCityLabel = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x + zanImageView.frame.size.width +10, zanImageView.frame.origin.y, 120, 20)];
-    visitCityLabel.font = [UIFont fontWithName:@"Arial" size:15];
-    visitCityLabel.textColor = [UIColor grayColor];
-    
-    [headerView addSubview: visitCityLabel];
+//    visitCityLabel = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x + zanImageView.frame.size.width +10, zanImageView.frame.origin.y, 120, 20)];
+//    visitCityLabel.font = [UIFont fontWithName:@"Arial" size:15];
+//    visitCityLabel.textColor = [UIColor grayColor];
+//    
+//    [headerView addSubview: visitCityLabel];
     
     
     
