@@ -13,8 +13,8 @@ exports.socketServerInfo = {
 
 exports.mysql_dev = {
     host: 'rdsruiaj3v2uaiv.mysql.rds.aliyuncs.com',
-    user: 'wanghan',
-    password: 'wanghan',
+    user: '299424a4fbb55cc3ceeac6f932d7edfb',
+    password: '299424a4fbb55cc3ceeac6f932d7edfb',
     database: 'online',
     port: 3306
 };
