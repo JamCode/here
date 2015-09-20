@@ -20,12 +20,11 @@ function decodeDBStr(mysqlDev){
     decrypted += decipher.final('binary');
     mysqlDev.user = decrypted;
 
-    
+
    	decipher = crypto.createDecipher('aes-256-cbc', '123');
     decrypted = decipher.update(mysqlDev.password, 'hex', 'binary');
     decrypted += decipher.final('binary');
     mysqlDev.password = decrypted;
-    log.debug(mysqlDev.user+","+mysqlDev.password, log.getFileNameAndLineNum(__filename));
     return mysqlDev;
 }
 
