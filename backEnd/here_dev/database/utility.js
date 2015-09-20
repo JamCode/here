@@ -13,7 +13,7 @@ var domainObj = domain.create();
 var path = require('path');
 
 
-exports.decodeDBStr = function(mysqlDev){
+function decodeDBStr(mysqlDev){
 
 	var decipher = crypto.createDecipher('aes-256-cbc', '123');
     var decrypted = decipher.update(mysqlDev.user, 'hex', 'binary');
