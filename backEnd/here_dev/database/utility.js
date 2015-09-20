@@ -19,6 +19,9 @@ function decodeDBStr(mysqlDev){
     var decrypted = decipher.update(mysqlDev.user, 'hex', 'binary');
     decrypted += decipher.final('binary');
     mysqlDev.user = decrypted;
+
+    
+   	decipher = crypto.createDecipher('aes-256-cbc', '123');
     decrypted = decipher.update(mysqlDev.password, 'hex', 'binary');
     decrypted += decipher.final('binary');
     mysqlDev.password = decrypted;
