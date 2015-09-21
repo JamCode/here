@@ -1,5 +1,7 @@
+var path = require('path');
+
 exports.env = {
-        homedir: '/home/wanghan/dev'
+        homedir: path.join(process.env.HOME, 'dev')
 };
 
 exports.httpServerInfo = {
