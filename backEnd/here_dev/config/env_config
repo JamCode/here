@@ -3,7 +3,6 @@ exports.env = {
 };
 
 exports.httpServerInfo = {
-        url: 'http://112.74.102.178',
         listen_port: 8080
 };
 
