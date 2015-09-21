@@ -24,9 +24,8 @@ var redis_client = redis.createClient();
 var async = require('async');
 var os = require('os');
 var networkInterface = os.networkInterfaces();
-console.log('networkInterface '+networkInterface.eth1[0].address);
 
-var imageHomeUrl = global_config.httpServerInfo.url + ":" + global_config.httpServerInfo.listen_port + config.imageInfo.url;
+var imageHomeUrl = networkInterface.eth1[0].address + ":" + global_config.httpServerInfo.listen_port + config.imageInfo.url;
 
 log.info(imageHomeUrl, log.getFileNameAndLineNum(__filename));
 
