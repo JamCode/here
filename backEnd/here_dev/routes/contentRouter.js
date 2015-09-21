@@ -22,8 +22,9 @@ var imageOper = require('../utility/imageOper');
 var redis = require('redis');
 var redis_client = redis.createClient();
 var async = require('async');
-
-
+var os = require('os');
+var networkInterface = os.networkInterfaces();
+console.log('networkInterface '+networkInterface.eth1.address);
 
 var imageHomeUrl = global_config.httpServerInfo.url + ":" + global_config.httpServerInfo.listen_port + config.imageInfo.url;
 
