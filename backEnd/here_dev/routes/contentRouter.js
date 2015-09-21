@@ -25,7 +25,7 @@ var async = require('async');
 var os = require('os');
 var networkInterface = os.networkInterfaces();
 
-var imageHomeUrl = networkInterface.eth1[0].address + ":" + global_config.httpServerInfo.listen_port + config.imageInfo.url;
+var imageHomeUrl = "http://"+networkInterface.eth1[0].address + ":" + global_config.httpServerInfo.listen_port + config.imageInfo.url;
 
 log.info(imageHomeUrl, log.getFileNameAndLineNum(__filename));
 
