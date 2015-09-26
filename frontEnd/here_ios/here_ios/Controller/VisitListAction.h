@@ -11,4 +11,6 @@
 
 @interface VisitListAction : NSObject<ComTableViewDelegate>
 
+- (id)initWithUserId:(NSString*)user_id;
+
 @end
