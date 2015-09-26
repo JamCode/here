@@ -158,21 +158,21 @@ enum section{
     
     
     
-    settingTitleArray = [[NSMutableArray alloc] initWithArray:@[@"年龄", @"星座", @"职业", @"公司", @"个人签名", @"兴趣爱好"]];
+    settingTitleArray = [[NSMutableArray alloc] initWithArray:@[@"最近来访", @"性别", @"年龄", @"星座", @"个人签名"]];
     
     tableviewHeight = 0;
     _changedFlag = false;
     _deleteUserImageFlag = false;
     userImageArray = [[NSMutableArray alloc] init];
-
+    
 }
 
 - (void)settingButtonAction:(id)sender
 {
-//    TalkViewController* talk = [[TalkViewController alloc] init];
-//    talk.counterInfo = _userInfo;
-//    talk.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:talk animated:YES];
+    //    TalkViewController* talk = [[TalkViewController alloc] init];
+    //    talk.counterInfo = _userInfo;
+    //    talk.hidesBottomBarWhenPushed = YES;
+    //    [self.navigationController pushViewController:talk animated:YES];
     
     if (isInBlack == false) {
         sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"关注Ta", @"私信", @"加入黑名单", nil];
@@ -181,7 +181,7 @@ enum section{
     }
     
     [sheet showInView:self.view];
-
+    
     
 }
 
@@ -189,9 +189,9 @@ enum section{
 - (void)insertBlackListSuccess:(id)sender
 {
     
-//    [_parentCtrl deleteMsg:_counterInfo.userID];
-//    [_parentCtrl.tableView reloadData];
-//    [self.navigationController popViewControllerAnimated:YES];
+    //    [_parentCtrl deleteMsg:_counterInfo.userID];
+    //    [_parentCtrl.tableView reloadData];
+    //    [self.navigationController popViewControllerAnimated:YES];
     
     
     loadingView = [[MBProgressHUD alloc] initWithView:self.view];
@@ -235,7 +235,7 @@ enum section{
     [loadingView hide:YES afterDelay:2];
     
     //[self.navigationController popViewControllerAnimated:YES];
-
+    
 }
 
 - (void)deleteBlackListError:(id)sender
@@ -321,7 +321,7 @@ enum section{
             
             [self presentViewController:picker animated:YES completion:nil];
         }
-
+        
     }
     
     if (actionSheet == sheet) {
@@ -394,7 +394,7 @@ enum section{
     self.navigationItem.titleView = navTitle;
     
     
-
+    
     
     faceBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenWidth)];
     faceBackgroundView.backgroundColor = myblack;
@@ -421,7 +421,7 @@ enum section{
     //faceImageView.layer.borderWidth = 1.0;
     //faceImageView.layer.borderColor = [UIColor whiteColor].CGColor;
     
-//    [faceImageView sd_setImageWithURL:[[NSURL alloc] initWithString:_userInfo.faceImageURLStr] placeholderImage:[UIImage imageNamed:@"loading.png"]];
+    //    [faceImageView sd_setImageWithURL:[[NSURL alloc] initWithString:_userInfo.faceImageURLStr] placeholderImage:[UIImage imageNamed:@"loading.png"]];
     
     headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, faceBackgroundView.frame.origin.y+ faceBackgroundView.frame.size.height+60)];
     headerView.backgroundColor = [UIColor whiteColor];
@@ -431,36 +431,36 @@ enum section{
     
     self.tableView.tableFooterView=[[UIView alloc]init];
     [headerView addSubview:faceBackgroundView];
-
+    
     [headerView addSubview:faceImageView];
     
     
-//    genderView = [[UIImageView alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x + faceImageView.frame.size.width +10, faceImageView.frame.origin.y+faceImageView.frame.size.height/2, genderView_width, genderView_height)];
-//    [headerView addSubview:genderView];
-
-    
-    
-//    zanImageView = [[UIImageView alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x + faceImageView.frame.size.width +10, genderView.frame.origin.y+genderView.frame.size.height+10, genderView_width, genderView_height)];
-//    zanImageView.image = [UIImage imageNamed:@"zan-active.png"];
-//    
-//    [headerView addSubview:zanImageView];
+    //    genderView = [[UIImageView alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x + faceImageView.frame.size.width +10, faceImageView.frame.origin.y+faceImageView.frame.size.height/2, genderView_width, genderView_height)];
+    //    [headerView addSubview:genderView];
     
     
     
+    //    zanImageView = [[UIImageView alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x + faceImageView.frame.size.width +10, genderView.frame.origin.y+genderView.frame.size.height+10, genderView_width, genderView_height)];
+    //    zanImageView.image = [UIImage imageNamed:@"zan-active.png"];
+    //
+    //    [headerView addSubview:zanImageView];
     
     
     
-//    ageAndStar = [[UILabel alloc] initWithFrame:CGRectMake(genderView.frame.origin.x+genderView.frame.size.width + 10, genderView.frame.origin.y, ageLabel_width, 20)];
-//    ageAndStar.font = [UIFont fontWithName:@"Arial" size:15];
-//    ageAndStar.textColor = [UIColor grayColor];
-//    
-//    [headerView addSubview: ageAndStar];
     
-//    visitCityLabel = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x + zanImageView.frame.size.width +10, zanImageView.frame.origin.y, 120, 20)];
-//    visitCityLabel.font = [UIFont fontWithName:@"Arial" size:15];
-//    visitCityLabel.textColor = [UIColor grayColor];
-//    
-//    [headerView addSubview: visitCityLabel];
+    
+    
+    //    ageAndStar = [[UILabel alloc] initWithFrame:CGRectMake(genderView.frame.origin.x+genderView.frame.size.width + 10, genderView.frame.origin.y, ageLabel_width, 20)];
+    //    ageAndStar.font = [UIFont fontWithName:@"Arial" size:15];
+    //    ageAndStar.textColor = [UIColor grayColor];
+    //
+    //    [headerView addSubview: ageAndStar];
+    
+    //    visitCityLabel = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x + zanImageView.frame.size.width +10, zanImageView.frame.origin.y, 120, 20)];
+    //    visitCityLabel.font = [UIFont fontWithName:@"Arial" size:15];
+    //    visitCityLabel.textColor = [UIColor grayColor];
+    //
+    //    [headerView addSubview: visitCityLabel];
     
     
     
@@ -486,9 +486,9 @@ enum section{
         [self sendVisitMsg];
     }
     
-//    self.refreshControl = [[UIRefreshControl alloc] init];
-//    [self.refreshControl addTarget:self action:@selector(refreshUserInfo:) forControlEvents:UIControlEventValueChanged];
-//    self.refreshControl.tintColor = [UIColor grayColor];
+    //    self.refreshControl = [[UIRefreshControl alloc] init];
+    //    [self.refreshControl addTarget:self action:@selector(refreshUserInfo:) forControlEvents:UIControlEventValueChanged];
+    //    self.refreshControl.tintColor = [UIColor grayColor];
     
 }
 
@@ -506,12 +506,12 @@ enum section{
     
     NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, myInfo.userID,  myInfo.nickName, @"/visit"] forKeys:@[@"user_id", @"visit_user_id",  @"visit_user_name", @"childpath"]];
     
-//    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getUserInfoSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
+    //    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getUserInfoSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
     
     [netWork message:message images:nil feedbackcall:nil complete:^{
         //[self hideLoading];
     } callObject:self];
-
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -573,8 +573,8 @@ enum section{
     
     [_userInfo fillWithData:feedback];
     
-//    ageLabel.text = [[NSString alloc] initWithFormat:@"%ld岁 | %@", [Tools getAgeFromBirthDay:_userInfo.birthday], [Tools getStarDesc:_userInfo.birthday]];
-
+    //    ageLabel.text = [[NSString alloc] initWithFormat:@"%ld岁 | %@", [Tools getAgeFromBirthDay:_userInfo.birthday], [Tools getStarDesc:_userInfo.birthday]];
+    
     
     //ageLabel.text = [[NSString alloc] initWithFormat:@"%ld", (long)_userInfo.age];
     sign.text = _userInfo.sign;
@@ -600,17 +600,22 @@ enum section{
     
     //visitCityLabel.text = [[NSString alloc] initWithFormat:@"%d", goodCount];
     
-//    ageAndStar.text = [[NSString alloc] initWithFormat:@"%ld | 去过%d个城市", _userInfo.age, visitCityCount];
+    //    ageAndStar.text = [[NSString alloc] initWithFormat:@"%ld | 去过%d个城市", _userInfo.age, visitCityCount];
     
     
     [settingStrArray removeAllObjects];
     
+    [settingStrArray addObject:@"最近来访"];
+    
+    if (_userInfo.gender == 1) {
+        [settingStrArray addObject:@"男"];
+    }else{
+        [settingStrArray addObject:@"女"];
+    }
+    
     [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.age]];
     [settingStrArray addObject:[Tools getStarDesc:_userInfo.birthday]];
-    [settingStrArray addObject:_userInfo.career];
-    [settingStrArray addObject:_userInfo.company];
     [settingStrArray addObject:_userInfo.sign];
-    [settingStrArray addObject:_userInfo.interest];
     
     
     
@@ -699,10 +704,10 @@ enum section{
     
     NSDictionary* element = [data objectAtIndex:0];
     
-    lastVisitUserFace = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    lastVisitUserFace = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
     lastVisitUserFace.layer.masksToBounds =YES;
     
-
+    
     lastVisitUserFace.layer.cornerRadius = lastVisitUserFace.frame.size.height/2;
     
     [lastVisitUserFace sd_setImageWithURL:[[NSURL alloc] initWithString:[element objectForKey:@"user_facethumbnail"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -720,7 +725,7 @@ enum section{
     [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
         //[self hideLoading];
     } callObject:self];
-
+    
 }
 
 - (void)getUserInfo
@@ -806,9 +811,9 @@ enum section{
         [backgroundView setAlpha:0.0];
         [self.tabBarController.view addSubview:backgroundView];
         
-//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:enlargeFaceView animated:YES];
-//        hud.mode = MBProgressHUDModeIndeterminate;
-//        [hud show:YES];
+        //        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:enlargeFaceView animated:YES];
+        //        hud.mode = MBProgressHUDModeIndeterminate;
+        //        [hud show:YES];
         
         [enlargeFaceView sd_setImageWithURL:[[NSURL alloc] initWithString:_userInfo.faceImageURLStr] placeholderImage:faceImageView.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             //[hud hide:YES];
@@ -822,7 +827,7 @@ enum section{
             [backgroundView setAlpha:1.0];
             enlargeFaceView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
             enlargeFaceView.contentMode = UIViewContentModeScaleAspectFit;
-        
+            
         } completion:^(BOOL finished) {
             ;
         }];
@@ -845,13 +850,11 @@ enum section{
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 2) {
+    if (section == publishAndPhoto) {
+        return 2;
+    }else if (section == details){
         return [settingTitleArray count];
-    }else if (section == 0){
-        return 2;
-    }else if (section == 1 ) {
-        return 2;
-    }else if(section == 3){
+    }else if (section == blackAndLogout) {
         return 2;
     }else{
         return 0;
@@ -863,7 +866,7 @@ enum section{
     if (indexPath.section == 0) {
         return bigCellHeight;
     }else{
-        return 44;
+        return 46;
     }
     
     //UITableViewCell* cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
@@ -927,14 +930,14 @@ enum section{
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    if ([app.myInfo.userID isEqualToString:_userInfo.userID] == false&&indexPath.section == 2) {
+    if ([app.myInfo.userID isEqualToString:_userInfo.userID] == false&&indexPath.section == details) {
         //基本资料只能本用户点击修改
         return;
     }
     
     
     
-    if (indexPath.section ==3) {
+    if (indexPath.section ==blackAndLogout) {
         //logout
         if (indexPath.row == 0) {
             [self showBlackList];
@@ -942,49 +945,44 @@ enum section{
             [self logout];
         }
         
-    }else if(indexPath.section ==2){
+    }
+    
+    if(indexPath.section ==details){
         
-//        if (indexPath.row == 0||indexPath.row == 1||indexPath.row == 2) {
-//            //年龄，星座，性别无法修改
-//            return;
-//        }
-        
-        _changedFlag = false;
-        SettingChildViewController* settingChild = [[SettingChildViewController alloc] init];
-        settingChild.settingStrArray = settingStrArray;
-        settingChild.settingTitleArray = settingTitleArray;
-        settingChild.parent = self;
-        settingChild.hidesBottomBarWhenPushed = YES;
-        settingChild.index = indexPath.row;        
-        [self.navigationController pushViewController:settingChild animated:YES];
-        
-    }else if(indexPath.section == 0&&indexPath.row == 0){
+        if(indexPath.row == 0){
+            //最近来访
+            ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[VisitListAction alloc] initWithUserId:_userInfo.userID]];
+            comTable.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:comTable animated:YES];
+        }else{
+            if(indexPath.row == 4){
+                _changedFlag = false;
+                SettingChildViewController* settingChild = [[SettingChildViewController alloc] init];
+                settingChild.settingStrArray = settingStrArray;
+                settingChild.settingTitleArray = settingTitleArray;
+                settingChild.parent = self;
+                settingChild.hidesBottomBarWhenPushed = YES;
+                settingChild.index = indexPath.row;
+                [self.navigationController pushViewController:settingChild animated:YES];
+            }
+        }
+    }
+    
+    if(indexPath.section == publishAndPhoto&&indexPath.row == 0){
         //发布
         ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[MyContentAction alloc] init:_userInfo.userID]];
         comTable.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:comTable animated:YES];
-
-    }else if(indexPath.section == 0 && indexPath.row == 1){
+        
+    }
+    
+    if(indexPath.section == publishAndPhoto && indexPath.row == 1){
         //发布的图片
         ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[ImageBrowseAction alloc] init:_userInfo.userID]];
         comTable.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:comTable animated:YES];
         
-    }else if(indexPath.section == 1){
-        if (indexPath.row == 0) {
-            //最近来访
-            ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[VisitListAction alloc] init]];
-            comTable.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:comTable animated:YES];
-            
-        }
-        if (indexPath.row == 1) {
-            //去过的城市
-            //VisitPlaceListCtrl* visitPlace = [[VisitPlaceListCtrl alloc] init];
-            //visitPlace.userInfo = _userInfo;
-            //visitPlace.hidesBottomBarWhenPushed = YES;
-            //[self.navigationController pushViewController:visitPlace animated:YES];
-        }
     }
 }
 
@@ -1011,7 +1009,7 @@ enum section{
 
 - (void)viewWillAppear:(BOOL)animated
 {
-
+    
     
     
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
@@ -1033,7 +1031,7 @@ enum section{
     
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];//状态栏白色
-
+    
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1063,46 +1061,39 @@ enum section{
     }
     
     if (indexPath.section == details) {
-
         cell.textLabel.text = [settingTitleArray objectAtIndex:indexPath.row];
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        if ([settingStrArray count]>indexPath.row) {
-            cell.detailTextLabel.text = [settingStrArray objectAtIndex:indexPath.row];
-        }
         
-        cell.detailTextLabel.font = [UIFont fontWithName:@"Arial" size:settingFontSize];
-        cell.detailTextLabel.numberOfLines = 2;
-        cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping|NSLineBreakByTruncatingTail;
-        CGSize boundSize = CGSizeMake(180, CGFLOAT_MAX);
-        
-        
-        CGSize requireSize = [Tools getTextArrange:cell.detailTextLabel.text maxRect:boundSize fontSize:16];
-        
-        if (cell.frame.size.height<requireSize.height) {
-            [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, requireSize.height+28)];
+        if (indexPath.row == 0) {
+            lastVisitUserFace.frame = CGRectMake(ScreenWidth - 64, 10, lastVisitUserFace.frame.size.width, lastVisitUserFace.frame.size.height);
+            [cell.contentView addSubview:lastVisitUserFace];
+        }else{
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            if ([settingStrArray count]>indexPath.row) {
+                cell.detailTextLabel.text = [settingStrArray objectAtIndex:indexPath.row];
+            }
+            
+            cell.detailTextLabel.font = [UIFont fontWithName:@"Arial" size:settingFontSize];
+            cell.detailTextLabel.numberOfLines = 2;
+            cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping|NSLineBreakByTruncatingTail;
+            CGSize boundSize = CGSizeMake(180, CGFLOAT_MAX);
+            
+            
+            CGSize requireSize = [Tools getTextArrange:cell.detailTextLabel.text maxRect:boundSize fontSize:16];
+            
+            if (cell.frame.size.height<requireSize.height) {
+                [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, requireSize.height+28)];
+            }
+            
+            
+            
         }
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
+        
     }
     
-//    if (indexPath.section == 1) {
-//        cell.textLabel.text = @"";
-//        cell.detailTextLabel.text = @"";
-//        if (indexPath.row == 0) {
-//            cell.textLabel.text = @"最近来访";
-//            lastVisitUserFace.frame = CGRectMake(ScreenWidth - 64, 10, lastVisitUserFace.frame.size.width, lastVisitUserFace.frame.size.height);
-//            [cell.contentView addSubview:lastVisitUserFace];
-//        }
-//        if (indexPath.row == 1) {
-//            cell.textLabel.text = @"去过的城市";
-//            cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%d", visitCityCount];
-//        }
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//        return cell;
-//    }
-    
-    
+
     if (indexPath.section == publishAndPhoto) {
         if (indexPath.row == 0) {
             
@@ -1154,7 +1145,7 @@ enum section{
                     contentPublishTimeLabel.text = [Tools showTime:contentPublishTime];
                     [cell.contentView addSubview:contentPublishTimeLabel];
                 }
-
+                
             }
             
         }
@@ -1197,15 +1188,15 @@ enum section{
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
 

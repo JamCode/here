@@ -20,6 +20,7 @@
 {
     NSMutableArray* dataList;
     pullCompleted completed;
+    NSString* be_visited_user_id;
 
 }
 
@@ -34,9 +35,8 @@
     
     //异步注册信息
     NetWork* netWork = [[NetWork alloc] init];
-    UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
     
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myInfo.userID, [[NSNumber alloc] initWithInteger:lastTimestamp], @"/getAllVisit"] forKeys:@[@"user_id", @"timestamp", @"childpath"]];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[be_visited_user_id, [[NSNumber alloc] initWithInteger:lastTimestamp], @"/getAllVisit"] forKeys:@[@"user_id", @"timestamp", @"childpath"]];
     
     NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&handleAction objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(getVisitListError:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(getVisitListException:) objCType:@encode(SEL)] ] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS],[[NSNumber alloc] initWithInt:ERROR],[[NSNumber alloc] initWithInt:EXCEPTION]]];
     
@@ -44,6 +44,14 @@
         completed();
     } callObject:self];
     
+}
+
+- (id)initWithUserId:(NSString*)user_id
+{
+    if (self = [super init]) {
+        be_visited_user_id = user_id;
+    }
+    return self;
 }
 
 - (void)getVisitListSuccess:(id)sender
