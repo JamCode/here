@@ -118,7 +118,14 @@ const int bigCellHeight = 88;
 const int bigCellImageHeigh = 64;
 
 
-const int sectionCount = 4;
+const int sectionCount = 3;
+
+enum section{
+    publishAndPhoto,
+    details,
+    blackAndLogout
+};
+
 
 - (id)init:(UserInfoModel*)whoInfo
 {
@@ -1042,7 +1049,9 @@ const int sectionCount = 4;
         cell.textLabel.text = @"";
     }
     
-    if (indexPath.section == 3) {
+    
+    
+    if (indexPath.section == blackAndLogout) {
         if (indexPath.row == 0) {
             cell.textLabel.text = @"黑名单";
         }
@@ -1053,7 +1062,7 @@ const int sectionCount = 4;
         return cell;
     }
     
-    if (indexPath.section == 2) {
+    if (indexPath.section == details) {
 
         cell.textLabel.text = [settingTitleArray objectAtIndex:indexPath.row];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
@@ -1077,24 +1086,24 @@ const int sectionCount = 4;
         return cell;
     }
     
-    if (indexPath.section == 1) {
-        cell.textLabel.text = @"";
-        cell.detailTextLabel.text = @"";
-        if (indexPath.row == 0) {
-            cell.textLabel.text = @"最近来访";
-            lastVisitUserFace.frame = CGRectMake(ScreenWidth - 64, 10, lastVisitUserFace.frame.size.width, lastVisitUserFace.frame.size.height);
-            [cell.contentView addSubview:lastVisitUserFace];
-        }
-        if (indexPath.row == 1) {
-            cell.textLabel.text = @"去过的城市";
-            cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%d", visitCityCount];
-        }
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
-    }
+//    if (indexPath.section == 1) {
+//        cell.textLabel.text = @"";
+//        cell.detailTextLabel.text = @"";
+//        if (indexPath.row == 0) {
+//            cell.textLabel.text = @"最近来访";
+//            lastVisitUserFace.frame = CGRectMake(ScreenWidth - 64, 10, lastVisitUserFace.frame.size.width, lastVisitUserFace.frame.size.height);
+//            [cell.contentView addSubview:lastVisitUserFace];
+//        }
+//        if (indexPath.row == 1) {
+//            cell.textLabel.text = @"去过的城市";
+//            cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%d", visitCityCount];
+//        }
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        return cell;
+//    }
     
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == publishAndPhoto) {
         if (indexPath.row == 0) {
             
             cell.textLabel.text = @"发布";
