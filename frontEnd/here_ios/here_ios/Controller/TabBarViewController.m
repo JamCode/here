@@ -19,6 +19,7 @@
 #import "MenuViewCtrl.h"
 #import "NearByContentAction.h"
 #import "ComTableViewCtrl.h"
+#import "HotContentAction.h"
 
 
 @interface TabBarViewController ()
@@ -100,10 +101,10 @@
     controllers = [NSMutableArray array];
     
     
-    ComTableViewCtrl* comTableViewCtrl = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[NearByContentAction alloc] init]];
+    ComTableViewCtrl* nearContentTableCtrl = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[NearByContentAction alloc] init]];
     
-    ContentViewController* popularView = [[ContentViewController alloc] init:@"热门" publishButtonFlag:NO setLoadingAction:@selector(getPopularContent) content_user_id:nil];
-    
+    ComTableViewCtrl* hotContentTableCtrl = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[HotContentAction alloc] init]];
+
     
     MessageTableViewController* message = [[MessageTableViewController alloc] init];
     [message viewDidLoad];
@@ -111,8 +112,8 @@
     
     SettingViewController* setting = [[SettingViewController alloc] init:[AppDelegate getMyUserInfo]];
     
-    [self initChildView:controllers viewController:comTableViewCtrl title:@"附近"];
-    [self initChildView:controllers viewController:popularView title:@"热门"];
+    [self initChildView:controllers viewController:nearContentTableCtrl title:@"附近"];
+    [self initChildView:controllers viewController:hotContentTableCtrl title:@"热门"];
     [self initChildView:controllers viewController:message title:@"消息"];
     [self initChildView:controllers viewController:setting title:@"设置"];
     

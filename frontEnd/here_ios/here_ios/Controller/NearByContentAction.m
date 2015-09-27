@@ -29,8 +29,6 @@ static const int leftbarWidth = 20;
     CLLocationManager* locationManager;
     pullCompleted completed;
     ComTableViewCtrl* comTable;
-    UIToolbar* bottomToolbar;
-    UITextView* commentInputView;
     UIButton* leftBar;
     UILabel* noticelabel;
 
@@ -296,7 +294,6 @@ static const int leftbarWidth = 20;
     swapLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     [comTableViewCtrl.view addGestureRecognizer:swapLeft];
     
-    //[self initCommentInputView];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pullDown) name:@"pullDown" object:nil];
     
 }

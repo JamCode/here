@@ -21,6 +21,8 @@
 #import "NetWork.h"
 #import "CommentModel.h"
 #import "ImageEnlarge.h"
+#import "ContentModel.h"
+
 
 static const int inputfontSize = 16;
 static const double textViewHeight = 36;
@@ -688,6 +690,25 @@ static const int ageWidth = 18;
         
     } callObject:self];
     
+}
+
++ (ContentTableViewCell*)generateCell:(UITableView*)tableView cellId:(NSString*)cellId contentList:(NSMutableArray*)contentList indexPath:(NSIndexPath*)indexPath
+{
+    ContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    
+    if (cell==nil) {
+        cell = [[ContentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        NSLog(@"new cell");
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = [UIColor whiteColor];
+    cell.tableView = tableView;
+    
+    ContentModel* contentmodel = [contentList objectAtIndex:indexPath.row];
+    [cell setContentModel:contentmodel];
+    return cell;
+
 }
 
 
