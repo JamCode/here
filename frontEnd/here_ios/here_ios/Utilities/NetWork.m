@@ -49,7 +49,7 @@
                     [[feedbackcall objectForKey:[feedback objectForKey:@"code"]] getValue:&outSelector];
                     if(outSelector == nil){
                         NSLog(@"outSelect is nil");
-                        [Tools AlertMsg:[feedback objectForKey:@"code"]];
+                        [self msgError:feedback];
                     }else{
                         [callObject performSelector:outSelector withObject:feedback];
                     }
@@ -66,14 +66,17 @@
 - (void)msgException:(id)sender
 {
     //alertMsg(@"msg exception");
-    [Tools AlertMsg:@"msg exception"];
+    
+    NSError* netError = (NSError*)sender;
+    [Tools AlertMsg:netError.domain];
     
 }
 
 - (void)msgError:(id)sender
 {
     //alertMsg(@"msg error");
-    [Tools AlertMsg:@"msg error"];
+    NSDictionary* feedback = (NSDictionary*)sender;
+    [Tools AlertMsg:[feedback objectForKey:@"code"]];
 }
 
 
