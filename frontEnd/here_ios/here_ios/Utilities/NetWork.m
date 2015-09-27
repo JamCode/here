@@ -42,14 +42,14 @@
             
             if (netError) {
                 //回包不在期望格式范围内,json转换失败
-                [self msgException:netError];
+                [self msgException:netError path:[message objectForKey:@"childpath"]];
                 
             }else{
                 if(feedbackcall != nil){
                     [[feedbackcall objectForKey:[feedback objectForKey:@"code"]] getValue:&outSelector];
                     if(outSelector == nil){
                         NSLog(@"outSelect is nil");
-                        [self msgError:feedback];
+                        [self msgError:feedback path:[message objectForKey:@"childpath"]];
                     }else{
                         [callObject performSelector:outSelector withObject:feedback];
                     }
@@ -63,20 +63,20 @@
     });
 }
 
-- (void)msgException:(id)sender
+- (void)msgException:(id)sender path:(NSString*)path
 {
     //alertMsg(@"msg exception");
     
     NSError* netError = (NSError*)sender;
-    [Tools AlertMsg:netError.domain];
+    [Tools AlertMsg:[[NSString alloc] initWithFormat:@"%@:%@", netError.domain, path]];
     
 }
 
-- (void)msgError:(id)sender
+- (void)msgError:(id)sender path:(NSString*)path
 {
     //alertMsg(@"msg error");
     NSDictionary* feedback = (NSDictionary*)sender;
-    [Tools AlertMsg:[feedback objectForKey:@"code"]];
+    [Tools AlertMsg:[[NSString alloc] initWithFormat:@"error code:%@:%@", [feedback objectForKey:@"code"], path]];
 }
 
 

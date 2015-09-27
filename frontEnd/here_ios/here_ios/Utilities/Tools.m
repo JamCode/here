@@ -394,7 +394,7 @@
     UIViewController* viewCtrl = [Tools appRootViewController];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:viewCtrl.view animated:YES];
     hud.mode = MBProgressHUDModeText;
-    hud.labelText = msg;
+    hud.detailsLabelText = msg;
     hud.removeFromSuperViewOnHide = YES;
     [hud hide:YES afterDelay:2];
 }
