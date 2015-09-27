@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B2050CE41BB7AAD500074E92 /* HotContentAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B2050CE31BB7AAD500074E92 /* HotContentAction.m */; settings = {ASSET_TAGS = (); }; };
 		B2392B441BABF183009FE00C /* BlackListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B2392B431BABF183009FE00C /* BlackListAction.m */; settings = {ASSET_TAGS = (); }; };
 		B24D65B31BA6AC5800F33A96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D65B21BA6AC5800F33A96 /* main.m */; };
 		B24D65B61BA6AC5800F33A96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D65B51BA6AC5800F33A96 /* AppDelegate.m */; };
@@ -193,6 +194,8 @@
 		636B860494494DAFB67B35FB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8DF27723DED1CCDC21653282 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9911EC87AD469992DE0EB08F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B2050CE21BB7AAD500074E92 /* HotContentAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotContentAction.h; sourceTree = "<group>"; };
+		B2050CE31BB7AAD500074E92 /* HotContentAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotContentAction.m; sourceTree = "<group>"; };
 		B2392B421BABF183009FE00C /* BlackListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackListAction.h; sourceTree = "<group>"; };
 		B2392B431BABF183009FE00C /* BlackListAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackListAction.m; sourceTree = "<group>"; };
 		B24D65AD1BA6AC5800F33A96 /* here_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = here_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -798,6 +801,8 @@
 				B267C63F1BA7F55600D12035 /* VisitListAction.m */,
 				B24D68721BA6C46900F33A96 /* NearByContentAction.h */,
 				B24D68731BA6C46900F33A96 /* NearByContentAction.m */,
+				B2050CE21BB7AAD500074E92 /* HotContentAction.h */,
+				B2050CE31BB7AAD500074E92 /* HotContentAction.m */,
 				B24D68741BA6C46900F33A96 /* MyContentAction.h */,
 				B24D68751BA6C46900F33A96 /* MyContentAction.m */,
 				B24D68761BA6C46900F33A96 /* ContentViewController.h */,
@@ -1178,6 +1183,7 @@
 				B24D65B61BA6AC5800F33A96 /* AppDelegate.m in Sources */,
 				B24D68651BA6C3F200F33A96 /* ContentModel.m in Sources */,
 				B24D68A71BA6C46900F33A96 /* MenuViewCtrl.m in Sources */,
+				B2050CE41BB7AAD500074E92 /* HotContentAction.m in Sources */,
 				B24D68101BA6C06800F33A96 /* TalkTimeTableViewCell.m in Sources */,
 				B24D68B71BA6C46900F33A96 /* UserImageViewController.m in Sources */,
 				B24D68121BA6C06800F33A96 /* CommentTableViewCell.m in Sources */,

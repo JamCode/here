@@ -42,6 +42,9 @@
 - (void)increaseCommentCount;
 - (void)increaseGoodCount;
 
+
++ (ContentTableViewCell*)generateCell:(UITableView*)tableView cellId:(NSString*)cellId contentList:(NSMutableArray*)contentList indexPath:(NSIndexPath*)indexPath;
+
 @property UITableView* tableView;
 
 
