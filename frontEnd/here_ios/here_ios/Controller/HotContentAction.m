@@ -14,6 +14,7 @@
 #import "ContentDetailViewController.h"
 #import "NetWork.h"
 #import "AppDelegate.h"
+#import <CoreLocation/CoreLocation.h>
 
 @implementation HotContentAction
 {
