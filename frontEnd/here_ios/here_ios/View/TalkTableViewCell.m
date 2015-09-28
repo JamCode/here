@@ -172,9 +172,15 @@ static const int maxImageButtonHeight = 160;
             msgButtonHeight = maxImageButtonHeight;
             msgButtonWidth = maxImageButtonHeight*(image.size.width/image.size.height);
             
+            if (msgButtonHeight/msgButtonWidth>ScreenHeight/ScreenWidth) {
+                msgButtonWidth = msgButtonHeight*(ScreenWidth/ScreenHeight);
+            }
+            
+            
         }else{
             msgButtonWidth = maxImageButtonWidth;
             msgButtonHeight = maxImageButtonWidth*image.size.height/image.size.width;
+            
         }
     }
     
