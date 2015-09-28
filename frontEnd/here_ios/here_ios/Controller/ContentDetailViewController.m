@@ -98,6 +98,10 @@ static const double textViewHeight = 36;
     
     self.tableView.tableFooterView=[[UIView alloc]init];
     
+    if ([_contentModel.userInfo.userID isEqualToString:myUserInfo.userID]) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonAction:)];
+
+    }
 }
 
 
