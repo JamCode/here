@@ -76,14 +76,9 @@ static const double textViewHeight = 36;
         [self getContentBaseInfo];
     }
     
-//    ContentTableViewCell* cell = [[ContentTableViewCell alloc] init];
-//    [cell setContentModel:_contentModel];
     
-    //UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 100)];
     
-    //[self.tableView setTableHeaderView:view];
     
-    //self.tableView.tableHeaderView = cell;
     
     [self getContentCommentsList];
     //[self addSeeCount];
