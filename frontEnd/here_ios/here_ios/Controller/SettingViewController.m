@@ -120,11 +120,11 @@ const int bigCellImageHeigh = 64;
 
 const int sectionCount = 3;
 
-enum section{
+typedef enum  {
     publishAndPhoto,
     details,
     blackAndLogout
-};
+} section;
 
 
 - (id)init:(UserInfoModel*)whoInfo
