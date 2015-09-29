@@ -21,3 +21,9 @@ drop view if EXISTS `image_url_v`;
 CREATE VIEW `image_url_v` AS
 select b.*, a.user_id, a.content_publish_timestamp as timestamp from content_base_info a, content_image_info b
 where a.content_id = b.content_id;
+
+
+DROP TABLE IF EXISTS  `content_report_info`;
+CREATE TABLE `content_report_info` (
+  `content_id` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -45,6 +45,10 @@ static const double bottomToolbarHeight = 48;
     UIImageView* reportButton;
     
     
+    UIActionSheet* sheet;
+    MBProgressHUD* loading;
+    
+    
 }
 
 static const int faceImageWidth = 48;
@@ -167,6 +171,11 @@ static const int ageWidth = 18;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        
+        
+
+        
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
         
         
     }
@@ -494,10 +503,44 @@ static const int ageWidth = 18;
     
 }
 
+
+- (void)reportContentSuccess:(id)sender
+{
+    [Tools AlertBigMsg:@"举报成功"];
+}
+
+- (void)sendReportMsg
+{
+    UIView* rootView = [Tools appRootViewController].view;
+    loading = [[MBProgressHUD alloc] initWithView:rootView];
+    [rootView addSubview:loading];
+    [loading show:YES];
+    
+    NetWork* netWork = [[NetWork alloc] init];
+    
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myContentModel.contentID, @"/reportContent"] forKeys:@[@"content_id", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(reportContentSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
+        [loading hide:YES];
+        [loading removeFromSuperview];
+        loading = nil;
+    } callObject:self];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        //举报
+        [self sendReportMsg];
+    }
+}
+
 - (void)reportButtonPress:(id)sender
 {
     NSLog(@"reportButtonPress");
-    
+    [sheet showInView:[Tools appRootViewController].view];
 }
 
 

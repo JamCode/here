@@ -458,6 +458,12 @@ router.post('/addCommentToContent', function(req, res) {
 });
 
 
+router.post('/reportContent', function(req, res){
+	contentMgmt.insertReportContent(req.body, function(flag, result){
+		routeFunc.feedBack(flag, result, res);
+	});
+})
+
 // router.get('/converContentImage', function(req, res){
 //     log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 //     databaseOperation.getAllContentImage(function(flag, result){

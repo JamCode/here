@@ -399,7 +399,15 @@
     [hud hide:YES afterDelay:2];
 }
 
-
++ (void)AlertBigMsg:(NSString*)msg
+{
+    UIViewController* viewCtrl = [Tools appRootViewController];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:viewCtrl.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = msg;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES afterDelay:2];
+}
 
 
 @end

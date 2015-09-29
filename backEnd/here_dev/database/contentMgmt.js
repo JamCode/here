@@ -7,6 +7,11 @@ var log = global.log;
 
 
 
+exports.insertReportContent = function(contentBody, callback){
+	var sql = "insert into content_report_info(content_report_info) values(?)";
+	conn.executeSql(sql, [contentBody.content_id], callback);
+}
+
 //add by wanghan 20141129 for publish active message
 
 exports.insertContent = function(contentBody, callback){
