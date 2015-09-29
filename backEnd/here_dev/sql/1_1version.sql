@@ -25,5 +25,5 @@ where a.content_id = b.content_id;
 
 DROP TABLE IF EXISTS  `content_report_info`;
 CREATE TABLE `content_report_info` (
-  `content_id` varchar(100) NOT NULL
+  `cri_content_id` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

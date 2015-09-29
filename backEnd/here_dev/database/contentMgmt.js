@@ -8,7 +8,7 @@ var log = global.log;
 
 
 exports.insertReportContent = function(contentBody, callback){
-	var sql = "insert into content_report_info(content_report_info) values(?)";
+	var sql = "insert into content_report_info(cri_content_id) values(?)";
 	conn.executeSql(sql, [contentBody.content_id], callback);
 }
 

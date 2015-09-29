@@ -484,7 +484,7 @@ static const int ageWidth = 18;
     [self addSubview:funView];
     
     
-    reportButton.frame = CGRectMake(ScreenWidth - 30, _ageAndGenderView.frame.origin.y, 20, 10);
+    reportButton.frame = CGRectMake(ScreenWidth - 30, _ageAndGenderView.frame.origin.y, 22, 11);
     
     reportButton.center = CGPointMake(reportButton.center.x, _ageAndGenderView.center.y);
     
