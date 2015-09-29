@@ -98,7 +98,6 @@
 		B24D68071BA6C06800F33A96 /* ContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D67E81BA6C06800F33A96 /* ContentTableViewCell.m */; };
 		B24D68081BA6C06800F33A96 /* ImageBrowseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D67EA1BA6C06800F33A96 /* ImageBrowseCell.m */; };
 		B24D68091BA6C06800F33A96 /* MyImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D67EC1BA6C06800F33A96 /* MyImageView.m */; };
-		B24D680A1BA6C06800F33A96 /* ContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D67EE1BA6C06800F33A96 /* ContentView.m */; };
 		B24D680B1BA6C06800F33A96 /* TalkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D67F01BA6C06800F33A96 /* TalkTableViewCell.m */; };
 		B24D680C1BA6C06800F33A96 /* NearByTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D67F21BA6C06800F33A96 /* NearByTableViewCell.m */; };
 		B24D680D1BA6C06800F33A96 /* RegisterCellViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D67F41BA6C06800F33A96 /* RegisterCellViewTableViewCell.m */; };
@@ -176,6 +175,7 @@
 		B267C63D1BA7F45900D12035 /* VisitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63C1BA7F45900D12035 /* VisitCell.m */; };
 		B267C6401BA7F55600D12035 /* VisitListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63F1BA7F55600D12035 /* VisitListAction.m */; };
 		B267C6431BA8085400D12035 /* VisitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C6421BA8085400D12035 /* VisitModel.m */; };
+		B2689B391BBA3CFB008B8AF0 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = B2689B381BBA3CFB008B8AF0 /* down.png */; settings = {ASSET_TAGS = (); }; };
 		B29B5ED21BA9499D00D62757 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29B5ED11BA9499D00D62757 /* InfoPlist.strings */; };
 		E777BF15ECD86C660D85C8AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF27723DED1CCDC21653282 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -299,8 +299,6 @@
 		B24D67EA1BA6C06800F33A96 /* ImageBrowseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBrowseCell.m; sourceTree = "<group>"; };
 		B24D67EB1BA6C06800F33A96 /* MyImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyImageView.h; sourceTree = "<group>"; };
 		B24D67EC1BA6C06800F33A96 /* MyImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyImageView.m; sourceTree = "<group>"; };
-		B24D67ED1BA6C06800F33A96 /* ContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentView.h; sourceTree = "<group>"; };
-		B24D67EE1BA6C06800F33A96 /* ContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentView.m; sourceTree = "<group>"; };
 		B24D67EF1BA6C06800F33A96 /* TalkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkTableViewCell.h; sourceTree = "<group>"; };
 		B24D67F01BA6C06800F33A96 /* TalkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TalkTableViewCell.m; sourceTree = "<group>"; };
 		B24D67F11BA6C06800F33A96 /* NearByTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearByTableViewCell.h; sourceTree = "<group>"; };
@@ -454,6 +452,7 @@
 		B267C63F1BA7F55600D12035 /* VisitListAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitListAction.m; sourceTree = "<group>"; };
 		B267C6411BA8085400D12035 /* VisitModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitModel.h; sourceTree = "<group>"; };
 		B267C6421BA8085400D12035 /* VisitModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitModel.m; sourceTree = "<group>"; };
+		B2689B381BBA3CFB008B8AF0 /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
 		B29B5ED11BA9499D00D62757 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -676,6 +675,7 @@
 				B24D66C51BA6BB1F00F33A96 /* active.png */,
 				B24D66C61BA6BB1F00F33A96 /* active@2x.png */,
 				B24D66C71BA6BB1F00F33A96 /* add.png */,
+				B2689B381BBA3CFB008B8AF0 /* down.png */,
 				B24D66C81BA6BB1F00F33A96 /* addImage49px.png */,
 				B24D66C91BA6BB1F00F33A96 /* chat_animation1.png */,
 				B24D66CA1BA6BB1F00F33A96 /* chat_animation2.png */,
@@ -726,8 +726,6 @@
 				B24D67EA1BA6C06800F33A96 /* ImageBrowseCell.m */,
 				B24D67EB1BA6C06800F33A96 /* MyImageView.h */,
 				B24D67EC1BA6C06800F33A96 /* MyImageView.m */,
-				B24D67ED1BA6C06800F33A96 /* ContentView.h */,
-				B24D67EE1BA6C06800F33A96 /* ContentView.m */,
 				B24D67EF1BA6C06800F33A96 /* TalkTableViewCell.h */,
 				B24D67F01BA6C06800F33A96 /* TalkTableViewCell.m */,
 				B24D67F11BA6C06800F33A96 /* NearByTableViewCell.h */,
@@ -1090,6 +1088,7 @@
 				B24D67BE1BA6BB1F00F33A96 /* active.png in Resources */,
 				B24D67D61BA6BB1F00F33A96 /* nocomment.png in Resources */,
 				B24D67D91BA6BB1F00F33A96 /* setting@2x.png in Resources */,
+				B2689B391BBA3CFB008B8AF0 /* down.png in Resources */,
 				B24D67CF1BA6BB1F00F33A96 /* manlocation.png in Resources */,
 				B24D67A91BA6BB1F00F33A96 /* IMG_3462.JPG in Resources */,
 				B24D67B31BA6BB1F00F33A96 /* sexselect64px.png in Resources */,
@@ -1196,7 +1195,6 @@
 				B24D68B51BA6C46900F33A96 /* SettingChildViewController.m in Sources */,
 				B267C6401BA7F55600D12035 /* VisitListAction.m in Sources */,
 				B24D68691BA6C3F200F33A96 /* FriendMsgMode.m in Sources */,
-				B24D680A1BA6C06800F33A96 /* ContentView.m in Sources */,
 				B24D68A21BA6C46900F33A96 /* TabBarViewController.m in Sources */,
 				B24D691B1BA6C8A400F33A96 /* LocDatabase.m in Sources */,
 				B24D69371BA6C8A400F33A96 /* SocketIOTransportWebsocket.m in Sources */,

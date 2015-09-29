@@ -42,6 +42,7 @@ static const double bottomToolbarHeight = 48;
     ContentModel* myContentModel;
     UIToolbar* bottomToolbar;
     UITextView* commentInputView;
+    UIImageView* reportButton;
     
     
 }
@@ -98,10 +99,16 @@ static const int ageWidth = 18;
         
         [self initGenderAgeView];
         
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nickName.frame.origin.x, _nickName.frame.origin.y, 0, timeHeight)];
+        
+        
+        
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_ageAndGenderView.frame.origin.x+_ageAndGenderView.frame.size.width+5, _nickName.frame.origin.y, 0, timeHeight)];
         _timeLabel.font = [UIFont fontWithName:@"Arial" size:timeFontSize];
         _timeLabel.textColor = [UIColor lightGrayColor];
         
+        
+        reportButton = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+        reportButton.image = [UIImage imageNamed:@"down.png"];
         
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nickName.frame.origin.x, _nickName.frame.origin.y+_nickName.frame.size.height+spaceValue, ScreenWidth - _nickName.frame.origin.x - 3*spaceValue, 0)];
         _contentLabel.font = [UIFont fontWithName:@"Arial" size:contentFontSize];
@@ -140,6 +147,7 @@ static const int ageWidth = 18;
         [self addSubview:_nickName];
         
         //[self addSubview:_cutoffLine];
+        [self addSubview:reportButton];
         [self addSubview:_timeLabel];
         [self addSubview:_contentLabel];
         //[self addSubview:_addressLabel];
@@ -362,7 +370,10 @@ static const int ageWidth = 18;
     
     _timeLabel.text = [Tools showTime:model.publishTimeStamp];
     CGSize timeSize = [Tools getTextArrange:_timeLabel.text maxRect:CGSizeMake(180, timeHeight) fontSize:nameFontSize];
-    _timeLabel.frame = CGRectMake(ScreenWidth - 20 - timeSize.width, _timeLabel.frame.origin.y, timeSize.width, timeSize.height);
+    
+    _timeLabel.frame = CGRectMake(_ageAndGenderView.frame.origin.x+_ageAndGenderView.frame.size.width+5, _timeLabel.frame.origin.y, timeSize.width, timeSize.height);
+    
+    NSLog(@"%f, %f", _ageAndGenderLabel.frame.origin.x, _ageAndGenderLabel.frame.size.width);
     
     
     _contentLabel.text = model.contentStr;
@@ -464,9 +475,17 @@ static const int ageWidth = 18;
     [self addSubview:funView];
     
     
-    _timeLabel.center = CGPointMake(funView.frame.origin.x+funView.frame.size.width, _timeLabel.center.y);
+    reportButton.frame = CGRectMake(ScreenWidth - 30, _ageAndGenderView.frame.origin.y, 20, 10);
+    
+    reportButton.center = CGPointMake(reportButton.center.x, _ageAndGenderView.center.y);
+    
+    reportButton.userInteractionEnabled = YES;
     
     
+    UITapGestureRecognizer* singleTab = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reportButtonPress:)];
+    
+    
+    [reportButton addGestureRecognizer:singleTab];
     
     
     NSLog(@"%f, %f, %f, %f", funView.frame.origin.x, funView.frame.origin.y, funView.frame.size.width, funView.frame.size.height);
@@ -474,6 +493,14 @@ static const int ageWidth = 18;
     
     
 }
+
+- (void)reportButtonPress:(id)sender
+{
+    NSLog(@"reportButtonPress");
+    
+}
+
+
 
 - (void)showContentDetailInfo:(ContentModel*)model
 {
