@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UserInfoModel.h"
 
-@interface SettingViewController : UITableViewController<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIActionSheetDelegate>
+@interface SettingViewController : UITableViewController<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 @property BOOL changedFlag;
 @property BOOL deleteUserImageFlag;

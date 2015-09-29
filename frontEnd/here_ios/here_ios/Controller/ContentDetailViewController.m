@@ -15,13 +15,11 @@
 #import "FaceView.h"
 #import "CommentTableViewCell.h"
 #import "ContentModel.h"
-#import "ContentView.h"
 #import "PublishCommentViewController.h"
 #import "Tools.h"
 #import <MBProgressHUD.h>
 #import "ContentViewController.h"
 #import "ContentTableViewCell.h"
-#import "ContentView.h"
 #import "CommentModel.h"
 
 
