@@ -145,12 +145,14 @@ typedef enum masterSection{
     if (indexPath.section == account) {
         if (indexPath.row == 0) {
             SettingViewController* setting = [[SettingViewController alloc] init:userInfo];
+            setting.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:setting animated:YES];
         }
     }
     
     if (indexPath.section == support) {
         FeedBackCtrl* feedback = [[FeedBackCtrl alloc] init];
+        feedback.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:feedback animated:YES];
     }
 }
