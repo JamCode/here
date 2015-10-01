@@ -7,10 +7,10 @@ var log = global.log;
 exports.submitFeedback = function(reqBody, callback){
 
 	var sql = "insert into feedback_info(fi_user_id, fi_feedback, submit_date)values(?,?,?)";
-	
+	var timestamp = Date.now();
+
 	conn.executeSql(sql, [reqBody.user_id, reqBody.feedback, 
-		new Date(parseInt(contentBody.timestamp)*1000).toLocaleString().substr(0,17)], callback);
-	
+		new Date(timestamp.toLocaleString().substr(0,17)], callback);
 }
 
 exports.findNearbyUser = function(locationInfo, callback){
