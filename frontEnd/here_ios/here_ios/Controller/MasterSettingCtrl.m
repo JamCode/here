@@ -18,7 +18,6 @@
 
 typedef enum masterSection{
     face,
-    account,
     support,
     logout
 } section;
@@ -37,18 +36,6 @@ typedef enum masterSection{
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    [titleLabel setText:@"设置"];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = [UIFont boldSystemFontOfSize:20];
-    self.navigationItem.titleView = titleLabel;
     userInfo = [AppDelegate getMyUserInfo];
     
 }
@@ -61,17 +48,13 @@ typedef enum masterSection{
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (section == face) {
         return 1;
-    }
-    
-    if (section == account) {
-        return 3;
     }
     
     if (section == support) {
@@ -98,9 +81,6 @@ typedef enum masterSection{
 
 - (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section == account) {
-        return @"账户";
-    }
     
     if (section == support) {
         return @"支持";
@@ -142,13 +122,13 @@ typedef enum masterSection{
         [self logout];
     }
     
-    if (indexPath.section == account) {
-        if (indexPath.row == 0) {
-            SettingViewController* setting = [[SettingViewController alloc] init:userInfo];
-            setting.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:setting animated:YES];
-        }
-    }
+//    if (indexPath.section == account) {
+//        if (indexPath.row == 0) {
+//            SettingViewController* setting = [[SettingViewController alloc] init:userInfo];
+//            setting.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:setting animated:YES];
+//        }
+//    }
     
     if (indexPath.section == support) {
         FeedBackCtrl* feedback = [[FeedBackCtrl alloc] init];
@@ -193,18 +173,18 @@ typedef enum masterSection{
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    if (indexPath.section == account) {
-        if (indexPath.row == 0) {
-            cell.textLabel.text = @"我的资料";
-        }
-        if (indexPath.row == 1) {
-            cell.textLabel.text = @"评论过的内容";
-        }
-        if (indexPath.row == 2) {
-            cell.textLabel.text = @"赞过的内容";
-        }
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
+//    if (indexPath.section == account) {
+//        if (indexPath.row == 0) {
+//            cell.textLabel.text = @"我的资料";
+//        }
+//        if (indexPath.row == 1) {
+//            cell.textLabel.text = @"评论过的内容";
+//        }
+//        if (indexPath.row == 2) {
+//            cell.textLabel.text = @"赞过的内容";
+//        }
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//    }
     
 //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //    
@@ -213,7 +193,7 @@ typedef enum masterSection{
 //    [cell setModels:visitmodels];
     
     return cell;
-
+    
 }
 
 /*

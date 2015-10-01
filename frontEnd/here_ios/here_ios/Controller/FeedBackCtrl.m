@@ -63,11 +63,12 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = activeViewControllerbackgroundColor;
     
-    UIView* mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, 210)];
+    UIView* mainView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 210)];
     mainView.backgroundColor = [UIColor whiteColor];
     
-    contentTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth - 20, 100)];
+    contentTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth - 20, 180)];
     contentTextView.font = [UIFont fontWithName:@"Arial" size:18];
+    contentTextView.textAlignment = NSTextAlignmentLeft;
     placeholder = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, ScreenWidth - 20, 64)];
     placeholder.text = @"简要说明下您所喜欢，或者需要改进的内容";
     placeholder.numberOfLines = 0;

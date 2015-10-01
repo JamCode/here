@@ -180,7 +180,7 @@ static const int updateTimeWidth = 100;
 - (void)setUserInfo:(UserInfoModel*)userInfo
 {
     
-    
+    myUserInfo = userInfo;
     [faceImageView sd_setImageWithURL:[[NSURL alloc] initWithString:userInfo.faceImageThumbnailURLStr]];
 //
 //

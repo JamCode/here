@@ -25,6 +25,8 @@
 #import "ImageBrowseAction.h"
 #import "VisitListAction.h"
 #import "BlackListAction.h"
+#import "MasterSettingCtrl.h"
+#import "FeedBackCtrl.h"
 
 //#import "ImageBrowseViewCtrl.h"
 //#import "VisitListCtrl.h"
@@ -122,7 +124,9 @@ const int sectionCount = 2;
 
 typedef enum  {
     publishAndPhoto,
-    details
+    details,
+    support,
+    logout
 } section;
 
 
@@ -358,9 +362,16 @@ typedef enum  {
 //}
 
 
+- (void)showSetting:(id)sender
+{
+    MasterSettingCtrl* masterSetting = [[MasterSettingCtrl alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    masterSetting.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:masterSetting animated:YES];
+}
+
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //self.navigationController.delegate =self;
@@ -441,7 +452,6 @@ typedef enum  {
     
     //get user image from server
     [self getUserInfo];
-    //[self getLastVisitUser];
     
     backgroundView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     backgroundView.backgroundColor = [UIColor blackColor];
@@ -449,23 +459,7 @@ typedef enum  {
     [backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewPress:)]];
     
     
-    //send visit msg if user_id not equal my user_id
-//    if ([_userInfo.userID isEqual:app.myInfo.userID] == FALSE) {
-//        //send visit msg
-//        [self sendVisitMsg];
-//    }
-    
-    //    self.refreshControl = [[UIRefreshControl alloc] init];
-    //    [self.refreshControl addTarget:self action:@selector(refreshUserInfo:) forControlEvents:UIControlEventValueChanged];
-    //    self.refreshControl.tintColor = [UIColor grayColor];
-    
 }
-
-
-//- (void)refreshUserInfo:(id)sender
-//{
-//    [self getUserInfo];
-//}
 
 
 - (void)sendVisitMsg
@@ -474,8 +468,6 @@ typedef enum  {
     UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
     
     NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, myInfo.userID,  myInfo.nickName, @"/visit"] forKeys:@[@"user_id", @"visit_user_id",  @"visit_user_name", @"childpath"]];
-    
-    //    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getUserInfoSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
     
     [netWork message:message images:nil feedbackcall:nil complete:^{
         //[self hideLoading];
@@ -681,19 +673,7 @@ typedef enum  {
 //    }];
 //}
 
-- (void)getLastVisitUser
-{
-    NetWork* netWork = [[NetWork alloc] init];
-    
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, @"/getLastVisitUser"] forKeys:@[@"user_id", @"childpath"]];
-    
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getLastVisitUserSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
-    
-    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
-        //[self hideLoading];
-    } callObject:self];
-    
-}
+
 
 - (void)getUserInfo
 {
@@ -703,7 +683,7 @@ typedef enum  {
     UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
     NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myInfo.userID, _userInfo.userID, @"/getUserInfo"] forKeys:@[@"my_user_id", @"user_id", @"childpath"]];
     
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getUserInfoSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getUserInfoSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
     
     [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
         [self hideLoading];
@@ -808,7 +788,13 @@ typedef enum  {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return sectionCount;
+    AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    if ([_userInfo.userID isEqual:[app getMyID]]) {
+        return 4;
+    }else{
+        return 2;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -817,9 +803,12 @@ typedef enum  {
         return 2;
     }else if (section == details){
         return [settingTitleArray count];
-    }else{
-        return 0;
+    }else if(section == support){
+        return 2;
+    }else if(section == logout){
+        return 1;
     }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -880,6 +869,19 @@ typedef enum  {
 }
 
 
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    
+    if (section == support) {
+        return @"支持";
+    }
+    if (section == details) {
+        return @"个人资料";
+    }
+    return @"";
+}
+
+
 - (void)showBlackList
 {
     //[self.navigationController pushViewController:[[BlackListTableViewCtrl alloc] init] animated:YES];
@@ -932,6 +934,27 @@ typedef enum  {
         comTable.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:comTable animated:YES];
         
+    }
+    
+    if (indexPath.section == logout) {
+        [self logout];
+    }
+    
+    if (indexPath.section == support) {
+        
+        if(indexPath.row == 1){
+            FeedBackCtrl* feedback = [[FeedBackCtrl alloc] init];
+            feedback.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:feedback animated:YES];
+
+        }
+        
+        if(indexPath.row == 0){
+            //黑名单
+            ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[BlackListAction alloc] init]];
+            comTable.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:comTable animated:YES];
+        }
     }
 }
 
@@ -996,6 +1019,24 @@ typedef enum  {
         cell.textLabel.text = @"";
     }
     
+    
+    if (indexPath.section == logout) {
+        cell.textLabel.text = @"退出账户";
+        cell.textLabel.textColor = subjectColor;
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    
+    if(indexPath.section == support){
+        if (indexPath.row == 1) {
+            cell.textLabel.text = @"用户反馈";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        if(indexPath.row == 0){
+            cell.textLabel.text = @"黑名单";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+       
+    }
     
     if (indexPath.section == details) {
         cell.textLabel.text = [settingTitleArray objectAtIndex:indexPath.row];

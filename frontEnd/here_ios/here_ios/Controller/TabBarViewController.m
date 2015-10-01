@@ -111,15 +111,13 @@
     [message viewDidLoad];
     [message checkMissedMsg];
     
-//    SettingViewController* setting = [[SettingViewController alloc] init:[AppDelegate getMyUserInfo]];
-    
-    MasterSettingCtrl* masterSetting = [[MasterSettingCtrl alloc] initWithStyle:UITableViewStyleGrouped];
+    SettingViewController* setting = [[SettingViewController alloc] init:[AppDelegate getMyUserInfo]];
     
     
     [self initChildView:controllers viewController:nearContentTableCtrl title:@"附近"];
     [self initChildView:controllers viewController:hotContentTableCtrl title:@"热门"];
     [self initChildView:controllers viewController:message title:@"消息"];
-    [self initChildView:controllers viewController:masterSetting title:@"设置"];
+    [self initChildView:controllers viewController:setting title:@"设置"];
     
     
     self.viewControllers = controllers;
