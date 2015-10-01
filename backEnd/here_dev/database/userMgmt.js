@@ -7,8 +7,8 @@ var log = global.log;
 exports.submitFeedback = function(reqBody, callback){
 
 	var sql = "insert into feedback_info(fi_user_id, fi_feedback, submit_date)values(?,?,?)";
-
-	conn.executeSql(sql, [reqBody.user_id, reqBody.feedback, (new Date()).Format("yyyy-MM-dd hh:mm:ss.S")], callback);
+	var date = new Date().format("yyyy-MM-dd HH:mm:ss");
+	conn.executeSql(sql, [reqBody.user_id, reqBody.feedback, date], callback);
 }
 
 exports.findNearbyUser = function(locationInfo, callback){
