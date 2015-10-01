@@ -27,7 +27,7 @@
 
 - (void)submitFeedbackSuccess:(id)sender
 {
-    [Tools AlertBigMsg:@"提交成功"];
+    [Tools AlertBigMsg:@"感谢您的反馈"];
 }
 
 - (void)submitFeedback:(id)sender
@@ -69,7 +69,7 @@
     contentTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth - 20, 100)];
     contentTextView.font = [UIFont fontWithName:@"Arial" size:18];
     placeholder = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, ScreenWidth - 20, 64)];
-    placeholder.text = @"简要说明下你所喜欢，或者需要改进的内容";
+    placeholder.text = @"简要说明下您所喜欢，或者需要改进的内容";
     placeholder.numberOfLines = 0;
     placeholder.backgroundColor = [UIColor clearColor];
     placeholder.enabled = NO;
