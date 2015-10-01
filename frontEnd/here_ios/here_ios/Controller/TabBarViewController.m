@@ -20,6 +20,7 @@
 #import "NearByContentAction.h"
 #import "ComTableViewCtrl.h"
 #import "HotContentAction.h"
+#import "MasterSettingCtrl.h"
 
 
 @interface TabBarViewController ()
@@ -111,6 +112,7 @@
     [message checkMissedMsg];
     
     SettingViewController* setting = [[SettingViewController alloc] init:[AppDelegate getMyUserInfo]];
+    
     
     [self initChildView:controllers viewController:nearContentTableCtrl title:@"附近"];
     [self initChildView:controllers viewController:hotContentTableCtrl title:@"热门"];

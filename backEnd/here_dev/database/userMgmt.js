@@ -4,6 +4,14 @@ var config = require('../config/config');
 var log = global.log;
 
 
+exports.submitFeedback = function(reqBody, callback){
+
+	var sql = "insert into feedback_info(fi_user_id, fi_feedback, fi_submit_timestamp)values(?,?,?)";
+	var timestamp = Date.now()/1000;
+
+	conn.executeSql(sql, [reqBody.user_id, reqBody.feedback, timestamp], callback);
+}
+
 exports.findNearbyUser = function(locationInfo, callback){
 
 	var sql = "select a.*, b.* from user_base_info a, user_location_info b "

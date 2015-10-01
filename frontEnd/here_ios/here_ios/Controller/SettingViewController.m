@@ -25,6 +25,8 @@
 #import "ImageBrowseAction.h"
 #import "VisitListAction.h"
 #import "BlackListAction.h"
+#import "MasterSettingCtrl.h"
+#import "FeedBackCtrl.h"
 
 //#import "ImageBrowseViewCtrl.h"
 //#import "VisitListCtrl.h"
@@ -84,7 +86,7 @@
     
     BOOL isInBlack;
     
-    UIImageView* lastVisitUserFace;
+    //UIImageView* lastVisitUserFace;
 }
 @end
 
@@ -118,12 +120,13 @@ const int bigCellHeight = 88;
 const int bigCellImageHeigh = 64;
 
 
-const int sectionCount = 3;
+const int sectionCount = 2;
 
 typedef enum  {
     publishAndPhoto,
     details,
-    blackAndLogout
+    support,
+    logout
 } section;
 
 
@@ -158,7 +161,7 @@ typedef enum  {
     
     
     
-    settingTitleArray = [[NSMutableArray alloc] initWithArray:@[@"最近来访", @"性别", @"年龄", @"星座", @"个人签名"]];
+    settingTitleArray = [[NSMutableArray alloc] initWithArray:@[@"性别", @"年龄", @"星座", @"个人签名"]];
     
     tableviewHeight = 0;
     _changedFlag = false;
@@ -359,9 +362,16 @@ typedef enum  {
 //}
 
 
+- (void)showSetting:(id)sender
+{
+    MasterSettingCtrl* masterSetting = [[MasterSettingCtrl alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    masterSetting.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:masterSetting animated:YES];
+}
+
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //self.navigationController.delegate =self;
@@ -434,36 +444,6 @@ typedef enum  {
     
     [headerView addSubview:faceImageView];
     
-    
-    //    genderView = [[UIImageView alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x + faceImageView.frame.size.width +10, faceImageView.frame.origin.y+faceImageView.frame.size.height/2, genderView_width, genderView_height)];
-    //    [headerView addSubview:genderView];
-    
-    
-    
-    //    zanImageView = [[UIImageView alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x + faceImageView.frame.size.width +10, genderView.frame.origin.y+genderView.frame.size.height+10, genderView_width, genderView_height)];
-    //    zanImageView.image = [UIImage imageNamed:@"zan-active.png"];
-    //
-    //    [headerView addSubview:zanImageView];
-    
-    
-    
-    
-    
-    
-    //    ageAndStar = [[UILabel alloc] initWithFrame:CGRectMake(genderView.frame.origin.x+genderView.frame.size.width + 10, genderView.frame.origin.y, ageLabel_width, 20)];
-    //    ageAndStar.font = [UIFont fontWithName:@"Arial" size:15];
-    //    ageAndStar.textColor = [UIColor grayColor];
-    //
-    //    [headerView addSubview: ageAndStar];
-    
-    //    visitCityLabel = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x + zanImageView.frame.size.width +10, zanImageView.frame.origin.y, 120, 20)];
-    //    visitCityLabel.font = [UIFont fontWithName:@"Arial" size:15];
-    //    visitCityLabel.textColor = [UIColor grayColor];
-    //
-    //    [headerView addSubview: visitCityLabel];
-    
-    
-    
     sign = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x, zanImageView.frame.origin.y+zanImageView.frame.size.height+10, 200, zanImageView.frame.size.height)];
     //sign.text = _userInfo.sign;
     if((NSNull*)sign.text != [NSNull null]){
@@ -472,7 +452,6 @@ typedef enum  {
     
     //get user image from server
     [self getUserInfo];
-    [self getLastVisitUser];
     
     backgroundView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     backgroundView.backgroundColor = [UIColor blackColor];
@@ -480,23 +459,7 @@ typedef enum  {
     [backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewPress:)]];
     
     
-    //send visit msg if user_id not equal my user_id
-    if ([_userInfo.userID isEqual:app.myInfo.userID] == FALSE) {
-        //send visit msg
-        [self sendVisitMsg];
-    }
-    
-    //    self.refreshControl = [[UIRefreshControl alloc] init];
-    //    [self.refreshControl addTarget:self action:@selector(refreshUserInfo:) forControlEvents:UIControlEventValueChanged];
-    //    self.refreshControl.tintColor = [UIColor grayColor];
-    
 }
-
-
-//- (void)refreshUserInfo:(id)sender
-//{
-//    [self getUserInfo];
-//}
 
 
 - (void)sendVisitMsg
@@ -505,8 +468,6 @@ typedef enum  {
     UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
     
     NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, myInfo.userID,  myInfo.nickName, @"/visit"] forKeys:@[@"user_id", @"visit_user_id",  @"visit_user_name", @"childpath"]];
-    
-    //    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getUserInfoSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
     
     [netWork message:message images:nil feedbackcall:nil complete:^{
         //[self hideLoading];
@@ -605,8 +566,6 @@ typedef enum  {
     
     [settingStrArray removeAllObjects];
     
-    [settingStrArray addObject:@"最近来访"];
-    
     if (_userInfo.gender == 1) {
         [settingStrArray addObject:@"男"];
     }else{
@@ -694,39 +653,27 @@ typedef enum  {
     alertMsg(@"未知问题");
 }
 
-- (void)getLastVisitUserSuccess:(id)sender
-{
-    NSDictionary* feedback = (NSDictionary*)sender;
-    NSArray* data = [feedback objectForKey:@"data"];
-    if ([data count] == 0) {
-        return;
-    }
-    
-    NSDictionary* element = [data objectAtIndex:0];
-    
-    lastVisitUserFace = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
-    lastVisitUserFace.layer.masksToBounds =YES;
-    
-    
-    lastVisitUserFace.layer.cornerRadius = lastVisitUserFace.frame.size.height/2;
-    
-    [lastVisitUserFace sd_setImageWithURL:[[NSURL alloc] initWithString:[element objectForKey:@"user_facethumbnail"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-    }];
-}
+//- (void)getLastVisitUserSuccess:(id)sender
+//{
+//    NSDictionary* feedback = (NSDictionary*)sender;
+//    NSArray* data = [feedback objectForKey:@"data"];
+//    if ([data count] == 0) {
+//        return;
+//    }
+//    
+//    NSDictionary* element = [data objectAtIndex:0];
+//    
+//    lastVisitUserFace = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+//    lastVisitUserFace.layer.masksToBounds =YES;
+//    
+//    
+//    lastVisitUserFace.layer.cornerRadius = lastVisitUserFace.frame.size.height/2;
+//    
+//    [lastVisitUserFace sd_setImageWithURL:[[NSURL alloc] initWithString:[element objectForKey:@"user_facethumbnail"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//    }];
+//}
 
-- (void)getLastVisitUser
-{
-    NetWork* netWork = [[NetWork alloc] init];
-    
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, @"/getLastVisitUser"] forKeys:@[@"user_id", @"childpath"]];
-    
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getLastVisitUserSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
-    
-    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
-        //[self hideLoading];
-    } callObject:self];
-    
-}
+
 
 - (void)getUserInfo
 {
@@ -736,7 +683,7 @@ typedef enum  {
     UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
     NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myInfo.userID, _userInfo.userID, @"/getUserInfo"] forKeys:@[@"my_user_id", @"user_id", @"childpath"]];
     
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getUserInfoSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getUserInfoSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
     
     [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
         [self hideLoading];
@@ -841,10 +788,12 @@ typedef enum  {
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if ([[AppDelegate getMyUserInfo].userID isEqualToString:_userInfo.userID] == false){
-        return sectionCount -1;
+    AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    if ([_userInfo.userID isEqual:[app getMyID]]) {
+        return 4;
     }else{
-        return sectionCount;
+        return 2;
     }
 }
 
@@ -854,11 +803,12 @@ typedef enum  {
         return 2;
     }else if (section == details){
         return [settingTitleArray count];
-    }else if (section == blackAndLogout) {
+    }else if(section == support){
         return 2;
-    }else{
-        return 0;
+    }else if(section == logout){
+        return 1;
     }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -919,6 +869,19 @@ typedef enum  {
 }
 
 
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    
+    if (section == support) {
+        return @"支持";
+    }
+    if (section == details) {
+        return @"个人资料";
+    }
+    return @"";
+}
+
+
 - (void)showBlackList
 {
     //[self.navigationController pushViewController:[[BlackListTableViewCtrl alloc] init] animated:YES];
@@ -933,18 +896,6 @@ typedef enum  {
     if ([app.myInfo.userID isEqualToString:_userInfo.userID] == false&&indexPath.section == details) {
         //基本资料只能本用户点击修改
         return;
-    }
-    
-    
-    
-    if (indexPath.section ==blackAndLogout) {
-        //logout
-        if (indexPath.row == 0) {
-            [self showBlackList];
-        }else if(indexPath.row == 1){
-            [self logout];
-        }
-        
     }
     
     if(indexPath.section ==details){
@@ -983,6 +934,27 @@ typedef enum  {
         comTable.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:comTable animated:YES];
         
+    }
+    
+    if (indexPath.section == logout) {
+        [self logout];
+    }
+    
+    if (indexPath.section == support) {
+        
+        if(indexPath.row == 1){
+            FeedBackCtrl* feedback = [[FeedBackCtrl alloc] init];
+            feedback.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:feedback animated:YES];
+
+        }
+        
+        if(indexPath.row == 0){
+            //黑名单
+            ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[BlackListAction alloc] init]];
+            comTable.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:comTable animated:YES];
+        }
     }
 }
 
@@ -1048,44 +1020,43 @@ typedef enum  {
     }
     
     
+    if (indexPath.section == logout) {
+        cell.textLabel.text = @"退出账户";
+        cell.textLabel.textColor = subjectColor;
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+    }
     
-    if (indexPath.section == blackAndLogout) {
-        if (indexPath.row == 0) {
-            cell.textLabel.text = @"黑名单";
-        }
+    if(indexPath.section == support){
         if (indexPath.row == 1) {
-            cell.textLabel.text = @"退出登录";
+            cell.textLabel.text = @"用户反馈";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
+        if(indexPath.row == 0){
+            cell.textLabel.text = @"黑名单";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+       
     }
     
     if (indexPath.section == details) {
         cell.textLabel.text = [settingTitleArray objectAtIndex:indexPath.row];
         
-        if (indexPath.row == 0) {
-            lastVisitUserFace.frame = CGRectMake(ScreenWidth - 64, 10, lastVisitUserFace.frame.size.width, lastVisitUserFace.frame.size.height);
-            [cell.contentView addSubview:lastVisitUserFace];
-        }else{
-            cell.textLabel.textAlignment = NSTextAlignmentCenter;
-            if ([settingStrArray count]>indexPath.row) {
-                cell.detailTextLabel.text = [settingStrArray objectAtIndex:indexPath.row];
-            }
+        
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        if ([settingStrArray count]>indexPath.row) {
+            cell.detailTextLabel.text = [settingStrArray objectAtIndex:indexPath.row];
+        }
             
-            cell.detailTextLabel.font = [UIFont fontWithName:@"Arial" size:settingFontSize];
-            cell.detailTextLabel.numberOfLines = 2;
-            cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping|NSLineBreakByTruncatingTail;
-            CGSize boundSize = CGSizeMake(180, CGFLOAT_MAX);
+        cell.detailTextLabel.font = [UIFont fontWithName:@"Arial" size:settingFontSize];
+        cell.detailTextLabel.numberOfLines = 2;
+        cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping|NSLineBreakByTruncatingTail;
+        CGSize boundSize = CGSizeMake(180, CGFLOAT_MAX);
             
             
-            CGSize requireSize = [Tools getTextArrange:cell.detailTextLabel.text maxRect:boundSize fontSize:16];
+        CGSize requireSize = [Tools getTextArrange:cell.detailTextLabel.text maxRect:boundSize fontSize:16];
             
-            if (cell.frame.size.height<requireSize.height) {
-                [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, requireSize.height+28)];
-            }
-            
-            
-            
+        if (cell.frame.size.height<requireSize.height) {
+            [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, requireSize.height+28)];
         }
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

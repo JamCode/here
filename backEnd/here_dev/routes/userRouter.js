@@ -763,6 +763,12 @@ router.post('/getUserCollectList', function(req, res){
 	});
 });
 
+router.post('/submitFeedback', function(req, res){	
+	userMgmt.submitFeedback(req.body, function(flag, result){
+		routeFunc.feedBack(flag, result, res);
+	});
+});
+
 
 router.get('/testfile', function(req, res){
 	res.send('testfile');
