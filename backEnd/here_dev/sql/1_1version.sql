@@ -27,3 +27,10 @@ DROP TABLE IF EXISTS  `content_report_info`;
 CREATE TABLE `content_report_info` (
   `cri_content_id` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS  `feedback_info`;
+CREATE TABLE `feedback_info` (
+  `fi_user_id` varchar(100) NOT NULL,
+  `fi_feedback` varchar(300),
+  `submit_date` varchar(20)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

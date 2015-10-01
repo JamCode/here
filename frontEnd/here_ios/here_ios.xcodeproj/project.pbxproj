@@ -176,6 +176,8 @@
 		B267C6401BA7F55600D12035 /* VisitListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63F1BA7F55600D12035 /* VisitListAction.m */; };
 		B267C6431BA8085400D12035 /* VisitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C6421BA8085400D12035 /* VisitModel.m */; };
 		B2689B391BBA3CFB008B8AF0 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = B2689B381BBA3CFB008B8AF0 /* down.png */; settings = {ASSET_TAGS = (); }; };
+		B2689B3C1BBCD753008B8AF0 /* MasterSettingCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B2689B3B1BBCD753008B8AF0 /* MasterSettingCtrl.m */; settings = {ASSET_TAGS = (); }; };
+		B2689B3F1BBD0F7E008B8AF0 /* FeedBackCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B2689B3E1BBD0F7E008B8AF0 /* FeedBackCtrl.m */; settings = {ASSET_TAGS = (); }; };
 		B29B5ED21BA9499D00D62757 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29B5ED11BA9499D00D62757 /* InfoPlist.strings */; };
 		E777BF15ECD86C660D85C8AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF27723DED1CCDC21653282 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -453,6 +455,10 @@
 		B267C6411BA8085400D12035 /* VisitModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitModel.h; sourceTree = "<group>"; };
 		B267C6421BA8085400D12035 /* VisitModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitModel.m; sourceTree = "<group>"; };
 		B2689B381BBA3CFB008B8AF0 /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
+		B2689B3A1BBCD753008B8AF0 /* MasterSettingCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterSettingCtrl.h; sourceTree = "<group>"; };
+		B2689B3B1BBCD753008B8AF0 /* MasterSettingCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterSettingCtrl.m; sourceTree = "<group>"; };
+		B2689B3D1BBD0F7E008B8AF0 /* FeedBackCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackCtrl.h; sourceTree = "<group>"; };
+		B2689B3E1BBD0F7E008B8AF0 /* FeedBackCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackCtrl.m; sourceTree = "<group>"; };
 		B29B5ED11BA9499D00D62757 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -788,6 +794,8 @@
 			children = (
 				B24D686B1BA6C46900F33A96 /* Property List.plist */,
 				B2392B421BABF183009FE00C /* BlackListAction.h */,
+				B2689B3A1BBCD753008B8AF0 /* MasterSettingCtrl.h */,
+				B2689B3B1BBCD753008B8AF0 /* MasterSettingCtrl.m */,
 				B2392B431BABF183009FE00C /* BlackListAction.m */,
 				B24D686C1BA6C46900F33A96 /* ComTableViewCtrl.h */,
 				B24D686D1BA6C46900F33A96 /* ComTableViewCtrl.m */,
@@ -841,6 +849,8 @@
 				B24D68991BA6C46900F33A96 /* UserImageViewController.m */,
 				B24D689A1BA6C46900F33A96 /* PublishContentViewController.h */,
 				B24D689B1BA6C46900F33A96 /* PublishContentViewController.m */,
+				B2689B3D1BBD0F7E008B8AF0 /* FeedBackCtrl.h */,
+				B2689B3E1BBD0F7E008B8AF0 /* FeedBackCtrl.m */,
 				B24D689C1BA6C46900F33A96 /* ContentDetailViewController.h */,
 				B24D689D1BA6C46900F33A96 /* ContentDetailViewController.m */,
 				B24D689E1BA6C46900F33A96 /* PublishCommentViewController.h */,
@@ -1203,6 +1213,7 @@
 				B24D69341BA6C8A400F33A96 /* SocketIO.m in Sources */,
 				B24D680F1BA6C06800F33A96 /* PriMsgTableViewCell.m in Sources */,
 				B24D68671BA6C3F200F33A96 /* CommentModel.m in Sources */,
+				B2689B3C1BBCD753008B8AF0 /* MasterSettingCtrl.m in Sources */,
 				B24D68B11BA6C46900F33A96 /* GoodDetailAction.m in Sources */,
 				B24D69331BA6C8A400F33A96 /* README.md in Sources */,
 				B24D68AC1BA6C46900F33A96 /* RegisterUserInfoViewController.m in Sources */,
@@ -1249,6 +1260,7 @@
 				B24D68661BA6C3F200F33A96 /* PriMsgModel.m in Sources */,
 				B24D691E1BA6C8A400F33A96 /* NSString+Emojize.m in Sources */,
 				B24D69301BA6C8A400F33A96 /* CHANGELOG.md in Sources */,
+				B2689B3F1BBD0F7E008B8AF0 /* FeedBackCtrl.m in Sources */,
 				B24D68071BA6C06800F33A96 /* ContentTableViewCell.m in Sources */,
 				B24D69391BA6C8A400F33A96 /* TextFieldView.m in Sources */,
 				B24D65B31BA6AC5800F33A96 /* main.m in Sources */,
