@@ -6,9 +6,10 @@ var log = global.log;
 
 exports.submitFeedback = function(reqBody, callback){
 
-	var sql = "insert into feedback_info(fi_user_id, fi_feedback, submit_date)values(?,?,?)";
-	var date = new Date().format("yyyy-MM-dd HH:mm:ss");
-	conn.executeSql(sql, [reqBody.user_id, reqBody.feedback, date], callback);
+	var sql = "insert into feedback_info(fi_user_id, fi_feedback, submit_timestamp)values(?,?,?)";
+	var timestamp = Date.now()/1000;
+	
+	conn.executeSql(sql, [reqBody.user_id, reqBody.feedback, timestamp], callback);
 }
 
 exports.findNearbyUser = function(locationInfo, callback){
