@@ -32,5 +32,5 @@ DROP TABLE IF EXISTS  `feedback_info`;
 CREATE TABLE `feedback_info` (
   `fi_user_id` varchar(100) NOT NULL,
   `fi_feedback` varchar(300),
-  `submit_timestamp` bigint(20)
+  `fi_submit_timestamp` bigint(20)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
