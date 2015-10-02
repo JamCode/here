@@ -9,7 +9,6 @@
 #import "ContentViewController.h"
 #import<MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "ContentView.h"
 #import "Constant.h"
 #import "PublishContentViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>

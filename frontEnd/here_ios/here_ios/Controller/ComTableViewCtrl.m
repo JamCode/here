@@ -206,6 +206,9 @@ static int bottomActiveHeight = 30;
         [comTableDelegate pullUpAction:^{
             [self pullUpFinish];
         }];
+        
+        [self performSelector:@selector(pullUpFinish) withObject:nil afterDelay:15];
+        
     }else{
         
         NSLog(@"default pullUpAction");
@@ -220,9 +223,13 @@ static int bottomActiveHeight = 30;
             [self pullDownFinish];
         }];
         
+<<<<<<< HEAD
         
         [self performSelector:@selector(pullDownFinish) withObject:nil afterDelay:2];
         
+=======
+        [self performSelector:@selector(pullDownFinish) withObject:nil afterDelay:15];
+>>>>>>> dev
     }else{
         
         NSLog(@"default pullUpAction");
@@ -238,9 +245,12 @@ static int bottomActiveHeight = 30;
 
 - (void)pullDownFinish
 {
-    [self.refreshControl endRefreshing];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@""];
-    [self.tableView reloadData];
+    if (self.refreshControl.refreshing == YES) {
+        [self.refreshControl endRefreshing];
+        self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@""];
+        [self.tableView reloadData];
+    }
+    
     
     if (pullUp == YES) {
         [self allowPullUp];

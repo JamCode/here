@@ -36,6 +36,8 @@
 + (UIViewController *)appRootViewController;
 
 + (void)AlertMsg:(NSString*)msg;
++ (void)AlertBigMsg:(NSString*)msg;
+
 
 + (UINavigationController*)curNavigator;
 
