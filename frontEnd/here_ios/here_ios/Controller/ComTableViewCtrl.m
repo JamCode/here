@@ -223,13 +223,7 @@ static int bottomActiveHeight = 30;
             [self pullDownFinish];
         }];
         
-<<<<<<< HEAD
-        
-        [self performSelector:@selector(pullDownFinish) withObject:nil afterDelay:2];
-        
-=======
         [self performSelector:@selector(pullDownFinish) withObject:nil afterDelay:15];
->>>>>>> dev
     }else{
         
         NSLog(@"default pullUpAction");
