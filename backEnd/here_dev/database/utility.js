@@ -2,7 +2,17 @@ var log = global.log;
 
 var mysql = require('mysql');
 var config = require('../config/config');
-var global_config = require('../config/env_config');
+
+var global_config;
+if(process.env.ENV=='dev'){
+	global_config = require('./config/dev_env_config');
+}
+
+if(process.env.ENV=='pro'){
+	global_config = require('./config/pro_env_config');
+}
+
+
 var crypto = require('crypto'); 
 
 global_config.mysql_dev = decodeDBStr(global_config.mysql_dev);
