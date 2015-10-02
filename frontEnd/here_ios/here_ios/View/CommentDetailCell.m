@@ -17,6 +17,8 @@
 #import "Tools.h"
 #import "GoodModel.h"
 
+//hehe
+
 @implementation CommentDetailCell
 {
     FaceView* counter_face;
