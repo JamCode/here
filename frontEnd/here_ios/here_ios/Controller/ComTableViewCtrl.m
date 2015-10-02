@@ -219,6 +219,10 @@ static int bottomActiveHeight = 30;
         [comTableDelegate pullDownAction:^{
             [self pullDownFinish];
         }];
+        
+        
+        [self performSelector:@selector(pullDownFinish) withObject:nil afterDelay:2];
+        
     }else{
         
         NSLog(@"default pullUpAction");
