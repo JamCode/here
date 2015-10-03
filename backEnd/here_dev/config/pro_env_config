@@ -1,7 +1,7 @@
 var path = require('path');
 
 exports.env = {
-        homedir: path.join(process.env.HOME, 'pro')
+        homedir: path.join(process.env.HOME, '')
 };
 
 exports.httpServerInfo = {
@@ -14,8 +14,8 @@ exports.socketServerInfo = {
 
 exports.mysql_dev = {
     host: 'rdsruiaj3v2uaiv.mysql.rds.aliyuncs.com',
-    user: '299424a4fbb55cc3ceeac6f932d7edfb',
-    password: '299424a4fbb55cc3ceeac6f932d7edfb',
-    database: 'online',
+    user: '1d0a41c38ba304318d333752086da426',
+    password: '1d0a41c38ba304318d333752086da426',
+    database: 'pro_online',
     port: 3306
 };
