@@ -16,6 +16,8 @@
 #import "AppDelegate.h"
 #import "Tools.h"
 #import "GoodModel.h"
+//more
+//hehe
 
 @implementation CommentDetailCell
 {
