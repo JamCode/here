@@ -14,7 +14,15 @@ global.log = log; //设置全局
 
 
 var config = require('./config/config');
-var global_config = require('./config/env_config');
+
+var global_config;
+if(process.env.ENV=='dev'){
+    global_config = require('./config/dev_env_config');
+}
+
+if(process.env.ENV=='pro'){
+    global_config = require('./config/pro_env_config');
+}
 
 var instantMsgMgmt = require('./database/instantMsgMgmt');
 var userMgmt = require('./database/userMgmt');

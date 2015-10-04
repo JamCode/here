@@ -1,0 +1,21 @@
+var path = require('path');
+
+exports.env = {
+        homedir: path.join(process.env.HOME, '')
+};
+
+exports.httpServerInfo = {
+        listen_port: 8080
+};
+
+exports.socketServerInfo = {
+        listen_port: 10666
+};
+
+exports.mysql_dev = {
+    host: 'rdsruiaj3v2uaiv.mysql.rds.aliyuncs.com',
+    user: '1d0a41c38ba304318d333752086da426',
+    password: '1d0a41c38ba304318d333752086da426',
+    database: 'pro_online',
+    port: 3306
+};
