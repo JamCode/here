@@ -8,7 +8,7 @@
 
 #import "Pri_msg.h"
 
-//test
+//test test
 @implementation Pri_msg
 
 @dynamic data;
