@@ -22,10 +22,10 @@ var imageOper = require('../utility/imageOper');
 var redis = require('redis');
 var redis_client = redis.createClient();
 var async = require('async');
+var os = require('os');
+var networkInterface = os.networkInterfaces();
 
-
-
-var imageHomeUrl = global_config.httpServerInfo.url + ":" + global_config.httpServerInfo.listen_port + config.imageInfo.url;
+var imageHomeUrl = "http://"+networkInterface.eth1[0].address + ":" + global_config.httpServerInfo.listen_port + config.imageInfo.url;
 
 log.info(imageHomeUrl, log.getFileNameAndLineNum(__filename));
 
@@ -457,6 +457,12 @@ router.post('/addCommentToContent', function(req, res) {
 	});
 });
 
+
+router.post('/reportContent', function(req, res){
+	contentMgmt.insertReportContent(req.body, function(flag, result){
+		routeFunc.feedBack(flag, result, res);
+	});
+})
 
 // router.get('/converContentImage', function(req, res){
 //     log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));

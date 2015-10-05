@@ -12,7 +12,7 @@
 #import "OptionFunView.h"
 #import "MyImageView.h"
 @class ContentViewController;
-@interface ContentTableViewCell : UITableViewCell<OptionFunViewDelegate, UIScrollViewDelegate, UITextViewDelegate>
+@interface ContentTableViewCell : UITableViewCell<OptionFunViewDelegate, UIScrollViewDelegate, UITextViewDelegate, UIActionSheetDelegate>
 
 
 @property FaceView* faceView;
@@ -41,6 +41,9 @@
 
 - (void)increaseCommentCount;
 - (void)increaseGoodCount;
+
+
++ (ContentTableViewCell*)generateCell:(UITableView*)tableView cellId:(NSString*)cellId contentList:(NSMutableArray*)contentList indexPath:(NSIndexPath*)indexPath;
 
 @property UITableView* tableView;
 

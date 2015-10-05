@@ -7,6 +7,11 @@ var log = global.log;
 
 
 
+exports.insertReportContent = function(contentBody, callback){
+	var sql = "insert into content_report_info(cri_content_id) values(?)";
+	conn.executeSql(sql, [contentBody.content_id], callback);
+}
+
 //add by wanghan 20141129 for publish active message
 
 exports.insertContent = function(contentBody, callback){
@@ -194,11 +199,10 @@ exports.getPopularContent = function(reqBody, callback){
 	var timestamp = Date.now()/1000;
 	var sql = "select a.*, b.*, c.* from content_base_info a left join content_image_info c on a.content_id = c.content_id, user_base_info b "
 	+" where a.user_id = b.user_id "
-	+" and content_publish_timestamp<? "
 	+" and content_publish_timestamp>?"
-	+" order by content_good_count*1+content_comment_count*3+content_see_count*2 DESC limit 8 offset ?";
+	+" order by content_good_count*1+content_comment_count*3+content_see_count*2 DESC limit 16";
 	
-	conn.executeSql(sql, [last_timestamp, timestamp - 4*3600*24, offset], callback);
+	conn.executeSql(sql, [timestamp - 4*3600*24], callback);
 }
 
 

@@ -20,6 +20,7 @@
 #import "NearByPersonAction.h"
 #import "ComTableViewCtrl.h"
 #import "GoodDetailAction.h"
+#import "SettingViewController.h"
 
 @interface MenuViewCtrl ()
 
@@ -150,14 +151,15 @@ static const int faceimage_width = 64;
     }
     
     if(indexPath.row == 3){
-        //我的收藏
+        //我的资料
         
         [app.sideMenu closeMenuAnimated:YES completion:nil];
         UINavigationController* nav =  (UINavigationController*)[app.tabBarViewController.viewControllers objectAtIndex:0];
         
-        ContentViewController* contentView = [[ContentViewController alloc] init:@"我的收藏" publishButtonFlag:NO setLoadingAction:@selector(getCollectContent) content_user_id:[AppDelegate getMyUserInfo].userID];
-        contentView.hidesBottomBarWhenPushed = YES;
-        [nav pushViewController:contentView animated:NO];
+        SettingViewController* userSetting = [[SettingViewController alloc] init:[AppDelegate getMyUserInfo]];
+        
+        userSetting.hidesBottomBarWhenPushed = YES;
+        [nav pushViewController:userSetting animated:NO];
         
     }
 }
@@ -253,7 +255,7 @@ static const int faceimage_width = 64;
     }
     
     if (indexPath.row == 3) {
-        cell.textLabel.text = @"我的收藏";
+        cell.textLabel.text = @"我的资料";
     }
     
     cell.textLabel.font = [UIFont fontWithName:@"Arial" size:18];

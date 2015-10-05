@@ -15,13 +15,11 @@
 #import "FaceView.h"
 #import "CommentTableViewCell.h"
 #import "ContentModel.h"
-#import "ContentView.h"
 #import "PublishCommentViewController.h"
 #import "Tools.h"
 #import <MBProgressHUD.h>
 #import "ContentViewController.h"
 #import "ContentTableViewCell.h"
-#import "ContentView.h"
 #import "CommentModel.h"
 
 
@@ -76,14 +74,9 @@ static const double textViewHeight = 36;
         [self getContentBaseInfo];
     }
     
-//    ContentTableViewCell* cell = [[ContentTableViewCell alloc] init];
-//    [cell setContentModel:_contentModel];
     
-    //UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 100)];
     
-    //[self.tableView setTableHeaderView:view];
     
-    //self.tableView.tableHeaderView = cell;
     
     [self getContentCommentsList];
     //[self addSeeCount];
@@ -103,6 +96,10 @@ static const double textViewHeight = 36;
     
     self.tableView.tableFooterView=[[UIView alloc]init];
     
+    if ([_contentModel.userInfo.userID isEqualToString:myUserInfo.userID]) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonAction:)];
+
+    }
 }
 
 

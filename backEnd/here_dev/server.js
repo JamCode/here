@@ -2,7 +2,17 @@ var log = require('./utility/log');
 log.SetLogFileName('logServer_');
 global.log = log; //设置全局
 
-var global_config = require('./config/env_config');
+var global_config;
+if(process.env.ENV=='dev'){
+	global_config = require('./config/dev_env_config');
+}
+
+if(process.env.ENV=='pro'){
+	global_config = require('./config/pro_env_config');
+}
+
+
+
 global.global_config = global_config;
 
 

@@ -58,10 +58,22 @@
 #define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 
 
+
+#ifdef DEBUG
 #define SocketIP @"112.74.102.178"
 #define SocketPort 10666
+#else
+#define SocketIP @"123.57.229.67"
+#define SocketPort 10666
+#endif
 
+
+#ifdef DEBUG
 #define ServerDomain @"http://112.74.102.178:8080"
+#else
+#define ServerDomain @"http://123.57.229.67:8080"
+#endif
+
 
 //ad version
 //#define gaodeKey @"6c9781e21fe0aacac37199da85548ec2"

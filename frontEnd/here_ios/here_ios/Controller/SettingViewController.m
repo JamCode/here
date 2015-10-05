@@ -25,6 +25,8 @@
 #import "ImageBrowseAction.h"
 #import "VisitListAction.h"
 #import "BlackListAction.h"
+#import "MasterSettingCtrl.h"
+#import "FeedBackCtrl.h"
 
 //#import "ImageBrowseViewCtrl.h"
 //#import "VisitListCtrl.h"
@@ -84,7 +86,7 @@
     
     BOOL isInBlack;
     
-    UIImageView* lastVisitUserFace;
+    //UIImageView* lastVisitUserFace;
 }
 @end
 
@@ -118,7 +120,15 @@ const int bigCellHeight = 88;
 const int bigCellImageHeigh = 64;
 
 
-const int sectionCount = 4;
+const int sectionCount = 2;
+
+typedef enum  {
+    publishAndPhoto,
+    details,
+    support,
+    logout
+} section;
+
 
 - (id)init:(UserInfoModel*)whoInfo
 {
@@ -151,21 +161,21 @@ const int sectionCount = 4;
     
     
     
-    settingTitleArray = [[NSMutableArray alloc] initWithArray:@[@"年龄", @"星座", @"职业", @"公司", @"个人签名", @"兴趣爱好"]];
+    settingTitleArray = [[NSMutableArray alloc] initWithArray:@[@"性别", @"年龄", @"星座", @"个人签名"]];
     
     tableviewHeight = 0;
     _changedFlag = false;
     _deleteUserImageFlag = false;
     userImageArray = [[NSMutableArray alloc] init];
-
+    
 }
 
 - (void)settingButtonAction:(id)sender
 {
-//    TalkViewController* talk = [[TalkViewController alloc] init];
-//    talk.counterInfo = _userInfo;
-//    talk.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:talk animated:YES];
+    //    TalkViewController* talk = [[TalkViewController alloc] init];
+    //    talk.counterInfo = _userInfo;
+    //    talk.hidesBottomBarWhenPushed = YES;
+    //    [self.navigationController pushViewController:talk animated:YES];
     
     if (isInBlack == false) {
         sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"关注Ta", @"私信", @"加入黑名单", nil];
@@ -174,7 +184,7 @@ const int sectionCount = 4;
     }
     
     [sheet showInView:self.view];
-
+    
     
 }
 
@@ -182,9 +192,9 @@ const int sectionCount = 4;
 - (void)insertBlackListSuccess:(id)sender
 {
     
-//    [_parentCtrl deleteMsg:_counterInfo.userID];
-//    [_parentCtrl.tableView reloadData];
-//    [self.navigationController popViewControllerAnimated:YES];
+    //    [_parentCtrl deleteMsg:_counterInfo.userID];
+    //    [_parentCtrl.tableView reloadData];
+    //    [self.navigationController popViewControllerAnimated:YES];
     
     
     loadingView = [[MBProgressHUD alloc] initWithView:self.view];
@@ -228,7 +238,7 @@ const int sectionCount = 4;
     [loadingView hide:YES afterDelay:2];
     
     //[self.navigationController popViewControllerAnimated:YES];
-
+    
 }
 
 - (void)deleteBlackListError:(id)sender
@@ -314,7 +324,7 @@ const int sectionCount = 4;
             
             [self presentViewController:picker animated:YES completion:nil];
         }
-
+        
     }
     
     if (actionSheet == sheet) {
@@ -352,9 +362,16 @@ const int sectionCount = 4;
 //}
 
 
+- (void)showSetting:(id)sender
+{
+    MasterSettingCtrl* masterSetting = [[MasterSettingCtrl alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    masterSetting.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:masterSetting animated:YES];
+}
+
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //self.navigationController.delegate =self;
@@ -387,7 +404,7 @@ const int sectionCount = 4;
     self.navigationItem.titleView = navTitle;
     
     
-
+    
     
     faceBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenWidth)];
     faceBackgroundView.backgroundColor = myblack;
@@ -414,7 +431,7 @@ const int sectionCount = 4;
     //faceImageView.layer.borderWidth = 1.0;
     //faceImageView.layer.borderColor = [UIColor whiteColor].CGColor;
     
-//    [faceImageView sd_setImageWithURL:[[NSURL alloc] initWithString:_userInfo.faceImageURLStr] placeholderImage:[UIImage imageNamed:@"loading.png"]];
+    //    [faceImageView sd_setImageWithURL:[[NSURL alloc] initWithString:_userInfo.faceImageURLStr] placeholderImage:[UIImage imageNamed:@"loading.png"]];
     
     headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, faceBackgroundView.frame.origin.y+ faceBackgroundView.frame.size.height+60)];
     headerView.backgroundColor = [UIColor whiteColor];
@@ -424,38 +441,8 @@ const int sectionCount = 4;
     
     self.tableView.tableFooterView=[[UIView alloc]init];
     [headerView addSubview:faceBackgroundView];
-
+    
     [headerView addSubview:faceImageView];
-    
-    
-//    genderView = [[UIImageView alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x + faceImageView.frame.size.width +10, faceImageView.frame.origin.y+faceImageView.frame.size.height/2, genderView_width, genderView_height)];
-//    [headerView addSubview:genderView];
-
-    
-    
-//    zanImageView = [[UIImageView alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x + faceImageView.frame.size.width +10, genderView.frame.origin.y+genderView.frame.size.height+10, genderView_width, genderView_height)];
-//    zanImageView.image = [UIImage imageNamed:@"zan-active.png"];
-//    
-//    [headerView addSubview:zanImageView];
-    
-    
-    
-    
-    
-    
-//    ageAndStar = [[UILabel alloc] initWithFrame:CGRectMake(genderView.frame.origin.x+genderView.frame.size.width + 10, genderView.frame.origin.y, ageLabel_width, 20)];
-//    ageAndStar.font = [UIFont fontWithName:@"Arial" size:15];
-//    ageAndStar.textColor = [UIColor grayColor];
-//    
-//    [headerView addSubview: ageAndStar];
-    
-//    visitCityLabel = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x + zanImageView.frame.size.width +10, zanImageView.frame.origin.y, 120, 20)];
-//    visitCityLabel.font = [UIFont fontWithName:@"Arial" size:15];
-//    visitCityLabel.textColor = [UIColor grayColor];
-//    
-//    [headerView addSubview: visitCityLabel];
-    
-    
     
     sign = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x, zanImageView.frame.origin.y+zanImageView.frame.size.height+10, 200, zanImageView.frame.size.height)];
     //sign.text = _userInfo.sign;
@@ -465,7 +452,6 @@ const int sectionCount = 4;
     
     //get user image from server
     [self getUserInfo];
-    [self getLastVisitUser];
     
     backgroundView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     backgroundView.backgroundColor = [UIColor blackColor];
@@ -473,23 +459,7 @@ const int sectionCount = 4;
     [backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewPress:)]];
     
     
-    //send visit msg if user_id not equal my user_id
-    if ([_userInfo.userID isEqual:app.myInfo.userID] == FALSE) {
-        //send visit msg
-        [self sendVisitMsg];
-    }
-    
-//    self.refreshControl = [[UIRefreshControl alloc] init];
-//    [self.refreshControl addTarget:self action:@selector(refreshUserInfo:) forControlEvents:UIControlEventValueChanged];
-//    self.refreshControl.tintColor = [UIColor grayColor];
-    
 }
-
-
-//- (void)refreshUserInfo:(id)sender
-//{
-//    [self getUserInfo];
-//}
 
 
 - (void)sendVisitMsg
@@ -499,12 +469,10 @@ const int sectionCount = 4;
     
     NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, myInfo.userID,  myInfo.nickName, @"/visit"] forKeys:@[@"user_id", @"visit_user_id",  @"visit_user_name", @"childpath"]];
     
-//    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getUserInfoSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
-    
     [netWork message:message images:nil feedbackcall:nil complete:^{
         //[self hideLoading];
     } callObject:self];
-
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -566,8 +534,8 @@ const int sectionCount = 4;
     
     [_userInfo fillWithData:feedback];
     
-//    ageLabel.text = [[NSString alloc] initWithFormat:@"%ld岁 | %@", [Tools getAgeFromBirthDay:_userInfo.birthday], [Tools getStarDesc:_userInfo.birthday]];
-
+    //    ageLabel.text = [[NSString alloc] initWithFormat:@"%ld岁 | %@", [Tools getAgeFromBirthDay:_userInfo.birthday], [Tools getStarDesc:_userInfo.birthday]];
+    
     
     //ageLabel.text = [[NSString alloc] initWithFormat:@"%ld", (long)_userInfo.age];
     sign.text = _userInfo.sign;
@@ -593,17 +561,20 @@ const int sectionCount = 4;
     
     //visitCityLabel.text = [[NSString alloc] initWithFormat:@"%d", goodCount];
     
-//    ageAndStar.text = [[NSString alloc] initWithFormat:@"%ld | 去过%d个城市", _userInfo.age, visitCityCount];
+    //    ageAndStar.text = [[NSString alloc] initWithFormat:@"%ld | 去过%d个城市", _userInfo.age, visitCityCount];
     
     
     [settingStrArray removeAllObjects];
     
+    if (_userInfo.gender == 1) {
+        [settingStrArray addObject:@"男"];
+    }else{
+        [settingStrArray addObject:@"女"];
+    }
+    
     [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.age]];
     [settingStrArray addObject:[Tools getStarDesc:_userInfo.birthday]];
-    [settingStrArray addObject:_userInfo.career];
-    [settingStrArray addObject:_userInfo.company];
     [settingStrArray addObject:_userInfo.sign];
-    [settingStrArray addObject:_userInfo.interest];
     
     
     
@@ -682,39 +653,27 @@ const int sectionCount = 4;
     alertMsg(@"未知问题");
 }
 
-- (void)getLastVisitUserSuccess:(id)sender
-{
-    NSDictionary* feedback = (NSDictionary*)sender;
-    NSArray* data = [feedback objectForKey:@"data"];
-    if ([data count] == 0) {
-        return;
-    }
-    
-    NSDictionary* element = [data objectAtIndex:0];
-    
-    lastVisitUserFace = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    lastVisitUserFace.layer.masksToBounds =YES;
-    
+//- (void)getLastVisitUserSuccess:(id)sender
+//{
+//    NSDictionary* feedback = (NSDictionary*)sender;
+//    NSArray* data = [feedback objectForKey:@"data"];
+//    if ([data count] == 0) {
+//        return;
+//    }
+//    
+//    NSDictionary* element = [data objectAtIndex:0];
+//    
+//    lastVisitUserFace = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+//    lastVisitUserFace.layer.masksToBounds =YES;
+//    
+//    
+//    lastVisitUserFace.layer.cornerRadius = lastVisitUserFace.frame.size.height/2;
+//    
+//    [lastVisitUserFace sd_setImageWithURL:[[NSURL alloc] initWithString:[element objectForKey:@"user_facethumbnail"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//    }];
+//}
 
-    lastVisitUserFace.layer.cornerRadius = lastVisitUserFace.frame.size.height/2;
-    
-    [lastVisitUserFace sd_setImageWithURL:[[NSURL alloc] initWithString:[element objectForKey:@"user_facethumbnail"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-    }];
-}
 
-- (void)getLastVisitUser
-{
-    NetWork* netWork = [[NetWork alloc] init];
-    
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, @"/getLastVisitUser"] forKeys:@[@"user_id", @"childpath"]];
-    
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getLastVisitUserSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
-    
-    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
-        //[self hideLoading];
-    } callObject:self];
-
-}
 
 - (void)getUserInfo
 {
@@ -724,7 +683,7 @@ const int sectionCount = 4;
     UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
     NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myInfo.userID, _userInfo.userID, @"/getUserInfo"] forKeys:@[@"my_user_id", @"user_id", @"childpath"]];
     
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getUserInfoSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(getUserInfoException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getUserInfoSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
     
     [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
         [self hideLoading];
@@ -799,9 +758,9 @@ const int sectionCount = 4;
         [backgroundView setAlpha:0.0];
         [self.tabBarController.view addSubview:backgroundView];
         
-//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:enlargeFaceView animated:YES];
-//        hud.mode = MBProgressHUDModeIndeterminate;
-//        [hud show:YES];
+        //        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:enlargeFaceView animated:YES];
+        //        hud.mode = MBProgressHUDModeIndeterminate;
+        //        [hud show:YES];
         
         [enlargeFaceView sd_setImageWithURL:[[NSURL alloc] initWithString:_userInfo.faceImageURLStr] placeholderImage:faceImageView.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             //[hud hide:YES];
@@ -815,7 +774,7 @@ const int sectionCount = 4;
             [backgroundView setAlpha:1.0];
             enlargeFaceView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight);
             enlargeFaceView.contentMode = UIViewContentModeScaleAspectFit;
-        
+            
         } completion:^(BOOL finished) {
             ;
         }];
@@ -829,26 +788,27 @@ const int sectionCount = 4;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if ([[AppDelegate getMyUserInfo].userID isEqualToString:_userInfo.userID] == false){
-        return sectionCount -1;
+    AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    if ([_userInfo.userID isEqual:[app getMyID]]) {
+        return 4;
     }else{
-        return sectionCount;
+        return 2;
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 2) {
+    if (section == publishAndPhoto) {
+        return 2;
+    }else if (section == details){
         return [settingTitleArray count];
-    }else if (section == 0){
+    }else if(section == support){
         return 2;
-    }else if (section == 1 ) {
-        return 2;
-    }else if(section == 3){
-        return 2;
-    }else{
-        return 0;
+    }else if(section == logout){
+        return 1;
     }
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -856,7 +816,7 @@ const int sectionCount = 4;
     if (indexPath.section == 0) {
         return bigCellHeight;
     }else{
-        return 44;
+        return 46;
     }
     
     //UITableViewCell* cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
@@ -909,6 +869,19 @@ const int sectionCount = 4;
 }
 
 
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    
+    if (section == support) {
+        return @"支持";
+    }
+    if (section == details) {
+        return @"个人资料";
+    }
+    return @"";
+}
+
+
 - (void)showBlackList
 {
     //[self.navigationController pushViewController:[[BlackListTableViewCtrl alloc] init] animated:YES];
@@ -920,63 +893,67 @@ const int sectionCount = 4;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    if ([app.myInfo.userID isEqualToString:_userInfo.userID] == false&&indexPath.section == 2) {
+    if ([app.myInfo.userID isEqualToString:_userInfo.userID] == false&&indexPath.section == details) {
         //基本资料只能本用户点击修改
         return;
     }
     
-    
-    
-    if (indexPath.section ==3) {
-        //logout
-        if (indexPath.row == 0) {
-            [self showBlackList];
-        }else if(indexPath.row == 1){
-            [self logout];
+    if(indexPath.section ==details){
+        
+        if(indexPath.row == 0){
+            //最近来访
+            ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[VisitListAction alloc] initWithUserId:_userInfo.userID]];
+            comTable.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:comTable animated:YES];
+        }else{
+            if(indexPath.row == 4){
+                _changedFlag = false;
+                SettingChildViewController* settingChild = [[SettingChildViewController alloc] init];
+                settingChild.settingStrArray = settingStrArray;
+                settingChild.settingTitleArray = settingTitleArray;
+                settingChild.parent = self;
+                settingChild.hidesBottomBarWhenPushed = YES;
+                settingChild.index = indexPath.row;
+                [self.navigationController pushViewController:settingChild animated:YES];
+            }
         }
-        
-    }else if(indexPath.section ==2){
-        
-//        if (indexPath.row == 0||indexPath.row == 1||indexPath.row == 2) {
-//            //年龄，星座，性别无法修改
-//            return;
-//        }
-        
-        _changedFlag = false;
-        SettingChildViewController* settingChild = [[SettingChildViewController alloc] init];
-        settingChild.settingStrArray = settingStrArray;
-        settingChild.settingTitleArray = settingTitleArray;
-        settingChild.parent = self;
-        settingChild.hidesBottomBarWhenPushed = YES;
-        settingChild.index = indexPath.row;        
-        [self.navigationController pushViewController:settingChild animated:YES];
-        
-    }else if(indexPath.section == 0&&indexPath.row == 0){
+    }
+    
+    if(indexPath.section == publishAndPhoto&&indexPath.row == 0){
         //发布
         ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[MyContentAction alloc] init:_userInfo.userID]];
         comTable.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:comTable animated:YES];
-
-    }else if(indexPath.section == 0 && indexPath.row == 1){
+        
+    }
+    
+    if(indexPath.section == publishAndPhoto && indexPath.row == 1){
         //发布的图片
         ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[ImageBrowseAction alloc] init:_userInfo.userID]];
         comTable.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:comTable animated:YES];
         
-    }else if(indexPath.section == 1){
-        if (indexPath.row == 0) {
-            //最近来访
-            ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[VisitListAction alloc] init]];
+    }
+    
+    if (indexPath.section == logout) {
+        [self logout];
+    }
+    
+    if (indexPath.section == support) {
+        
+        if(indexPath.row == 1){
+            FeedBackCtrl* feedback = [[FeedBackCtrl alloc] init];
+            feedback.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:feedback animated:YES];
+
+        }
+        
+        if(indexPath.row == 0){
+            //黑名单
+            ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[BlackListAction alloc] init]];
             comTable.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:comTable animated:YES];
-            
-        }
-        if (indexPath.row == 1) {
-            //去过的城市
-            //VisitPlaceListCtrl* visitPlace = [[VisitPlaceListCtrl alloc] init];
-            //visitPlace.userInfo = _userInfo;
-            //visitPlace.hidesBottomBarWhenPushed = YES;
-            //[self.navigationController pushViewController:visitPlace animated:YES];
         }
     }
 }
@@ -1004,7 +981,7 @@ const int sectionCount = 4;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-
+    
     
     
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
@@ -1026,7 +1003,7 @@ const int sectionCount = 4;
     
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];//状态栏白色
-
+    
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1042,59 +1019,53 @@ const int sectionCount = 4;
         cell.textLabel.text = @"";
     }
     
-    if (indexPath.section == 3) {
-        if (indexPath.row == 0) {
-            cell.textLabel.text = @"黑名单";
-        }
-        if (indexPath.row == 1) {
-            cell.textLabel.text = @"退出登录";
-        }
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
+    
+    if (indexPath.section == logout) {
+        cell.textLabel.text = @"退出账户";
+        cell.textLabel.textColor = subjectColor;
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
     }
     
-    if (indexPath.section == 2) {
-
+    if(indexPath.section == support){
+        if (indexPath.row == 1) {
+            cell.textLabel.text = @"用户反馈";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        if(indexPath.row == 0){
+            cell.textLabel.text = @"黑名单";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+       
+    }
+    
+    if (indexPath.section == details) {
         cell.textLabel.text = [settingTitleArray objectAtIndex:indexPath.row];
+        
+        
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         if ([settingStrArray count]>indexPath.row) {
             cell.detailTextLabel.text = [settingStrArray objectAtIndex:indexPath.row];
         }
-        
+            
         cell.detailTextLabel.font = [UIFont fontWithName:@"Arial" size:settingFontSize];
         cell.detailTextLabel.numberOfLines = 2;
         cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping|NSLineBreakByTruncatingTail;
         CGSize boundSize = CGSizeMake(180, CGFLOAT_MAX);
-        
-        
+            
+            
         CGSize requireSize = [Tools getTextArrange:cell.detailTextLabel.text maxRect:boundSize fontSize:16];
-        
+            
         if (cell.frame.size.height<requireSize.height) {
             [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, requireSize.height+28)];
         }
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
+        
     }
     
-    if (indexPath.section == 1) {
-        cell.textLabel.text = @"";
-        cell.detailTextLabel.text = @"";
-        if (indexPath.row == 0) {
-            cell.textLabel.text = @"最近来访";
-            lastVisitUserFace.frame = CGRectMake(ScreenWidth - 64, 10, lastVisitUserFace.frame.size.width, lastVisitUserFace.frame.size.height);
-            [cell.contentView addSubview:lastVisitUserFace];
-        }
-        if (indexPath.row == 1) {
-            cell.textLabel.text = @"去过的城市";
-            cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%d", visitCityCount];
-        }
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
-    }
-    
-    
-    if (indexPath.section == 0) {
+
+    if (indexPath.section == publishAndPhoto) {
         if (indexPath.row == 0) {
             
             cell.textLabel.text = @"发布";
@@ -1145,7 +1116,7 @@ const int sectionCount = 4;
                     contentPublishTimeLabel.text = [Tools showTime:contentPublishTime];
                     [cell.contentView addSubview:contentPublishTimeLabel];
                 }
-
+                
             }
             
         }
@@ -1188,15 +1159,15 @@ const int sectionCount = 4;
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
 
