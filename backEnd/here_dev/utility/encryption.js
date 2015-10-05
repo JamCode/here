@@ -1,4 +1,3 @@
-var nibbler = require('node_nibbler-master');
 var log = global.log;
 
 exports.encode = function(str){
