@@ -14,6 +14,12 @@ if($put!=1){
 
 print $ARGV[0]."\n";
 
+system("cd $HOME");
+system("wget https://github.com/JamCode/here/archive/".$ARGV[0].".zip");
+
+
+
+
 
 
 
