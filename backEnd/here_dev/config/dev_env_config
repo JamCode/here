@@ -1,7 +1,7 @@
 var path = require('path');
 
 exports.env = {
-        homedir: path.join(process.env.HOME, 'dev')
+        homedir: path.join(process.env.HOME, '')
 };
 
 exports.httpServerInfo = {
