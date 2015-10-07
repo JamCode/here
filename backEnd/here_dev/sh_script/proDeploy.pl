@@ -5,13 +5,14 @@
 
 print "stop all processes\n";
 system("./stopall.sh");
+
 $put=@ARGV;
 if($put!=1){
-	print "parameter error!\n";
+	print "parameter error, should add version num like \"proDeploy.pl 1.0.4\"\n";
 	exit -1;
 }
 
-print $put[0]."\n";
+print $ARGV[0]."\n";
 
 
 
