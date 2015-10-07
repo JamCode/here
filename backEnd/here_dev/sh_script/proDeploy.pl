@@ -25,8 +25,7 @@ system("rm -r -f ./frontEnd");
 
 #数据库备份和升级
 
-#system("mysqldump -hrdsruiaj3v2uaiv.mysql.rds.aliyuncs.com -upro_wanghan -ppro_wanghan pro_online 
-#	> $HOME/database_last_back.sql");
+#system("mysqldump -hrdsruiaj3v2uaiv.mysql.rds.aliyuncs.com -upro_wanghan -ppro_wanghan pro_online > $HOME/database_last_back.sql");
 
 chdir "$HOME/here/backEnd/here_dev/sql";
 
