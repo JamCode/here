@@ -1,27 +1,41 @@
 {
-    "name": "bae-nodejs",
-    "version": "1.0.0",
-    "author": "bae",
-    "description": "The first bae nodejs app!",
+    "name": "here",
+    "version": "1.0.4",
+    "author": "wanghan",
+    "description": "here picture social ",
     "scripts": {
-        "start": "node server.js"
+        "start": "startall.sh",
+        "stop":"stopall.sh"
     },
-    "dependencies": {
-    "redis": "0.9.1",
-    "express": "~4.2.0",
-    "mysql": "2.4.2",
-    "socket.io": "1.2.0",
-    "socket.io-client": "1.2.0",
-    "body-parser": "1.4.3",
-    "baidu-bcs": "0.2.1",
-    "formidable": "1.0.14",
-    "request": "2.40.0",
-    "MD5": "1.2.1",
-    "mysql-queues": "1.0.0",
-    "geolib": "2.0.14",
-    "jade": "~1.3.0",
-    "ejs": ">=0.0.1",
-    "xml2js":"0.2.4"
+
+    "dependencies": 
+    {
+        "redis": "*",
+        "express": "*",
+        "mysql": "*",
+        "socket.io": "*",
+        "socket.io-client": "*",
+        "body-parser": "*",
+        "formidable": "*",
+        "request": "*",
+        "MD5": "*",
+        "mysql-queues": "*",
+        "geolib": "*",
+        "jade": "*",
+        "ejs": "*",
+        "xml2js":"*",
+        "strong-mq": "*",
+        "apn": "*",
+        "async": "*",
+        "nodemailer":"*",
+        "gm": "*",
+        "log4js":"*",
+        "parseuri":"*",
+        "sticky-session":"*",
+        "domain":"*",
+        "morgan":"*",
+        "xml2js":"*",
+        "ejs":"*"
     }
 }
 

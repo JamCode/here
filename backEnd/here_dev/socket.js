@@ -39,9 +39,6 @@ var async = require('async');
 var net = require('net');
 var express = require('express');
 
-var nibbler = require('node_nibbler-master');
-
-
 var socketPort = global_config.socketServerInfo.listen_port;
 
 var encryp = require('./utility/encryption.js');
