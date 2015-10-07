@@ -6,7 +6,12 @@
 print "stop all processes\n";
 system("./stopall.sh");
 $put=@ARGV;
-print $put;
+if($put!=1){
+	print "parameter error!\n";
+	exit -1;
+}
+
+print $put[0]."\n";
 
 
 
