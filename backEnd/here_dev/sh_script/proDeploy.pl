@@ -4,7 +4,7 @@
 #部署1.0.4版本
 
 print "stop all processes\n";
-system("stophere");
+system("`stophere`");
 
 $put=@ARGV;
 if($put!=1){
@@ -33,7 +33,7 @@ chdir "$HOME/here/backEnd/here_dev/sql";
 system("mysql -upro_wanghan -ppro_wanghan -Dpro_online <".$ARGV[0].".sql>./sqllog.txt");
 
 #启动应用
-system("starthere");
+system("`starthere`");
 
 print "update finish!\n";
 
