@@ -15,8 +15,13 @@ if($put!=1){
 print $ARGV[0]."\n";
 
 chdir "$HOME";
-
 system("wget https://github.com/JamCode/here/archive/".$ARGV[0].".zip");
+system("unzip ".$ARGV[0]);
+system("mv here here_old");
+system("mv here-".$ARGV[0]." here");
+
+
+
 
 
 
