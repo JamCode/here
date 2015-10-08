@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B2050CE41BB7AAD500074E92 /* HotContentAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B2050CE31BB7AAD500074E92 /* HotContentAction.m */; settings = {ASSET_TAGS = (); }; };
+		B21EA8411BC6B78500A20994 /* waitPage6p.png in Resources */ = {isa = PBXBuildFile; fileRef = B21EA8401BC6B78500A20994 /* waitPage6p.png */; settings = {ASSET_TAGS = (); }; };
+		B21EA8431BC6B78D00A20994 /* waitPage6.png in Resources */ = {isa = PBXBuildFile; fileRef = B21EA8421BC6B78D00A20994 /* waitPage6.png */; settings = {ASSET_TAGS = (); }; };
+		B21EA8451BC6B79500A20994 /* waitPage5.png in Resources */ = {isa = PBXBuildFile; fileRef = B21EA8441BC6B79500A20994 /* waitPage5.png */; settings = {ASSET_TAGS = (); }; };
 		B2392B441BABF183009FE00C /* BlackListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B2392B431BABF183009FE00C /* BlackListAction.m */; settings = {ASSET_TAGS = (); }; };
 		B24D65B31BA6AC5800F33A96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D65B21BA6AC5800F33A96 /* main.m */; };
 		B24D65B61BA6AC5800F33A96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D65B51BA6AC5800F33A96 /* AppDelegate.m */; };
@@ -198,6 +201,9 @@
 		9911EC87AD469992DE0EB08F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B2050CE21BB7AAD500074E92 /* HotContentAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotContentAction.h; sourceTree = "<group>"; };
 		B2050CE31BB7AAD500074E92 /* HotContentAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotContentAction.m; sourceTree = "<group>"; };
+		B21EA8401BC6B78500A20994 /* waitPage6p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waitPage6p.png; sourceTree = "<group>"; };
+		B21EA8421BC6B78D00A20994 /* waitPage6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waitPage6.png; sourceTree = "<group>"; };
+		B21EA8441BC6B79500A20994 /* waitPage5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waitPage5.png; sourceTree = "<group>"; };
 		B2392B421BABF183009FE00C /* BlackListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackListAction.h; sourceTree = "<group>"; };
 		B2392B431BABF183009FE00C /* BlackListAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackListAction.m; sourceTree = "<group>"; };
 		B24D65AD1BA6AC5800F33A96 /* here_ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = here_ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -687,6 +693,9 @@
 				B24D66CA1BA6BB1F00F33A96 /* chat_animation2.png */,
 				B24D66CB1BA6BB1F00F33A96 /* chat_animation3.png */,
 				B24D66CC1BA6BB1F00F33A96 /* chat_animation_white1.png */,
+				B21EA8401BC6B78500A20994 /* waitPage6p.png */,
+				B21EA8421BC6B78D00A20994 /* waitPage6.png */,
+				B21EA8441BC6B79500A20994 /* waitPage5.png */,
 				B24D66CD1BA6BB1F00F33A96 /* chat_animation_white2.png */,
 				B24D66CE1BA6BB1F00F33A96 /* chat_animation_white3.png */,
 				B24D66CF1BA6BB1F00F33A96 /* dot.png */,
@@ -1082,6 +1091,7 @@
 				B24D67BD1BA6BB1F00F33A96 /* setting@2x.png in Resources */,
 				B24D66EC1BA6BB1F00F33A96 /* location.png in Resources */,
 				B24D67C11BA6BB1F00F33A96 /* addImage49px.png in Resources */,
+				B21EA8431BC6B78D00A20994 /* waitPage6.png in Resources */,
 				B24D66EB1BA6BB1F00F33A96 /* description.png in Resources */,
 				B24D67C31BA6BB1F00F33A96 /* chat_animation2.png in Resources */,
 				B24D67BB1BA6BB1F00F33A96 /* nearbylocation@2x.png in Resources */,
@@ -1103,11 +1113,13 @@
 				B24D67A91BA6BB1F00F33A96 /* IMG_3462.JPG in Resources */,
 				B24D67B31BA6BB1F00F33A96 /* sexselect64px.png in Resources */,
 				B24D66ED1BA6BB1F00F33A96 /* Property List.plist in Resources */,
+				B21EA8411BC6B78500A20994 /* waitPage6p.png in Resources */,
 				B24D67B41BA6BB1F00F33A96 /* xingshizheng.png in Resources */,
 				B24D67D41BA6BB1F00F33A96 /* nearbylocation.png in Resources */,
 				B24D68A01BA6C46900F33A96 /* Property List.plist in Resources */,
 				B24D66F01BA6BB1F00F33A96 /* registerCountIcon.png in Resources */,
 				B24D67C71BA6BB1F00F33A96 /* chat_animation_white3.png in Resources */,
+				B21EA8451BC6B79500A20994 /* waitPage5.png in Resources */,
 				B24D67A81BA6BB1F00F33A96 /* IMG_3461.JPG in Resources */,
 				B24D67C41BA6BB1F00F33A96 /* chat_animation3.png in Resources */,
 				B24D67AA1BA6BB1F00F33A96 /* mychat_normal.png in Resources */,

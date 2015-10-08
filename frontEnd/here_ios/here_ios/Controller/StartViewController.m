@@ -11,6 +11,7 @@
 #import "SignInViewController.h"
 #import "macro.h"
 #import "Constant.h"
+#import "Tools.h"
 
 @interface StartViewController ()
 
@@ -36,7 +37,20 @@ static const int button_height = 46;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    UIImageView* backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-login.png"]];
+    
+    NSString* deviceModel = [Tools getCurrentDeviceModel];
+    UIImageView* backgroundImage;
+    if([deviceModel isEqualToString:@"iPhone6"]){
+        backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"waitPage6.png"]];
+    }
+    
+    else if ([deviceModel isEqualToString:@"iPhone6Plus"]) {
+        backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"waitPage6p.png"]];
+    }else{
+        backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"waitPage5.png"]];
+    }
+    
+    
     backgroundImage.userInteractionEnabled = YES;
     backgroundImage.frame = self.view.frame;
     

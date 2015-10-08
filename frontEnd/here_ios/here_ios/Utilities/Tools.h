@@ -42,4 +42,6 @@
 + (UINavigationController*)curNavigator;
 
 
++ (NSString *)getCurrentDeviceModel;
+
 @end
