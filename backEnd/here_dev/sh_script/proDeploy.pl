@@ -11,7 +11,7 @@ system("./stopall.sh");
 
 $put=@ARGV;
 if($put!=1){
-	print "parameter error, should add version num like \"proDeploy.pl 1.0.4\"\n";
+	print "parameter error, should add version num like \"proDeploy.pl 1.0.0\"\n";
 	exit -1;
 }
 
