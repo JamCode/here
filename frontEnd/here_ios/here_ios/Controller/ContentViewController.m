@@ -369,6 +369,8 @@ static const double bottomToolbarHeight = 48;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
+    
     if (loadingAction == @selector(getNearbyContent)) {
         //check unread msg
         [self checkUnreadMsg];
@@ -391,6 +393,8 @@ static const double bottomToolbarHeight = 48;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:YES];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
@@ -787,7 +791,7 @@ static const double bottomToolbarHeight = 48;
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    
+    [super viewDidAppear:YES];
 }
 
 

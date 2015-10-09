@@ -74,6 +74,8 @@ static int bottomActiveHeight = 30;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
+    
     if ([comTableDelegate respondsToSelector:@selector(tableViewWillAppear:)]) {
         [comTableDelegate tableViewWillAppear:self];
     }
@@ -81,6 +83,8 @@ static int bottomActiveHeight = 30;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:YES];
+    
     if ([comTableDelegate respondsToSelector:@selector(tableViewWillDisappear:)]) {
         [comTableDelegate tableViewWillDisappear:self];
     }

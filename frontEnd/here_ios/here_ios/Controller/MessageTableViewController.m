@@ -569,6 +569,8 @@ static const int noticeLabelHeight = 20;
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:YES];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -604,6 +606,8 @@ static const int noticeLabelHeight = 20;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
+    
     [self getPriMsgFriendList];
     [self checkMissedMsg];
     [self updateTabCount];
@@ -611,6 +615,8 @@ static const int noticeLabelHeight = 20;
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
+    [super viewDidAppear:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applicationWillEnterForeground:)

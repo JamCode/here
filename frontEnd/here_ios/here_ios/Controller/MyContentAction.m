@@ -30,7 +30,7 @@
 
 - (id)init:(NSString*)user_id
 {
-    if ([super init]) {
+    if (self = [super init]) {
         my_content_user_id = user_id;
     }
     return self;

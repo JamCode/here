@@ -229,8 +229,6 @@
         for (CLPlacemark* placemark in placemarks) {
             NSString* test = [placemark locality];
             NSLog(@"%@", test);
-            test = [placemark country];
-            test = [placemark subLocality];
             cityDesc = [placemark administrativeArea];
             
             _address = [NSString stringWithFormat:@"%@·%@·%@", [placemark country], [placemark administrativeArea], [placemark subLocality]];
@@ -390,6 +388,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];//状态栏白色
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     

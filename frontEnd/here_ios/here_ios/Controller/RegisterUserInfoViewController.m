@@ -110,8 +110,6 @@ static const int selectHeight = 44;
     
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:selectDate];
     
-    NSInteger day = [components day];
-    NSInteger month= [components month];
     NSInteger year= [components year];
     
     
@@ -248,7 +246,7 @@ static const int selectHeight = 44;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
+    [super viewWillAppear:YES];
 }
 
 - (void)didReceiveMemoryWarning

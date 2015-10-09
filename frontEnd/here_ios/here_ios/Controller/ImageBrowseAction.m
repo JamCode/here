@@ -27,7 +27,7 @@
 
 - (id)init:(NSString*)user_id
 {
-    if ([super init]) {
+    if (self = [super init]) {
         my_user_id = user_id;
     }
     return self;

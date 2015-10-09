@@ -42,9 +42,6 @@ static const int faceImageWidth = 68;
 static const int userNameLabelHeight = 20;
 static const int userSignLabelHeight = 16;
 
-static const int carIconHeight = 22;
-static const int carIconWidth = 22;
-
 static const int ageAndGenderHeight = 20;
 static const int ageAndGenderWidth = 40;
 

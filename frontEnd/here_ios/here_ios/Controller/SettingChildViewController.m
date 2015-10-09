@@ -68,6 +68,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:YES];
+    
     [_settingStrArray setObject:editView.text atIndexedSubscript:_index];
     
     //update userInfo
