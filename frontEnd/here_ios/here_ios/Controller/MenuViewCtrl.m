@@ -193,7 +193,7 @@ static const int faceimage_width = 64;
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    
+    [super viewDidAppear:YES];
 }
 
 

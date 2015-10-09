@@ -99,7 +99,7 @@
     
     UIBarButtonItem *rightitem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publishButton:)];
     
-    UINavigationItem * navigationBarTitle = [[UINavigationItem alloc] initWithTitle:nil];
+    UINavigationItem * navigationBarTitle = [[UINavigationItem alloc] initWithTitle:@""];
     navigationBarTitle.leftBarButtonItem = leftitem;
     navigationBarTitle.rightBarButtonItem = rightitem;
     

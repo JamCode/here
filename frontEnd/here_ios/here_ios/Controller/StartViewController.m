@@ -89,6 +89,7 @@ static const int button_height = 46;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 

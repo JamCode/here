@@ -113,6 +113,8 @@ typedef enum masterSection{
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
+    
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 

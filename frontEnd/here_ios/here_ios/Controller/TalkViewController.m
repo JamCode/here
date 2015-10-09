@@ -1246,11 +1246,14 @@ static const double textViewWidth = 250;
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:YES];
+    
     [talkTableView setDelegate:nil];
     UUAVAudioPlayer* audio = [UUAVAudioPlayer sharedInstance];
     [audio stopSound];
@@ -1276,10 +1279,13 @@ static const double textViewWidth = 250;
 //        [talkTableView selectRowAtIndexPath:curIndex animated:NO scrollPosition:UITableViewScrollPositionBottom];
 //        //        [talkTableView setContentOffset:CGPointMake(0, talkTableView.contentSize.height -talkTableView.bounds.size.height) animated:NO];
 //    }
+    [super viewDidAppear:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
+    
     [talkTableView setDelegate:self];
 
     UIApplication *app = [UIApplication sharedApplication];

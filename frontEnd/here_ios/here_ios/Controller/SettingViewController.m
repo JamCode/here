@@ -975,14 +975,14 @@ typedef enum  {
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    //[super viewWillDisappear:animated];
+    [super viewWillDisappear:animated];
     //[self.navigationController.navigationBar lt_reset];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     
-    
+    [super viewWillAppear:YES];
     
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     
@@ -1003,6 +1003,8 @@ typedef enum  {
     
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];//状态栏白色
+    
+
     
 }
 
