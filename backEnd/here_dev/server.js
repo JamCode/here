@@ -56,7 +56,7 @@ if(cluster.isMaster){
 
 	process.on('uncaughtException', function (err) {
 		log.logPrint(config.logLevel.ERROR, 'master HTTP SERVER Caught exception: ' + err.stack);
-		email.sendMail('HTTP SERVER Caught exception: ' + err.stack);
+		email.sendMail('HTTP SERVER Caught exception: ' + err.stack, "server process failed");
 	});
 
 	cluster.fork();
@@ -68,7 +68,7 @@ if(cluster.isMaster){
 
 
     	//send msg to admin
-  		email.sendMail('server worker ' + worker.process.pid + ' died');
+  		email.sendMail('server worker ' + worker.process.pid + ' died', "server process failed");
   	});
 
 	cluster.on('listening', function(worker, address) {  
@@ -88,7 +88,7 @@ function startHTTPServer(port){
 
 	process.on('uncaughtException', function (err) {
 		log.error('slaver HTTP SERVER Caught exception: ' + err.stack, log.getFileNameAndLineNum(__filename));
-		email.sendMail('HTTP SERVER Caught exception: ' + err.stack);
+		email.sendMail('HTTP SERVER Caught exception: ' + err.stack, "server process failed");
 	});
 
 	global.app = express();//创建express实例
