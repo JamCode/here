@@ -7,4 +7,4 @@ mydate=`date +"%Y%m%d"`
 
 subject=${mydate}"错误报告"
 
-node $HOME/here/backEnd/here_dev/utility/sendEmail.js $subject "no"
+node $HOME/here/backEnd/here_dev/utility/sendEmail.js $subject "no" &
