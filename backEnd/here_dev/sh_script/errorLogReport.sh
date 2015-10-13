@@ -5,7 +5,6 @@ grep -i -n error $HOME/logs/*>$HOME/err_report.txt
 #if error exist, send email to monitor
 mydate=`date +"%Y%m%d"`
 
-$subject = "错误报告-"+mydate
+subject=${mydate}"错误报告"
 
-echo $subject;
-#node $HOME/here/backEnd/here_dev/utility/sendEmail.js $subject "no"
+node $HOME/here/backEnd/here_dev/utility/sendEmail.js $subject "no"
