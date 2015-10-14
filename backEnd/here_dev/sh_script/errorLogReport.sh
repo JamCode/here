@@ -11,4 +11,4 @@ text=`cat $HOME/err_report.txt|awk '{printf $0}' `
 
 echo $text
 
-node $HOME/here/backEnd/here_dev/utility/sendEmail.js $subject "no" $text &
+node $HOME/here/backEnd/here_dev/utility/sendEmail.js $subject $text &
