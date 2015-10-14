@@ -1,15 +1,37 @@
+#! /usr/bin/perl
+
+
 #using for get log error and report to monitor
 #crontab task
 
-system("grep -i -n error $HOME/logs/*>$HOME/err_report.txt");
+#system("grep -i -n error $HOME/logs/*>$HOME/err_report.txt");
 
 
 #if error exist, send email to monitor
-$mydate=system("`date +"%Y%m%d"`");
-print $mydate."\n";
-$subject=$mydate."错误报告";
-print $subject."\n";
 
+
+my $time = shift || time();
+my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($time);
+$year += 1900;
+$mon ++;
+
+$subject = $year."-".$mon."-".$mday."-错误报告";
+
+$home = $ENV{HOME};
+
+open(FILE,"<$home/err_report.txt")||die"cannot open the file: $!\n";
+
+@linelist=<FILE>;
+$content="";
+foreach $eachline(@linelist){
+    $content = $content.$eachline;
+}
+
+close FILE;
+
+print $content;
+
+system("node $home/here/backEnd/here_dev/utility/sendEmail.js $subject $content &");
 
 # text="错误日志";
 
