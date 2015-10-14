@@ -7,4 +7,8 @@ mydate=`date +"%Y%m%d"`
 
 subject=${mydate}"错误报告"
 
-node $HOME/here/backEnd/here_dev/utility/sendEmail.js $subject "no" &
+text=`cat $HOME/err_report.txt|awk '{printf $0}' `
+
+echo $text
+
+node $HOME/here/backEnd/here_dev/utility/sendEmail.js $subject "no" $text &
