@@ -9,7 +9,8 @@ subject=${mydate}"错误报告"
 
 cat $HOME/logs/*>$HOME/err_report.txt | while read line
 do
-    text =$text$line;
+	echo $line;
+    text =${text}$line;
 done
 
 echo $text
