@@ -9,6 +9,9 @@
 
 #if error exist, send email to monitor
 
+$HOME = $ENV{HOME};
+
+`grep -i -n error $HOME/logs/*>$HOME/err_report.txt`;
 
 my $time = shift || time();
 my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($time);
@@ -16,23 +19,12 @@ $year += 1900;
 $mon ++;
 
 $subject = $year."-".$mon."-".$mday."-错误报告";
+print $subject."\n";
 
-$home = $ENV{HOME};
+$filePath = "$HOME/err_report.txt";
 
-open(FILE,"<$home/err_report.txt")||die"cannot open the file: $!\n";
+`node $HOME/here/backEnd/here_dev/utility/sendEmail.js $subject $filePath &`
 
-@linelist=<FILE>;
-$content="";
-foreach $eachline(@linelist){
-    $content = $content.$eachline;
-}
-
-close FILE;
-
-print $subject;
-print $content;
-
-system("node $home/here/backEnd/here_dev/utility/sendEmail.js ".$subject." ".$content." &");
 
 # text="错误日志";
 
