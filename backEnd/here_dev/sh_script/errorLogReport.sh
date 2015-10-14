@@ -7,7 +7,7 @@ mydate=`date +"%Y%m%d"`
 
 subject=${mydate}"错误报告"
 
-cat file($HOME/logs/*>$HOME/err_report.txt) | while read line
+cat $HOME/logs/*>$HOME/err_report.txt | while read line
 do
     text =$text$line;
 done
