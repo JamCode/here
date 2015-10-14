@@ -71,7 +71,7 @@ if (cluster.isMaster) {
             log.error('socket worker ' + worker.process.pid + ' died, code is ' + code + ", signal is " + signal, log.getFileNameAndLineNum(__filename));
             cluster.fork();
 
-            email.sendMail('socket worker ' + worker.process.pid + ' died');
+            email.sendMail('socket worker ' + worker.process.pid + ' died', "socket process failed");
 
         });
 
@@ -86,7 +86,7 @@ if (cluster.isMaster) {
 
     process.on('uncaughtException', function (err) {
         log.error('SOCKET SERVER Caught exception: ' + err.stack, log.getFileNameAndLineNum(__filename));
-        email.sendMail('SOCKET SERVER Caught exception: ' + err.stack);
+        email.sendMail('SOCKET SERVER Caught exception: ' + err.stack, "socket process failed");
     });
 
     startSocketServer();
