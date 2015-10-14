@@ -7,7 +7,7 @@ mydate=`date +"%Y%m%d"`
 
 subject=${mydate}"错误报告"
 
-text=`cat $HOME/err_report.txt|awk '{printf $0}' `
+text="错误日志\n"<$HOME/err_report.txt
 
 echo $text
 
