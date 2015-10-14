@@ -7,12 +7,12 @@ mydate=`date +"%Y%m%d"`
 
 subject=${mydate}"错误报告"
 
-cat $HOME/logs/*>$HOME/err_report.txt | while read line
+
+cat $HOME/err_report.txt | while read line
 do
-	echo $line;
-    text =${text}$line;
+	text=$text$line;
 done
 
-echo $text
+echo $text;
 
-node $HOME/here/backEnd/here_dev/utility/sendEmail.js $subject $text &
+#node $HOME/here/backEnd/here_dev/utility/sendEmail.js $subject $text &
