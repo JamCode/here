@@ -29,9 +29,10 @@ foreach $eachline(@linelist){
 
 close FILE;
 
+print $subject;
 print $content;
 
-system("node $home/here/backEnd/here_dev/utility/sendEmail.js $subject $content &");
+system("node $home/here/backEnd/here_dev/utility/sendEmail.js ".$subject." ".$content." &");
 
 # text="错误日志";
 
