@@ -35,7 +35,7 @@ exports.insertContent = function(contentBody, callback){
 		contentBody.publish_latitude, 
 		contentBody.publish_longitude, 
 		contentBody.timestamp,
-		new Date(parseInt(contentBody.timestamp)*1000).toLocaleString().substr(0,17),
+		new Date(),
 		contentBody.anonymous, 
 		contentBody.content_image_url, 
 		contentBody.address], callback);
