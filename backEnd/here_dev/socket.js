@@ -222,7 +222,7 @@ function getMissedMsgAsync(result, fn) {
         if (item.msg_type == config.msgType.VOICEMSG||item.msg_type == config.msgType.IMAGEMSG) {
             fs.readFile(item.datapath, {encoding:'utf8',flag:'r'}, function (err, data) {
                 if (err) {
-                    log.error(err+" item.message_id "+item.message_id, log.getFileNameAndLineNum(__filename));
+                    log.error(err+" item.msg_id "+item.msg_id, log.getFileNameAndLineNum(__filename));
                     item.data = null;
                 } else {
                     //log.info(data, log.getFileNameAndLineNum(__filename));

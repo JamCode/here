@@ -10,15 +10,16 @@ var encryp = require('../utility/encryption.js');
 //add by wanghan 20141121 for save private message
 exports.insertPrivateMsg = function(from_id, to_id, msg_content, msg_id, msg_type, datapath, voice_time, msg_srno, callback){
 	var timestamp = Date.now()/1000;
+	var datetime = new Date(parseInt(contentBody.timestamp)*1000).toLocaleString().substr(0,17);
 
 	log.debug('enter insertPrivateMsg', log.getFileNameAndLineNum(__filename));
 
 	msg_content = encryp.encode(msg_content);
 	
 	log.debug(msg_content, log.getFileNameAndLineNum(__filename));
-	var sql = 'insert into private_message_info(msg_id, sender_user_id, receive_user_id, message_content, msg_type, datapath, voice_time, msg_srno, send_timestamp)'
-	+'values(?,?,?,?,?,?,?,?,?)';
-	conn.executeSql(sql, [msg_id, from_id, to_id, msg_content, msg_type, datapath ,voice_time, msg_srno, timestamp], callback);
+	var sql = 'insert into private_message_info(msg_id, sender_user_id, receive_user_id, message_content, msg_type, datapath, voice_time, msg_srno, send_timestamp, datetime)'
+	+'values(?,?,?,?,?,?,?,?,?,?)';
+	conn.executeSql(sql, [msg_id, from_id, to_id, msg_content, msg_type, datapath ,voice_time, msg_srno, timestamp, datetime], callback);
 }
 
 //end by wanghan 20141121 for save private message
