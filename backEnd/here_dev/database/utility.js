@@ -195,7 +195,7 @@ function apnErrorHappened(err, notification) {
 		//
 		log.warn("err code:" + err + " "+JSON.stringify(notification), log.getFileNameAndLineNum(__filename));
 	}else{
-		log.error("err code:" + err +" "+ JSON.stringify(notification), log.getFileNameAndLineNum(__filename));
+		log.warn("err code:" + err +" "+ JSON.stringify(notification), log.getFileNameAndLineNum(__filename));
 	}
 }
 
