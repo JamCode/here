@@ -10,7 +10,7 @@ var encryp = require('../utility/encryption.js');
 //add by wanghan 20141121 for save private message
 exports.insertPrivateMsg = function(from_id, to_id, msg_content, msg_id, msg_type, datapath, voice_time, msg_srno, callback){
 	var timestamp = Date.now()/1000;
-	var datetime = new Date(parseInt(timestamp)*1000).toLocaleString().substr(0,17);
+	var datetime = new Date();
 
 	log.debug('enter insertPrivateMsg', log.getFileNameAndLineNum(__filename));
 
