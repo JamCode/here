@@ -11,6 +11,10 @@
 #import "Constant.h"
 #import "RegisterUserInfoViewController.h"
 #import "UserInfoModel.h"
+#import "Tools.h"
+#import "NetWork.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "macro.h"
 
 @interface RegisterNickNameViewController ()
 {
@@ -72,15 +76,44 @@ static const int textview_height = 44;
     textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if (textField.text.length==0||textField.text==nil) {
+        
+        [Tools AlertBigMsg:@"名字不能为空"];
         return;
     }
     
+    [textField resignFirstResponder];
+    
+    //验证名字
+    MBProgressHUD* loadingView = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:loadingView];
+    [loadingView show:YES];
+    
+    NetWork* netWork = [[NetWork alloc] init];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[textField.text, @"/checkNameExist"] forKeys:@[@"user_name", @"childpath"]];
+    
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(userNameExist:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(userNameNotExist:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:USER_EXIST],[[NSNumber alloc] initWithInt:USER_NOT_EXIST]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
+        [loadingView hide:YES];
+        [loadingView removeFromSuperview];
+    } callObject:self];
+}
+
+- (void)userNameNotExist:(id)sender
+{
     _userInfo.nickName = textField.text;
     
     RegisterUserInfoViewController* registerUserInfo = [[RegisterUserInfoViewController alloc] init];
     registerUserInfo.userInfo = _userInfo;
     
     [self.navigationController pushViewController:registerUserInfo animated:YES];
+}
+
+
+- (void)userNameExist:(id)sender
+{
+    [Tools AlertBigMsg:@"名称已被注册"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
