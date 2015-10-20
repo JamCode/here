@@ -63,6 +63,11 @@
 #define GET_COMMENT_LIST 1301
 
 
+#define USER_EXIST 1500
+
+#define USER_NOT_EXIST 1501
+
+
 #define TIMEMSG 1
 #define USERMSG 0
 #define LOADINGMSG 2

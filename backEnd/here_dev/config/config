@@ -86,7 +86,11 @@ exports.returnCode = {
 	GET_JOIN_LIST: 1300,
 	GET_COMMENT_LIST: 1301,
 
-	BLACK_LIST: 1400
+	BLACK_LIST: 1400,
+
+	USER_EXIST: 1500,
+
+	USER_NOT_EXIST: 1501
 };
 
 exports.hashKey = {
