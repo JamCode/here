@@ -81,6 +81,8 @@ static const int textview_height = 44;
         return;
     }
     
+    [textField resignFirstResponder];
+    
     //验证名字
     MBProgressHUD* loadingView = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:loadingView];
