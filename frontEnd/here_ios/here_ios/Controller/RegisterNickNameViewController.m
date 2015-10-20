@@ -11,6 +11,7 @@
 #import "Constant.h"
 #import "RegisterUserInfoViewController.h"
 #import "UserInfoModel.h"
+#import "Tools.h"
 
 @interface RegisterNickNameViewController ()
 {
@@ -72,10 +73,18 @@ static const int textview_height = 44;
     textField.text = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if (textField.text.length==0||textField.text==nil) {
+        
+        [Tools AlertBigMsg:@"名字不能为空"];
         return;
     }
     
+    
+    
+    
     _userInfo.nickName = textField.text;
+    
+    
+    
     
     RegisterUserInfoViewController* registerUserInfo = [[RegisterUserInfoViewController alloc] init];
     registerUserInfo.userInfo = _userInfo;
