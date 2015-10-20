@@ -4,6 +4,12 @@ var config = require('../config/config');
 var log = global.log;
 
 
+exports.checkUserNameExist = function(reqBody, callback){
+	var sql = "select *from user_base_info where user_name = ?";
+	conn.executeSql(sql, [reqBody.user_name], callback);
+}
+
+
 exports.submitFeedback = function(reqBody, callback){
 
 	var sql = "insert into feedback_info(fi_user_id, fi_feedback, fi_submit_timestamp)values(?,?,?)";
