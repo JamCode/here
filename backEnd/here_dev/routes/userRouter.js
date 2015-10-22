@@ -417,6 +417,7 @@ router.post('/register', function(req, res) {
 
 		userMgmt.register(user_info, function(flag, result) {
 			if (flag) {
+				log.debug("REGISTER_SUCCESS", log.getFileNameAndLineNum(__filename));
 				statusCode = config.returnCode.REGISTER_SUCCESS;
 				returnData = {
 					'user_phone' : user_info.user_phone,
@@ -430,7 +431,7 @@ router.post('/register', function(req, res) {
 					'code' : statusCode
 				}
 			} else {
-				log.logPrint(config.logLevel.ERROR, result);
+				log.error(result, log.getFileNameAndLineNum(__filename));
 				statusCode = config.returnCode.REGISTER_FAIL;
 				returnData = {
 					'user_phone' : fields.user_phone,
