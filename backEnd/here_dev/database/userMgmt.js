@@ -90,8 +90,8 @@ exports.certificateCode = function(userPhone, certificateCode, timeStamp, callba
 		if (flag){
 			if (result.length){
 				if (timeStamp - result[0].Time_stamp > config.number.threeMinute) {
-					sql = 'update confirm_phone set Certificate_code = ?, Time_stamp = ? where User_phone = ?';
-					conn.executeSql(sql, [certificateCode, timeStamp, userPhone], callback);
+					sql = 'insert into confirm_phone values(?,?,?)';
+					conn.executeSql(sql, [userPhone, certificateCode, timeStamp], callback);
 				}else{
 					callback(true);
 				}

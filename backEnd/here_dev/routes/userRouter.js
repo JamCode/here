@@ -481,10 +481,12 @@ router.post('/confirmPhone', function(req, res) {
 			'code' : 0
 		};
 		if (flag && result.length) {
+			log.debug(req.body.user_phone+' PHONE_EXIST', log.getFileNameAndLineNum(__filename));
 			statusCode = config.returnCode.PHONE_EXIST;
 			returnData.code = statusCode;
 			res.send(returnData);
 		} else if (flag) {
+			
 			var certificateCode = (Math.random() * config.number.numberInput).toFixed(0);
 			var timestamp = new Date().getTime();
 			userMgmt.certificateCode(req.body.user_phone, certificateCode, timestamp, function(flag, result) {
