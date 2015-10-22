@@ -84,6 +84,12 @@ exports.getFacethumbnail = function(userId, callback) {
 	conn.executeSql(sql, [userId], callback);
 }
 
+
+exports.getCertificateCode = function(userPhone, callback){
+	var sql = 'select *from confirm_phone where user_phone = ? order by time_stamp desc limit 1';
+	conn.executeSql(sql, [userPhone], callback);
+}
+
 exports.certificateCode = function(userPhone, certificateCode, timeStamp, callback) {
 	var sql = 'select Time_stamp from confirm_phone where User_phone = ?';
 	conn.executeSql(sql, [userPhone], function(flag, result){
