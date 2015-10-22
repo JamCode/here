@@ -15,6 +15,7 @@
 #import "TabBarViewController.h"
 #import "AppDelegate.h"
 #import "CocoaSecurity.h"
+#import "Tools.h"
 
 @interface RegisterConfirmViewController ()
 {
@@ -181,11 +182,16 @@ static const int notice_height = 18;
     
     
     
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(registerSuccess:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerFail:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerError:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerException:) objCType:@encode(SEL)] ] forKeys:@[[[NSNumber alloc] initWithInt:REGISTER_SUCCESS],[[NSNumber alloc] initWithInt:REGISTER_FAIL],[[NSNumber alloc] initWithInt:ERROR],[[NSNumber alloc] initWithInt:EXCEPTION]]];
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(registerSuccess:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerFail:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(certificateNotMatch:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerException:) objCType:@encode(SEL)] ] forKeys:@[[[NSNumber alloc] initWithInt:REGISTER_SUCCESS],[[NSNumber alloc] initWithInt:REGISTER_FAIL],[[NSNumber alloc] initWithInt:CERTIFICATE_CODE_NOT_MATCH],[[NSNumber alloc] initWithInt:EXCEPTION]]];
     
     [netWork message:message images:images feedbackcall:feedbackcall complete:^{
         [loadingView hide:YES];
     } callObject:self];
+}
+
+- (void)certificateNotMatch:(id)sender
+{
+    [Tools AlertBigMsg:@"验证码错误"];
 }
 
 - (void)registerException:(id)sender
