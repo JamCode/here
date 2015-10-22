@@ -6,3 +6,4 @@ ALTER TABLE `content_base_info` change `content_publish_date` varchar(50);
 
 #94
 ALTER TABLE `confirm_phone` drop primary key;
+ALTER TABLE `user_base_info` ADD unique(`user_phone`);
