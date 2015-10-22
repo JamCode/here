@@ -65,7 +65,7 @@ exports.register = function(userInfo, callback){
 	var sqlArray = [];
 	var paraArray = [];
 
-	log.debug(dump(userInfo));
+	log.debug(JSON.stringify(userInfo));
 
 	sqlArray.push('insert into user_base_info (user_id, user_phone, user_name, user_password, user_facethumbnail, user_face_image, user_age, user_gender, user_certificated_process, certificate_id, user_fans_count, user_follow_count, user_birth_day) values (?,?,?,?,?,?,?,?,?,?,?,?)');
 	sqlArray.push('insert into user_location_info (user_id) values (?)');	
