@@ -170,13 +170,12 @@ static const int notice_height = 18;
     [loadingView show:YES];
     
     
-    CocoaSecurityResult* encodePassword = [CocoaSecurity md5:_userInfo.password];
-    _userInfo.password = encodePassword.hexLower;
+    NSString* encodePassword = [Tools encodePassword:_userInfo.password];
     
     //异步注册信息
     NetWork* netWork = [[NetWork alloc] init];
     
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.phoneNum, _userInfo.certificateNo, _userInfo.nickName, _userInfo.password, [NSNumber numberWithInteger:_userInfo.age], [NSNumber numberWithInteger:_userInfo.gender], _userInfo.birthday, @"/register"] forKeys:@[@"user_phone", @"user_certificate_code", @"user_name", @"user_password", @"user_age", @"user_gender", @"user_birth_day", @"childpath"]];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.phoneNum, _userInfo.certificateNo, _userInfo.nickName, encodePassword, [NSNumber numberWithInteger:_userInfo.age], [NSNumber numberWithInteger:_userInfo.gender], _userInfo.birthday, @"/register"] forKeys:@[@"user_phone", @"user_certificate_code", @"user_name", @"user_password", @"user_age", @"user_gender", @"user_birth_day", @"childpath"]];
     
     NSDictionary* images = [[NSDictionary alloc] initWithObjects:@[_userInfo.faceImage] forKeys:@[@"user_facethumbnail"]];
     

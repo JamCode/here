@@ -44,4 +44,7 @@
 
 + (NSString *)getCurrentDeviceModel;
 
++ (NSString*)encodePassword:(NSString*)password;
+
+
 @end

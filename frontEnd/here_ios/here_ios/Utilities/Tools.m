@@ -14,6 +14,8 @@
 #import "AppDelegate.h"
 #include <sys/types.h>
 #include <sys/sysctl.h>
+#import "CocoaSecurity.h"
+
 
 @implementation Tools
 {
@@ -411,6 +413,13 @@
     [hud hide:YES afterDelay:2];
 }
 
+
+
++ (NSString*)encodePassword:(NSString*)password
+{
+    CocoaSecurityResult* encodePassword = [CocoaSecurity md5:password];
+    return encodePassword.hexLower;
+}
 
 
 //获得设备型号
