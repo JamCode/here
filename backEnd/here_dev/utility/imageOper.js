@@ -25,7 +25,7 @@ exports.updateImage = function(origfilePath, fullFileName, fullFileNameCompress,
 		  							log.error(err, log.getFileNameAndLineNum(__filename));
 		  						}
 
-		  						log.info("compress size: width "+ size.width+ " height "+size.height );
+		  						log.info("compress size: width "+ size.width+ " height "+size.height, log.getFileNameAndLineNum(__filename) );
 							});
 					}else{
 						if(size.width>size.height){
@@ -36,7 +36,7 @@ exports.updateImage = function(origfilePath, fullFileName, fullFileNameCompress,
 		  							log.error(err, log.getFileNameAndLineNum(__filename));
 		  						}
 
-		  						log.info("compress size: width "+ minSize.height*size.width/size.height+ " height "+minSize.height );
+		  						log.info("compress size: width "+ minSize.height*size.width/size.height+ " height "+minSize.height, log.getFileNameAndLineNum(__filename) );
 							});
 
 
@@ -47,7 +47,7 @@ exports.updateImage = function(origfilePath, fullFileName, fullFileNameCompress,
 		  							log.error(err, log.getFileNameAndLineNum(__filename));
 		  						}
 
-		  						log.info("compress size: width "+minSize.width+"  height "+ minSize.width*size.height/size.width);
+		  						log.info("compress size: width "+minSize.width+"  height "+ minSize.width*size.height/size.width, log.getFileNameAndLineNum(__filename));
 							});
 						}
 					}

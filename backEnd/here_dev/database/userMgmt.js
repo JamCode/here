@@ -64,11 +64,24 @@ exports.updateLoginStatus = function(deviceToken, user_id){
 exports.register = function(userInfo, callback){
 	var sqlArray = [];
 	var paraArray = [];
-	sqlArray.push('insert into user_base_info (user_id, user_phone, user_name, user_password, user_facethumbnail, user_face_image, user_age, user_gender, user_certificated_process, certificate_id, user_fans_count, user_follow_count, user_birth_day) values (?,?,?,?,?,?,?,?,?,?,?,?)');
+
+	log.debug(JSON.stringify(userInfo));
+
+	sqlArray.push('insert into user_base_info (user_id, user_phone, user_name, user_password, user_facethumbnail, user_face_image, user_age, user_gender, user_certificated_process, certificate_id, user_fans_count, user_follow_count, user_birth_day) values (?,?,?,?,?,?,?,?,?,?,?,?,?)');
 	sqlArray.push('insert into user_location_info (user_id) values (?)');	
-	paraArray.push([userInfo.id, userInfo.user_phone, userInfo.name, userInfo.password, userInfo.facethumbnail, userInfo.user_face_image,
-		userInfo.age, userInfo.gender, userInfo.certificated_process, userInfo.certificate_id, 
-		userInfo.fans_count, userInfo.follow_count, userInfo.user_birth_day]);
+	paraArray.push([userInfo.id, 
+		userInfo.user_phone, 
+		userInfo.name, 
+		userInfo.password, 
+		userInfo.facethumbnail, 
+		userInfo.user_face_image,
+		userInfo.age, 
+		userInfo.gender, 
+		userInfo.certificated_process, 
+		userInfo.certificate_id, 
+		userInfo.fans_count, 
+		userInfo.follow_count, 
+		userInfo.user_birth_day]);
 	paraArray.push([userInfo.id]);
 	
 	conn.executeTwoStepTransaction(sqlArray, paraArray, callback);
@@ -84,14 +97,20 @@ exports.getFacethumbnail = function(userId, callback) {
 	conn.executeSql(sql, [userId], callback);
 }
 
+
+exports.getCertificateCode = function(userPhone, callback){
+	var sql = 'select *from confirm_phone where user_phone = ? order by time_stamp desc limit 1';
+	conn.executeSql(sql, [userPhone], callback);
+}
+
 exports.certificateCode = function(userPhone, certificateCode, timeStamp, callback) {
 	var sql = 'select Time_stamp from confirm_phone where User_phone = ?';
 	conn.executeSql(sql, [userPhone], function(flag, result){
 		if (flag){
 			if (result.length){
 				if (timeStamp - result[0].Time_stamp > config.number.threeMinute) {
-					sql = 'update confirm_phone set Certificate_code = ?, Time_stamp = ? where User_phone = ?';
-					conn.executeSql(sql, [certificateCode, timeStamp, userPhone], callback);
+					sql = 'insert into confirm_phone values(?,?,?)';
+					conn.executeSql(sql, [userPhone, certificateCode, timeStamp], callback);
 				}else{
 					callback(true);
 				}
