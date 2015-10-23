@@ -290,6 +290,8 @@ router.post('/getUserInfo', function(req, res) {
 			returnData.user_interest = result[0].user_interest;
 			returnData.user_background_image_url = result[0].user_background_image_url;
 			returnData.good_count = result[0].good_count;
+			returnData.location_latitude = result[0].location_latitude;
+			returnData.location_longitude = result[0].location_longitude;
 
 			if (result[0].city_visit_count == null) {
 				log.debug('city_visit_count is null', log.getFileNameAndLineNum(__filename));

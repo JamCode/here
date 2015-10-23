@@ -146,9 +146,9 @@ exports.getUserImage = function(userId, timestamp, count, callback){
 //end by wanghan for get user image
 
 exports.getUserDetail = function(userId, callback){
-	var sql = "select a.*, b.city_visit_count from user_base_info a left join user_city_count_v b on "
+	var sql = "select a.*,b.* from user_base_info a, user_location_info b where"
 			  +" a.user_id = b.user_id "
-			  +" where a.user_id = ?";
+			  +" and a.user_id = ?";
 	conn.executeSql(sql, [userId], callback);
 }
 
