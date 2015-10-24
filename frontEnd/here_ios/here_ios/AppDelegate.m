@@ -32,7 +32,12 @@
     return _myInfo.userID;
 }
 
-- (void) startView
+- (void)backToStartView
+{
+    [(UINavigationController*)self.window.rootViewController popToRootViewControllerAnimated:YES];
+}
+
+- (void)startView
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
