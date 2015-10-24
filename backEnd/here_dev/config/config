@@ -31,7 +31,7 @@ exports.logLevel = {
 };
 
 exports.number = {
-	numberInput: 1000000,
+	numberInput: 10000,
 	threeMinute: 180000
 };
 

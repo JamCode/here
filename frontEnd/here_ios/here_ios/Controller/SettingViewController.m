@@ -864,6 +864,12 @@ typedef enum  {
     } completionBlock:^{
         //self.parentViewController.view.hidden = NO;
         [self dismissViewControllerAnimated:YES completion:nil];
+        AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [app backToStartView];
+        
+        //[self.navigationController popToRootViewControllerAnimated:YES];
+        
         //self.view.hidden = NO;
     }];
 }

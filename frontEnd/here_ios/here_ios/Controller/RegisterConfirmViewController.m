@@ -16,6 +16,8 @@
 #import "AppDelegate.h"
 #import "CocoaSecurity.h"
 #import "Tools.h"
+#import "MenuViewCtrl.h"
+
 
 @interface RegisterConfirmViewController ()
 {
@@ -221,7 +223,23 @@ static const int notice_height = 18;
     
     
     TabBarViewController* tabbarView = [[TabBarViewController alloc] init];
-    [self presentViewController:tabbarView animated:YES completion:nil];
+    app.tabBarViewController = tabbarView;
+    
+    MenuViewCtrl* menu = [[MenuViewCtrl alloc] init];
+    TWTSideMenuViewController* sideMenu = [[TWTSideMenuViewController alloc] initWithMenuViewController:menu mainViewController:tabbarView];
+    
+    
+    CGFloat offset = ScreenWidth/5;
+    sideMenu.edgeOffset = (UIOffset) { .horizontal = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? offset : 0.0f };
+    
+    
+    sideMenu.zoomScale = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 0.5634f : 0.85f;
+    sideMenu.zoomScale = 0.9;
+    
+    app.sideMenu = sideMenu;
+    sideMenu.navigationController.navigationBar.hidden = YES;
+    
+    [self presentViewController:sideMenu animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
