@@ -638,6 +638,8 @@ router.post('/getNoticeMsgCount', function(req, res) {
 						log.error(err, log.getFileNameAndLineNum(__filename));
 						callback(err, reply);
 					} else {
+						log.debug(req.body.user_id+' '+config.hashKey.goodUnreadCount+' '+reply
+								,log.getFileNameAndLineNum(__filename));
 						if (reply === null) {
 							reply = parseInt(0);
 						}
