@@ -21,7 +21,9 @@ exports.increaseUnreadGoodCount = function(user_id) {
 			reply = parseInt(reply) + 1;
 		}
 
-		log.debug('increase unread good count for '+user_id+" count:"+reply);
+		log.debug('increase unread good count for '+config.goodUnreadCount+" "+user_id+" count:"+reply, 
+			log.getFileNameAndLineNum(__filename));
+
 		redis_client.hset(config.goodUnreadCount, user_id, reply);
 	});
 }
