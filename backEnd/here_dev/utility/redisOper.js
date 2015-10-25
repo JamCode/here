@@ -32,7 +32,6 @@ exports.increaseUnreadCommentCount = function(user_id) {
 	//input unread good count to redis
 	redis_client.hget(config.hashKey.commentUnreadCount, user_id, function(err, reply) {
 
-		log.debug('increase unread comment count for '+user_id, log.getFileNameAndLineNum(__filename));
 
 		if (err) {
 			log.error(err, log.getFileNameAndLineNum(__filename));
@@ -44,6 +43,9 @@ exports.increaseUnreadCommentCount = function(user_id) {
 		} else {
 			reply = parseInt(reply) + 1;
 		}
+
+		log.debug('increase unread comment count for '+config.hashKey.commentUnreadCount+" "+user_id, 
+			log.getFileNameAndLineNum(__filename));
 
 		redis_client.hset(config.hashKey.commentUnreadCount, user_id, reply);
 	});
