@@ -379,7 +379,7 @@ router.post('/addGoodCount', function(req, res) {
 
 
 				if(req.body.content_user_id !== req.body.user_id){
-					log.debug(req.body.content_user_id+", "+req.body.user_id);
+					log.debug(req.body.content_user_id+", "+req.body.user_id, log.getFileNameAndLineNum(__filename));
 					apnToUser(req.body.content_user_id, req.body.user_name+"赞了你的状态");
 					//update redis
 					redisOper.increaseUnreadGoodCount(req.body.content_user_id);
