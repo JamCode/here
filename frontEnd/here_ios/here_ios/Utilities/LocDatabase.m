@@ -97,7 +97,8 @@
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Last_pri_msg" inManagedObjectContext:context]];
     
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"counter_user_id = '%@'", priMsg.counter_user_id]];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"counter_user_id = '%@' and my_user_id = '%@' ", priMsg.counter_user_id, priMsg.my_user_id]];
+    
     [fetchRequest setPredicate:predicate];
     
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"time_stamp" ascending:NO];
@@ -122,6 +123,8 @@
     
     //插入最新的最近记录
     Last_pri_msg* msg = [NSEntityDescription insertNewObjectForEntityForName:@"Last_pri_msg" inManagedObjectContext:context];
+    
+    msg.my_user_id = priMsg.my_user_id;
     msg.counter_user_id = priMsg.counter_user_id;
     msg.counter_face_image_url = priMsg.counter_face_image_url;
     msg.time_stamp = [[NSNumber alloc] initWithInteger:priMsg.time_stamp];
@@ -254,12 +257,12 @@
     return nil;
 }
 
-- (LastMsgModel*)getLastMsgByUser:(NSString*)counterID;
+- (LastMsgModel*)getLastMsgByUser:(NSString*)counterID myUser:(NSString*)my_user_id;
 {
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Last_pri_msg" inManagedObjectContext:context]];
     [fetchRequest setFetchLimit:1];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"counter_user_id = '%@'", counterID]];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"counter_user_id = '%@' and my_user_id = '%@'", counterID, my_user_id]];
     [fetchRequest setPredicate:predicate];
     
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"time_stamp" ascending:NO];
@@ -284,17 +287,22 @@
         priMsg.msg = msg.msg;
         priMsg.msg_type = [msg.msg_type integerValue];
         priMsg.msg_srno = msg.msg_srno;
+        priMsg.my_user_id = msg.my_user_id;
+        
         return priMsg;
     }
     
     return nil;
 }
 
-- (NSMutableArray*)getLastMsgFromDatabase
+- (NSMutableArray*)getLastMsgFromDatabase:(NSString*)my_user_id
 {
+    NSLog(@"%@", my_user_id);
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Last_pri_msg" inManagedObjectContext:context]];
     
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"my_user_id = '%@' ",my_user_id]];
+    [fetchRequest setPredicate:predicate];
     
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"time_stamp" ascending:NO];
     NSArray* desc = [NSArray arrayWithObject:sortDesc];
@@ -319,6 +327,8 @@
         priMsg.unreadCount = [msg.unreadCount integerValue];
         priMsg.msg_type = [msg.msg_type integerValue];
         priMsg.msg_srno = msg.msg_srno;
+        priMsg.my_user_id = msg.my_user_id;
+        
         [result addObject:priMsg];
     }
     return result;
@@ -349,7 +359,8 @@
 {
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Last_pri_msg" inManagedObjectContext:context]];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"counter_user_id = '%@'", lastMsg.counter_user_id]];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"counter_user_id = '%@' and my_user_id = '%@' ",lastMsg.counter_user_id, lastMsg.my_user_id]];
+    
     [fetchRequest setPredicate:predicate];
     
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"time_stamp" ascending:NO];

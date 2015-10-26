@@ -1008,6 +1008,8 @@ static const double textViewWidth = 250;
             priMsgList = [self sortMsg:priMsgList];
             PriMsgModel* priMsg = [priMsgList lastObject];
             LastMsgModel* lastMsg = [[LastMsgModel alloc] init];
+            
+            lastMsg.my_user_id = myInfo.userID;
             lastMsg.counter_user_id = _counterInfo.userID;
             lastMsg.counter_nick_name = _counterInfo.nickName;
             lastMsg.counter_face_image_url = _counterInfo.faceImageThumbnailURLStr;
@@ -1208,6 +1210,7 @@ static const double textViewWidth = 250;
     
     
     LastMsgModel* lastMsg = [[LastMsgModel alloc] init];
+    lastMsg.my_user_id = myInfo.userID;
     lastMsg.counter_user_id = _counterInfo.userID;
     lastMsg.counter_face_image_url = _counterInfo.faceImageThumbnailURLStr;
     

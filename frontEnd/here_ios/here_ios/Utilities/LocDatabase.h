@@ -21,9 +21,9 @@
 
 - (BOOL)writePriMsgToDatabase:(PriMsgModel*)priMsg;
 - (BOOL)writeLastPriMsgToDatabase:(LastMsgModel*)priMsg;
-- (NSMutableArray*)getLastMsgFromDatabase;
+- (NSMutableArray*)getLastMsgFromDatabase:(NSString*)my_user_id;
 - (PriMsgModel*)getRecentLastMsgFromDatabase:(NSString*)myuserID;
-- (LastMsgModel*)getLastMsgByUser:(NSString*)counterID;
+- (LastMsgModel*)getLastMsgByUser:(NSString*)counterID myUser:(NSString*)my_user_id;
 - (PriMsgModel*)getPriMsgByMsgID:(NSString*)msg_id;
 
 - (BOOL)deleteMsg:(LastMsgModel*)lastMsg;

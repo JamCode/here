@@ -19,7 +19,6 @@
 		B24D65C11BA6AC5800F33A96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B24D65C01BA6AC5800F33A96 /* Images.xcassets */; };
 		B24D65C41BA6AC5800F33A96 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B24D65C21BA6AC5800F33A96 /* LaunchScreen.xib */; };
 		B24D65D01BA6AC5800F33A96 /* here_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D65CF1BA6AC5800F33A96 /* here_iosTests.m */; };
-		B24D65DF1BA6B9D300F33A96 /* Last_pri_msg.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D65DA1BA6B9D300F33A96 /* Last_pri_msg.m */; };
 		B24D65E01BA6B9D300F33A96 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B24D65DB1BA6B9D300F33A96 /* Model.xcdatamodeld */; };
 		B24D65E11BA6B9D300F33A96 /* Pri_msg.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D65DE1BA6B9D300F33A96 /* Pri_msg.m */; };
 		B24D65E31BA6BAB200F33A96 /* FIR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B24D65E21BA6BAB200F33A96 /* FIR.framework */; };
@@ -181,6 +180,7 @@
 		B2689B3C1BBCD753008B8AF0 /* MasterSettingCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B2689B3B1BBCD753008B8AF0 /* MasterSettingCtrl.m */; };
 		B2689B3F1BBD0F7E008B8AF0 /* FeedBackCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B2689B3E1BBD0F7E008B8AF0 /* FeedBackCtrl.m */; };
 		B29B5ED21BA9499D00D62757 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29B5ED11BA9499D00D62757 /* InfoPlist.strings */; };
+		B2A33D081BDDFF5F00D8F18D /* Last_pri_msg.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A33D071BDDFF5F00D8F18D /* Last_pri_msg.m */; };
 		E777BF15ECD86C660D85C8AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF27723DED1CCDC21653282 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -217,8 +217,6 @@
 		B24D65C91BA6AC5800F33A96 /* here_iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = here_iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B24D65CE1BA6AC5800F33A96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B24D65CF1BA6AC5800F33A96 /* here_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = here_iosTests.m; sourceTree = "<group>"; };
-		B24D65D91BA6B9D300F33A96 /* Last_pri_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Last_pri_msg.h; sourceTree = "<group>"; };
-		B24D65DA1BA6B9D300F33A96 /* Last_pri_msg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Last_pri_msg.m; sourceTree = "<group>"; };
 		B24D65DC1BA6B9D300F33A96 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		B24D65DD1BA6B9D300F33A96 /* Pri_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pri_msg.h; sourceTree = "<group>"; };
 		B24D65DE1BA6B9D300F33A96 /* Pri_msg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pri_msg.m; sourceTree = "<group>"; };
@@ -463,6 +461,8 @@
 		B2689B3D1BBD0F7E008B8AF0 /* FeedBackCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackCtrl.h; sourceTree = "<group>"; };
 		B2689B3E1BBD0F7E008B8AF0 /* FeedBackCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackCtrl.m; sourceTree = "<group>"; };
 		B29B5ED11BA9499D00D62757 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		B2A33D061BDDFF5F00D8F18D /* Last_pri_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Last_pri_msg.h; sourceTree = "<group>"; };
+		B2A33D071BDDFF5F00D8F18D /* Last_pri_msg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Last_pri_msg.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -508,9 +508,9 @@
 		B24D65A41BA6AC5800F33A96 = {
 			isa = PBXGroup;
 			children = (
-				B24D65D91BA6B9D300F33A96 /* Last_pri_msg.h */,
-				B24D65DA1BA6B9D300F33A96 /* Last_pri_msg.m */,
 				B24D65DB1BA6B9D300F33A96 /* Model.xcdatamodeld */,
+				B2A33D061BDDFF5F00D8F18D /* Last_pri_msg.h */,
+				B2A33D071BDDFF5F00D8F18D /* Last_pri_msg.m */,
 				B24D65DD1BA6B9D300F33A96 /* Pri_msg.h */,
 				B24D65DE1BA6B9D300F33A96 /* Pri_msg.m */,
 				B24D65AF1BA6AC5800F33A96 /* here_ios */,
@@ -1192,6 +1192,7 @@
 				B24D68141BA6C06800F33A96 /* OptionFunButtonView.m in Sources */,
 				B24D68151BA6C06800F33A96 /* OptionFunView.m in Sources */,
 				B24D68A91BA6C46900F33A96 /* MessageTableViewController.m in Sources */,
+				B2A33D081BDDFF5F00D8F18D /* Last_pri_msg.m in Sources */,
 				B24D68641BA6C3F200F33A96 /* ImageModel.m in Sources */,
 				B24D68B31BA6C46900F33A96 /* SettingViewController.m in Sources */,
 				B24D69171BA6C8A300F33A96 /* BarItem.m in Sources */,
@@ -1231,7 +1232,6 @@
 				B24D693D1BA6C8A400F33A96 /* UIPlaceHolderTextView.m in Sources */,
 				B24D68111BA6C06800F33A96 /* FaceView.m in Sources */,
 				B24D68051BA6C06800F33A96 /* ImageEnlarge.m in Sources */,
-				B24D65DF1BA6B9D300F33A96 /* Last_pri_msg.m in Sources */,
 				B24D691C1BA6C8A400F33A96 /* Mp3Recorder.m in Sources */,
 				B24EC9671BAAB98D006E12CB /* visitView.m in Sources */,
 				B24D65E01BA6B9D300F33A96 /* Model.xcdatamodeld in Sources */,

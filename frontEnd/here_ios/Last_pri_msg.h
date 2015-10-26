@@ -12,6 +12,7 @@
 
 @interface Last_pri_msg : NSManagedObject
 
+@property (nonatomic, retain) NSString * my_user_id;
 @property (nonatomic, retain) NSString * counter_face_image_url;
 @property (nonatomic, retain) NSString * counter_nick_name;
 @property (nonatomic, retain) NSString * counter_user_id;
