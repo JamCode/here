@@ -905,23 +905,15 @@ typedef enum  {
     
     if(indexPath.section ==details){
         
-        if(indexPath.row == 0){
-            //最近来访
-            ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[VisitListAction alloc] initWithUserId:_userInfo.userID]];
-            comTable.hidesBottomBarWhenPushed = YES;
-            
-            [self.navigationController pushViewController:comTable animated:YES];
-        }else{
-            if(indexPath.row == 4){
-                _changedFlag = false;
-                SettingChildViewController* settingChild = [[SettingChildViewController alloc] init];
-                settingChild.settingStrArray = settingStrArray;
-                settingChild.settingTitleArray = settingTitleArray;
-                settingChild.parent = self;
-                settingChild.hidesBottomBarWhenPushed = YES;
-                settingChild.index = indexPath.row;
-                [self.navigationController pushViewController:settingChild animated:YES];
-            }
+        if(indexPath.row == 3){
+            _changedFlag = false;
+            SettingChildViewController* settingChild = [[SettingChildViewController alloc] init];
+            settingChild.settingStrArray = settingStrArray;
+            settingChild.settingTitleArray = settingTitleArray;
+            settingChild.parent = self;
+            settingChild.hidesBottomBarWhenPushed = YES;
+            settingChild.index = indexPath.row;
+            [self.navigationController pushViewController:settingChild animated:YES];
         }
     }
     
