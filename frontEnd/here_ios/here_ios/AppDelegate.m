@@ -17,7 +17,6 @@
 #import "NetWork.h"
 #import "ContentDetailViewController.h"
 #import "MessageTableViewController.h"
-#import "ContentViewController.h"
 #import <FIR/FIR.h>
 #import "Tools.h"
 

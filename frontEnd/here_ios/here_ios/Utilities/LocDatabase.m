@@ -21,7 +21,7 @@
     NSManagedObjectContext *context;
 }
 
-- (BOOL)connectToDatabase
+- (BOOL)connectToDatabase:(NSString*)fileName
 {
     model = [NSManagedObjectModel mergedModelFromBundles:nil];
     //NSManagedObjectModel* model = [[NSManagedObjectModel alloc] init];
@@ -31,7 +31,7 @@
     
     // 构建SQLite数据库文件的路径
     NSString *docs = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSURL *url = [NSURL fileURLWithPath:[docs stringByAppendingPathComponent:@"carSocial.data"]];
+    NSURL *url = [NSURL fileURLWithPath:[docs stringByAppendingPathComponent:fileName]];
     // 添加持久化存储库，这里使用SQLite作为存储库
     NSError *error = nil;
     store = [psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error];
@@ -98,6 +98,7 @@
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Last_pri_msg" inManagedObjectContext:context]];
     
     NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"counter_user_id = '%@'", priMsg.counter_user_id]];
+    
     [fetchRequest setPredicate:predicate];
     
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"time_stamp" ascending:NO];
@@ -122,6 +123,7 @@
     
     //插入最新的最近记录
     Last_pri_msg* msg = [NSEntityDescription insertNewObjectForEntityForName:@"Last_pri_msg" inManagedObjectContext:context];
+    
     msg.counter_user_id = priMsg.counter_user_id;
     msg.counter_face_image_url = priMsg.counter_face_image_url;
     msg.time_stamp = [[NSNumber alloc] initWithInteger:priMsg.time_stamp];
@@ -254,7 +256,7 @@
     return nil;
 }
 
-- (LastMsgModel*)getLastMsgByUser:(NSString*)counterID;
+- (LastMsgModel*)getLastMsgByUser:(NSString*)counterID
 {
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Last_pri_msg" inManagedObjectContext:context]];
@@ -284,6 +286,7 @@
         priMsg.msg = msg.msg;
         priMsg.msg_type = [msg.msg_type integerValue];
         priMsg.msg_srno = msg.msg_srno;
+        
         return priMsg;
     }
     
@@ -295,6 +298,7 @@
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Last_pri_msg" inManagedObjectContext:context]];
     
+
     
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"time_stamp" ascending:NO];
     NSArray* desc = [NSArray arrayWithObject:sortDesc];
@@ -319,6 +323,7 @@
         priMsg.unreadCount = [msg.unreadCount integerValue];
         priMsg.msg_type = [msg.msg_type integerValue];
         priMsg.msg_srno = msg.msg_srno;
+        
         [result addObject:priMsg];
     }
     return result;
@@ -328,7 +333,7 @@
 {
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Loc_pri_msg" inManagedObjectContext:context]];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"msg_srno = '%@'", priMsg.msg_srno]];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"msg_srno = '%@' ", priMsg.msg_srno]];
     [fetchRequest setReturnsObjectsAsFaults:NO];
     [fetchRequest setPredicate:predicate];
     NSArray *dataArray = [context executeFetchRequest:fetchRequest error:nil];
@@ -349,7 +354,8 @@
 {
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Last_pri_msg" inManagedObjectContext:context]];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"counter_user_id = '%@'", lastMsg.counter_user_id]];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"counter_user_id = '%@'",lastMsg.counter_user_id]];
+    
     [fetchRequest setPredicate:predicate];
     
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"time_stamp" ascending:NO];

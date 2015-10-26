@@ -18,7 +18,6 @@
 #import "PublishCommentViewController.h"
 #import "Tools.h"
 #import <MBProgressHUD.h>
-#import "ContentViewController.h"
 #import "ContentTableViewCell.h"
 #import "CommentModel.h"
 
