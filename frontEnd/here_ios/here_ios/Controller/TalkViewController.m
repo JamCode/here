@@ -675,7 +675,7 @@ static const double textViewWidth = 250;
     
     
     locDatabase = [[LocDatabase alloc] init];
-    if (![locDatabase connectToDatabase]) {
+    if (![locDatabase connectToDatabase:[AppDelegate getMyUserInfo].userID]) {
         alertMsg(@"本地数据库出错");
         return;
     }
@@ -1009,7 +1009,6 @@ static const double textViewWidth = 250;
             PriMsgModel* priMsg = [priMsgList lastObject];
             LastMsgModel* lastMsg = [[LastMsgModel alloc] init];
             
-            lastMsg.my_user_id = myInfo.userID;
             lastMsg.counter_user_id = _counterInfo.userID;
             lastMsg.counter_nick_name = _counterInfo.nickName;
             lastMsg.counter_face_image_url = _counterInfo.faceImageThumbnailURLStr;
@@ -1210,7 +1209,6 @@ static const double textViewWidth = 250;
     
     
     LastMsgModel* lastMsg = [[LastMsgModel alloc] init];
-    lastMsg.my_user_id = myInfo.userID;
     lastMsg.counter_user_id = _counterInfo.userID;
     lastMsg.counter_face_image_url = _counterInfo.faceImageThumbnailURLStr;
     

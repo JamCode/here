@@ -11,7 +11,6 @@
 
 @implementation Last_pri_msg
 
-@dynamic my_user_id;
 @dynamic counter_face_image_url;
 @dynamic counter_nick_name;
 @dynamic counter_user_id;

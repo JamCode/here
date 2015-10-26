@@ -82,7 +82,7 @@ static const int noticeLabelHeight = 20;
 
 - (void)getPriMsgFriendList
 {
-    priMsgFriendArray = [locDatabase getLastMsgFromDatabase:myInfo.userID];
+    priMsgFriendArray = [locDatabase getLastMsgFromDatabase];
     [self.tableView reloadData];
     
 }
@@ -218,7 +218,7 @@ static const int noticeLabelHeight = 20;
             
             if([locDatabase getPriMsgByMsgID:priMsg.msg_id] == nil){
                 
-                LastMsgModel* oldLastPriMsg = [locDatabase getLastMsgByUser:priMsg.sender_user_id myUser:myInfo.userID];
+                LastMsgModel* oldLastPriMsg = [locDatabase getLastMsgByUser:priMsg.sender_user_id];
                 
                 PriMsgModel* timeMsg = nil;
                 
@@ -243,7 +243,7 @@ static const int noticeLabelHeight = 20;
             
             NSLog(@"%@", [element objectForKey:@"user_id"]);
             
-            LastMsgModel* lastMsg = [locDatabase getLastMsgByUser:[element objectForKey:@"user_id"] myUser:myInfo.userID];
+            LastMsgModel* lastMsg = [locDatabase getLastMsgByUser:[element objectForKey:@"user_id"]];
             
             if (lastMsg == nil) {
                 lastMsg = [[LastMsgModel alloc] init];
@@ -259,19 +259,18 @@ static const int noticeLabelHeight = 20;
                 lastMsg.msg = priMsg.message_content;
                 lastMsg.time_stamp = priMsg.send_timestamp;
                 lastMsg.msg_type = priMsg.msg_type;
-                lastMsg.my_user_id = myInfo.userID;
                 [locDatabase writeLastPriMsgToDatabase:lastMsg];
             }
         }
         
         for (NSString* sender in receiveCountDic) {
-            LastMsgModel* lastMsg = [locDatabase getLastMsgByUser:sender myUser:myInfo.userID];
+            LastMsgModel* lastMsg = [locDatabase getLastMsgByUser:sender];
             lastMsg.unreadCount = [[receiveCountDic objectForKey:sender] integerValue];
             [locDatabase writeLastPriMsgToDatabase:lastMsg];
         }
         
         
-        priMsgFriendArray = [locDatabase getLastMsgFromDatabase:myInfo.userID];
+        priMsgFriendArray = [locDatabase getLastMsgFromDatabase];
         [self.tableView reloadData];
         
     }
@@ -334,7 +333,7 @@ static const int noticeLabelHeight = 20;
     if ([locDatabase getPriMsgByMsgID:priMsg.msg_id] == nil) {
         
         
-        LastMsgModel* oldLastPriMsg = [locDatabase getLastMsgByUser:from_id myUser:myInfo.userID];
+        LastMsgModel* oldLastPriMsg = [locDatabase getLastMsgByUser:from_id];
         PriMsgModel* timeMsg = nil;
         
         if (oldLastPriMsg!=nil && priMsg.send_timestamp - oldLastPriMsg.time_stamp>5*60) {
@@ -351,7 +350,6 @@ static const int noticeLabelHeight = 20;
     
     
     LastMsgModel* lastMsg = [[LastMsgModel alloc] init];
-    lastMsg.my_user_id = myInfo.userID;
     lastMsg.counter_user_id = from_id;
     lastMsg.counter_nick_name = from_name;
     lastMsg.counter_face_image_url = from_face_url;
@@ -448,7 +446,7 @@ static const int noticeLabelHeight = 20;
     [mysocket setDelegate:self];
     
     locDatabase = [[LocDatabase alloc] init];
-    if(![locDatabase connectToDatabase]){
+    if(![locDatabase connectToDatabase:myInfo.userID]){
         alertMsg(@"数据库问题");
         return;
     }
@@ -494,7 +492,6 @@ static const int noticeLabelHeight = 20;
 {
     LastMsgModel* lastMsg = [[LastMsgModel alloc] init];
     lastMsg.counter_user_id = user_id;
-    lastMsg.my_user_id = myInfo.userID;
     [locDatabase deleteMsg:lastMsg];
 }
 

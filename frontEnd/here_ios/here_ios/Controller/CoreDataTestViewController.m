@@ -56,26 +56,26 @@
 
 - (void)insert:(id)sender
 {
-    if([locDatabase connectToDatabase]==false){
-        NSLog(@"connect database failed");
-        return;
-    }
-    PriMsgModel* msgModel = [[PriMsgModel alloc] init];
-    //msgModel.sender_user_id = @"12345";
-    //msgModel.receive_user_id = @"67890";
-    msgModel.message_content = @"testetest";
-    msgModel.send_timestamp = [[NSDate date] timeIntervalSince1970];
-    
-    
-    [locDatabase writePriMsgToDatabase:msgModel];
+//    if([locDatabase connectToDatabase]==false){
+//        NSLog(@"connect database failed");
+//        return;
+//    }
+//    PriMsgModel* msgModel = [[PriMsgModel alloc] init];
+//    //msgModel.sender_user_id = @"12345";
+//    //msgModel.receive_user_id = @"67890";
+//    msgModel.message_content = @"testetest";
+//    msgModel.send_timestamp = [[NSDate date] timeIntervalSince1970];
+//    
+//    
+//    [locDatabase writePriMsgToDatabase:msgModel];
 }
 
 - (void)get:(id)sender
 {
-    if([locDatabase connectToDatabase]==false){
-        NSLog(@"connect database failed");
-        return;
-    }
+//    if([locDatabase connectToDatabase]==false){
+//        NSLog(@"connect database failed");
+//        return;
+//    }
     
 //    NSArray* msgArray = [locDatabase readPriMsgBySenderID:@"12345" ReceiveID:@"67890" MinTimeStamp:[[NSDate date] timeIntervalSince1970] LimitCount:10];
     
