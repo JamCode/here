@@ -448,6 +448,9 @@
 {
     if (hud == feedbackTextView) {
         [self dismissViewControllerAnimated:YES completion:^{
+            
+            //AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+            //[app.sideMenu closeMenuAnimated:YES completion:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"pullDown" object:nil];
         }];
     }

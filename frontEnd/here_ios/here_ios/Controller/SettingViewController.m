@@ -19,7 +19,6 @@
 #import "UserImageViewController.h"
 #import "TalkViewController.h"
 #import "Tools.h"
-#import "ContentViewController.h"
 #import "ComTableViewCtrl.h"
 #import "MyContentAction.h"
 #import "ImageBrowseAction.h"

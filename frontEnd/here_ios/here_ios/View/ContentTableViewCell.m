@@ -16,7 +16,6 @@
 #import "OptionFunView.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "ImageModel.h"
-#import "ContentViewController.h"
 #import "ContentDetailViewController.h"
 #import "NetWork.h"
 #import "CommentModel.h"
