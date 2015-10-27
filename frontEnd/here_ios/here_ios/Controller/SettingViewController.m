@@ -41,8 +41,8 @@
     UIImageView* genderView;
     UILabel* ageAndStar;
     
-    UILabel* sign;
-    UIView* imageWallView;
+    //UILabel* sign;
+    //UIView* imageWallView;
     MBProgressHUD* loadingView;
     
     BOOL firstShow;
@@ -177,9 +177,9 @@ typedef enum  {
     //    [self.navigationController pushViewController:talk animated:YES];
     
     if (isInBlack == false) {
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"关注Ta", @"私信", @"加入黑名单", nil];
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"私信", @"加入黑名单", nil];
     }else{
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"关注Ta", @"私信", @"解除黑名单", nil];
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles: @"私信", @"解除黑名单", nil];
     }
     
     [sheet showInView:self.view];
@@ -328,11 +328,6 @@ typedef enum  {
     
     if (actionSheet == sheet) {
         if (buttonIndex == 0) {
-            //关注Ta
-            ;
-        }
-        
-        if (buttonIndex == 1) {
             //私信
             TalkViewController* talk = [[TalkViewController alloc] init];
             talk.counterInfo = _userInfo;
@@ -340,7 +335,7 @@ typedef enum  {
             [self.navigationController pushViewController:talk animated:YES];
         }
         
-        if (buttonIndex == 2) {
+        if (buttonIndex == 1) {
             //黑名单
             if (isInBlack == false) {
                 [self setToBlackList];
@@ -443,11 +438,15 @@ typedef enum  {
     
     [headerView addSubview:faceImageView];
     
-    sign = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x, zanImageView.frame.origin.y+zanImageView.frame.size.height+10, 200, zanImageView.frame.size.height)];
+    
+    
+    
+    
+//    sign = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x, zanImageView.frame.origin.y+zanImageView.frame.size.height+10, 200, zanImageView.frame.size.height)];
     //sign.text = _userInfo.sign;
-    if((NSNull*)sign.text != [NSNull null]){
-        sign.textColor = [UIColor grayColor];
-    }
+//    if((NSNull*)sign.text != [NSNull null]){
+//        sign.textColor = [UIColor grayColor];
+//    }
     
     //get user image from server
     [self getUserInfo];
@@ -537,7 +536,7 @@ typedef enum  {
     
     
     //ageLabel.text = [[NSString alloc] initWithFormat:@"%ld", (long)_userInfo.age];
-    sign.text = _userInfo.sign;
+    //sign.text = _userInfo.sign;
     
     isInBlack = [[feedback objectForKey:@"black"] boolValue];
     
@@ -595,6 +594,19 @@ typedef enum  {
         NSDictionary* element = (NSDictionary*)[temp objectAtIndex:i];
         [userImageArray addObject:[element objectForKey:@"user_image_url"]];
     }
+    
+    [self setNickNameLabel];
+}
+
+- (void)setNickNameLabel
+{
+    CGSize nickNameSize = [Tools getTextArrange:_userInfo.nickName maxRect:CGSizeMake(120, 80) fontSize:20];
+    NSLog(@"%f,%f", nickNameSize.height, nickNameSize.width);
+    UILabel* nickNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x+faceImageView.frame.size.width+10, faceImageView.frame.origin.y+faceImageView.frame.size.height/2+10, nickNameSize.width+5, nickNameSize.height+5)];
+    [headerView addSubview:nickNameLabel];
+    nickNameLabel.text = _userInfo.nickName;
+    nickNameLabel.font = [UIFont fontWithName:@"Arial" size:20];
+    nickNameLabel.textColor = [UIColor grayColor];
 }
 
 - (void)clickAddImageViewAction:(UITapGestureRecognizer*)sender
