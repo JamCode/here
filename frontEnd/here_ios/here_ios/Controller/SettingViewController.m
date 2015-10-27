@@ -121,6 +121,15 @@ const int bigCellImageHeigh = 64;
 
 const int sectionCount = 2;
 
+
+static const int ageAndGenderHeight = 18;
+static const int ageAndGenderWidth = 50;
+
+static const int genderImageHeight = 18;
+static const int ageHeight = 18;
+static const int ageWidth = 30;
+
+
 typedef enum  {
     publishAndPhoto,
     details,
@@ -598,15 +607,55 @@ typedef enum  {
     [self setNickNameLabel];
 }
 
+
+
 - (void)setNickNameLabel
 {
-    CGSize nickNameSize = [Tools getTextArrange:_userInfo.nickName maxRect:CGSizeMake(120, 80) fontSize:20];
+    CGSize nickNameSize = [Tools getTextArrange:_userInfo.nickName maxRect:CGSizeMake(120, 80) fontSize:18];
     NSLog(@"%f,%f", nickNameSize.height, nickNameSize.width);
     UILabel* nickNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x+faceImageView.frame.size.width+10, faceImageView.frame.origin.y+faceImageView.frame.size.height/2+10, nickNameSize.width+5, nickNameSize.height+5)];
     [headerView addSubview:nickNameLabel];
     nickNameLabel.text = _userInfo.nickName;
-    nickNameLabel.font = [UIFont fontWithName:@"Arial" size:20];
+    nickNameLabel.font = [UIFont fontWithName:@"Arial" size:18];
     nickNameLabel.textColor = [UIColor grayColor];
+    
+    
+    UIView* ageAndGenderView = [[UIView alloc] initWithFrame:CGRectMake(nickNameLabel.frame.origin.x+10+nickNameLabel.frame.size.width, nickNameLabel.frame.origin.y, ageAndGenderWidth, nickNameLabel.frame.size.height - 5)];
+    ageAndGenderView.layer.cornerRadius = 4.0;
+    
+    ageAndGenderView.center = CGPointMake(ageAndGenderView.center.x, nickNameLabel.center.y);
+    
+    
+    UIImageView* genderImage = [[UIImageView alloc] initWithFrame:CGRectMake(2, 4, genderImageHeight, genderImageHeight)];
+    genderImage.center = CGPointMake(genderImage.center.x, ageAndGenderView.frame.size.height/2);
+    
+    genderImage.contentMode = UIViewContentModeScaleAspectFill;
+    
+    
+    [ageAndGenderView addSubview:genderImage];
+    
+    UILabel* ageAndGenderLabel = [[UILabel alloc] initWithFrame:CGRectMake(genderImage.frame.origin.x+genderImage.frame.size.width, 2, ageWidth, ageHeight)];
+    
+    
+    ageAndGenderLabel.textAlignment = NSTextAlignmentCenter;
+    ageAndGenderLabel.font = [UIFont fontWithName:@"Arial" size:16];
+    ageAndGenderLabel.textColor = [UIColor whiteColor];
+    ageAndGenderLabel.center = CGPointMake(ageAndGenderLabel.center.x, genderImage.center.y);
+    
+    [ageAndGenderView addSubview: ageAndGenderLabel];
+    
+    ageAndGenderLabel.text = [[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:_userInfo.birthday]];
+    
+    if (_userInfo.gender==0) {
+        genderImage.image = [UIImage imageNamed:@"woman32white.png"];
+        ageAndGenderView.backgroundColor = genderPink;
+    }else{
+        genderImage.image = [UIImage imageNamed:@"man32white.png"];
+        ageAndGenderView.backgroundColor = subjectColor;
+    }
+    
+    [headerView addSubview:ageAndGenderView];
+    
 }
 
 - (void)clickAddImageViewAction:(UITapGestureRecognizer*)sender
