@@ -40,6 +40,14 @@
 
     "devDependencies": {
         "pre-commit": "*"
+    },
+
+    "pre-commit": [
+        "test"
+    ],
+
+    "scripts": {
+        "test": "ls"
     }
 }
 
