@@ -684,7 +684,6 @@ static const double textViewWidth = 250;
     UIButton* rightBar = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBar.frame = CGRectMake(0, 0, 36, 36);
     [rightBar setTitle:@"资料" forState:UIControlStateNormal];
-    //[rightBar setBackgroundImage:[UIImage imageNamed:@"dot.png"] forState:UIControlStateNormal];
     [rightBar addTarget:self action:@selector(settingButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* rightitem = [[UIBarButtonItem alloc] initWithCustomView:rightBar];
     self.navigationItem.rightBarButtonItem = rightitem;
