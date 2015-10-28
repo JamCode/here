@@ -36,7 +36,7 @@
         "morgan":"*",
         "xml2js":"*",
         "ejs":"*"
-    }
+    },
 
     "devDependencies": {
         "pre-commit": "*"
