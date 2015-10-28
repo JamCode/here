@@ -36,6 +36,21 @@
         "morgan":"*",
         "xml2js":"*",
         "ejs":"*"
+    },
+
+    "devDependencies": {
+        "pre-commit": "*",
+        "jslint": "*"
+    },
+
+    "pre-commit": [
+        "test",
+        "jslint"
+    ], 
+
+    "scripts": {
+        "test": "ls",
+        "jslint": "jslint './*.js'"
     }
 }
 
