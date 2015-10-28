@@ -12,3 +12,7 @@ frontEnd/here_ios/here_ios.xcodeproj/project.xcworkspace/xcuserdata/wangjam.xcus
 *.xcbkptlist
 
 *.xcbkptlist
+
+backEnd/here_dev/node_modules/.bin/jslint
+
+backEnd/here_dev/node_modules/jslint/node_modules/.bin/nopt
