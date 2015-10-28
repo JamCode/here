@@ -39,15 +39,18 @@
     },
 
     "devDependencies": {
-        "pre-commit": "*"
+        "pre-commit": "*",
+        "jslint": "*"
     },
 
     "pre-commit": [
-        "test"
+        "test",
+        "jslint"
     ], 
 
     "scripts": {
-        "test": "ls"
+        "test": "ls",
+        "jslint": "jslint './*.js'"
     }
 }
 
