@@ -110,7 +110,7 @@ static const int ageWidth = 18;
         _timeLabel.textColor = [UIColor lightGrayColor];
         
         
-        reportButton = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+        reportButton = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 19, 9)];
         reportButton.image = [UIImage imageNamed:@"down.png"];
         
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nickName.frame.origin.x, _nickName.frame.origin.y+_nickName.frame.size.height+spaceValue, ScreenWidth - _nickName.frame.origin.x - 3*spaceValue, 0)];

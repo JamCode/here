@@ -389,7 +389,7 @@ typedef enum  {
     
     if ([app.myInfo.userID isEqualToString:_userInfo.userID] == false) {
         UIButton* rightBar = [UIButton buttonWithType:UIButtonTypeCustom];
-        rightBar.frame = CGRectMake(0, 0, 24, 24);
+        rightBar.frame = CGRectMake(0, 0, 36, 30);
         [rightBar setBackgroundImage:[UIImage imageNamed:@"dot.png"] forState:UIControlStateNormal];
         
         
