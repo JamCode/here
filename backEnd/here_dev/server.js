@@ -110,7 +110,7 @@ function startHTTPServer(port) {
 		encoding: 'utf-8'
 	});
 	//accessLogStream.setEncoding('utf-8');
-	global.app.use(morgan('dev', {
+	global.app.use(morgan('short', {
 		stream: accessLogStream
 	}));
 
