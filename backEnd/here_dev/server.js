@@ -114,7 +114,7 @@ function startHTTPServer(port) {
 		stream: accessLogStream
 	}));
 
- 
+
 	// 该路由使用的中间件
 	global.app.use(function(req, res, next) {
 		log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
