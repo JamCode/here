@@ -68,23 +68,15 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:YES];
+    
     [_settingStrArray setObject:editView.text atIndexedSubscript:_index];
     
     //update userInfo
     if (_parent.changedFlag == true) {
         AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        
-        if (_index == 0) {
-            app.myInfo.career = editView.text;
-        }
-        if (_index == 1) {
-            app.myInfo.company = editView.text;
-        }
-        if (_index == 2) {
-            app.myInfo.sign = editView.text;
-        }
         if (_index == 3) {
-            app.myInfo.interest = editView.text;
+            app.myInfo.sign = editView.text;
         }
     }
     

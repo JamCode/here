@@ -8,7 +8,6 @@
 
 #import "TabBarViewController.h"
 #import "Constant.h"
-#import "ContentViewController.h"
 #import "NearByPersonAction.h"
 #import "MessageTableViewController.h"
 #import "SettingViewController.h"

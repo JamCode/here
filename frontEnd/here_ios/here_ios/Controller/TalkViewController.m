@@ -675,7 +675,7 @@ static const double textViewWidth = 250;
     
     
     locDatabase = [[LocDatabase alloc] init];
-    if (![locDatabase connectToDatabase]) {
+    if (![locDatabase connectToDatabase:[AppDelegate getMyUserInfo].userID]) {
         alertMsg(@"本地数据库出错");
         return;
     }
@@ -684,7 +684,6 @@ static const double textViewWidth = 250;
     UIButton* rightBar = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBar.frame = CGRectMake(0, 0, 36, 36);
     [rightBar setTitle:@"资料" forState:UIControlStateNormal];
-    //[rightBar setBackgroundImage:[UIImage imageNamed:@"dot.png"] forState:UIControlStateNormal];
     [rightBar addTarget:self action:@selector(settingButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* rightitem = [[UIBarButtonItem alloc] initWithCustomView:rightBar];
     self.navigationItem.rightBarButtonItem = rightitem;
@@ -1008,6 +1007,7 @@ static const double textViewWidth = 250;
             priMsgList = [self sortMsg:priMsgList];
             PriMsgModel* priMsg = [priMsgList lastObject];
             LastMsgModel* lastMsg = [[LastMsgModel alloc] init];
+            
             lastMsg.counter_user_id = _counterInfo.userID;
             lastMsg.counter_nick_name = _counterInfo.nickName;
             lastMsg.counter_face_image_url = _counterInfo.faceImageThumbnailURLStr;
@@ -1246,11 +1246,14 @@ static const double textViewWidth = 250;
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:YES];
+    
     [talkTableView setDelegate:nil];
     UUAVAudioPlayer* audio = [UUAVAudioPlayer sharedInstance];
     [audio stopSound];
@@ -1276,10 +1279,13 @@ static const double textViewWidth = 250;
 //        [talkTableView selectRowAtIndexPath:curIndex animated:NO scrollPosition:UITableViewScrollPositionBottom];
 //        //        [talkTableView setContentOffset:CGPointMake(0, talkTableView.contentSize.height -talkTableView.bounds.size.height) animated:NO];
 //    }
+    [super viewDidAppear:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
+    
     [talkTableView setDelegate:self];
 
     UIApplication *app = [UIApplication sharedApplication];

@@ -34,7 +34,7 @@
     UIBarButtonItem *leftitem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(navigationBackButton:)];
     
     
-    UINavigationItem * navigationBarTitle = [[UINavigationItem alloc] initWithTitle:nil];
+    UINavigationItem * navigationBarTitle = [[UINavigationItem alloc] initWithTitle:@""];
     
     navigationBarTitle.leftBarButtonItem = leftitem;
     

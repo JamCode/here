@@ -30,6 +30,8 @@ var imageHomeUrl = "http://"+networkInterface.eth1[0].address + ":" + global_con
 log.info(imageHomeUrl, log.getFileNameAndLineNum(__filename));
 
 
+var redisOper = require('../utility/redisOper');
+
 
 router.post('/getAllContentLocation', function(req, res) {
 	//log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
@@ -358,6 +360,13 @@ router.post('/addSeeCount', function(req, res) {
 router.post('/addGoodCount', function(req, res) {
 	//log.logPrint(config.logLevel.INFO, addGoodCount.stringify(req.body));
 
+
+
+	//update to database
+	//update to redis
+	//push msg to user
+
+
 	contentMgmt.addGoodCount(req.body.content_id, req.body.user_id, function(flag, result) {
 		if (flag && result) {
 			//cannot click good for one content mutiple time
@@ -370,8 +379,10 @@ router.post('/addGoodCount', function(req, res) {
 
 
 				if(req.body.content_user_id !== req.body.user_id){
-					log.debug(req.body.content_user_id+", "+req.body.user_id);
-					apnAndUpdateMem(req.body.user_id, req.body.user_name+"赞了你的状态", config.hashKey.goodUnreadCount, req.body.user_id);
+					log.debug(req.body.content_user_id+", "+req.body.user_id, log.getFileNameAndLineNum(__filename));
+					apnToUser(req.body.content_user_id, req.body.user_name+"赞了你的状态");
+					//update redis
+					redisOper.increaseUnreadGoodCount(req.body.content_user_id);
 				}
 
 			} else {
@@ -385,7 +396,7 @@ router.post('/addGoodCount', function(req, res) {
 });
 
 
-function apnAndUpdateMem(user_id, content, key, field) {
+function apnToUser(user_id, content) {
 	//apn push
 	userMgmt.getTokenByUserId(user_id, function(flag, result) {
 		if (flag) {
@@ -406,22 +417,6 @@ function apnAndUpdateMem(user_id, content, key, field) {
 				});
 
 				return;
-			});
-
-			//input unread good count to redis
-			
-			redis_client.hget(key, field, function(err, reply) {
-				if (err) {
-					log.error(err, log.getFileNameAndLineNum(__filename));
-					return;
-				}
-
-				if (reply === null) {
-					reply = 1;
-				} else {
-					reply = parseInt(reply) + 1;
-				}
-				redis_client.hset(key, field, reply);
 			});
 		}
 	});
@@ -449,7 +444,8 @@ router.post('/addCommentToContent', function(req, res) {
 				log.debug('not to apn', log.getFileNameAndLineNum(__filename));
 			} else {
 
-				apnAndUpdateMem(req.body.to_user_id, req.body.user_name + "评论了你", config.hashKey.commentUnreadCount, req.body.to_user_id);
+				apnToUser(req.body.to_user_id, req.body.user_name + "评论了你");
+				redisOper.increaseUnreadCommentCount(req.body.to_user_id);
 			}
 		}
 

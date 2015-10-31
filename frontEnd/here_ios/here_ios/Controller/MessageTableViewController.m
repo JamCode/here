@@ -219,6 +219,7 @@ static const int noticeLabelHeight = 20;
             if([locDatabase getPriMsgByMsgID:priMsg.msg_id] == nil){
                 
                 LastMsgModel* oldLastPriMsg = [locDatabase getLastMsgByUser:priMsg.sender_user_id];
+                
                 PriMsgModel* timeMsg = nil;
                 
                 if (oldLastPriMsg!=nil && priMsg.send_timestamp - oldLastPriMsg.time_stamp>5*60) {
@@ -243,6 +244,7 @@ static const int noticeLabelHeight = 20;
             NSLog(@"%@", [element objectForKey:@"user_id"]);
             
             LastMsgModel* lastMsg = [locDatabase getLastMsgByUser:[element objectForKey:@"user_id"]];
+            
             if (lastMsg == nil) {
                 lastMsg = [[LastMsgModel alloc] init];
             }
@@ -444,7 +446,7 @@ static const int noticeLabelHeight = 20;
     [mysocket setDelegate:self];
     
     locDatabase = [[LocDatabase alloc] init];
-    if(![locDatabase connectToDatabase]){
+    if(![locDatabase connectToDatabase:myInfo.userID]){
         alertMsg(@"数据库问题");
         return;
     }
@@ -569,6 +571,8 @@ static const int noticeLabelHeight = 20;
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:YES];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -604,6 +608,8 @@ static const int noticeLabelHeight = 20;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
+    
     [self getPriMsgFriendList];
     [self checkMissedMsg];
     [self updateTabCount];
@@ -611,6 +617,8 @@ static const int noticeLabelHeight = 20;
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
+    [super viewDidAppear:YES];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applicationWillEnterForeground:)

@@ -9,12 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "ContentModel.h"
 #import <MBProgressHUD/MBProgressHUD.h>
-#import "ContentViewController.h"
 
 @interface ContentDetailViewController : UITableViewController<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIActionSheetDelegate, UITextViewDelegate, UIAlertViewDelegate, MBProgressHUDDelegate, UITextViewDelegate>
 
 @property ContentModel* contentModel;
-@property ContentViewController* parentCtrl;
 - (void)showCommentInputView;
 
 @end

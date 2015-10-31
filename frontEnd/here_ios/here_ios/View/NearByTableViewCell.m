@@ -42,9 +42,6 @@ static const int faceImageWidth = 68;
 static const int userNameLabelHeight = 20;
 static const int userSignLabelHeight = 16;
 
-static const int carIconHeight = 22;
-static const int carIconWidth = 22;
-
 static const int ageAndGenderHeight = 20;
 static const int ageAndGenderWidth = 40;
 
@@ -116,7 +113,7 @@ static const int updateTimeWidth = 100;
         [ageAndGenderView addSubview: ageAndGenderLabel];
         
         
-        usersignLabel = [[UILabel alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x+10+faceImageView.frame.size.width, ageAndGenderView.frame.origin.y+ageAndGenderView.frame.size.height+5, 120, userSignLabelHeight)];
+        usersignLabel = [[UILabel alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x+10+faceImageView.frame.size.width, ageAndGenderView.frame.origin.y+ageAndGenderView.frame.size.height+5, 180, userSignLabelHeight)];
         usersignLabel.textColor = [UIColor grayColor];
         usersignLabel.font = [UIFont fontWithName:@"Arial" size:14];
         

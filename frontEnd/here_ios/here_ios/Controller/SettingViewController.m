@@ -19,7 +19,6 @@
 #import "UserImageViewController.h"
 #import "TalkViewController.h"
 #import "Tools.h"
-#import "ContentViewController.h"
 #import "ComTableViewCtrl.h"
 #import "MyContentAction.h"
 #import "ImageBrowseAction.h"
@@ -42,8 +41,8 @@
     UIImageView* genderView;
     UILabel* ageAndStar;
     
-    UILabel* sign;
-    UIView* imageWallView;
+    //UILabel* sign;
+    //UIView* imageWallView;
     MBProgressHUD* loadingView;
     
     BOOL firstShow;
@@ -122,6 +121,15 @@ const int bigCellImageHeigh = 64;
 
 const int sectionCount = 2;
 
+
+static const int ageAndGenderHeight = 18;
+static const int ageAndGenderWidth = 50;
+
+static const int genderImageHeight = 18;
+static const int ageHeight = 18;
+static const int ageWidth = 30;
+
+
 typedef enum  {
     publishAndPhoto,
     details,
@@ -178,9 +186,9 @@ typedef enum  {
     //    [self.navigationController pushViewController:talk animated:YES];
     
     if (isInBlack == false) {
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"关注Ta", @"私信", @"加入黑名单", nil];
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"私信", @"加入黑名单", nil];
     }else{
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"关注Ta", @"私信", @"解除黑名单", nil];
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles: @"私信", @"解除黑名单", nil];
     }
     
     [sheet showInView:self.view];
@@ -329,11 +337,6 @@ typedef enum  {
     
     if (actionSheet == sheet) {
         if (buttonIndex == 0) {
-            //关注Ta
-            ;
-        }
-        
-        if (buttonIndex == 1) {
             //私信
             TalkViewController* talk = [[TalkViewController alloc] init];
             talk.counterInfo = _userInfo;
@@ -341,7 +344,7 @@ typedef enum  {
             [self.navigationController pushViewController:talk animated:YES];
         }
         
-        if (buttonIndex == 2) {
+        if (buttonIndex == 1) {
             //黑名单
             if (isInBlack == false) {
                 [self setToBlackList];
@@ -386,7 +389,7 @@ typedef enum  {
     
     if ([app.myInfo.userID isEqualToString:_userInfo.userID] == false) {
         UIButton* rightBar = [UIButton buttonWithType:UIButtonTypeCustom];
-        rightBar.frame = CGRectMake(0, 0, 24, 24);
+        rightBar.frame = CGRectMake(0, 0, 36, 30);
         [rightBar setBackgroundImage:[UIImage imageNamed:@"dot.png"] forState:UIControlStateNormal];
         
         
@@ -444,11 +447,15 @@ typedef enum  {
     
     [headerView addSubview:faceImageView];
     
-    sign = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x, zanImageView.frame.origin.y+zanImageView.frame.size.height+10, 200, zanImageView.frame.size.height)];
+    
+    
+    
+    
+//    sign = [[UILabel alloc] initWithFrame:CGRectMake(zanImageView.frame.origin.x, zanImageView.frame.origin.y+zanImageView.frame.size.height+10, 200, zanImageView.frame.size.height)];
     //sign.text = _userInfo.sign;
-    if((NSNull*)sign.text != [NSNull null]){
-        sign.textColor = [UIColor grayColor];
-    }
+//    if((NSNull*)sign.text != [NSNull null]){
+//        sign.textColor = [UIColor grayColor];
+//    }
     
     //get user image from server
     [self getUserInfo];
@@ -538,7 +545,7 @@ typedef enum  {
     
     
     //ageLabel.text = [[NSString alloc] initWithFormat:@"%ld", (long)_userInfo.age];
-    sign.text = _userInfo.sign;
+    //sign.text = _userInfo.sign;
     
     isInBlack = [[feedback objectForKey:@"black"] boolValue];
     
@@ -596,6 +603,59 @@ typedef enum  {
         NSDictionary* element = (NSDictionary*)[temp objectAtIndex:i];
         [userImageArray addObject:[element objectForKey:@"user_image_url"]];
     }
+    
+    [self setNickNameLabel];
+}
+
+
+
+- (void)setNickNameLabel
+{
+    CGSize nickNameSize = [Tools getTextArrange:_userInfo.nickName maxRect:CGSizeMake(120, 80) fontSize:18];
+    NSLog(@"%f,%f", nickNameSize.height, nickNameSize.width);
+    UILabel* nickNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x+faceImageView.frame.size.width+10, faceImageView.frame.origin.y+faceImageView.frame.size.height/2+10, nickNameSize.width+5, nickNameSize.height+5)];
+    [headerView addSubview:nickNameLabel];
+    nickNameLabel.text = _userInfo.nickName;
+    nickNameLabel.font = [UIFont fontWithName:@"Arial" size:18];
+    nickNameLabel.textColor = [UIColor grayColor];
+    
+    
+    UIView* ageAndGenderView = [[UIView alloc] initWithFrame:CGRectMake(nickNameLabel.frame.origin.x+10+nickNameLabel.frame.size.width, nickNameLabel.frame.origin.y, ageAndGenderWidth, nickNameLabel.frame.size.height - 5)];
+    ageAndGenderView.layer.cornerRadius = 4.0;
+    
+    ageAndGenderView.center = CGPointMake(ageAndGenderView.center.x, nickNameLabel.center.y);
+    
+    
+    UIImageView* genderImage = [[UIImageView alloc] initWithFrame:CGRectMake(2, 4, genderImageHeight, genderImageHeight)];
+    genderImage.center = CGPointMake(genderImage.center.x, ageAndGenderView.frame.size.height/2);
+    
+    genderImage.contentMode = UIViewContentModeScaleAspectFill;
+    
+    
+    [ageAndGenderView addSubview:genderImage];
+    
+    UILabel* ageAndGenderLabel = [[UILabel alloc] initWithFrame:CGRectMake(genderImage.frame.origin.x+genderImage.frame.size.width, 2, ageWidth, ageHeight)];
+    
+    
+    ageAndGenderLabel.textAlignment = NSTextAlignmentCenter;
+    ageAndGenderLabel.font = [UIFont fontWithName:@"Arial" size:16];
+    ageAndGenderLabel.textColor = [UIColor whiteColor];
+    ageAndGenderLabel.center = CGPointMake(ageAndGenderLabel.center.x, genderImage.center.y);
+    
+    [ageAndGenderView addSubview: ageAndGenderLabel];
+    
+    ageAndGenderLabel.text = [[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:_userInfo.birthday]];
+    
+    if (_userInfo.gender==0) {
+        genderImage.image = [UIImage imageNamed:@"woman32white.png"];
+        ageAndGenderView.backgroundColor = genderPink;
+    }else{
+        genderImage.image = [UIImage imageNamed:@"man32white.png"];
+        ageAndGenderView.backgroundColor = subjectColor;
+    }
+    
+    [headerView addSubview:ageAndGenderView];
+    
 }
 
 - (void)clickAddImageViewAction:(UITapGestureRecognizer*)sender
@@ -864,6 +924,12 @@ typedef enum  {
     } completionBlock:^{
         //self.parentViewController.view.hidden = NO;
         [self dismissViewControllerAnimated:YES completion:nil];
+        AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        [app backToStartView];
+        
+        //[self.navigationController popToRootViewControllerAnimated:YES];
+        
         //self.view.hidden = NO;
     }];
 }
@@ -900,23 +966,15 @@ typedef enum  {
     
     if(indexPath.section ==details){
         
-        if(indexPath.row == 0){
-            //最近来访
-            ComTableViewCtrl* comTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[VisitListAction alloc] initWithUserId:_userInfo.userID]];
-            comTable.hidesBottomBarWhenPushed = YES;
-            
-            [self.navigationController pushViewController:comTable animated:YES];
-        }else{
-            if(indexPath.row == 4){
-                _changedFlag = false;
-                SettingChildViewController* settingChild = [[SettingChildViewController alloc] init];
-                settingChild.settingStrArray = settingStrArray;
-                settingChild.settingTitleArray = settingTitleArray;
-                settingChild.parent = self;
-                settingChild.hidesBottomBarWhenPushed = YES;
-                settingChild.index = indexPath.row;
-                [self.navigationController pushViewController:settingChild animated:YES];
-            }
+        if(indexPath.row == 3){
+            _changedFlag = false;
+            SettingChildViewController* settingChild = [[SettingChildViewController alloc] init];
+            settingChild.settingStrArray = settingStrArray;
+            settingChild.settingTitleArray = settingTitleArray;
+            settingChild.parent = self;
+            settingChild.hidesBottomBarWhenPushed = YES;
+            settingChild.index = indexPath.row;
+            [self.navigationController pushViewController:settingChild animated:YES];
         }
     }
     
@@ -975,14 +1033,14 @@ typedef enum  {
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    //[super viewWillDisappear:animated];
+    [super viewWillDisappear:animated];
     //[self.navigationController.navigationBar lt_reset];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     
-    
+    [super viewWillAppear:YES];
     
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     
@@ -1003,6 +1061,8 @@ typedef enum  {
     
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];//状态栏白色
+    
+
     
 }
 

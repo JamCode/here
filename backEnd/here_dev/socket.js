@@ -71,7 +71,7 @@ if (cluster.isMaster) {
             log.error('socket worker ' + worker.process.pid + ' died, code is ' + code + ", signal is " + signal, log.getFileNameAndLineNum(__filename));
             cluster.fork();
 
-            email.sendMail('socket worker ' + worker.process.pid + ' died');
+            email.sendMail('socket worker ' + worker.process.pid + ' died', "socket process failed");
 
         });
 
@@ -86,7 +86,7 @@ if (cluster.isMaster) {
 
     process.on('uncaughtException', function (err) {
         log.error('SOCKET SERVER Caught exception: ' + err.stack, log.getFileNameAndLineNum(__filename));
-        email.sendMail('SOCKET SERVER Caught exception: ' + err.stack);
+        email.sendMail('SOCKET SERVER Caught exception: ' + err.stack, "socket process failed");
     });
 
     startSocketServer();
@@ -222,7 +222,7 @@ function getMissedMsgAsync(result, fn) {
         if (item.msg_type == config.msgType.VOICEMSG||item.msg_type == config.msgType.IMAGEMSG) {
             fs.readFile(item.datapath, {encoding:'utf8',flag:'r'}, function (err, data) {
                 if (err) {
-                    log.error(err+" item.message_id "+item.message_id, log.getFileNameAndLineNum(__filename));
+                    log.error(err+" item.msg_id "+item.msg_id, log.getFileNameAndLineNum(__filename));
                     item.data = null;
                 } else {
                     //log.info(data, log.getFileNameAndLineNum(__filename));

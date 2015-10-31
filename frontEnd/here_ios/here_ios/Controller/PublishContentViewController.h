@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ContentViewController.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface PublishContentViewController : UIViewController<UITextViewDelegate,UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, MBProgressHUDDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CLLocationManagerDelegate>
 
-@property ContentViewController* contentViewController;
 
 @property NSString* address;
 

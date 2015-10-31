@@ -25,5 +25,6 @@
 + (SocketIO*) getMySocket;
 + (UserInfoModel*)getMyUserInfo;
 - (NSString*)getMyID;
+- (void)backToStartView;
 
 @end

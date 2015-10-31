@@ -11,6 +11,7 @@
 #import "TextFieldView.h"
 #import "RegisterPhoneNumViewController.h"
 #import "RegisterCellViewTableViewCell.h"
+#import "Tools.h"
 
 @interface RegisterUserInfoViewController ()
 {
@@ -31,12 +32,12 @@
 @implementation RegisterUserInfoViewController
 
 
-static const int camera_y = 32;
+static const int camera_y = 44;
 static const int camera_width = 78;
 static const int camera_height = 78;
 
 static const int selectField_x = 0;
-static const int selectField_y = 140;
+static const int selectField_y = 160;
 static const int selectHeight = 44;
 
 
@@ -80,6 +81,17 @@ static const int selectHeight = 44;
     [cameraImageView addGestureRecognizer:singleTap];
     
     
+    UILabel* cameraLabel = [[UILabel alloc] init];
+    cameraLabel.text = @"个人头像";
+    cameraLabel.font = [UIFont fontWithName:@"Arial" size:15];
+    cameraLabel.textColor = [UIColor grayColor];
+    cameraLabel.textAlignment = NSTextAlignmentCenter;
+    cameraLabel.frame = CGRectMake(10, cameraImageView.frame.origin.y+cameraImageView.frame.size.height+10, 120, 20);
+    cameraLabel.center = CGPointMake(cameraImageView.center.x, cameraLabel.center.y);
+    
+    [self.view addSubview:cameraLabel];
+    
+    
     tableView = [[UITableView alloc] initWithFrame:CGRectMake(selectField_x, selectField_y, ScreenWidth, selectHeight*2-1)];
     [tableView setDelegate:self];
     [tableView setDataSource:self];
@@ -110,8 +122,6 @@ static const int selectHeight = 44;
     
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:selectDate];
     
-    NSInteger day = [components day];
-    NSInteger month= [components month];
     NSInteger year= [components year];
     
     
@@ -132,6 +142,22 @@ static const int selectHeight = 44;
 
 - (void)nextStep:(id)sender
 {
+    
+    if (genderSelect == false) {
+        [Tools AlertBigMsg:@"请选择性别"];
+        return;
+    }
+    
+    if (ageSelect == false) {
+        [Tools AlertBigMsg:@"请选择出生日"];
+        return;
+    }
+    
+    if (faceSelect == false) {
+        [Tools AlertBigMsg:@"请上传个人头像"];
+        return;
+    }
+    
     if (faceSelect==true&&genderSelect==true&&ageSelect==true) {
         RegisterPhoneNumViewController* registerPhone = [[RegisterPhoneNumViewController alloc] init];
         registerPhone.userInfo = _userInfo;
@@ -248,7 +274,7 @@ static const int selectHeight = 44;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
+    [super viewWillAppear:YES];
 }
 
 - (void)didReceiveMemoryWarning

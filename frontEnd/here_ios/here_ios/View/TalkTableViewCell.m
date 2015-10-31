@@ -121,7 +121,7 @@ static const int maxImageButtonHeight = 160;
 
 - (void)setTalkCell:(UserInfoModel*)myInfo counter:(UserInfoModel*)counter msg:(PriMsgModel*)priMsg
 {
-    UserInfoModel* userInfo = [[UserInfoModel alloc] init];
+    UserInfoModel* userInfo = nil;
     myPriMsgModel = priMsg;
     BOOL isMe;
     if ([priMsg.sender_user_id isEqual:myInfo.userID]) {
@@ -337,13 +337,13 @@ static const int maxImageButtonHeight = 160;
 {
     UIImage* image = [UIImage imageWithData:data];
     CGFloat msgButtonHeight;
-    CGFloat msgButtonWidth;
+    //CGFloat msgButtonWidth;
     
     if (image.size.height>image.size.width) {
         msgButtonHeight = maxImageButtonHeight;
-        msgButtonWidth = 1.0*maxImageButtonHeight*image.size.width/image.size.height;
+        //msgButtonWidth = 1.0*maxImageButtonHeight*image.size.width/image.size.height;
     }else{
-        msgButtonWidth = maxImageButtonWidth;
+        //msgButtonWidth = maxImageButtonWidth;
         msgButtonHeight = 1.0*maxImageButtonWidth*image.size.height/image.size.width;
     }
     
@@ -394,7 +394,7 @@ static const int maxImageButtonHeight = 160;
         myPriMsgModel.unread = 0;
         
         LocDatabase* locDatabase = [[LocDatabase alloc] init];
-        if (![locDatabase connectToDatabase]) {
+        if (![locDatabase connectToDatabase:[AppDelegate getMyUserInfo].userID]) {
             NSLog(@"database error");
         }
         

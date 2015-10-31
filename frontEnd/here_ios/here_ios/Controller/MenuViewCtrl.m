@@ -15,7 +15,6 @@
 #import "CommentDetailAction.h"
 #import "NetWork.h"
 #import "macro.h"
-#import "ContentViewController.h"
 #import "Tools.h"
 #import "NearByPersonAction.h"
 #import "ComTableViewCtrl.h"
@@ -193,7 +192,7 @@ static const int faceimage_width = 64;
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    
+    [super viewDidAppear:YES];
 }
 
 

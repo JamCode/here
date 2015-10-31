@@ -17,7 +17,6 @@
 #import "NetWork.h"
 #import "ContentDetailViewController.h"
 #import "MessageTableViewController.h"
-#import "ContentViewController.h"
 #import <FIR/FIR.h>
 #import "Tools.h"
 
@@ -32,7 +31,12 @@
     return _myInfo.userID;
 }
 
-- (void) startView
+- (void)backToStartView
+{
+    [(UINavigationController*)self.window.rootViewController popToRootViewControllerAnimated:YES];
+}
+
+- (void)startView
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     

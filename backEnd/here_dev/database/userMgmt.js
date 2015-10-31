@@ -4,6 +4,12 @@ var config = require('../config/config');
 var log = global.log;
 
 
+exports.checkUserNameExist = function(reqBody, callback){
+	var sql = "select *from user_base_info where user_name = ?";
+	conn.executeSql(sql, [reqBody.user_name], callback);
+}
+
+
 exports.submitFeedback = function(reqBody, callback){
 
 	var sql = "insert into feedback_info(fi_user_id, fi_feedback, fi_submit_timestamp)values(?,?,?)";
@@ -58,11 +64,24 @@ exports.updateLoginStatus = function(deviceToken, user_id){
 exports.register = function(userInfo, callback){
 	var sqlArray = [];
 	var paraArray = [];
-	sqlArray.push('insert into user_base_info (user_id, user_phone, user_name, user_password, user_facethumbnail, user_face_image, user_age, user_gender, user_certificated_process, certificate_id, user_fans_count, user_follow_count, user_birth_day) values (?,?,?,?,?,?,?,?,?,?,?,?)');
+
+	log.debug(JSON.stringify(userInfo));
+
+	sqlArray.push('insert into user_base_info (user_id, user_phone, user_name, user_password, user_facethumbnail, user_face_image, user_age, user_gender, user_certificated_process, certificate_id, user_fans_count, user_follow_count, user_birth_day) values (?,?,?,?,?,?,?,?,?,?,?,?,?)');
 	sqlArray.push('insert into user_location_info (user_id) values (?)');	
-	paraArray.push([userInfo.id, userInfo.user_phone, userInfo.name, userInfo.password, userInfo.facethumbnail, userInfo.user_face_image,
-		userInfo.age, userInfo.gender, userInfo.certificated_process, userInfo.certificate_id, 
-		userInfo.fans_count, userInfo.follow_count, userInfo.user_birth_day]);
+	paraArray.push([userInfo.id, 
+		userInfo.user_phone, 
+		userInfo.name, 
+		userInfo.password, 
+		userInfo.facethumbnail, 
+		userInfo.user_face_image,
+		userInfo.age, 
+		userInfo.gender, 
+		userInfo.certificated_process, 
+		userInfo.certificate_id, 
+		userInfo.fans_count, 
+		userInfo.follow_count, 
+		userInfo.user_birth_day]);
 	paraArray.push([userInfo.id]);
 	
 	conn.executeTwoStepTransaction(sqlArray, paraArray, callback);
@@ -78,14 +97,20 @@ exports.getFacethumbnail = function(userId, callback) {
 	conn.executeSql(sql, [userId], callback);
 }
 
+
+exports.getCertificateCode = function(userPhone, callback){
+	var sql = 'select *from confirm_phone where user_phone = ? order by time_stamp desc limit 1';
+	conn.executeSql(sql, [userPhone], callback);
+}
+
 exports.certificateCode = function(userPhone, certificateCode, timeStamp, callback) {
 	var sql = 'select Time_stamp from confirm_phone where User_phone = ?';
 	conn.executeSql(sql, [userPhone], function(flag, result){
 		if (flag){
 			if (result.length){
 				if (timeStamp - result[0].Time_stamp > config.number.threeMinute) {
-					sql = 'update confirm_phone set Certificate_code = ?, Time_stamp = ? where User_phone = ?';
-					conn.executeSql(sql, [certificateCode, timeStamp, userPhone], callback);
+					sql = 'insert into confirm_phone values(?,?,?)';
+					conn.executeSql(sql, [userPhone, certificateCode, timeStamp], callback);
 				}else{
 					callback(true);
 				}
@@ -121,9 +146,9 @@ exports.getUserImage = function(userId, timestamp, count, callback){
 //end by wanghan for get user image
 
 exports.getUserDetail = function(userId, callback){
-	var sql = "select a.*, b.city_visit_count from user_base_info a left join user_city_count_v b on "
+	var sql = "select a.*,b.* from user_base_info a, user_location_info b where"
 			  +" a.user_id = b.user_id "
-			  +" where a.user_id = ?";
+			  +" and a.user_id = ?";
 	conn.executeSql(sql, [userId], callback);
 }
 

@@ -15,6 +15,9 @@
 #import "TabBarViewController.h"
 #import "AppDelegate.h"
 #import "CocoaSecurity.h"
+#import "Tools.h"
+#import "MenuViewCtrl.h"
+
 
 @interface RegisterConfirmViewController ()
 {
@@ -169,23 +172,27 @@ static const int notice_height = 18;
     [loadingView show:YES];
     
     
-    CocoaSecurityResult* encodePassword = [CocoaSecurity md5:_userInfo.password];
-    _userInfo.password = encodePassword.hexLower;
+    NSString* encodePassword = [Tools encodePassword:_userInfo.password];
     
     //异步注册信息
     NetWork* netWork = [[NetWork alloc] init];
     
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.phoneNum, _userInfo.certificateNo, _userInfo.nickName, _userInfo.password, [NSNumber numberWithInteger:_userInfo.age], [NSNumber numberWithInteger:_userInfo.gender], _userInfo.birthday, @"/register"] forKeys:@[@"user_phone", @"user_certificate_code", @"user_name", @"user_password", @"user_age", @"user_gender", @"user_birth_day", @"childpath"]];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.phoneNum, _userInfo.certificateNo, _userInfo.nickName, encodePassword, [NSNumber numberWithInteger:_userInfo.age], [NSNumber numberWithInteger:_userInfo.gender], _userInfo.birthday, @"/register"] forKeys:@[@"user_phone", @"user_certificate_code", @"user_name", @"user_password", @"user_age", @"user_gender", @"user_birth_day", @"childpath"]];
     
     NSDictionary* images = [[NSDictionary alloc] initWithObjects:@[_userInfo.faceImage] forKeys:@[@"user_facethumbnail"]];
     
     
     
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(registerSuccess:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerFail:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerError:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerException:) objCType:@encode(SEL)] ] forKeys:@[[[NSNumber alloc] initWithInt:REGISTER_SUCCESS],[[NSNumber alloc] initWithInt:REGISTER_FAIL],[[NSNumber alloc] initWithInt:ERROR],[[NSNumber alloc] initWithInt:EXCEPTION]]];
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(registerSuccess:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerFail:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(certificateNotMatch:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerException:) objCType:@encode(SEL)] ] forKeys:@[[[NSNumber alloc] initWithInt:REGISTER_SUCCESS],[[NSNumber alloc] initWithInt:REGISTER_FAIL],[[NSNumber alloc] initWithInt:CERTIFICATE_CODE_NOT_MATCH],[[NSNumber alloc] initWithInt:EXCEPTION]]];
     
     [netWork message:message images:images feedbackcall:feedbackcall complete:^{
         [loadingView hide:YES];
     } callObject:self];
+}
+
+- (void)certificateNotMatch:(id)sender
+{
+    [Tools AlertBigMsg:@"验证码错误"];
 }
 
 - (void)registerException:(id)sender
@@ -216,7 +223,23 @@ static const int notice_height = 18;
     
     
     TabBarViewController* tabbarView = [[TabBarViewController alloc] init];
-    [self presentViewController:tabbarView animated:YES completion:nil];
+    app.tabBarViewController = tabbarView;
+    
+    MenuViewCtrl* menu = [[MenuViewCtrl alloc] init];
+    TWTSideMenuViewController* sideMenu = [[TWTSideMenuViewController alloc] initWithMenuViewController:menu mainViewController:tabbarView];
+    
+    
+    CGFloat offset = ScreenWidth/5;
+    sideMenu.edgeOffset = (UIOffset) { .horizontal = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? offset : 0.0f };
+    
+    
+    sideMenu.zoomScale = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone ? 0.5634f : 0.85f;
+    sideMenu.zoomScale = 0.9;
+    
+    app.sideMenu = sideMenu;
+    sideMenu.navigationController.navigationBar.hidden = YES;
+    
+    [self presentViewController:sideMenu animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning

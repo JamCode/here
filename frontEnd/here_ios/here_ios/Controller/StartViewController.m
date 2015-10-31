@@ -20,9 +20,6 @@
 @implementation StartViewController
 
 //static const int button_x = 58;
-static const int button_y = 568-46;
-static const int button_width = 160;
-static const int button_height = 46;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -89,6 +86,7 @@ static const int button_height = 46;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 

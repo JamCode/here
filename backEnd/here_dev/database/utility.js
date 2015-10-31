@@ -105,13 +105,13 @@ exports.executeTwoStepTransaction = function(sqlArray, paraArray, callback){
 			trans.query(sqlArray[0], paraArray[0], function(err, result) {
 			    if(err) {
 			    	trans.rollback();
-			    	callback(true);
+			    	callback(false, err);
 			    }
 			    else
 			        trans.query(sqlArray[1], paraArray[1], function(err) {
 			            if(err){
 			            	trans.rollback();
-			            	callback(true);
+			            	callback(false, err);
 			            }
 			            else{
 			            	trans.commit();
@@ -195,7 +195,7 @@ function apnErrorHappened(err, notification) {
 		//
 		log.warn("err code:" + err + " "+JSON.stringify(notification), log.getFileNameAndLineNum(__filename));
 	}else{
-		log.error("err code:" + err +" "+ JSON.stringify(notification), log.getFileNameAndLineNum(__filename));
+		log.warn("err code:" + err +" "+ JSON.stringify(notification), log.getFileNameAndLineNum(__filename));
 	}
 }
 

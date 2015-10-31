@@ -18,6 +18,7 @@
 #import "CocoaSecurity.h"
 #import "TWTSideMenuViewController.h"
 #import "MenuViewCtrl.h"
+#import "Tools.h"
 
 @interface SignInViewController ()
 {
@@ -205,8 +206,8 @@ static const int tableview_cell_height = 44;
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     app.myInfo.phoneNum = phoneNumTextField.text;
     
-    CocoaSecurityResult* encodePassword = [CocoaSecurity md5:passwordTextField.text];
-    app.myInfo.password = encodePassword.hexLower;
+    app.myInfo.password = [Tools encodePassword:passwordTextField.text];
+
     
     [self sendLoginMessage:app.myInfo];
     
@@ -246,6 +247,8 @@ static const int tableview_cell_height = 44;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
+    
     [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     

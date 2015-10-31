@@ -1,23 +1,23 @@
 var nodemailer = require('nodemailer');
 
-var smtpTrans = nodemailer.createTransport( 
+var smtpTrans = nodemailer.createTransport(
 {
 	service: '163',
 	auth: {
-	    user: "wh85125@163.com", // 账号
-	    pass: "iwillbeok" // 密码
+	    user: "wh851125@163.com", // 账号
+	    pass: "851125" // 密码
   	}
-  	//port: 456,
-  	//host: 'smtp.163.com',
-  	//secure: true
+  //port: 456,
+  //host: 'smtp.163.com',
+  //secure: true
 });
 
-exports.sendMail = function(text){
+exports.sendMail = function(text, emailSubject){
 	// 设置邮件内容
-	var mailOptions = {
-	  from: "wh85125@163.com", // 发件地址
-	  to: "wh85125@163.com", // 收件列表
-	  subject: "系统报错", // 标题
+    var mailOptions = {
+	  from: "wh851125@163.com", // 发件地址
+	  to: "23766856@qq.com", // 收件列表
+	  subject: emailSubject, // 标题
 	  text: text // html 内容
 	};
 
@@ -28,6 +28,6 @@ exports.sendMail = function(text){
 			console.log('message sent:'+info.response);
 		}
 	});
-}
+};
 
 
