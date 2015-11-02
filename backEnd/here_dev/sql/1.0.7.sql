@@ -1,3 +1,4 @@
+#111
 DROP TABLE IF EXISTS  `static_pv_uv`;
 CREATE TABLE `static_pv_uv` (
   `static_id` varchar(100) NOT NULL,
