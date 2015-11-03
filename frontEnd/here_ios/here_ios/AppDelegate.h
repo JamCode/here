@@ -22,6 +22,11 @@
 @property TWTSideMenuViewController* sideMenu;
 
 
+@property NSString* serverDomain;
+@property NSString* socketIP;
+@property NSInteger socketPort;
+
+
 + (SocketIO*) getMySocket;
 + (UserInfoModel*)getMyUserInfo;
 - (NSString*)getMyID;
