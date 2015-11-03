@@ -1,13 +1,7 @@
-var mysql = require('mysql');
 var conn = require('./utility.js');
-var config = require('../config/config');
-
 var log = global.log;
 
-
-
-
-exports.insertReportContent = function(contentBody, callback){
+exports.insertReportContent = function (contentBody, callback) {
 	var sql = "insert into content_report_info(cri_content_id) values(?)";
 	conn.executeSql(sql, [contentBody.content_id], callback);
 }
