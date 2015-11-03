@@ -165,7 +165,7 @@ function insertPrivateMsgAndPushToFront(msg, io) {
                     });
 
                     var item = result[0];
-                    
+
                     if (msg.msg_type == config.msgType.VOICEMSG) {
                         msg.message = "[语音]";
                     }
@@ -212,7 +212,7 @@ function insertPrivateMsgAndPushToFront(msg, io) {
 
 function getMissedMsgAsync(result, fn) {
     async.map(result, function (item, callback) {
-        
+
         log.info(item.message_content, log.getFileNameAndLineNum(__filename));
 
         item.message_content = encryp.decode(item.message_content);
@@ -290,7 +290,7 @@ function startSocketServer() {
 
                             instantMsgMgmt.getAllMissedMsg(user_id, lastTimeStamp, function (flag, result) {
                                 log.logPrint(config.logLevel.INFO, 'getAllMissedMsg');
-                                
+
                                 if (flag == true) {
                                     getMissedMsgAsync(result, fn);
                                 }else{
