@@ -63,9 +63,11 @@
     
     
     //get config
-    NSString* serverDomain = [ConfigAccess serverDomain];
+    _serverDomain = [ConfigAccess serverDomain];
     
-    NSLog(@"%@", serverDomain);
+    NSLog(@"%@", _serverDomain);
+    
+    
     
     _tabBarViewController = nil;
     _myInfo = [[UserInfoModel alloc] init];

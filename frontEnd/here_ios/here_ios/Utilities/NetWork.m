@@ -13,6 +13,7 @@
 #import "Constant.h"
 #import <MBProgressHUD.h>
 #import "Tools.h"
+#import "AppDelegate.h"
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
@@ -25,7 +26,10 @@
     
     dispatch_queue_attr_t msgqueue = (dispatch_queue_attr_t)dispatch_queue_create("msgqueue", NULL);
     dispatch_async((dispatch_queue_t)msgqueue, ^{
-        NSString* urlStr = [[NSString alloc] initWithFormat:@"%@%@", ServerDomain, [message objectForKey:@"childpath"]];
+        
+        AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        NSString* urlStr = [[NSString alloc] initWithFormat:@"%@%@", app.serverDomain, [message objectForKey:@"childpath"]];
         NSURL* URL = [[NSURL alloc] initWithString:urlStr];
         
         NSMutableDictionary* feedback = [[NSMutableDictionary alloc] init];
