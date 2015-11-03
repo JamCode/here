@@ -59,20 +59,20 @@
 
 
 
-#ifdef DEBUG
-#define SocketIP @"112.74.102.178"
-#define SocketPort 10666
-#else
-#define SocketIP @"123.57.229.67"
-#define SocketPort 10666
-#endif
+//#ifdef DEBUG
+//#define SocketIP @"112.74.102.178"
+//#define SocketPort 10666
+//#else
+//#define SocketIP @"123.57.229.67"
+//#define SocketPort 10666
+//#endif
 
 
-#ifdef DEBUG
-#define ServerDomain @"http://112.74.102.178:8080"
-#else
-#define ServerDomain @"http://123.57.229.67:8080"
-#endif
+//#ifdef DEBUG
+//#define ServerDomain @"http://112.74.102.178:8080"
+//#else
+//#define ServerDomain @"http://123.57.229.67:8080"
+//#endif
 
 
 //ad version

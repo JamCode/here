@@ -19,6 +19,7 @@
 #import "MessageTableViewController.h"
 #import <FIR/FIR.h>
 #import "Tools.h"
+#import "ConfigAccess.h"
 
 @implementation AppDelegate
 
@@ -59,6 +60,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    
+    //get config
+    _serverDomain = [ConfigAccess serverDomain];
+    _socketIP = [ConfigAccess socketIP];
+    _socketPort = [ConfigAccess socketPort];
+    
+    NSLog(@"%@", _serverDomain);
+    
+    
+    
     _tabBarViewController = nil;
     _myInfo = [[UserInfoModel alloc] init];
     
@@ -107,6 +119,9 @@
     
     //bug 跟踪
     [FIR handleCrashWithKey:@"93fe308e58239051b512b539beccc87b"];
+    
+    
+    
     
     return YES;
 }
