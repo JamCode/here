@@ -181,6 +181,8 @@
 		B2689B3F1BBD0F7E008B8AF0 /* FeedBackCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = B2689B3E1BBD0F7E008B8AF0 /* FeedBackCtrl.m */; };
 		B29B5ED21BA9499D00D62757 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29B5ED11BA9499D00D62757 /* InfoPlist.strings */; };
 		B2A33D081BDDFF5F00D8F18D /* Last_pri_msg.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A33D071BDDFF5F00D8F18D /* Last_pri_msg.m */; };
+		B2BFEB021BE893E3000296EF /* config.geojson in Resources */ = {isa = PBXBuildFile; fileRef = B2BFEB011BE893E3000296EF /* config.geojson */; };
+		B2BFEB051BE897FE000296EF /* ConfigAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BFEB041BE897FE000296EF /* ConfigAccess.m */; };
 		E777BF15ECD86C660D85C8AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF27723DED1CCDC21653282 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -463,6 +465,9 @@
 		B29B5ED11BA9499D00D62757 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		B2A33D061BDDFF5F00D8F18D /* Last_pri_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Last_pri_msg.h; sourceTree = "<group>"; };
 		B2A33D071BDDFF5F00D8F18D /* Last_pri_msg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Last_pri_msg.m; sourceTree = "<group>"; };
+		B2BFEB011BE893E3000296EF /* config.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config.geojson; sourceTree = "<group>"; };
+		B2BFEB031BE897FE000296EF /* ConfigAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigAccess.h; sourceTree = "<group>"; };
+		B2BFEB041BE897FE000296EF /* ConfigAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigAccess.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -929,6 +934,9 @@
 		B24D69161BA6C8A300F33A96 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B2BFEB011BE893E3000296EF /* config.geojson */,
+				B2BFEB031BE897FE000296EF /* ConfigAccess.h */,
+				B2BFEB041BE897FE000296EF /* ConfigAccess.m */,
 				B24D68BB1BA6C8A300F33A96 /* BarItem.h */,
 				B24D68BC1BA6C8A300F33A96 /* BarItem.m */,
 				B24D68BD1BA6C8A300F33A96 /* CBStoreHouseRefreshControl.h */,
@@ -1054,6 +1062,7 @@
 				B24D66F11BA6BB1F00F33A96 /* speech_bubble-32.png in Resources */,
 				B24D67CA1BA6BB1F00F33A96 /* hot@2x.png in Resources */,
 				B24D67B01BA6BB1F00F33A96 /* nickname64px.png in Resources */,
+				B2BFEB021BE893E3000296EF /* config.geojson in Resources */,
 				B24D66EF1BA6BB1F00F33A96 /* publishActivity48.png in Resources */,
 				B24D69321BA6C8A400F33A96 /* LICENSE in Resources */,
 				B24D67CD1BA6BB1F00F33A96 /* man-noname.png in Resources */,
@@ -1257,6 +1266,7 @@
 				B24D693C1BA6C8A400F33A96 /* TWTSideMenuViewController.m in Sources */,
 				B24D68B01BA6C46900F33A96 /* CommentDetailAction.m in Sources */,
 				B24D68601BA6C3F200F33A96 /* UserInfoModel.m in Sources */,
+				B2BFEB051BE897FE000296EF /* ConfigAccess.m in Sources */,
 				B24D68B91BA6C46900F33A96 /* ContentDetailViewController.m in Sources */,
 				B24D65E11BA6B9D300F33A96 /* Pri_msg.m in Sources */,
 				B24D68AB1BA6C46900F33A96 /* RegisterNickNameViewController.m in Sources */,
@@ -1355,43 +1365,6 @@
 			};
 			name = Debug;
 		};
-		B24D65D21BA6AC5800F33A96 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		B24D65D41BA6AC5800F33A96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9911EC87AD469992DE0EB08F /* Pods.debug.xcconfig */;
@@ -1414,28 +1387,6 @@
 			};
 			name = Debug;
 		};
-		B24D65D51BA6AC5800F33A96 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 636B860494494DAFB67B35FB /* Pods.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/here_ios",
-				);
-				INFOPLIST_FILE = here_ios/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/here_ios/View/Utilities",
-					"$(PROJECT_DIR)/here_ios/Utilities",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-			};
-			name = Release;
-		};
 		B24D65D71BA6AC5800F33A96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1455,21 +1406,6 @@
 			};
 			name = Debug;
 		};
-		B24D65D81BA6AC5800F33A96 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = here_iosTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/here_ios.app/here_ios";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1477,28 +1413,25 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B24D65D11BA6AC5800F33A96 /* Debug */,
-				B24D65D21BA6AC5800F33A96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		B24D65D31BA6AC5800F33A96 /* Build configuration list for PBXNativeTarget "here_ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B24D65D41BA6AC5800F33A96 /* Debug */,
-				B24D65D51BA6AC5800F33A96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		B24D65D61BA6AC5800F33A96 /* Build configuration list for PBXNativeTarget "here_iosTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B24D65D71BA6AC5800F33A96 /* Debug */,
-				B24D65D81BA6AC5800F33A96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
