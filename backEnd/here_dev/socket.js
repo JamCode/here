@@ -4,66 +4,51 @@
  * @date    2014-12-22 14:33:11
  * @version $Id$
  */
-//var heapdump = require('node-heapdump');
-
 
 var log = require('./utility/log');
 log.SetLogFileName('logSocket_');
-global.log = log; //设置全局
-
-
+global.log = log; // 设置全局
 
 var config = require('./config/config');
 
-var global_config;
-if(process.env.ENV=='dev'){
+var global_config = null;
+if (process.env.ENV === 'dev') {
     global_config = require('./config/dev_env_config');
 }
 
-if(process.env.ENV=='pro'){
+if (process.env.ENV === 'pro') {
     global_config = require('./config/pro_env_config');
 }
 
 var instantMsgMgmt = require('./database/instantMsgMgmt');
 var userMgmt = require('./database/userMgmt');
-
-
 var conn = require('./database/utility.js');
 var cluster = require('cluster');
-var weimi = require('./utility/weimi');
 var email = require('./utility/emailTool');
-var redis = require("redis");
+var redis = require('redis');
 var redisClient = redis.createClient();
 var fs = require('fs');
 var async = require('async');
-var net = require('net');
-var express = require('express');
 
 var socketPort = global_config.socketServerInfo.listen_port;
 
 var encryp = require('./utility/encryption.js');
 
-
-
-redisClient.on("error", function (err) {
+redisClient.on('error', function (err) {
     log.error(err, log.getFileNameAndLineNum(__filename));
 });
 
-var userInfoHashKey = "userInfoHashKey"; //key is user_id, value is user_base_info include socket.id
-var socketUserIdMap = "socketUserIdMap"; //key is socket.id, value is user_id, using for socket disconnect, delete user info
-var fs = require('fs');
+var userInfoHashKey = 'userInfoHashKey'; // key is user_id, value is user_base_info include socket.id
+var socketUserIdMap = 'socketUserIdMap'; // key is socket.id, value is user_id, using for socket disconnect, delete user info
 var path = require('path');
 
 if (cluster.isMaster) {
-
-    //write pid to app.pid
+    // write pid to app.pid
     var pidfile = path.join(global_config.env.homedir, 'socketServer.pid');
     log.info(pidfile, log.getFileNameAndLineNum(__filename));
     fs.writeFileSync(pidfile, process.pid, {
         flag: 'w'
     });
-
-
     for (var i = 0; i < 1; ++i) {
         cluster.fork();
 
@@ -100,8 +85,7 @@ if (cluster.isMaster) {
 //     return usersID[user_socket];
 // }
 
-function feedBack(flag, result, fn) {
-    var statusCode;
+function feedBack (flag, result, fn) {
     var returnData = {};
     if (flag) {
         returnData.code = config.returnCode.SUCCESS;
@@ -113,13 +97,9 @@ function feedBack(flag, result, fn) {
     fn(returnData);
 }
 
-function register(user_id, socket) {
-
+function register (user_id, socket) {
     redisClient.hset(userInfoHashKey, user_id, socket.id);
     redisClient.hset(socketUserIdMap, socket.id, user_id);
-
-    //usersSocket[user_id] = socket;
-    //usersID[socket.id] = user_id;
 }
 
 
@@ -166,15 +146,15 @@ function insertPrivateMsgAndPushToFront(msg, io) {
 
                     var item = result[0];
 
-                    if (msg.msg_type == config.msgType.VOICEMSG) {
-                        msg.message = "[语音]";
+                    if (msg.msg_type === config.msgType.VOICEMSG) {
+                        msg.message = '[语音]';
                     }
 
-                    if (msg.msg_type == config.msgType.IMAGEMSG) {
-                        msg.message = "[图片]";
+                    if (msg.msg_type === config.msgType.IMAGEMSG) {
+                        msg.message = '[图片]';
                     }
 
-                    log.info('push msg '+msg.message, log.getFileNameAndLineNum(__filename));
+                    log.info('push msg ' + msg.message, log.getFileNameAndLineNum(__filename));
 
                     var pushMsg = {
                         content: msg.from_name + ":" + msg.message,
@@ -199,17 +179,6 @@ function insertPrivateMsgAndPushToFront(msg, io) {
     });
 }
 
-
-
-// function getMissedMsgVoice(flag, result, fn){
-//     if (flag) {
-//         result.forEach(function(item) {
-
-//         });
-//     }
-// }
-
-
 function getMissedMsgAsync(result, fn) {
     async.map(result, function (item, callback) {
 
@@ -217,19 +186,12 @@ function getMissedMsgAsync(result, fn) {
 
         item.message_content = encryp.decode(item.message_content);
 
-
-
-        if (item.msg_type == config.msgType.VOICEMSG||item.msg_type == config.msgType.IMAGEMSG) {
+        if (item.msg_type === config.msgType.VOICEMSG || item.msg_type === config.msgType.IMAGEMSG) {
             fs.readFile(item.datapath, {encoding:'utf8',flag:'r'}, function (err, data) {
                 if (err) {
                     log.error(err+" item.msg_id "+item.msg_id, log.getFileNameAndLineNum(__filename));
                     item.data = null;
                 } else {
-                    //log.info(data, log.getFileNameAndLineNum(__filename));
-                    //data = JSON.parse(data);
-                    //log.info(data[0], log.getFileNameAndLineNum(__filename));
-                    //log.info(data[1], log.getFileNameAndLineNum(__filename));
-
                     item.data = data;
                 }
                 callback(null, item);
@@ -239,10 +201,6 @@ function getMissedMsgAsync(result, fn) {
 
             callback(null, item);
         }
-
-        //if (item.msg_type == config.msgType.IMAGEMSG) {
-            //read image data;
-        //}
 
     }, function (err, result) {
         log.info('end getMissedMsgAsync', log.getFileNameAndLineNum(__filename));
@@ -255,8 +213,7 @@ function getMissedMsgAsync(result, fn) {
     });
 }
 
-function startSocketServer() {
-
+function startSocketServer () {
 
     var io = require('socket.io').listen(socketPort);
     log.logPrint(config.logLevel.DEBUG, "start listen socket");
