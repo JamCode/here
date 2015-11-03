@@ -59,13 +59,13 @@
 
 
 
-#ifdef DEBUG
-#define SocketIP @"112.74.102.178"
-#define SocketPort 10666
-#else
-#define SocketIP @"123.57.229.67"
-#define SocketPort 10666
-#endif
+//#ifdef DEBUG
+//#define SocketIP @"112.74.102.178"
+//#define SocketPort 10666
+//#else
+//#define SocketIP @"123.57.229.67"
+//#define SocketPort 10666
+//#endif
 
 
 //#ifdef DEBUG

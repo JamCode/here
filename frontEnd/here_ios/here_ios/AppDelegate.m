@@ -64,6 +64,8 @@
     
     //get config
     _serverDomain = [ConfigAccess serverDomain];
+    _socketIP = [ConfigAccess socketIP];
+    _socketPort = [ConfigAccess socketPort];
     
     NSLog(@"%@", _serverDomain);
     

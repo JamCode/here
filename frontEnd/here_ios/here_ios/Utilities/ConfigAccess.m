@@ -31,9 +31,6 @@
 {
     NSDictionary* parseJason = [ConfigAccess readConfig];
     
-    NSLog(@"%@", [[parseJason objectForKey:@"dev"] objectForKey:@"ServerDomain"]);
-    
-    
 #ifdef DEBUG
     return [[parseJason objectForKey:@"dev"] objectForKey:@"ServerDomain"];
 #else
@@ -44,12 +41,24 @@
 
 + (NSString*)socketIP
 {
-    return nil;
+    NSDictionary* parseJason = [ConfigAccess readConfig];
+    
+#ifdef DEBUG
+    return [[parseJason objectForKey:@"dev"] objectForKey:@"SocketIP"];
+#else
+    return [[parseJason objectForKey:@"pro"] objectForKey:@"SocketIP"];
+#endif
 }
 
 + (NSInteger)socketPort
 {
-    return 0;
+    NSDictionary* parseJason = [ConfigAccess readConfig];
+    
+#ifdef DEBUG
+    return [[[parseJason objectForKey:@"dev"] objectForKey:@"SocketPort"] integerValue];
+#else
+    return [[[parseJason objectForKey:@"pro"] objectForKey:@"SocketPort"] integerValue];
+#endif
 }
 
 
