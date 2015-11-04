@@ -629,7 +629,7 @@ router.post('/getNoticeMsgCount', function (req, res) {
 						callback(err, reply);
 					} else {
 						if (reply === null) {
-							reply = parseInt(0);
+							reply = parseInt(0, 10);
 						}
 						callback(null, reply);
 					}
@@ -645,7 +645,7 @@ router.post('/getNoticeMsgCount', function (req, res) {
 						log.debug(req.body.user_id + ' ' + config.hashKey.goodUnreadCount + ' ' + reply,
 						log.getFileNameAndLineNum(__filename));
 						if (reply === null) {
-							reply = parseInt(0);
+							reply = parseInt(0, 10);
 						}
 						callback(null, reply);
 					}
