@@ -306,7 +306,7 @@ router.post('/getUserInfo', function (req, res) {
 			returnData.location_latitude = result[0].location_latitude;
 			returnData.location_longitude = result[0].location_longitude;
 
-			if (result[0].city_visit_count == null) {
+			if (result[0].city_visit_count === null) {
 				log.debug('city_visit_count is null', log.getFileNameAndLineNum(__filename));
 				returnData.city_visit_count = 0;
 			} else {

@@ -5,7 +5,7 @@ var config = require('../config/config');
 
 
 exports.feedBack = function(flag, result, res) {
-	
+
 	var returnData = {};
 	if (flag) {
 		returnData.code = config.returnCode.SUCCESS;
@@ -18,4 +18,4 @@ exports.feedBack = function(flag, result, res) {
 	}
 	//log.debug(JSON.stringify(returnData), log.getFileNameAndLineNum(__filename));
 	res.send(returnData);
-}
+};
