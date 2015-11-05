@@ -98,7 +98,7 @@ function register (user_id, socket) {
 }
 
 function insertPrivateMsgAndPushToFront (msg, io) {
-    if (msg.voice_time == null) {
+    if (msg.voice_time === null) {
         msg.voice_time = 0;
     }
 
@@ -124,9 +124,9 @@ function insertPrivateMsgAndPushToFront (msg, io) {
                         if (err) {
                             log.error(err, log.getFileNameAndLineNum(__filename));
                         } else {
-                            if (reply != null) {
+                            if (reply !== null) {
                                 var socketID = reply;
-                                if (io.sockets.connected[socketID] != null) {
+                                if (io.sockets.connected[socketID] !== null) {
 
                                     // send using socket
                                     io.sockets.connected[socketID].emit('msg', msg);
@@ -232,7 +232,7 @@ function startSocketServer () {
             var user_id = msg.user_id;
             var counter_id = msg.counter_id;
             var lastTimeStamp = msg.lastTimeStamp;
-            if (counter_id == null) {
+            if (counter_id === null) {
 
                 // get last send timestamp
                 userMgmt.getMissedMsgRecord(user_id,
@@ -315,7 +315,7 @@ function startSocketServer () {
                         returnData.code = config.returnCode.SUCCESS;
                         fn(returnData);
 
-                        if (msg.msg_type == null) {
+                        if (msg.msg_type === null) {
                             msg.msg_type = config.msgType.USERMSG;
                         }
 
@@ -370,7 +370,7 @@ function startSocketServer () {
                 if (err) {
                     log.error(err, log.getFileNameAndLineNum(__filename));
                 } else {
-                    if (reply == null) {
+                    if (reply === null) {
                         log.warn('reply is null', log.getFileNameAndLineNum(__filename));
                     } else {
                         var userID = reply;
