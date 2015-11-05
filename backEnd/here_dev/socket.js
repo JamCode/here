@@ -45,23 +45,20 @@ if (cluster.isMaster) {
         flag: 'w'
     });
 
-    for (var i = 0; i < 1; ++i) {
+
+    cluster.fork();
+    cluster.on('exit',
+    function (worker, code, signal) {
+        log.error('socket worker ' + worker.process.pid + ' died, code is ' + code + ', signal is ' + signal, log.getFileNameAndLineNum(__filename));
         cluster.fork();
 
-        cluster.on('exit',
-        function (worker, code, signal) {
-            log.error('socket worker ' + worker.process.pid + ' died, code is ' + code + ', signal is ' + signal, log.getFileNameAndLineNum(__filename));
-            cluster.fork();
+        email.sendMail('socket worker ' + worker.process.pid + ' died', 'socket process failed');
 
-            email.sendMail('socket worker ' + worker.process.pid + ' died', 'socket process failed');
-
-        });
-
-        cluster.on('listening',
-        function (worker, address) {
-            log.info('A socket worker with pid#' + worker.process.pid + ' is now listening to:' + address.port, log.getFileNameAndLineNum(__filename));
-        });
-    }
+    });
+    cluster.on('listening',
+    function (worker, address) {
+        log.info('A socket worker with pid#' + worker.process.pid + ' is now listening to:' + address.port, log.getFileNameAndLineNum(__filename));
+    });
 
 } else {
 
