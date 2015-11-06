@@ -5,7 +5,7 @@ exports.env = {
 };
 
 exports.crawler = {
-    listen_port: 3000
+    listen_port: 3030
 };
 
 exports.httpServerInfo = {
