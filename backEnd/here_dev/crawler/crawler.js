@@ -22,7 +22,7 @@ var port = global_config.crawler.listen_port;
 var email = require('../utility/emailTool');
 var morgan = require('morgan');
 var fs = require('fs');
-var crawlerRouter = require('crawlerRouter.js');
+var crawlerRouter = require('./crawlerRouter.js');
 
 process.on('uncaughtException', function (err) {
     log.error('crawler Caught exception: ' + err.stack, log.getFileNameAndLineNum(__filename));
