@@ -5,28 +5,21 @@ global.log = log; // 设置全局
 var global_config;
 
 if (process.env.ENV === 'dev') {
-	global_config = require('./config/dev_env_config');
+	global_config = require('../config/dev_env_config');
 }
 
 if (process.env.ENV === 'pro') {
-	global_config = require('./config/pro_env_config');
+	global_config = require('../config/pro_env_config');
 }
 
 global.global_config = global_config;
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
-var contentRouter = require('./routes/contentRouter.js');
-var userRouter = require('./routes/userRouter.js');
 
-var image = require('./routes/image.js');
-var config = require('./config/config');
 
-var cluster = require('cluster');
-var port1 = global_config.crawler.listen_port;
-var email = require('./utility/emailTool');
-
-var fs = require('fs');
+var port = global_config.crawler.listen_port;
+var email = require('../utility/emailTool');
 var morgan = require('morgan');
 
 
