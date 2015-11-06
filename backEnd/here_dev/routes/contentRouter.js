@@ -128,7 +128,7 @@ function packageContentArray (flag, result, res) {
 		var contentInfoDic = {};
 		var activeInfo = null;
 		result.forEach(function (item) {
-			if (contentInfoDic[item.content_id] === null) {
+			if (contentInfoDic[item.content_id] === undefined) {
 				activeInfo = {
 					content_id: item.content_id,
 					user_id: item.user_id,
@@ -150,7 +150,7 @@ function packageContentArray (flag, result, res) {
 					content_image_url_array: [],
 					content_image_compress_url_array: []
 				};
-				if (item.image_url !== null) {
+				if (item.image_url !== undefined) {
 					activeInfo.content_image_url_array.push(item.image_url);
 					activeInfo.content_image_compress_url_array.push(item.image_compress_url);
 				}
@@ -158,7 +158,7 @@ function packageContentArray (flag, result, res) {
 				contentInfoDic[item.content_id] = activeInfo;
 			} else {
 				activeInfo = contentInfoDic[item.content_id];
-				if (item.image_url !== null) {
+				if (item.image_url !== undefined) {
 					activeInfo.content_image_url_array.push(item.image_url);
 					activeInfo.content_image_compress_url_array.push(item.image_compress_url);
 				}
