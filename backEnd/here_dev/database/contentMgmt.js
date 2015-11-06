@@ -1,13 +1,7 @@
-var mysql = require('mysql');
 var conn = require('./utility.js');
-var config = require('../config/config');
-
 var log = global.log;
 
-
-
-
-exports.insertReportContent = function(contentBody, callback){
+exports.insertReportContent = function (contentBody, callback) {
 	var sql = "insert into content_report_info(cri_content_id) values(?)";
 	conn.executeSql(sql, [contentBody.content_id], callback);
 }
@@ -16,11 +10,11 @@ exports.insertReportContent = function(contentBody, callback){
 
 exports.insertContent = function(contentBody, callback){
 	var sql = "insert into content_base_info("
-		+" content_id," 
+		+" content_id,"
 		+" user_id, "
 		+" content, "
-		+" content_publish_latitude," 
-		+" content_publish_longitude," 
+		+" content_publish_latitude,"
+		+" content_publish_longitude,"
 		+" content_publish_timestamp, "
 		+" content_publish_date, "
 		+" anonymous, "
@@ -28,21 +22,21 @@ exports.insertContent = function(contentBody, callback){
 		+" address) "
 	+" values(?,?,?,?,?,?,?,?,?,?)";
 
-	conn.executeSql(sql, 
-		[contentBody.content_id, 
-		contentBody.user_id, 
-		contentBody.content, 
-		contentBody.publish_latitude, 
-		contentBody.publish_longitude, 
+	conn.executeSql(sql,
+		[contentBody.content_id,
+		contentBody.user_id,
+		contentBody.content,
+		contentBody.publish_latitude,
+		contentBody.publish_longitude,
 		contentBody.timestamp,
 		new Date(),
-		contentBody.anonymous, 
-		contentBody.content_image_url, 
+		contentBody.anonymous,
+		contentBody.content_image_url,
 		contentBody.address], callback);
 
 	if(contentBody.cityDesc!=null&&contentBody.cityDesc!=''){
-		insertContentLocationInfo(contentBody.content_id, 
-			contentBody.publish_latitude, contentBody.publish_longitude, 
+		insertContentLocationInfo(contentBody.content_id,
+			contentBody.publish_latitude, contentBody.publish_longitude,
 			contentBody.cityDesc, null);
 	}
 }
@@ -52,14 +46,14 @@ exports.insertContent = function(contentBody, callback){
 exports.insertContentImage = function(contentImageBody, callback){
 	log.info(contentImageBody.content_id
 		+','+contentImageBody.image_url
-		+','+contentImageBody.image_compress_url, 
+		+','+contentImageBody.image_compress_url,
 		log.getFileNameAndLineNum(__filename));
 
 	var sql = "insert into content_image_info(content_id, image_url, image_compress_url) "
 	+" values('"+contentImageBody.content_id+"','"+contentImageBody.image_url+"','"
 		+contentImageBody.image_compress_url+"')";
-	
-	conn.executeSqlString(sql, 
+
+	conn.executeSqlString(sql,
 		callback);
 }
 
@@ -72,13 +66,13 @@ function insertContentLocationInfo(content_id, content_publish_latitude, content
 }
 
 exports.getNearbyContent = function(reqBody, callback){
-	
+
 	var sql = "select a.*, b.*,c.image_url, c.image_compress_url from content_base_info a left join content_image_info c on a.content_id = c.content_id, user_base_info b "
 	+" where a.user_id = b.user_id "
 	+" and ((ABS(?-a.content_publish_latitude)*111)<100 and  ABS(? - a.content_publish_longitude)*COS(?)*111<100)"
 	+" and content_publish_timestamp<? "
 	+" order by content_publish_timestamp DESC limit 8";
-	
+
 	conn.executeSql(sql, [reqBody.user_latitude, reqBody.user_longitude, reqBody.user_latitude, reqBody.last_timestamp], callback);
 }
 
@@ -105,7 +99,7 @@ exports.getHisContentByUser = function(user_id, last_timestamp, callback) {
 
 
 exports.getContentByUser = function(user_id, last_timestamp, anonymous, callback) {
-	
+
 	// if(anonymous == true){
 	// 	var sql = "select a.*, b.* from content_base_info a, user_base_info b "
 	// 	+" where a.user_id = ? "
@@ -122,7 +116,7 @@ exports.getContentByUser = function(user_id, last_timestamp, anonymous, callback
 		+" order by a.content_publish_timestamp DESC limit 8";
 		conn.executeSql(sql, [user_id, last_timestamp], callback);
 	//}
-	
+
 }
 
 exports.getContentBaseInfo = function(content_id, callback) {
@@ -148,12 +142,12 @@ exports.addCommentToContent = function(reqBody, callback){
 	var sql = "insert into content_comment_info "
 	+"(content_comment_id, content_id, comment_user_id, comment_to_user_id, "
 	+"	comment_content, comment_timestamp) values(?,?,?,?,?,?)";
-	conn.executeSql(sql, [content_comment_id, reqBody.content_id, 
+	conn.executeSql(sql, [content_comment_id, reqBody.content_id,
 		reqBody.user_id, reqBody.to_user_id, reqBody.comment, timestamp], callback);
-	
+
 	sql = "update content_base_info set content_comment_count = content_comment_count+1 where content_id = ?";
 	conn.executeSql(sql, [reqBody.content_id], null);
-	
+
 }
 
 
@@ -195,13 +189,13 @@ exports.insertGoodInfo = function(content_id, user_id){
 
 //add by wanghan 20141231 for add get popular content
 exports.getPopularContent = function(reqBody, callback){
-	
+
 	var timestamp = Date.now()/1000;
 	var sql = "select a.*, b.*, c.* from content_base_info a left join content_image_info c on a.content_id = c.content_id, user_base_info b "
 	+" where a.user_id = b.user_id "
 	+" and content_publish_timestamp>?"
 	+" order by content_good_count*1+content_comment_count*3+content_see_count*2 DESC limit 16";
-	
+
 	conn.executeSql(sql, [timestamp - 4*3600*24], callback);
 }
 
@@ -225,15 +219,3 @@ exports.getAllContentImage = function(callback) {
 	var sql = "select *from content_image_info";
 	conn.executeSql(sql, [], callback);
 }
-
-
-
-
-
-
-
-
-
-
-
-
