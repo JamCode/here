@@ -4,6 +4,10 @@ exports.env = {
     homedir: path.join(process.env.HOME, '')
 };
 
+exports.crawler = {
+    listen_port: 8090
+};
+
 exports.httpServerInfo = {
     listen_port: 8080
 };
