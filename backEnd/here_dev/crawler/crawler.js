@@ -14,7 +14,6 @@ if (process.env.ENV === 'pro') {
 
 global.global_config = global_config;
 var express = require('express');
-var path = require('path');
 var bodyParser = require('body-parser');
 
 
