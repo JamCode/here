@@ -56,4 +56,4 @@ global.app.use(function (req, res, next) {
 global.app.use('/', crawlerRouter);
 
 global.app.listen(port);
-log.logPrint(config.logLevel.INFO, 'Express started on port ' + port);
+log.info('Express started on port ' + port, log.getFileNameAndLineNum(__filename));
