@@ -34,7 +34,7 @@ exports.insertContent = function (contentBody, callback) {
 		contentBody.content_image_url,
 		contentBody.address], callback);
 
-	if (contentBody.cityDesc !== null && contentBody.cityDesc !== '') {
+	if (contentBody.cityDesc != null && contentBody.cityDesc != '') {
 		insertContentLocationInfo(contentBody.content_id,
 			contentBody.publish_latitude, contentBody.publish_longitude,
 			contentBody.cityDesc, null);
