@@ -21,6 +21,7 @@ var bodyParser = require('body-parser');
 var port = global_config.crawler.listen_port;
 var email = require('../utility/emailTool');
 var morgan = require('morgan');
+var fs = require('fs');
 
 
 process.on('uncaughtException', function (err) {
