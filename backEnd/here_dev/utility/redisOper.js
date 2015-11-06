@@ -11,7 +11,7 @@ exports.increaseUnreadGoodCount = function (user_id) {
 			return;
 		}
 
-		if (reply === null) {
+		if (reply == null) {
 			reply = 1;
 		} else {
 			reply = parseInt(reply, 10) + 1;
@@ -32,7 +32,7 @@ exports.increaseUnreadCommentCount = function (user_id) {
 			return;
 		}
 
-		if (reply === null) {
+		if (reply == null) {
 			reply = 1;
 		} else {
 			reply = parseInt(reply, 10) + 1;

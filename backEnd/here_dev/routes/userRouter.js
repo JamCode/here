@@ -306,7 +306,7 @@ router.post('/getUserInfo', function (req, res) {
 			returnData.location_latitude = result[0].location_latitude;
 			returnData.location_longitude = result[0].location_longitude;
 
-			if (result[0].city_visit_count === null) {
+			if (result[0].city_visit_count == null) {
 				log.debug('city_visit_count is null', log.getFileNameAndLineNum(__filename));
 				returnData.city_visit_count = 0;
 			} else {
@@ -628,7 +628,7 @@ router.post('/getNoticeMsgCount', function (req, res) {
 						log.error(err, log.getFileNameAndLineNum(__filename));
 						callback(err, reply);
 					} else {
-						if (reply === null) {
+						if (reply == null) {
 							reply = parseInt(0, 10);
 						}
 						callback(null, reply);
@@ -644,7 +644,7 @@ router.post('/getNoticeMsgCount', function (req, res) {
 					} else {
 						log.debug(req.body.user_id + ' ' + config.hashKey.goodUnreadCount + ' ' + reply,
 						log.getFileNameAndLineNum(__filename));
-						if (reply === null) {
+						if (reply == null) {
 							reply = parseInt(0, 10);
 						}
 						callback(null, reply);

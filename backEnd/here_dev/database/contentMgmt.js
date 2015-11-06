@@ -34,7 +34,7 @@ exports.insertContent = function (contentBody, callback) {
 		contentBody.content_image_url,
 		contentBody.address], callback);
 
-	if (contentBody.cityDesc !== null && contentBody.cityDesc !== '') {
+	if (contentBody.cityDesc != null && contentBody.cityDesc != '') {
 		insertContentLocationInfo(contentBody.content_id,
 			contentBody.publish_latitude, contentBody.publish_longitude,
 			contentBody.cityDesc, null);
@@ -50,8 +50,8 @@ exports.insertContentImage = function (contentImageBody, callback) {
 		log.getFileNameAndLineNum(__filename));
 
 	var sql = 'insert into content_image_info(content_id, image_url, image_compress_url) ' +
-	' values(' + contentImageBody.content_id + ',' + contentImageBody.image_url + ',' +
-	contentImageBody.image_compress_url + ')';
+	' values("' + contentImageBody.content_id + '","' + contentImageBody.image_url + '","' +
+	contentImageBody.image_compress_url + '")';
 
 	conn.executeSqlString(sql,
 		callback);
@@ -187,6 +187,16 @@ exports.getPopularContent = function (reqBody, callback) {
 	' order by content_good_count*1 + content_comment_count*3 + content_see_count*2 DESC limit 16';
 
 	conn.executeSql(sql, [timestamp - 4 * 3600 * 24], callback);
+};
+
+exports.getContentImage = function(content_id, callback){
+	var sql = "select *from content_image_info where content_id = ?";
+	conn.executeSql(sql, [content_id], callback);
+};
+
+exports.deleteContentImage = function(content_id, callback){
+	var sql = "delete from content_image_info where content_id = ?";
+	conn.executeSql(sql, [content_id], callback);
 };
 
 exports.deleteContent = function (content_id, callback) {
