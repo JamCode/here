@@ -128,7 +128,7 @@ function packageContentArray (flag, result, res) {
 		var contentInfoDic = {};
 		var activeInfo = null;
 		result.forEach(function (item) {
-			if (contentInfoDic[item.content_id] == null) {
+			if (contentInfoDic[item.content_id] === null) {
 				activeInfo = {
 					content_id: item.content_id,
 					user_id: item.user_id,
@@ -150,7 +150,7 @@ function packageContentArray (flag, result, res) {
 					content_image_url_array: [],
 					content_image_compress_url_array: []
 				};
-				if (item.image_url != null) {
+				if (item.image_url !== null) {
 					activeInfo.content_image_url_array.push(item.image_url);
 					activeInfo.content_image_compress_url_array.push(item.image_compress_url);
 				}
@@ -158,7 +158,7 @@ function packageContentArray (flag, result, res) {
 				contentInfoDic[item.content_id] = activeInfo;
 			} else {
 				activeInfo = contentInfoDic[item.content_id];
-				if (item.image_url != null) {
+				if (item.image_url !== null) {
 					activeInfo.content_image_url_array.push(item.image_url);
 					activeInfo.content_image_compress_url_array.push(item.image_compress_url);
 				}
@@ -329,6 +329,39 @@ router.post('/deleteContent', function (req, res) {
 	contentMgmt.deleteContent(req.body.content_id, function (flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
+
+	//delete content image
+	contentMgmt.getContentImage(req.body.content_id, function(flag, result){
+		if(flag){
+			result.forEach(function(item){
+				var image_url = item.image_url;
+				var image_compress_url = item.image_compress_url;
+
+				image_url = image_url.substr(image_url.lastIndexOf('name=')+5);
+				image_compress_url = image_compress_url.substr(image_compress_url.lastIndexOf('name=')+5);
+
+				var fullImageName = path.join(global_config.env.homedir, config.imageInfo.imageRootDir, image_url);
+				var fullCompressImageName = path.join(global_config.env.homedir, config.imageInfo.imageRootDir, image_compress_url);
+
+				log.debug(fullImageName, log.getFileNameAndLineNum(__filename));
+				log.debug(fullCompressImageName, log.getFileNameAndLineNum(__filename));
+
+				imageOper.deleteImage(fullImageName);
+				imageOper.deleteImage(fullCompressImageName);
+			});
+
+			contentMgmt.deleteContentImage(req.body.content_id, function(flag, result){
+				if(!flag){
+					log.error(result, log.getFileNameAndLineNum(__filename));
+				}
+			});
+
+		}else{
+			log.error(result, log.getFileNameAndLineNum(__filename));
+		}
+	});
+
+
 });
 
 // add by wanghan 20141219 for add active comment

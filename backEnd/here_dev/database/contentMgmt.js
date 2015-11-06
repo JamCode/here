@@ -189,6 +189,16 @@ exports.getPopularContent = function (reqBody, callback) {
 	conn.executeSql(sql, [timestamp - 4 * 3600 * 24], callback);
 };
 
+exports.getContentImage = function(content_id, callback){
+	var sql = "select *from content_image_info where content_id = ?";
+	conn.executeSql(sql, [content_id], callback);
+};
+
+exports.deleteContentImage = function(content_id, callback){
+	var sql = "delete from content_image_info where content_id = ?";
+	conn.executeSql(sql, [content_id], callback);
+};
+
 exports.deleteContent = function (content_id, callback) {
 	var sql = 'delete from content_base_info where ' +
 	' content_id = ?';
