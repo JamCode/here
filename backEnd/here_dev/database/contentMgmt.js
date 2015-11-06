@@ -50,8 +50,8 @@ exports.insertContentImage = function (contentImageBody, callback) {
 		log.getFileNameAndLineNum(__filename));
 
 	var sql = 'insert into content_image_info(content_id, image_url, image_compress_url) ' +
-	' values(' + contentImageBody.content_id + ',' + contentImageBody.image_url + ',' +
-	contentImageBody.image_compress_url + ')';
+	' values("' + contentImageBody.content_id + '","' + contentImageBody.image_url + '","' +
+	contentImageBody.image_compress_url + '")';
 
 	conn.executeSqlString(sql,
 		callback);
