@@ -7,3 +7,5 @@ router.get('/', function (req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 	res.send("hello crawler");
 });
+
+module.exports = router;
