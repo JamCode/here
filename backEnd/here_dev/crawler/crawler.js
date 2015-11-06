@@ -1,4 +1,4 @@
-var log = require('./utility/log');
+var log = require('../utility/log');
 log.SetLogFileName('logCrawler_');
 global.log = log; // 设置全局
 
