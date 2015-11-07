@@ -10,7 +10,7 @@
 $HOME = $ENV{HOME};
 $env = $ENV{ENV};
 `cd $HOME`;
-`du -m --max-depth=1>$HOME/sys_report.txt`;
+`du -m --max-depth=1 ~/>$HOME/sys_report.txt`;
 `df -h>>$HOME/sys_report.txt`;
 
 my $time = shift || time();
