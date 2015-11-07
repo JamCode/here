@@ -11,6 +11,7 @@ $HOME = $ENV{HOME};
 $env = $ENV{ENV};
 
 `df -h>$HOME/sys_report.txt`;
+`du -m --max-depth=1|sort -rn>>$HOME/sys_report.txt`;
 
 my $time = shift || time();
 my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($time);
