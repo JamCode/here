@@ -9,8 +9,9 @@
 
 $HOME = $ENV{HOME};
 $env = $ENV{ENV};
+`cd $HOME`;
 `du -m --max-depth=1>$HOME/sys_report.txt`;
-#`df -h>>$HOME/sys_report.txt`;
+`df -h>>$HOME/sys_report.txt`;
 
 my $time = shift || time();
 my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($time);
