@@ -15,3 +15,15 @@ tar –xvf file.tar //解压 tar包
 
 删除转发规则
 >* sudo iptables -t nat -D PREROUTING num
+
+## 统计系统文件大小
+
+统计文件系统可用空间
+>* df -h
+
+统计文件夹使用空间
+>* du -m --max-depth=1|sort -rn
+
+## pod 更新
+pod install --verbose --no-repo-update
+pod update --verbose --no-repo-update
