@@ -116,14 +116,28 @@ exports.pushMsgToUsers = function (userToken, msg) {
 		return;
 	}
 
-	log.debug(path.join(__dirname, 'heretest.pem'), log.getFileNameAndLineNum(__filename));
-	log.debug(path.join(__dirname, 'heretestkey.pem'), log.getFileNameAndLineNum(__filename));
+	var pemName = null;
+	var pemkeyName = null;
+
+	if (process.env.ENV === 'dev') {
+		pemName = 'heretest.pem';
+		pemkeyName = 'heretestkey.pem';
+	}
+
+	if (process.env.ENV === 'pro') {
+		pemName = 'herepro.pem';
+		pemkeyName = 'hereprokey.pem';
+	}
+
+
+	log.debug(path.join(__dirname, pemName), log.getFileNameAndLineNum(__filename));
+	log.debug(path.join(__dirname, pemkeyName), log.getFileNameAndLineNum(__filename));
 	log.debug(msg, log.getFileNameAndLineNum(__filename));
 
 	var apns = require('apn');
 	var options = {
-		cert: path.join(__dirname, 'heretest.pem'),
-		key: path.join(__dirname, 'heretestkey.pem'),
+		cert: path.join(__dirname, pemName),
+		key: path.join(__dirname, pemkeyName),
 		passphrase: '8888',
 		/* Key file path */
 		gateway: 'gateway.push.apple.com',
