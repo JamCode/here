@@ -361,7 +361,13 @@ function daliyRprt(dirPath, fromFile) {
             var curDateStr = y + M + d;
             var todayRprtDate = y + M + d + "-----[pvCount :" + pvCount + ";uvCount:" + uvCount + "]";
             //console.log('read a file done.');
-            conn.executeSql(sql, [pvCount, uvCount, timestamp, curDateStr], callback);
+            conn.executeSql(sql, [pvCount, uvCount, timestamp, curDateStr], function(flag, result){
+                if(flag){
+                    console.log('insert ok');
+                }else{
+                    console.log(result);
+                }
+            });
             //create rprtLog file
             var rptLogNm = 'rptLog.txt';
             exports.mkdir(path.dirname(dirPath + rptLogNm),
