@@ -23,3 +23,7 @@ tar –xvf file.tar //解压 tar包
 
 统计文件夹使用空间
 >* du -m --max-depth=1|sort -rn
+
+## pod 更新
+pod install --verbose --no-repo-update
+pod update --verbose --no-repo-update
