@@ -2,6 +2,17 @@ var gm = require('gm').subClass({ imageMagick: true });
 var fs = require('fs');
 var log = global.log;
 
+
+exports.deleteImage = function(fileName){
+	fs.unlink(fileName, function(err){
+		if(err){
+			log.error('fs.unlink error ' + err, log.getFileNameAndLineNum(__filename));
+		}else{
+			log.debug('fs.unlink SUCCESS ' + fileName, log.getFileNameAndLineNum(__filename));
+		}
+	});
+};
+
 exports.updateImage = function (origfilePath, fullFileName, fullFileNameCompress, minSize) {
 	fs.rename(origfilePath, fullFileName, function (err) {
 		if (err) {

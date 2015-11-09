@@ -86,7 +86,7 @@ exports.executeTwoStepTransaction = function (sqlArray, paraArray, callback) {
 			callback(false, err);
 		}else {
 			var queues = require('mysql-queues');
-			const DEBUG = true;
+			var DEBUG = true;
 			queues(conn, DEBUG);
 			var trans = conn.startTransaction();
 			trans.query(sqlArray[0], paraArray[0], function (err, result) {

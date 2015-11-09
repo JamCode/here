@@ -3,6 +3,7 @@ log.SetLogFileName('logServer_');
 global.log = log; // 设置全局
 
 var global_config;
+
 if (process.env.ENV === 'dev') {
 	global_config = require('./config/dev_env_config');
 }

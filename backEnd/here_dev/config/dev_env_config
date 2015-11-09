@@ -1,15 +1,19 @@
 var path = require('path');
 
 exports.env = {
-        homedir: path.join(process.env.HOME, '')
+    homedir: path.join(process.env.HOME, '')
+};
+
+exports.crawler = {
+    listen_port: 8090
 };
 
 exports.httpServerInfo = {
-        listen_port: 8080
+    listen_port: 8080
 };
 
 exports.socketServerInfo = {
-        listen_port: 10666
+    listen_port: 10666
 };
 
 exports.mysql_dev = {
