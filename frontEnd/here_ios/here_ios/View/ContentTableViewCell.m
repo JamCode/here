@@ -21,7 +21,7 @@
 #import "CommentModel.h"
 #import "ImageEnlarge.h"
 #import "ContentModel.h"
-
+#import "ContentDetailViewController.h"
 
 static const int inputfontSize = 16;
 static const double textViewHeight = 36;
@@ -46,6 +46,8 @@ static const double bottomToolbarHeight = 48;
     
     UIActionSheet* sheet;
     MBProgressHUD* loading;
+    
+    CommentModel* commentModel;
     
     
 }
@@ -668,7 +670,7 @@ static const int ageWidth = 18;
     NetWork* netWork = [[NetWork alloc] init];
     
     
-    CommentModel* commentModel = [[CommentModel alloc] init];
+    commentModel = [[CommentModel alloc] init];
     UserInfoModel* myUserInfo = [AppDelegate getMyUserInfo];
     
     commentModel.sendUserInfo = myUserInfo;
@@ -677,7 +679,8 @@ static const int ageWidth = 18;
     commentModel.counterUserInfo = contentModel.userInfo;
     commentModel.commentStr = commentInputView.text;
     commentInputView.text = @"";
-    
+    commentModel.publish_time = [[NSDate date] timeIntervalSince1970];
+
     
     NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[commentModel.contentModel.contentID, commentModel.sendUserInfo.userID, commentModel.counterUserInfo.userID, commentModel.commentStr, commentModel.sendUserInfo.nickName, @"/addCommentToContent"] forKeys:@[@"content_id", @"user_id", @"to_user_id", @"comment", @"user_name", @"childpath"]];
     
@@ -703,7 +706,13 @@ static const int ageWidth = 18;
 - (void)addCommentSuccess:(id)sender
 {
     [self increaseCommentCount];
+    
+    if (_contentDetail!=nil) {
+        [_contentDetail addDetailCommentSuccess:commentModel];
+    }
+    
     if (_tableView!=nil) {
+        
         [_tableView reloadData];
     }
 }

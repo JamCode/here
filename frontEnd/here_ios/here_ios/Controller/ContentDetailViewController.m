@@ -46,6 +46,8 @@
     UITextView* myTextField;
     
     NSString* commentStr;
+    
+    CommentModel* lastCommentModel;
 }
 @end
 
@@ -84,7 +86,7 @@ static const double textViewHeight = 36;
     toCommentUser = [[UserInfoModel alloc] init];
     
     
-    [self initCommentInputView];
+    //[self initCommentInputView];
     
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]){
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
@@ -109,7 +111,7 @@ static const double textViewHeight = 36;
             
             [textView resignFirstResponder];
             
-            [self sendComment:nil];
+            [self sendDetailComment:nil];
             
             return NO;
             
@@ -122,7 +124,8 @@ static const double textViewHeight = 36;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView == self.tableView) {
-        [myTextField resignFirstResponder];
+        //[myTextField resignFirstResponder];
+        [commentInputView resignFirstResponder];
     }
 }
 
@@ -235,9 +238,14 @@ static const double textViewHeight = 36;
         if (buttonIndex == 0) {
             NSIndexPath* indexPath =  [self.tableView indexPathForSelectedRow];
             
+            NSLog(@"%ld", indexPath.row);
+            
+            CommentModel* commentModel = [comments objectAtIndex:indexPath.row];
+            
             toCommentUser = [[UserInfoModel alloc] init];
-            toCommentUser.userID = [[comments objectAtIndex:indexPath.row] objectForKey:@"comment_user_id"];
-            toCommentUser.nickName = [[comments objectAtIndex:indexPath.row] objectForKey:@"user_name"];
+            toCommentUser.userID = commentModel.sendUserInfo.userID;
+            toCommentUser.nickName = commentModel.sendUserInfo.nickName;
+            
             _contentModel.to_content = 0;
             [self commentButtonAction:nil];
         }
@@ -247,8 +255,10 @@ static const double textViewHeight = 36;
 
 }
 
-- (void)addCommentSuccess:(id)sender
+- (void)addDetailCommentSuccess:(id)sender
 {
+    CommentModel* commentModel = (CommentModel*)sender;
+    
     mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
     mbProgress.mode = MBProgressHUDModeText;
     [self.view addSubview:mbProgress];
@@ -263,24 +273,13 @@ static const double textViewHeight = 36;
     [indexPaths addObject:indexPath];
     
     
-    CommentModel* commentModel = [[CommentModel alloc] init];
-    commentModel.sendUserInfo = myUserInfo;
-    commentModel.contentModel = _contentModel;
     
-    
-    commentModel.counterUserInfo = toCommentUser;
-    if (commentModel.counterUserInfo == nil) {
-        commentModel.counterUserInfo = commentModel.contentModel.userInfo;
-    }
-    
-    
-    commentModel.commentStr = commentStr;
-    commentModel.publish_time = [[NSDate date] timeIntervalSince1970];
     
     [comments insertObject:commentModel atIndex:0];
     
     [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView endUpdates];
+    
     self.tableView.tableFooterView = nil;
     
 }
@@ -290,17 +289,17 @@ static const double textViewHeight = 36;
 {
     [super viewWillAppear:YES];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
     
-    if (commentInputView!=nil) {
-        [commentInputView resignFirstResponder];
-    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"commentButtonHide" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"commentKeyboardHide" object:nil];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -475,7 +474,7 @@ static const double textViewHeight = 36;
         //NSLog(@"set image");
         
         [cell setContentModel:_contentModel];
-        
+        cell.contentDetail = self;
         return cell;
     }
     
@@ -520,7 +519,7 @@ static const double textViewHeight = 36;
     
     UIBarButtonItem* textfieldButtonItem =[[UIBarButtonItem alloc] initWithCustomView:commentInputView];
     
-    UIBarButtonItem* sendButton = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(sendComment:)];
+    UIBarButtonItem* sendButton = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(sendDetailComment:)];
     
     NSArray *textfieldArray=[[NSArray alloc]initWithObjects:textfieldButtonItem, sendButton, nil];
     [bottomToolbar setItems:textfieldArray animated:YES];
@@ -545,7 +544,7 @@ static const double textViewHeight = 36;
 }
 
 
-- (void)sendComment:(id)sender
+- (void)sendDetailComment:(id)sender
 {
     if ([commentInputView.text isEqual:@""]||commentInputView.text == nil) {
         return;
@@ -558,18 +557,18 @@ static const double textViewHeight = 36;
     NetWork* netWork = [[NetWork alloc] init];
     
     
-    CommentModel* commentModel = [[CommentModel alloc] init];
+    lastCommentModel = [[CommentModel alloc] init];
     
-    commentModel.sendUserInfo = myUserInfo;
-    commentModel.contentModel = _contentModel;
+    lastCommentModel.sendUserInfo = myUserInfo;
+    lastCommentModel.contentModel = _contentModel;
     
-    commentModel.counterUserInfo = toCommentUser;
-    if (commentModel.counterUserInfo == nil) {
-        commentModel.counterUserInfo = _contentModel.userInfo;
+    lastCommentModel.counterUserInfo = toCommentUser;
+    if (lastCommentModel.counterUserInfo == nil) {
+        lastCommentModel.counterUserInfo = _contentModel.userInfo;
     }
     
     
-    commentModel.commentStr = commentInputView.text;
+    lastCommentModel.commentStr = commentInputView.text;
     commentStr = commentInputView.text;
     
     commentInputView.text = @"";
@@ -580,9 +579,9 @@ static const double textViewHeight = 36;
     //    }
     
     
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[commentModel.contentModel.contentID, commentModel.sendUserInfo.userID, commentModel.counterUserInfo.userID, commentModel.commentStr, commentModel.sendUserInfo.nickName, @"/addCommentToContent"] forKeys:@[@"content_id", @"user_id", @"to_user_id", @"comment", @"user_name", @"childpath"]];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[lastCommentModel.contentModel.contentID, lastCommentModel.sendUserInfo.userID, lastCommentModel.counterUserInfo.userID, lastCommentModel.commentStr, lastCommentModel.sendUserInfo.nickName, @"/addCommentToContent"] forKeys:@[@"content_id", @"user_id", @"to_user_id", @"comment", @"user_name", @"childpath"]];
     
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(addCommentSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(addCommentError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(addCommentException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(addDetailCommentSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(addCommentError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(addCommentException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
     
     
     mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
@@ -593,6 +592,7 @@ static const double textViewHeight = 36;
             [mbProgress hide:YES];
             [mbProgress removeFromSuperview];
             mbProgress = nil;
+            [commentInputView resignFirstResponder];
     } callObject:self];
     
 }
@@ -601,8 +601,7 @@ static const double textViewHeight = 36;
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"commentButtonHide" object:nil];
-    
-    [commentInputView resignFirstResponder];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"commentKeyboardHide" object:nil];
 }
 
 

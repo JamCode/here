@@ -15,4 +15,6 @@
 @property ContentModel* contentModel;
 - (void)showCommentInputView;
 
+- (void)addDetailCommentSuccess:(id)sender;
+
 @end
