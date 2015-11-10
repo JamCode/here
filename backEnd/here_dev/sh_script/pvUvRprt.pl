@@ -10,7 +10,7 @@ chdir "$HOME/here/backEnd/here_dev/";
 #delete (T-1) report data rptLog.txt
 system("rm -r -f ./rptLog.txt");
 #Run and Create Rport data task
-`node $HOME/here/backEnd/here_dev/test/staticRprt.js`
+#`node $HOME/here/backEnd/here_dev/test/staticRprt.js &`;
 my $time = shift || time();
 my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($time);
 $year += 1900;
