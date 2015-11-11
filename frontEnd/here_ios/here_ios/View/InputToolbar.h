@@ -9,16 +9,16 @@
 #import <UIKit/UIKit.h>
 
 
-@protocol inputToolbarDelegate <NSObject>
+@protocol InputToolbarDelegate <NSObject>
 
 @optional
 - (void)sendAction:(NSString*)msg; //点击发送响应函数
 @end
 
 
-@interface inputToolbar : UIToolbar<UITextViewDelegate>
+@interface InputToolbar : UIToolbar<UITextViewDelegate>
 
-@property id<inputToolbarDelegate> inputDelegate;
+@property id<InputToolbarDelegate> inputDelegate;
 
 - (void)showInput;
 - (void)hideInput;

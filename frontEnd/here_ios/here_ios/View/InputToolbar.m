@@ -6,11 +6,11 @@
 //  Copyright © 2015 jam wang. All rights reserved.
 //
 
-#import "inputToolbar.h"
+#import "InputToolbar.h"
 #import "Constant.h"
 #import "macro.h"
 
-@implementation inputToolbar
+@implementation InputToolbar
 {
     UITextView* commentInputView;
 }

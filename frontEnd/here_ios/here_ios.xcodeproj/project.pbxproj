@@ -174,7 +174,7 @@
 		B24D693F1BA6C8A400F33A96 /* Waver.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69151BA6C8A300F33A96 /* Waver.m */; };
 		B24EC9641BAAA90C006E12CB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B24EC9631BAAA90B006E12CB /* MapKit.framework */; };
 		B24EC9671BAAB98D006E12CB /* visitView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24EC9661BAAB98D006E12CB /* visitView.m */; };
-		B26323331BF1F67900C75F81 /* inputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B26323321BF1F67900C75F81 /* inputToolbar.m */; };
+		B26323331BF1F67900C75F81 /* InputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B26323321BF1F67900C75F81 /* InputToolbar.m */; };
 		B267C63D1BA7F45900D12035 /* VisitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63C1BA7F45900D12035 /* VisitCell.m */; };
 		B267C6401BA7F55600D12035 /* VisitListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63F1BA7F55600D12035 /* VisitListAction.m */; };
 		B267C6431BA8085400D12035 /* VisitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C6421BA8085400D12035 /* VisitModel.m */; };
@@ -453,8 +453,8 @@
 		B24EC9631BAAA90B006E12CB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B24EC9651BAAB98D006E12CB /* visitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = visitView.h; sourceTree = "<group>"; };
 		B24EC9661BAAB98D006E12CB /* visitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = visitView.m; sourceTree = "<group>"; };
-		B26323311BF1F67900C75F81 /* inputToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inputToolbar.h; sourceTree = "<group>"; };
-		B26323321BF1F67900C75F81 /* inputToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = inputToolbar.m; sourceTree = "<group>"; };
+		B26323311BF1F67900C75F81 /* InputToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputToolbar.h; sourceTree = "<group>"; };
+		B26323321BF1F67900C75F81 /* InputToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputToolbar.m; sourceTree = "<group>"; };
 		B267C63B1BA7F45900D12035 /* VisitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitCell.h; sourceTree = "<group>"; };
 		B267C63C1BA7F45900D12035 /* VisitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitCell.m; sourceTree = "<group>"; };
 		B267C63E1BA7F55600D12035 /* VisitListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitListAction.h; sourceTree = "<group>"; };
@@ -742,8 +742,8 @@
 				B24D67E61BA6C06800F33A96 /* CommentDetailCell.m */,
 				B24D67E71BA6C06800F33A96 /* ContentTableViewCell.h */,
 				B24D67E81BA6C06800F33A96 /* ContentTableViewCell.m */,
-				B26323311BF1F67900C75F81 /* inputToolbar.h */,
-				B26323321BF1F67900C75F81 /* inputToolbar.m */,
+				B26323311BF1F67900C75F81 /* InputToolbar.h */,
+				B26323321BF1F67900C75F81 /* InputToolbar.m */,
 				B24D67E91BA6C06800F33A96 /* ImageBrowseCell.h */,
 				B24D67EA1BA6C06800F33A96 /* ImageBrowseCell.m */,
 				B24D67EB1BA6C06800F33A96 /* MyImageView.h */,
@@ -1283,7 +1283,7 @@
 				B24D69301BA6C8A400F33A96 /* CHANGELOG.md in Sources */,
 				B2689B3F1BBD0F7E008B8AF0 /* FeedBackCtrl.m in Sources */,
 				B24D68071BA6C06800F33A96 /* ContentTableViewCell.m in Sources */,
-				B26323331BF1F67900C75F81 /* inputToolbar.m in Sources */,
+				B26323331BF1F67900C75F81 /* InputToolbar.m in Sources */,
 				B24D69391BA6C8A400F33A96 /* TextFieldView.m in Sources */,
 				B24D65B31BA6AC5800F33A96 /* main.m in Sources */,
 				B24D65B91BA6AC5800F33A96 /* here_ios.xcdatamodeld in Sources */,

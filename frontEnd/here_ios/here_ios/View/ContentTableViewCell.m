@@ -22,7 +22,7 @@
 #import "ImageEnlarge.h"
 #import "ContentModel.h"
 #import "ContentDetailViewController.h"
-#import "inputToolbar.h"
+#import "InputToolbar.h"
 
 
 static const int inputfontSize = 16;
@@ -50,6 +50,8 @@ static const double bottomToolbarHeight = 48;
     MBProgressHUD* loading;
     
     CommentModel* commentModel;
+    
+    InputToolbar* inputToolBar;
     
     
 }
@@ -613,41 +615,12 @@ static const int ageWidth = 18;
 
 - (void)initCommentInputView
 {
-    [bottomToolbar removeFromSuperview];
     
-    bottomToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, ScreenHeight+bottomToolbarHeight, ScreenWidth, bottomToolbarHeight)];
-    [bottomToolbar setBackgroundImage:[UIImage new]forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [bottomToolbar setShadowImage:[UIImage new] forToolbarPosition:UIToolbarPositionAny];
-    bottomToolbar.backgroundColor = activeViewControllerbackgroundColor;
+    inputToolBar = [[InputToolbar alloc] init];
     
+    [[Tools curNavigator].view addSubview:inputToolBar];
     
-    commentInputView = [[UITextView alloc] init];
-    commentInputView.delegate =self;
-    commentInputView.frame = CGRectMake(0, 0, ScreenWidth - 2*40, textViewHeight);
-    commentInputView.returnKeyType = UIReturnKeyDone;//设置返回按钮的样式
-    
-    
-    commentInputView.keyboardType = UIKeyboardTypeDefault;//设置键盘样式为默认
-    commentInputView.font = [UIFont fontWithName:@"Arial" size:inputfontSize];
-    commentInputView.scrollEnabled = YES;
-    commentInputView.autoresizingMask = UIViewAutoresizingFlexibleHeight;//自适应高度
-    commentInputView.layer.cornerRadius = 4.0;
-    commentInputView.layer.borderWidth = 0.5;
-    commentInputView.layer.borderColor = sepeartelineColor.CGColor;
-    
-    
-    UIBarButtonItem* textfieldButtonItem =[[UIBarButtonItem alloc] initWithCustomView:commentInputView];
-    
-    UIBarButtonItem* sendButton = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(sendComment:)];
-    
-    NSArray *textfieldArray=[[NSArray alloc]initWithObjects:textfieldButtonItem, sendButton, nil];
-    [bottomToolbar setItems:textfieldArray animated:YES];
-    
-    bottomToolbar.hidden = YES;
-    
-    [[Tools curNavigator].view addSubview:bottomToolbar];
-    
-    [commentInputView becomeFirstResponder];
+    [inputToolBar showInput];
 }
 
 
