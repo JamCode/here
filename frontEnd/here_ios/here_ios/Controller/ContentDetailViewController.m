@@ -48,6 +48,8 @@
     NSString* commentStr;
     
     CommentModel* lastCommentModel;
+    
+    ContentTableViewCell* contentCell;
 }
 @end
 
@@ -475,6 +477,8 @@ static const double textViewHeight = 36;
         
         [cell setContentModel:_contentModel];
         cell.contentDetail = self;
+        
+        contentCell = cell;
         return cell;
     }
     
@@ -659,9 +663,10 @@ static const double textViewHeight = 36;
 //        [self presentViewController:publisComment animated:YES completion:nil];
 //    }
     
-    //弹出键盘
-    myTextField.hidden = NO;
-    [myTextField becomeFirstResponder];
+//            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showKeyboard) name:@"commentKeyboardShow" object:nil];
+
+    [contentCell showKeyboard];
+
     
 }
 

@@ -44,7 +44,7 @@
 
 - (void)increaseCommentCount;
 - (void)increaseGoodCount;
-
+- (void)showKeyboard;
 
 + (ContentTableViewCell*)generateCell:(UITableView*)tableView cellId:(NSString*)cellId contentList:(NSMutableArray*)contentList indexPath:(NSIndexPath*)indexPath;
 

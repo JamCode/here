@@ -22,6 +22,8 @@
 #import "ImageEnlarge.h"
 #import "ContentModel.h"
 #import "ContentDetailViewController.h"
+#import "inputToolbar.h"
+
 
 static const int inputfontSize = 16;
 static const double textViewHeight = 36;
@@ -165,9 +167,14 @@ static const int ageWidth = 18;
         
         imageArray = [[NSMutableArray alloc] init];
         
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hidenButtons) name:@"commentButtonHide" object:nil];
         
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hidenKeyboard) name:@"commentKeyboardHide" object:nil];
+        
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showKeyboard) name:@"commentKeyboardShow" object:nil];
         
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -183,6 +190,11 @@ static const int ageWidth = 18;
     return self;
 }
 
+
+- (void)showKeyboard
+{
+    [self initCommentInputView];
+}
 
 - (void)keyboardWillShow:(NSNotification*)notification
 {
@@ -727,16 +739,8 @@ static const int ageWidth = 18;
     if (index == 1) {
         
         //评论
+        
         [self initCommentInputView];
-        
-//        if ([self.contentViewCtrl isKindOfClass:[ContentViewController class]]) {
-//            [(ContentViewController*)self.contentViewCtrl showCommentInputView:self];
-//        }
-//        
-//        if([self.contentViewCtrl isKindOfClass:[ContentDetailViewController class]]){
-//            [(ContentDetailViewController*)self.contentViewCtrl showCommentInputView];
-//        }
-        
     }
     
     if (index == 0) {
