@@ -11,8 +11,12 @@
 #import "ContentModel.h"
 #import "OptionFunView.h"
 #import "MyImageView.h"
+#import "InputToolbar.h"
+
 @class ContentViewController;
-@interface ContentTableViewCell : UITableViewCell<OptionFunViewDelegate, UIScrollViewDelegate, UITextViewDelegate, UIActionSheetDelegate>
+@class ContentDetailViewController;
+
+@interface ContentTableViewCell : UITableViewCell<OptionFunViewDelegate, UIScrollViewDelegate, UITextViewDelegate, UIActionSheetDelegate, InputToolbarDelegate>
 
 
 @property FaceView* faceView;
@@ -41,12 +45,12 @@
 
 - (void)increaseCommentCount;
 - (void)increaseGoodCount;
-
+- (void)showKeyboard;
 
 + (ContentTableViewCell*)generateCell:(UITableView*)tableView cellId:(NSString*)cellId contentList:(NSMutableArray*)contentList indexPath:(NSIndexPath*)indexPath;
 
 @property UITableView* tableView;
-
+@property ContentDetailViewController* contentDetail;
 
 
 
