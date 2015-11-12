@@ -24,11 +24,7 @@
 #import "ContentDetailViewController.h"
 #import "InputToolbar.h"
 
-
-static const int inputfontSize = 16;
-static const double textViewHeight = 36;
 static const double bottomToolbarHeight = 48;
-
 
 @implementation ContentTableViewCell
 {
@@ -103,9 +99,6 @@ static const int ageWidth = 18;
         _nickName = [[UILabel alloc] initWithFrame:CGRectMake(_faceView.frame.origin.x+_faceView.frame.size.width+spaceValue, _faceView.frame.origin.y, nickNameWidth, nickNameHeight)];
         _nickName.font = [UIFont fontWithName:@"Arial" size:nameFontSize];
         
-        //_cutoffLine = [[UIView alloc] initWithFrame:CGRectMake(_nickName.frame.origin.x, _faceView.frame.origin.y+_faceView.frame.size.height, ScreenWidth - _nickName.frame.origin.x, 1)];
-        //_cutoffLine.backgroundColor = sepeartelineColor;
-        
         [self initGenderAgeView];
         
         
@@ -128,11 +121,6 @@ static const int ageWidth = 18;
         _addressLabel.textColor = subjectColor;
         
         
-//        _contentDetailInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_contentLabel.frame.origin.x, 0, 180, contentDetailInfoHeight)];
-//        _contentDetailInfoLabel.font = [UIFont fontWithName:@"Arial" size:timeFontSize];
-//        _contentDetailInfoLabel.textColor = [UIColor lightGrayColor];
-        
-        
         _goodCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(_contentLabel.frame.origin.x, 0, 0, contentDetailInfoHeight)];
         _goodCountLabel.font = [UIFont fontWithName:@"Arial" size:timeFontSize];
         _goodCountLabel.textColor = [UIColor lightGrayColor];
@@ -145,13 +133,6 @@ static const int ageWidth = 18;
         _distanceLabel.font = [UIFont fontWithName:@"Arial" size:timeFontSize];
         _distanceLabel.textColor = [UIColor lightGrayColor];
         
-        
-        
-        
-        
-        //_commentButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"OptionFunView_icon@2x.png"]];
-        
-        //[self addSubview:_commentButton];
         [self addSubview:_faceView];
         [self addSubview:_nickName];
         
@@ -164,8 +145,6 @@ static const int ageWidth = 18;
         [self addSubview:_goodCountLabel];
         [self addSubview:_commentCountLabel];
         [self addSubview:_distanceLabel];
-
-        //[self addSubview:_contentDetailInfoLabel];
         
         imageArray = [[NSMutableArray alloc] init];
         
@@ -176,97 +155,12 @@ static const int ageWidth = 18;
         
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hidenKeyboard) name:@"commentKeyboardHide" object:nil];
         
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showKeyboard) name:@"commentKeyboardShow" object:nil];
-        
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-        
-        
-
-        
         sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
         
         
     }
     return self;
 }
-
-
-- (void)showKeyboard
-{
-    [self initCommentInputView];
-}
-
-- (void)keyboardWillShow:(NSNotification*)notification
-{
-    if (![commentInputView isFirstResponder]) {
-        return;
-    }
-    
-    commentInputView.text = @"";
-    
-    NSLog(@"keyboardWillShow");
-    
-    CGRect keyboardBounds;
-    [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
-    
-    //CGFloat keyboardHeight = keyboardBounds.size.height;
-    NSNumber *duration = [notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    
-    keyboardBounds = [[Tools curNavigator].view convertRect:keyboardBounds toView:nil];
-    
-    CGRect bottomFrame = bottomToolbar.frame;
-    
-    
-    bottomFrame.origin.y =  ScreenHeight - keyboardBounds.size.height - bottomToolbarHeight;
-    
-    // animations settings
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:[duration doubleValue]];
-    [UIView setAnimationCurve:[curve intValue]];
-    [UIView setAnimationDelegate:self];
-    
-    // set views with new info
-    bottomToolbar.frame = bottomFrame;
-    bottomToolbar.hidden = NO;
-    // commit animations
-    [UIView commitAnimations];
-    
-    
-}
-
-
-- (void)keyboardWillHide:(NSNotification*)notification
-{
-    CGRect keyboardBounds;
-    [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
-    NSNumber *duration = [notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    keyboardBounds = [[Tools curNavigator].view convertRect:keyboardBounds toView:nil];
-    //keyboardHeight = 0;
-    
-    //CGRect btnFrame = talkTableView.frame;
-    CGRect bottomFrame = bottomToolbar.frame;
-    //btnFrame.origin.y = 0;
-    bottomFrame.origin.y = ScreenHeight;
-    // animations settings
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:[duration doubleValue]];
-    [UIView setAnimationCurve:[curve intValue]];
-    [UIView setAnimationDelegate:self];
-    
-    // set views with new info
-    bottomToolbar.frame = bottomFrame;
-    bottomToolbar.hidden = YES;
-    
-    // commit animations
-    [UIView commitAnimations];
-}
-
 
 
 - (void)awakeFromNib {
@@ -598,10 +492,10 @@ static const int ageWidth = 18;
 
 - (void)hidenKeyboard
 {
-    if (commentInputView!=nil) {
-        [commentInputView resignFirstResponder];
-        [bottomToolbar removeFromSuperview];
-        bottomToolbar = nil;
+    if (inputToolBar!=nil) {
+        [inputToolBar hideInput];
+        [inputToolBar removeFromSuperview];
+        inputToolBar = nil;
     }
 }
 
@@ -617,6 +511,7 @@ static const int ageWidth = 18;
 {
     
     inputToolBar = [[InputToolbar alloc] init];
+    inputToolBar.inputDelegate = self;
     
     [[Tools curNavigator].view addSubview:inputToolBar];
     
@@ -624,33 +519,21 @@ static const int ageWidth = 18;
 }
 
 
-
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+- (void)sendAction:(NSString *)msg
 {
-    if (textView == commentInputView) {
-        if ([text isEqualToString:@"\n"]) {
-            
-            [textView resignFirstResponder];
-            
-            [self sendComment:nil];
-            
-            return NO;
-            
-        }
-        return YES;
-    }
-    return YES;
+    NSLog(@"%@", msg);
+    [inputToolBar hideInput];
+    [inputToolBar removeFromSuperview];
+    inputToolBar = nil;
+    [self sendComment:msg];
 }
+
+
+
 
 - (void)sendComment:(id)sender
 {
-    if ([commentInputView.text isEqual:@""]||commentInputView.text == nil) {
-        return;
-    }
-    
-    NSLog(@"%@", commentInputView.text);
-    
-    [commentInputView resignFirstResponder];
+    NSString* msg = (NSString*)sender;
     
     NetWork* netWork = [[NetWork alloc] init];
     
@@ -662,7 +545,7 @@ static const int ageWidth = 18;
     ContentModel* contentModel = myContentModel;
     commentModel.contentModel = contentModel;
     commentModel.counterUserInfo = contentModel.userInfo;
-    commentModel.commentStr = commentInputView.text;
+    commentModel.commentStr = msg;
     commentInputView.text = @"";
     commentModel.publish_time = [[NSDate date] timeIntervalSince1970];
 

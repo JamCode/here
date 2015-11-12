@@ -54,12 +54,10 @@ static const double bottomToolbarHeight = 48;
         
         UIBarButtonItem* textfieldButtonItem =[[UIBarButtonItem alloc] initWithCustomView:commentInputView];
         
-        UIBarButtonItem* sendButton = nil;
-        if (_inputDelegate == nil) {
-            sendButton = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:nil];
-        }else{
-            sendButton = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:_inputDelegate action:@selector(sendAction:)];
-        }
+        
+        
+                
+        UIBarButtonItem* sendButton = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(sendMsg)];
         
         NSArray *textfieldArray=[[NSArray alloc]initWithObjects:textfieldButtonItem, sendButton, nil];
         [self setItems:textfieldArray animated:YES];
@@ -76,6 +74,32 @@ static const double bottomToolbarHeight = 48;
     return self;
 }
 
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if (textView == commentInputView) {
+        if ([text isEqualToString:@"\n"]) {
+            [self sendMsg];
+            return NO;
+        }
+        return YES;
+    }
+    return YES;
+}
+
+
+- (void)sendMsg
+{
+    NSString* msg = [commentInputView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if ([msg isEqualToString:@""]) {
+        return;
+    }
+    
+    if (_inputDelegate != nil) {
+        [_inputDelegate sendAction:commentInputView.text];
+    }
+}
 
 - (void)keyboardWillShow:(NSNotification*)notification
 {

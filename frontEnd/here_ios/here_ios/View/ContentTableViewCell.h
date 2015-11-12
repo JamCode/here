@@ -11,11 +11,12 @@
 #import "ContentModel.h"
 #import "OptionFunView.h"
 #import "MyImageView.h"
+#import "InputToolbar.h"
 
 @class ContentViewController;
 @class ContentDetailViewController;
 
-@interface ContentTableViewCell : UITableViewCell<OptionFunViewDelegate, UIScrollViewDelegate, UITextViewDelegate, UIActionSheetDelegate>
+@interface ContentTableViewCell : UITableViewCell<OptionFunViewDelegate, UIScrollViewDelegate, UITextViewDelegate, UIActionSheetDelegate, InputToolbarDelegate>
 
 
 @property FaceView* faceView;

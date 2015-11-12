@@ -20,20 +20,13 @@
 #import <MBProgressHUD.h>
 #import "ContentTableViewCell.h"
 #import "CommentModel.h"
+#import "InputToolbar.h"
 
 
 @interface ContentDetailViewController ()
 {
     UserInfoModel* myUserInfo;
-    ContentTableViewCell* contentView;
     
-    
-    UIToolbar* bottomToolbar;
-    UITextView* commentInputView;
-    
-    
-    
-    CGRect curTextFrame;
     NSMutableArray* comments;
     UIActionSheet* feedbackComments;
     
@@ -43,24 +36,15 @@
     
     BOOL getContentCommentsListSuccessFlag;
     
-    UITextView* myTextField;
-    
-    NSString* commentStr;
-    
     CommentModel* lastCommentModel;
     
     ContentTableViewCell* contentCell;
+    InputToolbar* inputToolbar;
 }
 @end
 
 @implementation ContentDetailViewController
 
-
-static const double bottomToolbarHeight = 48;
-
-
-static const int inputfontSize = 16;
-static const double textViewHeight = 36;
 
 
 - (void)viewDidLoad {
@@ -106,28 +90,15 @@ static const double textViewHeight = 36;
 }
 
 
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    if (textView == commentInputView) {
-        if ([text isEqualToString:@"\n"]) {
-            
-            [textView resignFirstResponder];
-            
-            [self sendDetailComment:nil];
-            
-            return NO;
-            
-        }
-        return YES;
-    }
-    return YES;
-}
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView == self.tableView) {
         //[myTextField resignFirstResponder];
-        [commentInputView resignFirstResponder];
+        [inputToolbar hideInput];
+        [inputToolbar removeFromSuperview];
+        inputToolbar = nil;
     }
 }
 
@@ -259,7 +230,7 @@ static const double textViewHeight = 36;
 
 - (void)addDetailCommentSuccess:(id)sender
 {
-    CommentModel* commentModel = (CommentModel*)sender;
+    CommentModel* commentModel = lastCommentModel;
     
     mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
     mbProgress.mode = MBProgressHUDModeText;
@@ -294,88 +265,38 @@ static const double textViewHeight = 36;
 
 }
 
+- (void)sendAction:(NSString *)msg
+{
+    [inputToolbar hideInput];
+    [inputToolbar removeFromSuperview];
+    inputToolbar = nil;
+    [self sendDetailComment:msg];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
     
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"commentButtonHide" object:nil];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"commentKeyboardHide" object:nil];
+    
+    if (inputToolbar!=nil) {
+        [inputToolbar hideInput];
+        [inputToolbar removeFromSuperview];
+        inputToolbar = nil;
+    }
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
 
-- (void)keyboardWillHide:(NSNotification*)notification{
-    
-    CGRect keyboardBounds;
-    [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
-    NSNumber *duration = [notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
-    //keyboardHeight = 0;
-    
-    //CGRect btnFrame = talkTableView.frame;
-    CGRect bottomFrame = bottomToolbar.frame;
-    //btnFrame.origin.y = 0;
-    bottomFrame.origin.y = ScreenHeight;
-    // animations settings
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:[duration doubleValue]];
-    [UIView setAnimationCurve:[curve intValue]];
-    [UIView setAnimationDelegate:self];
-    
-    // set views with new info
-    bottomToolbar.frame = bottomFrame;
-    bottomToolbar.hidden = YES;
-    
-    // commit animations
-    [UIView commitAnimations];
-    
-}
 
 
-- (void)keyboardWillShow:(NSNotification*)notification{
-    
-    //tableview 滚动到最后
-    
-    //NSLog(@"%f", talkTableView.contentSize.height);
-    //NSLog(@"%f", talkTableView.bounds.size.height);
-    //[self scrollToBottom:NO addition:0];
-    
-    commentInputView.text = @"";
-    
-    NSLog(@"keyboardWillShow");
-    
-    CGRect keyboardBounds;
-    [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
-    
-    //CGFloat keyboardHeight = keyboardBounds.size.height;
-    NSNumber *duration = [notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
-    
-    CGRect bottomFrame = bottomToolbar.frame;
-    
-    
-    bottomFrame.origin.y =  ScreenHeight - keyboardBounds.size.height - bottomToolbarHeight;
-    
-    // animations settings
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:[duration doubleValue]];
-    [UIView setAnimationCurve:[curve intValue]];
-    [UIView setAnimationDelegate:self];
-    
-    // set views with new info
-    bottomToolbar.frame = bottomFrame;
-    bottomToolbar.hidden = NO;
-    // commit animations
-    [UIView commitAnimations];
-    
-}
+
+
 
 
 - (void)getContentCommentsListSuccess:(id)sender
@@ -485,53 +406,9 @@ static const double textViewHeight = 36;
     return nil;
 }
 
-- (void)showCommentInputView
-{
-    NSLog(@"detail showCommentInputView");
-    
-    
-    toCommentUser = nil;
-    [commentInputView becomeFirstResponder];
-    
-    //[commentInputView becomeFirstResponder];
-}
 
 
-- (void)initCommentInputView
-{
-    bottomToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, ScreenHeight+bottomToolbarHeight, ScreenWidth, bottomToolbarHeight)];
-    [bottomToolbar setBackgroundImage:[UIImage new]forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [bottomToolbar setShadowImage:[UIImage new] forToolbarPosition:UIToolbarPositionAny];
-    bottomToolbar.backgroundColor = activeViewControllerbackgroundColor;
-    
-    
-    commentInputView = [[UITextView alloc] init];
-    commentInputView.delegate =self;
-    commentInputView.frame = CGRectMake(0, 0, ScreenWidth - 2*40, textViewHeight);
-    commentInputView.returnKeyType = UIReturnKeyDone;//设置返回按钮的样式
-    
-    
-    commentInputView.keyboardType = UIKeyboardTypeDefault;//设置键盘样式为默认
-    commentInputView.font = [UIFont fontWithName:@"Arial" size:inputfontSize];
-    commentInputView.scrollEnabled = YES;
-    commentInputView.autoresizingMask = UIViewAutoresizingFlexibleHeight;//自适应高度
-    commentInputView.layer.cornerRadius = 4.0;
-    commentInputView.layer.borderWidth = 0.5;
-    commentInputView.layer.borderColor = sepeartelineColor.CGColor;
-    commentInputView.delegate = self;
-    
-    
-    UIBarButtonItem* textfieldButtonItem =[[UIBarButtonItem alloc] initWithCustomView:commentInputView];
-    
-    UIBarButtonItem* sendButton = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(sendDetailComment:)];
-    
-    NSArray *textfieldArray=[[NSArray alloc]initWithObjects:textfieldButtonItem, sendButton, nil];
-    [bottomToolbar setItems:textfieldArray animated:YES];
-    
-    bottomToolbar.hidden = YES;
-    
-    [self.navigationController.view addSubview:bottomToolbar];
-}
+
 
 
 
@@ -550,13 +427,7 @@ static const double textViewHeight = 36;
 
 - (void)sendDetailComment:(id)sender
 {
-    if ([commentInputView.text isEqual:@""]||commentInputView.text == nil) {
-        return;
-    }
-    
-    NSLog(@"%@", commentInputView.text);
-    
-    [commentInputView resignFirstResponder];
+    NSString* msg = (NSString*)sender;
     
     NetWork* netWork = [[NetWork alloc] init];
     
@@ -572,15 +443,7 @@ static const double textViewHeight = 36;
     }
     
     
-    lastCommentModel.commentStr = commentInputView.text;
-    commentStr = commentInputView.text;
-    
-    commentInputView.text = @"";
-    
-    
-    //    if (toCommentUser.userID == nil) {
-    //        toCommentUser = contentModel.userInfo;
-    //    }
+    lastCommentModel.commentStr = msg;
     
     
     NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[lastCommentModel.contentModel.contentID, lastCommentModel.sendUserInfo.userID, lastCommentModel.counterUserInfo.userID, lastCommentModel.commentStr, lastCommentModel.sendUserInfo.nickName, @"/addCommentToContent"] forKeys:@[@"content_id", @"user_id", @"to_user_id", @"comment", @"user_name", @"childpath"]];
@@ -588,17 +451,15 @@ static const double textViewHeight = 36;
     NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(addDetailCommentSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(addCommentError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(addCommentException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
     
     
-    mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:mbProgress];
-    [mbProgress show:YES];
+//    mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:mbProgress];
+//    [mbProgress show:YES];
     
     [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
-            [mbProgress hide:YES];
-            [mbProgress removeFromSuperview];
-            mbProgress = nil;
-            [commentInputView resignFirstResponder];
+            //[mbProgress hide:YES];
+            //[mbProgress removeFromSuperview];
+            //mbProgress = nil;
     } callObject:self];
-    
 }
 
 
@@ -651,23 +512,12 @@ static const double textViewHeight = 36;
 
 - (void)commentButtonAction:(id)sender
 {
-//    if (getContentBaseInfoSuccessFlag == true&& getContentCommentsListSuccessFlag == true) {
-//        PublishCommentViewController* publisComment = [[PublishCommentViewController alloc] init];
-//        publisComment.contentDetail = self;
-//        publisComment.contentModel = contentModel;
-//        if(toCommentUser.userID == nil){
-//            toCommentUser.userID = contentModel.userInfo.userID;
-//        }
-//        publisComment.toCommentUser = toCommentUser;
-//        
-//        [self presentViewController:publisComment animated:YES completion:nil];
-//    }
+    inputToolbar = [[InputToolbar alloc] init];
+    inputToolbar.inputDelegate = self;
     
-//            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showKeyboard) name:@"commentKeyboardShow" object:nil];
-
-    [contentCell showKeyboard];
-
+    [[Tools curNavigator].view addSubview:inputToolbar];
     
+    [inputToolbar showInput];
 }
 
 - (void)getContentCommentsList
