@@ -450,11 +450,18 @@ router.post('/register', function(req, res) {
 				// 		height: 44 * 4
 				// 	});
 
+
 				user_info.user_phone = fields.user_phone;
 				user_info.name = md5(fields.user_phone).substr(0, 6);
 				user_info.password = fields.user_password;
 				user_info.user_gender = -1;
 				user_info.user_age = -1;
+				var defaultImageUrl = 'http:// ' + networkInterface.eth1[0].address +
+					':' +
+					global_config.httpServerInfo.listen_port + "/default_face.png";
+
+				userInfo.user_face_image = defaultImageUrl;
+				user_info.facethumbnail = defaultImageUrl;
 
 				user_info.fans_count = 0;
 				user_info.follow_count = 0;
