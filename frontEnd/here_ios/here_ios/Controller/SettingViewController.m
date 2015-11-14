@@ -581,7 +581,7 @@ typedef enum  {
         [settingStrArray addObject:@"未知"];
     }
     
-    [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.age]];
+    [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:_userInfo.birthday]]];
     [settingStrArray addObject:[Tools getStarDesc:_userInfo.birthday]];
     [settingStrArray addObject:_userInfo.sign];
     

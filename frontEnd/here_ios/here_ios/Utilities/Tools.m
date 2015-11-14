@@ -185,6 +185,10 @@
 
 + (NSInteger)getAgeFromBirthDay:(NSString*)birthday
 {
+    if(birthday == nil){
+        return 0;
+    }
+    
     NSDateComponents *curComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
     
     

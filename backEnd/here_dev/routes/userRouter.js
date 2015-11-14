@@ -455,7 +455,6 @@ router.post('/register', function(req, res) {
 				user_info.name = md5(fields.user_phone).substr(0, 6);
 				user_info.password = fields.user_password;
 				user_info.user_gender = -1;
-				user_info.user_age = -1;
 				var defaultImageUrl = 'http://' + networkInterface.eth1[0].address +
 					':' +
 					global_config.httpServerInfo.listen_port + "/default_face.png";
@@ -474,8 +473,8 @@ router.post('/register', function(req, res) {
 							'user_id': user_info.id,
 							'password': user_info.password,
 							'user_name': user_info.name,
-							'user_age': user_info.age,
-							'user_gender': user_info.gender,
+							'user_birth_day': user_info.user_birth_day,
+							'user_gender': user_info.user_gender,
 							'code': config.returnCode.REGISTER_SUCCESS
 						};
 					} else {

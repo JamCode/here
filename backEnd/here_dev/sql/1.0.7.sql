@@ -20,3 +20,6 @@ ALTER TABLE `user_base_info`
 #94
 ALTER TABLE `user_base_info`
     MODIFY COLUMN `user_certificated_process` int(11) NULL AFTER `user_introduce`;
+ALTER TABLE `user_base_info`
+    	MODIFY COLUMN `user_age` int(11) NULL DEFAULT -1 AFTER `user_face_image`,
+    	MODIFY COLUMN `user_gender` int(11) NULL DEFAULT -1 AFTER `user_age`;
