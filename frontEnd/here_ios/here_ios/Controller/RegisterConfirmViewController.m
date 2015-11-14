@@ -239,6 +239,8 @@ static const int notice_height = 18;
     sideMenu.navigationController.navigationBar.hidden = YES;
     
     [self presentViewController:sideMenu animated:YES completion:nil];
+    
+    [Tools AlertBigMsg:@"请在设置中更新您的个人资料"];
 }
 
 - (void)didReceiveMemoryWarning

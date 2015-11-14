@@ -22,6 +22,7 @@ exports.findNearbyUser = function(locationInfo, callback) {
 		' where a.user_id = b.user_id and a.user_id != ? ' +
 		' and  ((ABS(?-b.location_latitude)*111)<50 and  ABS(? - b.location_longitude)*COS(?)*111<50)' +
 		' and unix_timestamp(now()) - b.refresh_timestamp<3600*24*15' +
+		' and user_gender <> -1 ' +
 		' order by b.refresh_timestamp desc limit 16';
 
 	conn.executeSql(sql, [locationInfo.user_id, locationInfo.latitude,

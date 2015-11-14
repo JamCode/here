@@ -578,10 +578,15 @@ typedef enum  {
     }else if(_userInfo.gender == 0) {
         [settingStrArray addObject:@"女"];
     }else{
-        [settingStrArray addObject:@"未知"];
+        [settingStrArray addObject:@""];
     }
     
-    [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:_userInfo.birthday]]];
+    if ([_userInfo.birthday isEqual:@""]) {
+        [settingStrArray addObject:@""];
+    }else{
+        [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:_userInfo.birthday]]];
+    }
+    
     [settingStrArray addObject:[Tools getStarDesc:_userInfo.birthday]];
     [settingStrArray addObject:_userInfo.sign];
     
