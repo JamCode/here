@@ -575,8 +575,10 @@ typedef enum  {
     
     if (_userInfo.gender == 1) {
         [settingStrArray addObject:@"男"];
-    }else{
+    }else if(_userInfo.gender == 0) {
         [settingStrArray addObject:@"女"];
+    }else{
+        [settingStrArray addObject:@"未知"];
     }
     
     [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.age]];
@@ -649,9 +651,11 @@ typedef enum  {
     if (_userInfo.gender==0) {
         genderImage.image = [UIImage imageNamed:@"woman32white.png"];
         ageAndGenderView.backgroundColor = genderPink;
-    }else{
+    }else if(_userInfo.gender == 1){
         genderImage.image = [UIImage imageNamed:@"man32white.png"];
         ageAndGenderView.backgroundColor = subjectColor;
+    }else{
+        ageAndGenderView.hidden = YES;
     }
     
     [headerView addSubview:ageAndGenderView];

@@ -200,6 +200,11 @@
 
 + (NSString*)getStarDesc:(NSString*)birthday
 {
+    
+    if (birthday == nil) {
+        return @"";
+    }
+    
     NSDateFormatter*dateFormatter =[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSDate* date =[dateFormatter dateFromString:birthday];

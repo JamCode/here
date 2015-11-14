@@ -456,7 +456,7 @@ router.post('/register', function(req, res) {
 				user_info.password = fields.user_password;
 				user_info.user_gender = -1;
 				user_info.user_age = -1;
-				var defaultImageUrl = 'http:// ' + networkInterface.eth1[0].address +
+				var defaultImageUrl = 'http://' + networkInterface.eth1[0].address +
 					':' +
 					global_config.httpServerInfo.listen_port + "/default_face.png";
 
