@@ -422,7 +422,7 @@ router.post('/register', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 
 	var returnData = {};
-	var fields = req;
+	var fields = req.body;
 	userMgmt.getCertificateCode(fields.user_phone, function(flag, result) {
 		if (flag) {
 			if (result.length === 0) {
