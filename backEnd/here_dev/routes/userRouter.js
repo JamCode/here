@@ -20,11 +20,12 @@ var async = require('async');
 var os = require('os');
 var networkInterface = os.networkInterfaces();
 
-var imageHomeUrl = 'http:// ' + networkInterface.eth1[0].address + ':' + global_config.httpServerInfo.listen_port + config.imageInfo.url;
+var imageHomeUrl = 'http:// ' + networkInterface.eth1[0].address + ':' +
+	global_config.httpServerInfo.listen_port + config.imageInfo.url;
 
 log.info(imageHomeUrl, log.getFileNameAndLineNum(__filename));
 
-redis_client.on('error', function (err) {
+redis_client.on('error', function(err) {
 	log.error(err, log.getFileNameAndLineNum(__filename));
 	//  process.exit(-1);
 });
@@ -36,17 +37,17 @@ redis_client.on('error', function (err) {
 //  });
 
 // logout
-router.post('/logout', function (req, res) {
+router.post('/logout', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
-	userMgmt.logout(req.body.user_id, function (flag, result) {
+	userMgmt.logout(req.body.user_id, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });
 
 // login
-router.post('/login', function (req, res) {
+router.post('/login', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
-	userMgmt.login(req.body.user_phone, req.body.password, function (flag, result) {
+	userMgmt.login(req.body.user_phone, req.body.password, function(flag, result) {
 		var statusCode;
 		var returnData = {};
 		if (flag) {
@@ -96,11 +97,11 @@ router.post('/login', function (req, res) {
 
 // add by wanghan 20141007 for add user image
 // add user image
-router.post('/addImage', function (req, res) {
+router.post('/addImage', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 
 	var form = new formidable.IncomingForm();
-	form.parse(req, function (err, fields, files) {
+	form.parse(req, function(err, fields, files) {
 		var returnData = {};
 
 		if (err) {
@@ -112,7 +113,8 @@ router.post('/addImage', function (req, res) {
 
 		var fileName = files.user_image.path + Date.now();
 		fileName = conn.sha1Cryp(fileName);
-		fs.rename(files.user_image.path, path.join(global_config.env.homedir, config.imageInfo.imageRootDir, fileName), function (err) {
+		fs.rename(files.user_image.path, path.join(global_config.env.homedir,
+			config.imageInfo.imageRootDir, fileName), function(err) {
 
 			if (err) {
 				log.logPrint(config.logLevel.ERROR, 'fs.rename error ' + err);
@@ -121,27 +123,29 @@ router.post('/addImage', function (req, res) {
 			} else {
 				var url = imageHomeUrl + fileName;
 
-				userMgmt.insertUserImageInfo(fields.user_id, url, Date.now(), function (flag, result) {
-					if (flag) {
-						returnData.code = config.returnCode.ADD_IMAGE_SUCCESS;
-						returnData.user_image_url = url;
-					} else {
-						log.logPrint(config.logLevel.ERROR, 'insertUserImageInfo error ' + result);
-						returnData.code = config.returnCode.ERROR;
-					}
-					res.send(returnData);
-				});
+				userMgmt.insertUserImageInfo(fields.user_id, url, Date.now(),
+					function(flag, result) {
+						if (flag) {
+							returnData.code = config.returnCode.ADD_IMAGE_SUCCESS;
+							returnData.user_image_url = url;
+						} else {
+							log.logPrint(config.logLevel.ERROR, 'insertUserImageInfo error ' +
+								result);
+							returnData.code = config.returnCode.ERROR;
+						}
+						res.send(returnData);
+					});
 			}
 		});
 	});
 });
 // end by wangnan 20141007 for add user image
 
-router.post('/addUserBackgroundImage', function (req, res) {
+router.post('/addUserBackgroundImage', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 
 	var form = new formidable.IncomingForm();
-	form.parse(req, function (err, fields, files) {
+	form.parse(req, function(err, fields, files) {
 
 		var returnData = {};
 		if (err) {
@@ -153,7 +157,8 @@ router.post('/addUserBackgroundImage', function (req, res) {
 
 		var fileName = files.user_background_image.path + Date.now();
 		fileName = conn.sha1Cryp(fileName);
-		fs.rename(files.user_background_image.path, path.join(global_config.env.homedir, config.imageInfo.imageRootDir, fileName), function (err) {
+		fs.rename(files.user_background_image.path, path.join(global_config.env.homedir,
+			config.imageInfo.imageRootDir, fileName), function(err) {
 
 			if (err) {
 				log.logPrint(config.logLevel.ERROR, 'fs.rename error ' + err);
@@ -161,12 +166,14 @@ router.post('/addUserBackgroundImage', function (req, res) {
 				res.send(returnData);
 			} else {
 				var url = imageHomeUrl + fileName;
-				userMgmt.updateUserBackgroundImage(fields.user_id, url, function (flag, result) {
+				userMgmt.updateUserBackgroundImage(fields.user_id, url, function(flag,
+					result) {
 					if (flag) {
 						returnData.code = config.returnCode.ADD_IMAGE_SUCCESS;
 						returnData.user_background_image_url = url;
 					} else {
-						log.logPrint(config.logLevel.ERROR, 'updateUserBackgroundImage error ' + result);
+						log.logPrint(config.logLevel.ERROR,
+							'updateUserBackgroundImage error ' + result);
 						returnData.code = config.returnCode.ERROR;
 					}
 					res.send(returnData);
@@ -177,11 +184,11 @@ router.post('/addUserBackgroundImage', function (req, res) {
 
 });
 
-router.post('/changeFace', function (req, res) {
+router.post('/changeFace', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 
 	var form = new formidable.IncomingForm();
-	form.parse(req, function (err, fields, files) {
+	form.parse(req, function(err, fields, files) {
 
 		var returnData = {};
 		if (err) {
@@ -199,8 +206,10 @@ router.post('/changeFace', function (req, res) {
 		log.logPrint(config.logLevel.DEBUG, fileName);
 
 		imageOper.updateImage(files.user_image.path,
-			path.join(global_config.env.homedir, config.imageInfo.imageRootDir, fileName),
-			path.join(global_config.env.homedir, config.imageInfo.imageRootDir, compressFileName), {
+			path.join(global_config.env.homedir, config.imageInfo.imageRootDir,
+				fileName),
+			path.join(global_config.env.homedir, config.imageInfo.imageRootDir,
+				compressFileName), {
 				width: 44 * 4,
 				height: 44 * 4
 			});
@@ -208,7 +217,7 @@ router.post('/changeFace', function (req, res) {
 		userMgmt.updateUserFace(fields.user_id,
 			path.join(imageHomeUrl, compressFileName),
 			path.join(imageHomeUrl, fileName),
-			function (flag, result) {
+			function(flag, result) {
 				var returnData = {};
 				if (flag) {
 					log.logPrint(config.logLevel.DEBUG, 'updateUserFace SUCCESS');
@@ -225,7 +234,7 @@ router.post('/changeFace', function (req, res) {
 	});
 });
 
-function getImageName (url) {
+function getImageName(url) {
 	var begin = url.lastIndexOf('?name=');
 	begin += ('?name=').length;
 	var fileName = url.substr(begin, url.length - begin);
@@ -233,7 +242,7 @@ function getImageName (url) {
 }
 
 // add by wanghan 20141009 for update user info
-router.post('/updateUserInfo', function (req, res) {
+router.post('/updateUserInfo', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 
 	var userInfo = {
@@ -243,47 +252,49 @@ router.post('/updateUserInfo', function (req, res) {
 		'user_sign': req.body.user_sign,
 		'user_interest': req.body.user_interest
 	};
-	userMgmt.updateUserInfo(userInfo, function (flag, result) {
+	userMgmt.updateUserInfo(userInfo, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });
 
-router.post('/insertBlackList', function (req, res) {
+router.post('/insertBlackList', function(req, res) {
 	// log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 
-	userMgmt.insertBlackList(req.body.user_id, req.body.counter_user_id, function (flag, result) {
-		if (!flag) {
-			log.info('result.errno' + result.errno);
-			if (result.errno === 1062) {
-				// primary key conflict
-				flag = true;
+	userMgmt.insertBlackList(req.body.user_id, req.body.counter_user_id,
+		function(flag, result) {
+			if (!flag) {
+				log.info('result.errno' + result.errno);
+				if (result.errno === 1062) {
+					// primary key conflict
+					flag = true;
+				}
 			}
-		}
-		routeFunc.feedBack(flag, result, res);
-	});
+			routeFunc.feedBack(flag, result, res);
+		});
 });
 
-router.post('/deleteBlackList', function (req, res) {
+router.post('/deleteBlackList', function(req, res) {
 	// log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 
-	userMgmt.deleteBlackList(req.body.user_id, req.body.counter_user_id, function (flag, result) {
-		routeFunc.feedBack(flag, result, res);
-	});
+	userMgmt.deleteBlackList(req.body.user_id, req.body.counter_user_id,
+		function(flag, result) {
+			routeFunc.feedBack(flag, result, res);
+		});
 });
 
-router.post('/getBlackList', function (req, res) {
+router.post('/getBlackList', function(req, res) {
 	// log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 
-	userMgmt.getBlackList(req.body.user_id, function (flag, result) {
+	userMgmt.getBlackList(req.body.user_id, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });
 
 // add by wanghan 20141007 for get user image
-router.post('/getUserInfo', function (req, res) {
+router.post('/getUserInfo', function(req, res) {
 	// log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 
-	userMgmt.getUserDetail(req.body.user_id, function (flag, result) {
+	userMgmt.getUserDetail(req.body.user_id, function(flag, result) {
 		var returnData = {
 			user_image: [],
 			code: 0
@@ -307,62 +318,68 @@ router.post('/getUserInfo', function (req, res) {
 			returnData.location_longitude = result[0].location_longitude;
 
 			if (result[0].city_visit_count == null) {
-				log.debug('city_visit_count is null', log.getFileNameAndLineNum(__filename));
+				log.debug('city_visit_count is null', log.getFileNameAndLineNum(
+					__filename));
 				returnData.city_visit_count = 0;
 			} else {
-				log.debug('city_visit_count is ' + result[0].city_visit_count, log.getFileNameAndLineNum(__filename));
+				log.debug('city_visit_count is ' + result[0].city_visit_count, log.getFileNameAndLineNum(
+					__filename));
 				returnData.city_visit_count = result[0].city_visit_count;
 			}
 
-			contentMgmt.getContentByUser(returnData.user_id, Date.now() / 1000, 1, function (flag, result) {
-				if (flag) {
-					if (result.length > 0) {
-						returnData.content = result[0].content;
-						returnData.content_image_url = result[0].content_image_url;
-						returnData.content_publish_timestamp = result[0].content_publish_timestamp;
-					} else {
-						returnData.content = '';
-						returnData.content_image_url = '';
-						returnData.content_publish_timestamp = 0;
-					}
-
-					var cur_timestamp = Date.now() / 1000;
-					userMgmt.getUserImage(req.body.user_id, cur_timestamp, 3, function (flag, result) {
-						if (flag) {
-
-							result.forEach(function (item) {
-								var imageInfo = {
-									user_image_url: item.image_compress_url
-								};
-								returnData.user_image.push(imageInfo);
-							});
+			contentMgmt.getContentByUser(returnData.user_id, Date.now() / 1000, 1,
+				function(flag, result) {
+					if (flag) {
+						if (result.length > 0) {
+							returnData.content = result[0].content;
+							returnData.content_image_url = result[0].content_image_url;
+							returnData.content_publish_timestamp = result[0].content_publish_timestamp;
 						} else {
-							log.logPrint(config.logLevel.ERROR, result);
-							returnData.code = config.returnCode.ERROR;
+							returnData.content = '';
+							returnData.content_image_url = '';
+							returnData.content_publish_timestamp = 0;
 						}
 
-						userMgmt.checkBlackList(req.body.my_user_id, req.body.user_id, function (flag, result) {
+						var cur_timestamp = Date.now() / 1000;
+						userMgmt.getUserImage(req.body.user_id, cur_timestamp, 3, function(
+							flag, result) {
 							if (flag) {
-								returnData.code = config.returnCode.SUCCESS;
-								if (result.length > 0) {
-									returnData.black = true;
-								} else {
-									returnData.black = false;
-								}
-								log.debug(JSON.stringify(returnData), log.getFileNameAndLineNum(__filename));
-								res.send(returnData);
-							} else {
-								routeFunc.feedBack(flag, result, res);
-							}
-						});
-					});
 
-				} else {
-					log.logPrint(config.logLevel.ERROR, result);
-					returnData.code = config.returnCode.ERROR;
-					res.send(returnData);
-				}
-			});
+								result.forEach(function(item) {
+									var imageInfo = {
+										user_image_url: item.image_compress_url
+									};
+									returnData.user_image.push(imageInfo);
+								});
+							} else {
+								log.logPrint(config.logLevel.ERROR, result);
+								returnData.code = config.returnCode.ERROR;
+							}
+
+							userMgmt.checkBlackList(req.body.my_user_id, req.body.user_id,
+								function(flag, result) {
+									if (flag) {
+										returnData.code = config.returnCode.SUCCESS;
+										if (result.length > 0) {
+											returnData.black = true;
+										} else {
+											returnData.black = false;
+										}
+										log.debug(JSON.stringify(returnData), log.getFileNameAndLineNum(
+											__filename));
+										res.send(returnData);
+									} else {
+										routeFunc.feedBack(flag, result, res);
+									}
+								});
+						});
+
+					} else {
+						log.logPrint(config.logLevel.ERROR, result);
+						returnData.code = config.returnCode.ERROR;
+						res.send(returnData);
+					}
+				});
 
 		} else {
 			log.logPrint(config.logLevel.ERROR, result);
@@ -373,128 +390,124 @@ router.post('/getUserInfo', function (req, res) {
 });
 // end by wanghan 20141007 for get user image
 
-router.post('/getLastVisitUser', function (req, res) {
+router.post('/getLastVisitUser', function(req, res) {
 
 	// log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 
-	userMgmt.getLastVisitUser(req.body.user_id, function (flag, result) {
+	userMgmt.getLastVisitUser(req.body.user_id, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });
 
-router.post('/getUserImage', function (req, res) {
+router.post('/getUserImage', function(req, res) {
 
 	// log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 
-	userMgmt.getUserImage(req.body.user_id, req.body.timestamp, req.body.count, function (flag, result) {
-		if (flag) {
-			var returnData = {};
-			returnData.code = config.returnCode.SUCCESS;
-			returnData.data = result;
-			res.send(returnData);
+	userMgmt.getUserImage(req.body.user_id, req.body.timestamp, req.body.count,
+		function(flag, result) {
+			if (flag) {
+				var returnData = {};
+				returnData.code = config.returnCode.SUCCESS;
+				returnData.data = result;
+				res.send(returnData);
 
-		} else {
-			routeFunc.feedBack(flag, result, res);
-		}
-	});
+			} else {
+				routeFunc.feedBack(flag, result, res);
+			}
+		});
 });
 
 // register
-router.post('/register', function (req, res) {
+router.post('/register', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 
-	var form = new formidable.IncomingForm();
-	form.parse(req, function (err, fields, files) {
+	var returnData = {};
+	var fields = req;
+	userMgmt.getCertificateCode(fields.user_phone, function(flag, result) {
+		if (flag) {
+			if (result.length === 0) {
+				log.debug('no certificateCode for phone:' + fields.user_phone, log.getFileNameAndLineNum(
+					__filename));
+				returnData.code = config.returnCode.CERTIFICATE_CODE_NOT_MATCH;
+				res.send(returnData);
+				return;
+			}
 
-		var returnData = {};
-		if (err) {
-			log.error('form.parse error', log.getFileNameAndLineNum(__filename));
-			returnData.code = config.returnCode.ERROR;
-			res.send(returnData);
-			return;
-		}
+			var certificateInfo = result[0];
 
-		userMgmt.getCertificateCode(fields.user_phone, function (flag, result) {
-			if (flag) {
-				if (result.length === 0) {
-					log.debug('no certificateCode for phone:' + fields.user_phone, log.getFileNameAndLineNum(__filename));
-					returnData.code = config.returnCode.CERTIFICATE_CODE_NOT_MATCH;
+			if (certificateInfo.certificate_code === fields.user_certificate_code) {
+				var user_info = {};
+				var md5 = require('MD5');
+				user_info.id = md5(fields.user_phone);
+
+				// var fileName = conn.sha1Cryp(user_info.id + 'facethumbnail');
+				// var imageCompressName = fileName + '_compress';
+
+				// imageOper.updateImage(files.user_facethumbnail.path,
+				// 	path.join(global_config.env.homedir, config.imageInfo.imageRootDir, fileName),
+				// 	path.join(global_config.env.homedir, config.imageInfo.imageRootDir, imageCompressName), {
+				// 		width: 44 * 4,
+				// 		height: 44 * 4
+				// 	});
+
+				user_info.user_phone = fields.user_phone;
+				user_info.name = md5(fields.user_phone).substr(0, 6);
+				user_info.password = fields.user_password;
+				user_info.user_gender = -1;
+				user_info.user_age = -1;
+
+				user_info.fans_count = 0;
+				user_info.follow_count = 0;
+
+				userMgmt.register(user_info, function(flag, result) {
+					if (flag) {
+						log.debug('REGISTER_SUCCESS', log.getFileNameAndLineNum(__filename));
+						returnData = {
+							'user_phone': user_info.user_phone,
+							'user_id': user_info.id,
+							'password': user_info.password,
+							'user_name': user_info.name,
+							'user_age': user_info.age,
+							'user_gender': user_info.gender,
+							'code': config.returnCode.REGISTER_SUCCESS
+						};
+					} else {
+						log.error(result, log.getFileNameAndLineNum(__filename));
+						returnData = {
+							'user_phone': fields.user_phone,
+							'code': config.returnCode.REGISTER_FAIL
+						};
+					}
 					res.send(returnData);
-					return;
-				}
-
-				var certificateInfo = result[0];
-
-				if (certificateInfo.certificate_code === fields.user_certificate_code) {
-					var user_info = {};
-					var md5 = require('MD5');
-					user_info.id = md5(fields.user_phone);
-
-					// var fileName = conn.sha1Cryp(user_info.id + 'facethumbnail');
-					// var imageCompressName = fileName + '_compress';
-
-					// imageOper.updateImage(files.user_facethumbnail.path,
-					// 	path.join(global_config.env.homedir, config.imageInfo.imageRootDir, fileName),
-					// 	path.join(global_config.env.homedir, config.imageInfo.imageRootDir, imageCompressName), {
-					// 		width: 44 * 4,
-					// 		height: 44 * 4
-					// 	});
-
-					user_info.user_phone = fields.user_phone;
-					user_info.name = md5(fields.user_phone).substr(0, 6);
-					user_info.password = fields.user_password;
-					user_info.user_gender = -1;
-					user_info.user_age = -1;
-
-					user_info.fans_count = 0;
-					user_info.follow_count = 0;
-
-					userMgmt.register(user_info, function (flag, result) {
-						if (flag) {
-							log.debug('REGISTER_SUCCESS', log.getFileNameAndLineNum(__filename));
-							returnData = {
-								'user_phone': user_info.user_phone,
-								'user_id': user_info.id,
-								'password': user_info.password,
-								'user_name': user_info.name,
-								'user_age': user_info.age,
-								'user_gender': user_info.gender,
-								'code': config.returnCode.REGISTER_SUCCESS
-							};
-						} else {
-							log.error(result, log.getFileNameAndLineNum(__filename));
-							returnData = {
-								'user_phone': fields.user_phone,
-								'code': config.returnCode.REGISTER_FAIL
-							};
-						}
-						res.send(returnData);
-					});
-
-				} else {
-					log.debug(fields.user_certificate_code + ' not equal to ' + certificateInfo.certificate_code, log.getFileNameAndLineNum(__filename));
-					returnData.code = config.returnCode.CERTIFICATE_CODE_NOT_MATCH;
-					res.send(returnData);
-				}
+				});
 
 			} else {
-				log.error(result, log.getFileNameAndLineNum(__filename));
-				returnData.code = config.returnCode.ERROR;
+				log.debug(fields.user_certificate_code + ' not equal to ' +
+					certificateInfo.certificate_code, log.getFileNameAndLineNum(
+						__filename));
+				returnData.code = config.returnCode.CERTIFICATE_CODE_NOT_MATCH;
 				res.send(returnData);
 			}
-		});
+
+		} else {
+			log.error(result, log.getFileNameAndLineNum(__filename));
+			returnData.code = config.returnCode.ERROR;
+			res.send(returnData);
+		}
 	});
 });
 
 // add by wanghan 20141008
 // for delete user image url
-router.post('/deleteUserImage', function (req, res) {
+router.post('/deleteUserImage', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
-	userMgmt.deleteUserImage(req.body.user_id, req.body.user_image_url, function (flag, result) {
+	userMgmt.deleteUserImage(req.body.user_id, req.body.user_image_url, function(
+		flag, result) {
 		var returnData = {};
 		if (flag) {
 			var oldFileName = getImageName(req.body.user_image_url);
-			fs.unlink(path.join(global_config.env.homedir, config.imageInfo.imageRootDir, oldFileName), function () {
+			fs.unlink(path.join(global_config.env.homedir, config.imageInfo.imageRootDir,
+				oldFileName), function() {
 				log.logPrint(config.logLevel.DEBUG, 'delete old file ' + oldFileName);
 				returnData.code = config.returnCode.DEL_IMAGE_SUCCESS;
 				res.send(returnData);
@@ -512,44 +525,48 @@ router.post('/deleteUserImage', function (req, res) {
 // end by wanghan 20141008 for delete user image url
 
 // get the verifying code from phone number
-router.post('/confirmPhone', function (req, res) {
+router.post('/confirmPhone', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 
-	userMgmt.checkPhoneNum(req.body.user_phone, function (flag, result) {
+	userMgmt.checkPhoneNum(req.body.user_phone, function(flag, result) {
 		var statusCode;
 		var returnData = {
 			'user_phone': req.body.user_phone,
 			'code': 0
 		};
 		if (flag && result.length) {
-			log.debug(req.body.user_phone + ' PHONE_EXIST', log.getFileNameAndLineNum(__filename));
+			log.debug(req.body.user_phone + ' PHONE_EXIST', log.getFileNameAndLineNum(
+				__filename));
 			statusCode = config.returnCode.PHONE_EXIST;
 			returnData.code = statusCode;
 			res.send(returnData);
 		} else if (flag) {
 
-			var certificateCode = (Math.random() * config.number.numberInput).toFixed(0);
+			var certificateCode = (Math.random() * config.number.numberInput).toFixed(
+				0);
 			var timestamp = new Date().getTime();
-			userMgmt.certificateCode(req.body.user_phone, certificateCode, timestamp, function (flag, result) {
+			userMgmt.certificateCode(req.body.user_phone, certificateCode, timestamp,
+				function(flag, result) {
 
-				if (flag && result) {
-					statusCode = config.returnCode.CERTIFICATE_CODE_SEND;
-					var weimi = require('../utility/weimi');
-					weimi.sendMessage(req.body.user_phone, certificateCode, function (result) {
-						log.logPrint(config.logLevel.DEBUG, result);
+					if (flag && result) {
+						statusCode = config.returnCode.CERTIFICATE_CODE_SEND;
+						var weimi = require('../utility/weimi');
+						weimi.sendMessage(req.body.user_phone, certificateCode, function(
+							result) {
+							log.logPrint(config.logLevel.DEBUG, result);
+							returnData.code = statusCode;
+							res.send(returnData);
+						});
+					} else if (flag) {
+						statusCode = config.returnCode.CERTIFICATE_CODE_SENDED;
 						returnData.code = statusCode;
 						res.send(returnData);
-					});
-				} else if (flag) {
-					statusCode = config.returnCode.CERTIFICATE_CODE_SENDED;
-					returnData.code = statusCode;
-					res.send(returnData);
-				} else {
-					statusCode = config.returnCode.ERROR;
-					returnData.code = statusCode;
-					res.send(returnData);
-				}
-			});
+					} else {
+						statusCode = config.returnCode.ERROR;
+						returnData.code = statusCode;
+						res.send(returnData);
+					}
+				});
 		} else {
 			statusCode = config.returnCode.ERROR;
 			returnData.code = statusCode;
@@ -559,7 +576,7 @@ router.post('/confirmPhone', function (req, res) {
 });
 
 // add by wanghan 20150124
-router.post('/updateDeviceToken', function (req, res) {
+router.post('/updateDeviceToken', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 
 	var deviceInfo = {
@@ -567,19 +584,21 @@ router.post('/updateDeviceToken', function (req, res) {
 		'device_token': req.body.device_token
 	};
 
-	userMgmt.updateDeviceToken(deviceInfo, function (flag, result) {
+	userMgmt.updateDeviceToken(deviceInfo, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 
-	userMgmt.getDeviceNotifyCount(deviceInfo.device_token, function (flag, result) {
+	userMgmt.getDeviceNotifyCount(deviceInfo.device_token, function(flag, result) {
 		if (result.length === 0) {
-			userMgmt.insertDeviceNotifyCount(deviceInfo.device_token, 0, function (flag, result) {
+			userMgmt.insertDeviceNotifyCount(deviceInfo.device_token, 0, function(
+				flag, result) {
 				if (!flag) {
 					log.logPrint(config.logLevel.ERROR, result);
 				}
 			});
 		} else {
-			userMgmt.updateDeviceNotifyCount(deviceInfo.device_token, 0, function (flag, result) {
+			userMgmt.updateDeviceNotifyCount(deviceInfo.device_token, 0, function(
+				flag, result) {
 				if (!flag) {
 					log.logPrint(config.logLevel.ERROR, result);
 				}
@@ -590,18 +609,19 @@ router.post('/updateDeviceToken', function (req, res) {
 });
 
 // add by wanghan 20150325 for get unread comment
-router.post('/getUnreadComments', function (req, res) {
+router.post('/getUnreadComments', function(req, res) {
 
-	userMgmt.getUnreadComments(req.body.user_id, req.body.timestamp, function (flag, result) {
+	userMgmt.getUnreadComments(req.body.user_id, req.body.timestamp, function(
+		flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 	redis_client.hset(config.hashKey.commentUnreadCount, req.body.user_id, 0);
 
 });
 
-router.post('/getUnreadGood', function (req, res) {
+router.post('/getUnreadGood', function(req, res) {
 
-	userMgmt.getUnreadGood(req.body, function (flag, result) {
+	userMgmt.getUnreadGood(req.body, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 
@@ -609,52 +629,56 @@ router.post('/getUnreadGood', function (req, res) {
 });
 
 // add by wanghan 20150328 for get notice msg count
-router.post('/getNoticeMsgCount', function (req, res) {
+router.post('/getNoticeMsgCount', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 
 	log.debug(req.body.user_id, log.getFileNameAndLineNum(__filename));
 
 	async.series([
-			function (callback) {
+			function(callback) {
 				//  do some stuff ...
-				redis_client.hget(config.hashKey.commentUnreadCount, req.body.user_id, function (err, reply) {
-					if (err) {
-						log.error(err, log.getFileNameAndLineNum(__filename));
-						callback(err, reply);
-					} else {
-						if (reply == null) {
-							reply = parseInt(0, 10);
+				redis_client.hget(config.hashKey.commentUnreadCount, req.body.user_id,
+					function(err, reply) {
+						if (err) {
+							log.error(err, log.getFileNameAndLineNum(__filename));
+							callback(err, reply);
+						} else {
+							if (reply == null) {
+								reply = parseInt(0, 10);
+							}
+							callback(null, reply);
 						}
-						callback(null, reply);
-					}
-				});
+					});
 			},
-			function (callback) {
+			function(callback) {
 				//  do some more stuff ...
-				redis_client.hget(config.hashKey.goodUnreadCount, req.body.user_id, function (err, reply) {
-					if (err) {
-						log.error(err, log.getFileNameAndLineNum(__filename));
-						callback(err, reply);
-					} else {
-						log.debug(req.body.user_id + ' ' + config.hashKey.goodUnreadCount + ' ' + reply,
-						log.getFileNameAndLineNum(__filename));
-						if (reply == null) {
-							reply = parseInt(0, 10);
+				redis_client.hget(config.hashKey.goodUnreadCount, req.body.user_id,
+					function(err, reply) {
+						if (err) {
+							log.error(err, log.getFileNameAndLineNum(__filename));
+							callback(err, reply);
+						} else {
+							log.debug(req.body.user_id + ' ' + config.hashKey.goodUnreadCount +
+								' ' + reply,
+								log.getFileNameAndLineNum(__filename));
+							if (reply == null) {
+								reply = parseInt(0, 10);
+							}
+							callback(null, reply);
 						}
-						callback(null, reply);
-					}
-				});
+					});
 			}
 		],
 		//  optional callback
-		function (err, results) {
+		function(err, results) {
 
 			var resultData = {};
 			if (err) {
 				log.error(err, log.getFileNameAndLineNum(__filename));
 				resultData.code = config.returnCode.ERROR;
 			} else {
-				log.debug('unread notice msg count: ' + results, log.getFileNameAndLineNum(__filename));
+				log.debug('unread notice msg count: ' + results, log.getFileNameAndLineNum(
+					__filename));
 				resultData.data = results[0] + results[1];
 				resultData.unreadCommentsCount = results[0];
 				resultData.unreadGoodCount = results[1];
@@ -664,7 +688,7 @@ router.post('/getNoticeMsgCount', function (req, res) {
 		});
 });
 
-router.post('/updateLocation', function (req, res) {
+router.post('/updateLocation', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 
 	res.setHeader('request_time', Date.now());
@@ -675,12 +699,12 @@ router.post('/updateLocation', function (req, res) {
 		'longitude': req.body.longitude,
 		'timeStamp': 0
 	};
-	userMgmt.updateLocationInfo(locationInfo, function (flag, result) {
+	userMgmt.updateLocationInfo(locationInfo, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });
 
-router.post('/nearbyPerson', function (req, res) {
+router.post('/nearbyPerson', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 
 	var locationInfo = {
@@ -693,7 +717,8 @@ router.post('/nearbyPerson', function (req, res) {
 		persons: [],
 		code: 0
 	};
-	userMgmt.findNearbyUser(locationInfo, function (nearbyUserFlag, locationInfoResult) {
+	userMgmt.findNearbyUser(locationInfo, function(nearbyUserFlag,
+		locationInfoResult) {
 		if (nearbyUserFlag) {
 			log.logPrint(config.logLevel.DEBUG, 'get nearby person ok');
 
@@ -707,15 +732,17 @@ router.post('/nearbyPerson', function (req, res) {
 	});
 });
 
-router.post('/checkNameExist', function (req, res) {
-	userMgmt.checkUserNameExist(req.body, function (flag, result) {
+router.post('/checkNameExist', function(req, res) {
+	userMgmt.checkUserNameExist(req.body, function(flag, result) {
 		var returnData = {};
 		if (flag) {
 			if (result.length > 0) {
-				log.debug(req.body.user_name + ' USER_EXIST', log.getFileNameAndLineNum(__filename));
+				log.debug(req.body.user_name + ' USER_EXIST', log.getFileNameAndLineNum(
+					__filename));
 				returnData.code = config.returnCode.USER_EXIST;
 			} else {
-				log.debug(req.body.user_name + ' USER_NOT_EXIST', log.getFileNameAndLineNum(__filename));
+				log.debug(req.body.user_name + ' USER_NOT_EXIST', log.getFileNameAndLineNum(
+					__filename));
 				returnData.code = config.returnCode.USER_NOT_EXIST;
 			}
 		} else {
@@ -726,27 +753,29 @@ router.post('/checkNameExist', function (req, res) {
 	});
 });
 
-router.post('/getAllVisit', function (req, res) {
+router.post('/getAllVisit', function(req, res) {
 	// log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 
-	userMgmt.getAllVisitRecord(req.body.user_id, req.body.timestamp, function (flag, result) {
+	userMgmt.getAllVisitRecord(req.body.user_id, req.body.timestamp, function(
+		flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });
 
-router.post('/visit', function (req, res) {
+router.post('/visit', function(req, res) {
 	// log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 
 	var returnData = {};
 	var body = req.body;
 
-	userMgmt.getVisitRecord(req.body.user_id, req.body.visit_user_id, function (flag, result) {
+	userMgmt.getVisitRecord(req.body.user_id, req.body.visit_user_id, function(
+		flag, result) {
 		if (flag) {
 			if (result.length > 0) {
 				// update visit record
 				log.debug('updateVisitRecord', log.getFileNameAndLineNum(__filename));
 				userMgmt.updateVisitRecord(req.body.user_id, req.body.visit_user_id,
-					function (flag, result) {
+					function(flag, result) {
 
 						if (flag) {
 							returnData.code = config.returnCode.SUCCESS;
@@ -761,24 +790,25 @@ router.post('/visit', function (req, res) {
 			} else {
 				// insert visit record
 				log.debug('insertVisitRecord', log.getFileNameAndLineNum(__filename));
-				userMgmt.insertVisitRecord(req.body.user_id, req.body.visit_user_id, function (flag, result) {
-					// feedBack(flag, result, res);
-					if (flag) {
-						returnData.code = config.returnCode.SUCCESS;
-						res.send(returnData);
-					} else {
-						log.error(result, log.getFileNameAndLineNum(__filename));
-						returnData.code = config.returnCode.ERROR;
-						res.send(returnData);
-					}
-				});
+				userMgmt.insertVisitRecord(req.body.user_id, req.body.visit_user_id,
+					function(flag, result) {
+						// feedBack(flag, result, res);
+						if (flag) {
+							returnData.code = config.returnCode.SUCCESS;
+							res.send(returnData);
+						} else {
+							log.error(result, log.getFileNameAndLineNum(__filename));
+							returnData.code = config.returnCode.ERROR;
+							res.send(returnData);
+						}
+					});
 			}
 		} else {
 			routeFunc.feedBack(flag, result, res);
 		}
 	});
 
-	userMgmt.getUserTokenInfo(req.body.user_id, function (flag, result) {
+	userMgmt.getUserTokenInfo(req.body.user_id, function(flag, result) {
 		if (flag) {
 			if (result.length > 0) {
 				var pushMsg = {
@@ -789,7 +819,8 @@ router.post('/visit', function (req, res) {
 				// apn to user
 				conn.pushMsgToUsers(result[0].device_token, pushMsg);
 			} else {
-				log.warn(body.user_id + ' has no device token', log.getFileNameAndLineNum(__filename));
+				log.warn(body.user_id + ' has no device token', log.getFileNameAndLineNum(
+					__filename));
 			}
 
 		} else {
@@ -798,26 +829,27 @@ router.post('/visit', function (req, res) {
 	});
 });
 
-router.post('/addToUserCollectList', function (req, res) {
+router.post('/addToUserCollectList', function(req, res) {
 	// log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 
-	userMgmt.addToUserCollectList(req.body.user_id, req.body.content_id, function (flag, result) {
-		if (flag) {
-			contentMgmt.addSeeCount(req.body.content_id, function (flag, result) {
-				// feedBack(flag, result, res);
-			});
-		}
+	userMgmt.addToUserCollectList(req.body.user_id, req.body.content_id,
+		function(flag, result) {
+			if (flag) {
+				contentMgmt.addSeeCount(req.body.content_id, function(flag, result) {
+					// feedBack(flag, result, res);
+				});
+			}
+			routeFunc.feedBack(flag, result, res);
+		});
+});
+
+router.post('/submitFeedback', function(req, res) {
+	userMgmt.submitFeedback(req.body, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });
 
-router.post('/submitFeedback', function (req, res) {
-	userMgmt.submitFeedback(req.body, function (flag, result) {
-		routeFunc.feedBack(flag, result, res);
-	});
-});
-
-router.get('/testfile', function (req, res) {
+router.get('/testfile', function(req, res) {
 	res.send('testfile');
 });
 
