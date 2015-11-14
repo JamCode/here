@@ -460,7 +460,7 @@ router.post('/register', function(req, res) {
 					':' +
 					global_config.httpServerInfo.listen_port + "/default_face.png";
 
-				userInfo.user_face_image = defaultImageUrl;
+				user_info.user_face_image = defaultImageUrl;
 				user_info.facethumbnail = defaultImageUrl;
 
 				user_info.fans_count = 0;
