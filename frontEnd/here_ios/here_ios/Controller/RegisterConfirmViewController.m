@@ -210,6 +210,9 @@ static const int notice_height = 18;
 {
     NSDictionary* feedback = (NSDictionary*)sender;
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    app.myInfo = [[UserInfoModel alloc] init];
+    
     [app.myInfo fillWithData:feedback];
     
     NSUserDefaults *mySettingData = [NSUserDefaults standardUserDefaults];

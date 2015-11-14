@@ -33,6 +33,8 @@ static const int faceimage_width = 64;
 {
     UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
 
+    NSLog(@"%@",myInfo.faceImageThumbnailURLStr);
+    
     UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, ScreenHeight/4)];
     
     CGFloat offset = ScreenWidth/5;
@@ -52,8 +54,12 @@ static const int faceimage_width = 64;
     [headerView addSubview:nickNameLabel];
     
     
-    [faceimage sd_setImageWithURL:[[NSURL alloc] initWithString:myInfo.faceImageThumbnailURLStr] placeholderImage:[UIImage imageNamed:@"loading.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-    }];
+    if(myInfo.faceImageThumbnailURLStr == nil){
+        faceimage.image = [UIImage imageNamed:@"nickname64px.png"];
+    }else{
+        [faceimage sd_setImageWithURL:[[NSURL alloc] initWithString:myInfo.faceImageThumbnailURLStr] placeholderImage:[UIImage imageNamed:@"loading.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        }];
+    }
     
     self.tableView.tableHeaderView = headerView;
     
