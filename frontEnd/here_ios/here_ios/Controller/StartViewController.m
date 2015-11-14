@@ -12,6 +12,7 @@
 #import "macro.h"
 #import "Constant.h"
 #import "Tools.h"
+#import "RegisterPhoneNumViewController.h"
 
 @interface StartViewController ()
 
@@ -80,7 +81,9 @@
 - (void)registerButtonAction:(id)sender
 {
     NSLog(@"enter registerButtonAction");
-    RegisterNickNameViewController* firstRegister = [[RegisterNickNameViewController alloc] init];
+    
+    RegisterPhoneNumViewController* firstRegister = [[RegisterPhoneNumViewController alloc] init];
+    
     [self.navigationController pushViewController:firstRegister animated:YES];
 }
 

@@ -430,28 +430,24 @@ router.post('/register', function (req, res) {
 					var md5 = require('MD5');
 					user_info.id = md5(fields.user_phone);
 
-					var fileName = conn.sha1Cryp(user_info.id + 'facethumbnail');
-					var imageCompressName = fileName + '_compress';
+					// var fileName = conn.sha1Cryp(user_info.id + 'facethumbnail');
+					// var imageCompressName = fileName + '_compress';
 
-					imageOper.updateImage(files.user_facethumbnail.path,
-						path.join(global_config.env.homedir, config.imageInfo.imageRootDir, fileName),
-						path.join(global_config.env.homedir, config.imageInfo.imageRootDir, imageCompressName), {
-							width: 44 * 4,
-							height: 44 * 4
-						});
+					// imageOper.updateImage(files.user_facethumbnail.path,
+					// 	path.join(global_config.env.homedir, config.imageInfo.imageRootDir, fileName),
+					// 	path.join(global_config.env.homedir, config.imageInfo.imageRootDir, imageCompressName), {
+					// 		width: 44 * 4,
+					// 		height: 44 * 4
+					// 	});
 
 					user_info.user_phone = fields.user_phone;
-					user_info.name = fields.user_name;
+					user_info.name = md5(fields.user_phone).substr(0, 6);
 					user_info.password = fields.user_password;
-					user_info.age = fields.user_age;
-					user_info.gender = fields.user_gender;
-					user_info.user_face_image = imageHomeUrl + fileName;
-					user_info.facethumbnail = imageHomeUrl + imageCompressName;
+					user_info.user_gender = -1;
+					user_info.user_age = -1;
+
 					user_info.fans_count = 0;
 					user_info.follow_count = 0;
-					user_info.certificate_id = '';
-					user_info.certificated_process = 0;
-					user_info.user_birth_day = fields.user_birth_day;
 
 					userMgmt.register(user_info, function (flag, result) {
 						if (flag) {
@@ -461,8 +457,6 @@ router.post('/register', function (req, res) {
 								'user_id': user_info.id,
 								'password': user_info.password,
 								'user_name': user_info.name,
-								'user_facethumbnail': user_info.facethumbnail,
-								'user_face_image': user_info.user_face_image,
 								'user_age': user_info.age,
 								'user_gender': user_info.gender,
 								'code': config.returnCode.REGISTER_SUCCESS
