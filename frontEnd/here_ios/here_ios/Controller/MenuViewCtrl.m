@@ -15,7 +15,6 @@
 #import "CommentDetailAction.h"
 #import "NetWork.h"
 #import "macro.h"
-#import "ContentViewController.h"
 #import "Tools.h"
 #import "NearByPersonAction.h"
 #import "ComTableViewCtrl.h"

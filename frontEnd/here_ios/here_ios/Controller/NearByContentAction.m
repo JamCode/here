@@ -31,7 +31,7 @@ static const int leftbarWidth = 20;
     ComTableViewCtrl* comTable;
     UIButton* leftBar;
     UILabel* noticelabel;
-
+    UserInfoModel* myInfo;
 }
 
 - (void)pullUpAction:(pullCompleted)completedBlock
@@ -191,15 +191,23 @@ static const int leftbarWidth = 20;
     NSLog(@"checkUnreadMsgException");
 }
 
+
+- (void)updateLocationInfo
+{
+    NSLog(@"location update");
+    //send new location to server
+    NSDictionary* message = [[NSDictionary alloc]initWithObjects:@[myInfo.userID,[NSNumber numberWithDouble:myInfo.latitude],[NSNumber numberWithDouble:myInfo.longitude], @"/updateLocation"]forKeys:@[@"user_id", @"latitude", @"longitude", @"childpath"]];
+    
+    NetWork* netWork = [[NetWork alloc] init];
+    [netWork message:message images:nil feedbackcall:nil complete:^{
+    } callObject:self];
+}
+
 - (void)getNearbyContent:(NSInteger)lastTimestamp handleAction:(SEL)handleAction
 {
-    
-    AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    
-    //异步注册信息
     NetWork* netWork = [[NetWork alloc] init];
     
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[[[NSNumber alloc] initWithDouble:app.myInfo.latitude], [[NSNumber alloc] initWithDouble:app.myInfo.longitude], [[NSNumber alloc] initWithInteger:lastTimestamp] , @"/getNearbyContent"] forKeys:@[@"user_latitude", @"user_longitude", @"last_timestamp", @"childpath"]];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[[[NSNumber alloc] initWithDouble:myInfo.latitude], [[NSNumber alloc] initWithDouble:myInfo.longitude], [[NSNumber alloc] initWithInteger:lastTimestamp] , @"/getNearbyContent"] forKeys:@[@"user_latitude", @"user_longitude", @"last_timestamp", @"childpath"]];
     
     NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&handleAction objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(getContentError:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(getContentException:) objCType:@encode(SEL)] ] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS],[[NSNumber alloc] initWithInt:ERROR],[[NSNumber alloc] initWithInt:EXCEPTION]]];
     
@@ -227,14 +235,26 @@ static const int leftbarWidth = 20;
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    if (locations == nil) {
+        [locationManager startUpdatingLocation];
+        return;
+    }
+    
     CLLocation* newLocation = [locations lastObject];
-    UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
+    
+    if (fabs(newLocation.coordinate.latitude) < 0.001||fabs(newLocation.coordinate.longitude) < 0.001) {
+        [locationManager startUpdatingLocation];
+        return;
+    }
+    
     myInfo.latitude = newLocation.coordinate.latitude;
     myInfo.longitude = newLocation.coordinate.longitude;
     NSLog(@"location update");
     [locationManager stopUpdatingLocation];
     
     [self getNearbyContent:[[NSDate date] timeIntervalSince1970] handleAction:@selector(getContentSuccess:)];
+    
+    [self updateLocationInfo];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -245,6 +265,8 @@ static const int leftbarWidth = 20;
 
 - (void)initAction:(ComTableViewCtrl*)comTableViewCtrl
 {
+    myInfo = [AppDelegate getMyUserInfo];
+    
     comTable = comTableViewCtrl;
     
     contentModeArray = [[NSMutableArray alloc] init];

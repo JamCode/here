@@ -98,6 +98,21 @@
     return cell;
 }
 
+
+- (void)updateLocationInfo
+{
+    NSLog(@"location update");
+    //send new location to server
+    UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
+    
+    NSDictionary* message = [[NSDictionary alloc]initWithObjects:@[myInfo.userID,[NSNumber numberWithDouble:myInfo.latitude],[NSNumber numberWithDouble:myInfo.longitude], @"/updateLocation"]forKeys:@[@"user_id", @"latitude", @"longitude", @"childpath"]];
+    
+    NetWork* netWork = [[NetWork alloc] init];
+    [netWork message:message images:nil feedbackcall:nil complete:^{
+    } callObject:self];
+}
+
+
 - (void)didSelectedCell:(ComTableViewCtrl*)comTableViewCtrl IndexPath:(NSIndexPath *)indexPath
 {
     UserInfoModel* userInfo = [nearByPersonArray objectAtIndex:indexPath.row];
@@ -142,6 +157,11 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation* newLocation = [locations lastObject];
+    if (newLocation == nil) {
+        [locationManager startUpdatingLocation];
+        return;
+    }
+    
     UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
     myInfo.latitude = newLocation.coordinate.latitude;
     myInfo.longitude = newLocation.coordinate.longitude;
@@ -149,6 +169,8 @@
     [locationManager stopUpdatingLocation];
     
     [self nearbyPerson];
+    [self updateLocationInfo];
+    
 }
 
 - (void)nearbySuccess:(id)sender

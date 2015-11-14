@@ -15,15 +15,20 @@
 
 
 
-- (BOOL)connectToDatabase;
+- (BOOL)connectToDatabase:(NSString*)fileName;
 
 - (NSArray*) readPriMsgByUserID:(NSString*)userID otherUserID:(NSString*)otherUserID MinTimeStamp:(NSInteger)timeStamp LimitCount:(NSInteger)limitCount;
 
 - (BOOL)writePriMsgToDatabase:(PriMsgModel*)priMsg;
+
 - (BOOL)writeLastPriMsgToDatabase:(LastMsgModel*)priMsg;
+
 - (NSMutableArray*)getLastMsgFromDatabase;
-- (PriMsgModel*)getRecentLastMsgFromDatabase:(NSString*)myuserID;
+
+- (PriMsgModel*)getRecentLastMsgFromDatabase;
+
 - (LastMsgModel*)getLastMsgByUser:(NSString*)counterID;
+
 - (PriMsgModel*)getPriMsgByMsgID:(NSString*)msg_id;
 
 - (BOOL)deleteMsg:(LastMsgModel*)lastMsg;

@@ -394,7 +394,7 @@ static const int maxImageButtonHeight = 160;
         myPriMsgModel.unread = 0;
         
         LocDatabase* locDatabase = [[LocDatabase alloc] init];
-        if (![locDatabase connectToDatabase]) {
+        if (![locDatabase connectToDatabase:[AppDelegate getMyUserInfo].userID]) {
             NSLog(@"database error");
         }
         

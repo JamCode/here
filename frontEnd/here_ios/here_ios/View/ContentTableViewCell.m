@@ -16,18 +16,15 @@
 #import "OptionFunView.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "ImageModel.h"
-#import "ContentViewController.h"
 #import "ContentDetailViewController.h"
 #import "NetWork.h"
 #import "CommentModel.h"
 #import "ImageEnlarge.h"
 #import "ContentModel.h"
+#import "ContentDetailViewController.h"
+#import "InputToolbar.h"
 
-
-static const int inputfontSize = 16;
-static const double textViewHeight = 36;
 static const double bottomToolbarHeight = 48;
-
 
 @implementation ContentTableViewCell
 {
@@ -47,6 +44,10 @@ static const double bottomToolbarHeight = 48;
     
     UIActionSheet* sheet;
     MBProgressHUD* loading;
+    
+    CommentModel* commentModel;
+    
+    InputToolbar* inputToolBar;
     
     
 }
@@ -98,9 +99,6 @@ static const int ageWidth = 18;
         _nickName = [[UILabel alloc] initWithFrame:CGRectMake(_faceView.frame.origin.x+_faceView.frame.size.width+spaceValue, _faceView.frame.origin.y, nickNameWidth, nickNameHeight)];
         _nickName.font = [UIFont fontWithName:@"Arial" size:nameFontSize];
         
-        //_cutoffLine = [[UIView alloc] initWithFrame:CGRectMake(_nickName.frame.origin.x, _faceView.frame.origin.y+_faceView.frame.size.height, ScreenWidth - _nickName.frame.origin.x, 1)];
-        //_cutoffLine.backgroundColor = sepeartelineColor;
-        
         [self initGenderAgeView];
         
         
@@ -111,7 +109,7 @@ static const int ageWidth = 18;
         _timeLabel.textColor = [UIColor lightGrayColor];
         
         
-        reportButton = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+        reportButton = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 19, 9)];
         reportButton.image = [UIImage imageNamed:@"down.png"];
         
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nickName.frame.origin.x, _nickName.frame.origin.y+_nickName.frame.size.height+spaceValue, ScreenWidth - _nickName.frame.origin.x - 3*spaceValue, 0)];
@@ -121,11 +119,6 @@ static const int ageWidth = 18;
         _addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(_nickName.frame.origin.x, 0, _contentLabel.frame.size.width, addressLabelHeight)];
         _addressLabel.font = [UIFont fontWithName:@"Arial" size:timeFontSize];
         _addressLabel.textColor = subjectColor;
-        
-        
-//        _contentDetailInfoLabel = [[UILabel alloc] initWithFrame:CGRectMake(_contentLabel.frame.origin.x, 0, 180, contentDetailInfoHeight)];
-//        _contentDetailInfoLabel.font = [UIFont fontWithName:@"Arial" size:timeFontSize];
-//        _contentDetailInfoLabel.textColor = [UIColor lightGrayColor];
         
         
         _goodCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(_contentLabel.frame.origin.x, 0, 0, contentDetailInfoHeight)];
@@ -140,13 +133,6 @@ static const int ageWidth = 18;
         _distanceLabel.font = [UIFont fontWithName:@"Arial" size:timeFontSize];
         _distanceLabel.textColor = [UIColor lightGrayColor];
         
-        
-        
-        
-        
-        //_commentButton = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"OptionFunView_icon@2x.png"]];
-        
-        //[self addSubview:_commentButton];
         [self addSubview:_faceView];
         [self addSubview:_nickName];
         
@@ -159,21 +145,15 @@ static const int ageWidth = 18;
         [self addSubview:_goodCountLabel];
         [self addSubview:_commentCountLabel];
         [self addSubview:_distanceLabel];
-
-        //[self addSubview:_contentDetailInfoLabel];
         
         imageArray = [[NSMutableArray alloc] init];
+        
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
         
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hidenButtons) name:@"commentButtonHide" object:nil];
         
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hidenKeyboard) name:@"commentKeyboardHide" object:nil];
-        
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-        
-        
-
         
         sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
         
@@ -181,77 +161,6 @@ static const int ageWidth = 18;
     }
     return self;
 }
-
-
-- (void)keyboardWillShow:(NSNotification*)notification
-{
-    if (![commentInputView isFirstResponder]) {
-        return;
-    }
-    
-    commentInputView.text = @"";
-    
-    NSLog(@"keyboardWillShow");
-    
-    CGRect keyboardBounds;
-    [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
-    
-    //CGFloat keyboardHeight = keyboardBounds.size.height;
-    NSNumber *duration = [notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    
-    keyboardBounds = [[Tools curNavigator].view convertRect:keyboardBounds toView:nil];
-    
-    CGRect bottomFrame = bottomToolbar.frame;
-    
-    
-    bottomFrame.origin.y =  ScreenHeight - keyboardBounds.size.height - bottomToolbarHeight;
-    
-    // animations settings
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:[duration doubleValue]];
-    [UIView setAnimationCurve:[curve intValue]];
-    [UIView setAnimationDelegate:self];
-    
-    // set views with new info
-    bottomToolbar.frame = bottomFrame;
-    bottomToolbar.hidden = NO;
-    // commit animations
-    [UIView commitAnimations];
-    
-    
-}
-
-
-- (void)keyboardWillHide:(NSNotification*)notification
-{
-    CGRect keyboardBounds;
-    [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
-    NSNumber *duration = [notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    keyboardBounds = [[Tools curNavigator].view convertRect:keyboardBounds toView:nil];
-    //keyboardHeight = 0;
-    
-    //CGRect btnFrame = talkTableView.frame;
-    CGRect bottomFrame = bottomToolbar.frame;
-    //btnFrame.origin.y = 0;
-    bottomFrame.origin.y = ScreenHeight;
-    // animations settings
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:[duration doubleValue]];
-    [UIView setAnimationCurve:[curve intValue]];
-    [UIView setAnimationDelegate:self];
-    
-    // set views with new info
-    bottomToolbar.frame = bottomFrame;
-    bottomToolbar.hidden = YES;
-    
-    // commit animations
-    [UIView commitAnimations];
-}
-
 
 
 - (void)awakeFromNib {
@@ -583,10 +492,10 @@ static const int ageWidth = 18;
 
 - (void)hidenKeyboard
 {
-    if (commentInputView!=nil) {
-        [commentInputView resignFirstResponder];
-        [bottomToolbar removeFromSuperview];
-        bottomToolbar = nil;
+    if (inputToolBar!=nil) {
+        [inputToolBar hideInput];
+        [inputToolBar removeFromSuperview];
+        inputToolBar = nil;
     }
 }
 
@@ -600,85 +509,46 @@ static const int ageWidth = 18;
 
 - (void)initCommentInputView
 {
-    [bottomToolbar removeFromSuperview];
     
-    bottomToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, ScreenHeight+bottomToolbarHeight, ScreenWidth, bottomToolbarHeight)];
-    [bottomToolbar setBackgroundImage:[UIImage new]forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [bottomToolbar setShadowImage:[UIImage new] forToolbarPosition:UIToolbarPositionAny];
-    bottomToolbar.backgroundColor = activeViewControllerbackgroundColor;
+    inputToolBar = [[InputToolbar alloc] init];
+    inputToolBar.inputDelegate = self;
     
+    [[Tools curNavigator].view addSubview:inputToolBar];
     
-    commentInputView = [[UITextView alloc] init];
-    commentInputView.delegate =self;
-    commentInputView.frame = CGRectMake(0, 0, ScreenWidth - 2*40, textViewHeight);
-    commentInputView.returnKeyType = UIReturnKeyDone;//设置返回按钮的样式
-    
-    
-    commentInputView.keyboardType = UIKeyboardTypeDefault;//设置键盘样式为默认
-    commentInputView.font = [UIFont fontWithName:@"Arial" size:inputfontSize];
-    commentInputView.scrollEnabled = YES;
-    commentInputView.autoresizingMask = UIViewAutoresizingFlexibleHeight;//自适应高度
-    commentInputView.layer.cornerRadius = 4.0;
-    commentInputView.layer.borderWidth = 0.5;
-    commentInputView.layer.borderColor = sepeartelineColor.CGColor;
-    
-    
-    UIBarButtonItem* textfieldButtonItem =[[UIBarButtonItem alloc] initWithCustomView:commentInputView];
-    
-    UIBarButtonItem* sendButton = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(sendComment:)];
-    
-    NSArray *textfieldArray=[[NSArray alloc]initWithObjects:textfieldButtonItem, sendButton, nil];
-    [bottomToolbar setItems:textfieldArray animated:YES];
-    
-    bottomToolbar.hidden = YES;
-    
-    [[Tools curNavigator].view addSubview:bottomToolbar];
-    
-    [commentInputView becomeFirstResponder];
+    [inputToolBar showInput];
 }
 
 
-
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+- (void)sendAction:(NSString *)msg
 {
-    if (textView == commentInputView) {
-        if ([text isEqualToString:@"\n"]) {
-            
-            [textView resignFirstResponder];
-            
-            [self sendComment:nil];
-            
-            return NO;
-            
-        }
-        return YES;
-    }
-    return YES;
+    NSLog(@"%@", msg);
+    [inputToolBar hideInput];
+    [inputToolBar removeFromSuperview];
+    inputToolBar = nil;
+    [self sendComment:msg];
 }
+
+
+
 
 - (void)sendComment:(id)sender
 {
-    if ([commentInputView.text isEqual:@""]||commentInputView.text == nil) {
-        return;
-    }
-    
-    NSLog(@"%@", commentInputView.text);
-    
-    [commentInputView resignFirstResponder];
+    NSString* msg = (NSString*)sender;
     
     NetWork* netWork = [[NetWork alloc] init];
     
     
-    CommentModel* commentModel = [[CommentModel alloc] init];
+    commentModel = [[CommentModel alloc] init];
     UserInfoModel* myUserInfo = [AppDelegate getMyUserInfo];
     
     commentModel.sendUserInfo = myUserInfo;
     ContentModel* contentModel = myContentModel;
     commentModel.contentModel = contentModel;
     commentModel.counterUserInfo = contentModel.userInfo;
-    commentModel.commentStr = commentInputView.text;
+    commentModel.commentStr = msg;
     commentInputView.text = @"";
-    
+    commentModel.publish_time = [[NSDate date] timeIntervalSince1970];
+
     
     NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[commentModel.contentModel.contentID, commentModel.sendUserInfo.userID, commentModel.counterUserInfo.userID, commentModel.commentStr, commentModel.sendUserInfo.nickName, @"/addCommentToContent"] forKeys:@[@"content_id", @"user_id", @"to_user_id", @"comment", @"user_name", @"childpath"]];
     
@@ -704,7 +574,13 @@ static const int ageWidth = 18;
 - (void)addCommentSuccess:(id)sender
 {
     [self increaseCommentCount];
+    
+    if (_contentDetail!=nil) {
+        [_contentDetail addDetailCommentSuccess:commentModel];
+    }
+    
     if (_tableView!=nil) {
+        
         [_tableView reloadData];
     }
 }
@@ -719,16 +595,8 @@ static const int ageWidth = 18;
     if (index == 1) {
         
         //评论
+        
         [self initCommentInputView];
-        
-//        if ([self.contentViewCtrl isKindOfClass:[ContentViewController class]]) {
-//            [(ContentViewController*)self.contentViewCtrl showCommentInputView:self];
-//        }
-//        
-//        if([self.contentViewCtrl isKindOfClass:[ContentDetailViewController class]]){
-//            [(ContentDetailViewController*)self.contentViewCtrl showCommentInputView];
-//        }
-        
     }
     
     if (index == 0) {

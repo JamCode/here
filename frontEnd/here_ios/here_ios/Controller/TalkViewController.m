@@ -675,7 +675,7 @@ static const double textViewWidth = 250;
     
     
     locDatabase = [[LocDatabase alloc] init];
-    if (![locDatabase connectToDatabase]) {
+    if (![locDatabase connectToDatabase:[AppDelegate getMyUserInfo].userID]) {
         alertMsg(@"本地数据库出错");
         return;
     }
@@ -684,7 +684,6 @@ static const double textViewWidth = 250;
     UIButton* rightBar = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBar.frame = CGRectMake(0, 0, 36, 36);
     [rightBar setTitle:@"资料" forState:UIControlStateNormal];
-    //[rightBar setBackgroundImage:[UIImage imageNamed:@"dot.png"] forState:UIControlStateNormal];
     [rightBar addTarget:self action:@selector(settingButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* rightitem = [[UIBarButtonItem alloc] initWithCustomView:rightBar];
     self.navigationItem.rightBarButtonItem = rightitem;
@@ -921,7 +920,10 @@ static const double textViewWidth = 250;
     timer = nil;
     timer =[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startConnectActiveView) userInfo:nil repeats:YES];
     
-    [mysocket connectToHost:SocketIP onPort:SocketPort withParams:nil withNamespace:nil withConnectionTimeout:3];
+    AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+
+    
+    [mysocket connectToHost:app.socketIP onPort:app.socketPort withParams:nil withNamespace:nil withConnectionTimeout:3];
     
 }
 
@@ -1008,6 +1010,7 @@ static const double textViewWidth = 250;
             priMsgList = [self sortMsg:priMsgList];
             PriMsgModel* priMsg = [priMsgList lastObject];
             LastMsgModel* lastMsg = [[LastMsgModel alloc] init];
+            
             lastMsg.counter_user_id = _counterInfo.userID;
             lastMsg.counter_nick_name = _counterInfo.nickName;
             lastMsg.counter_face_image_url = _counterInfo.faceImageThumbnailURLStr;

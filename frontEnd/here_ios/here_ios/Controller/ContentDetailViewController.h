@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "ContentModel.h"
 #import <MBProgressHUD/MBProgressHUD.h>
-#import "ContentViewController.h"
+#import "InputToolbar.h"
 
-@interface ContentDetailViewController : UITableViewController<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIActionSheetDelegate, UITextViewDelegate, UIAlertViewDelegate, MBProgressHUDDelegate, UITextViewDelegate>
+@interface ContentDetailViewController : UITableViewController<UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIActionSheetDelegate, UITextViewDelegate, UIAlertViewDelegate, MBProgressHUDDelegate, UITextViewDelegate, InputToolbarDelegate>
 
 @property ContentModel* contentModel;
-@property ContentViewController* parentCtrl;
-- (void)showCommentInputView;
+
+- (void)addDetailCommentSuccess:(id)sender;
 
 @end

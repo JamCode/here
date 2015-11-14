@@ -113,7 +113,7 @@ static const int updateTimeWidth = 100;
         [ageAndGenderView addSubview: ageAndGenderLabel];
         
         
-        usersignLabel = [[UILabel alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x+10+faceImageView.frame.size.width, ageAndGenderView.frame.origin.y+ageAndGenderView.frame.size.height+5, 120, userSignLabelHeight)];
+        usersignLabel = [[UILabel alloc] initWithFrame:CGRectMake(faceImageView.frame.origin.x+10+faceImageView.frame.size.width, ageAndGenderView.frame.origin.y+ageAndGenderView.frame.size.height+5, 180, userSignLabelHeight)];
         usersignLabel.textColor = [UIColor grayColor];
         usersignLabel.font = [UIFont fontWithName:@"Arial" size:14];
         

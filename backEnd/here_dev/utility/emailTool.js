@@ -1,33 +1,31 @@
 var nodemailer = require('nodemailer');
 
-var smtpTrans = nodemailer.createTransport( 
+var smtpTrans = nodemailer.createTransport(
 {
 	service: '163',
 	auth: {
-	    user: "wh851125@163.com", // 账号
-	    pass: "851125" // 密码
-  	}
-  	//port: 456,
-  	//host: 'smtp.163.com',
-  	//secure: true
+		user: 'wh851125@163.com', // 账号
+		pass: '851125' // 密码
+	}
+  // port: 456,
+  // host: 'smtp.163.com',
+  // secure: true
 });
 
-exports.sendMail = function(text, emailSubject){
+exports.sendMail = function (text, emailSubject) {
 	// 设置邮件内容
 	var mailOptions = {
-	  from: "wh851125@163.com", // 发件地址
-	  to: "23766856@qq.com", // 收件列表
-	  subject: emailSubject, // 标题
-	  text: text // html 内容
+		from: 'wh851125@163.com', // 发件地址
+		to: '23766856@qq.com', // 收件列表
+		subject: emailSubject, // 标题
+		text: text // html 内容
 	};
 
-	smtpTrans.sendMail(mailOptions, function(err, info){
+	smtpTrans.sendMail(mailOptions, function (err, info) {
 		if (err) {
 			console.log(err);
-		}else{
-			console.log('message sent:'+info.response);
+		}else {
+			console.log('message sent:' + info.response);
 		}
 	});
-}
-
-
+};
