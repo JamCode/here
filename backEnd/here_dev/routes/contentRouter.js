@@ -16,28 +16,30 @@ var imageOper = require('../utility/imageOper');
 var os = require('os');
 var networkInterface = os.networkInterfaces();
 
-var imageHomeUrl = 'http://' + networkInterface.eth1[0].address + ':' + global_config.httpServerInfo.listen_port + config.imageInfo.url;
+var imageHomeUrl = 'http://' + networkInterface.eth1[0].address + ':' +
+	global_config.httpServerInfo.listen_port + config.imageInfo.url;
 
 log.info(imageHomeUrl, log.getFileNameAndLineNum(__filename));
 
 var redisOper = require('../utility/redisOper');
 
-router.post('/getAllContentLocation', function (req, res) {
+router.post('/getAllContentLocation', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
-	contentMgmt.getAllContentLocation(req.body.user_id, function (flag, result) {
+	contentMgmt.getAllContentLocation(req.body.user_id, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });
 
-router.post('/getMyContentByCity', function (req, res) {
+router.post('/getMyContentByCity', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
-	contentMgmt.getMyContentByCity(req.body.user_id, req.body.city_desc, function (flag, result) {
-		packageContentArray(flag, result, res);
-	});
+	contentMgmt.getMyContentByCity(req.body.user_id, req.body.city_desc,
+		function(flag, result) {
+			packageContentArray(flag, result, res);
+		});
 });
 
 // add by wanghan 20141129 for publish active
-router.post('/publishContent', function (req, res) {
+router.post('/publishContent', function(req, res) {
 
 	// log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 
@@ -49,7 +51,7 @@ router.post('/publishContent', function (req, res) {
 		req.body.timestamp = timestamp;
 
 		// routeFunc.feedBack(true, 'ok', res);
-		contentMgmt.insertContent(req.body, function (flag, result) {
+		contentMgmt.insertContent(req.body, function(flag, result) {
 			log.debug(JSON.stringify(result), log.getFileNameAndLineNum(__filename));
 			routeFunc.feedBack(flag, result, res);
 		});
@@ -57,7 +59,7 @@ router.post('/publishContent', function (req, res) {
 		log.debug('has image', log.getFileNameAndLineNum(__filename));
 
 		var form = new formidable.IncomingForm();
-		form.parse(req, function (err, fields, files) {
+		form.parse(req, function(err, fields, files) {
 			if (err) {
 				routeFunc.feedBack(false, null, res);
 				return;
@@ -67,7 +69,8 @@ router.post('/publishContent', function (req, res) {
 			log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 
 			var timestamp = Date.now() / 1000;
-			log.debug(req.body.user_id + timestamp, log.getFileNameAndLineNum(__filename));
+			log.debug(req.body.user_id + timestamp, log.getFileNameAndLineNum(
+				__filename));
 
 			var content_id = conn.sha1Cryp(req.body.user_id + timestamp);
 			req.body.content_id = content_id;
@@ -91,22 +94,24 @@ router.post('/publishContent', function (req, res) {
 					image_compress_url: compressUrl
 				};
 
-				contentMgmt.insertContentImage(contentImageBody, function (flag, result) {
+				contentMgmt.insertContentImage(contentImageBody, function(flag, result) {
 					if (!flag) {
 						log.error(result, log.getFileNameAndLineNum(__filename));
 					}
 				});
 
-				var fullFileName = path.join(global_config.env.homedir, config.imageInfo.imageRootDir, fileName);
+				var fullFileName = path.join(global_config.env.homedir, config.imageInfo
+					.imageRootDir, fileName);
 				var fullFileNameCompress = fullFileName + '_compress';
 
-				imageOper.updateImage(files['content_image_' + i].path, fullFileName, fullFileNameCompress, {
-					width: 66 * 4,
-					height: 66 * 4
-				});
+				imageOper.updateImage(files['content_image_' + i].path, fullFileName,
+					fullFileNameCompress, {
+						width: 66 * 4,
+						height: 66 * 4
+					});
 			}
 
-			contentMgmt.insertContent(req.body, function (flag, result) {
+			contentMgmt.insertContent(req.body, function(flag, result) {
 				routeFunc.feedBack(flag, result, res);
 			});
 
@@ -117,7 +122,7 @@ router.post('/publishContent', function (req, res) {
 	}
 });
 
-function packageContentArray (flag, result, res) {
+function packageContentArray(flag, result, res) {
 	var statusCode;
 	var returnData = {
 		contents: {},
@@ -127,7 +132,7 @@ function packageContentArray (flag, result, res) {
 		statusCode = config.returnCode.SUCCESS;
 		var contentInfoDic = {};
 		var activeInfo = null;
-		result.forEach(function (item) {
+		result.forEach(function(item) {
 			if (contentInfoDic[item.content_id] === undefined) {
 				activeInfo = {
 					content_id: item.content_id,
@@ -143,6 +148,7 @@ function packageContentArray (flag, result, res) {
 					user_face_image: item.user_face_image,
 					user_name: item.user_name,
 					user_age: item.user_age,
+					user_birth_day: item.user_birth_day,
 					user_gender: item.user_gender,
 					anonymous: item.anonymous,
 					content_image_url: item.content_image_url,
@@ -178,13 +184,13 @@ function packageContentArray (flag, result, res) {
 }
 
 // add by wanghan 20141226 for get nearby content
-router.post('/getNearbyContent', function (req, res) {
-	contentMgmt.getNearbyContent(req.body, function (flag, result) {
+router.post('/getNearbyContent', function(req, res) {
+	contentMgmt.getNearbyContent(req.body, function(flag, result) {
 		packageContentArray(flag, result, res);
 	});
 });
 
-router.post('/getContentByUser', function (req, res) {
+router.post('/getContentByUser', function(req, res) {
 	var anonymous;
 	if (req.body.user_id === req.body.my_user_id) {
 		log.logPrint(config.logLevel.DEBUG, 'anonymous is true');
@@ -194,46 +200,50 @@ router.post('/getContentByUser', function (req, res) {
 		anonymous = false;
 	}
 
-	contentMgmt.getContentByUser(req.body.user_id, req.body.last_timestamp, anonymous, function (flag, result) {
-		packageContentArray(flag, result, res);
-	});
+	contentMgmt.getContentByUser(req.body.user_id, req.body.last_timestamp,
+		anonymous,
+		function(flag, result) {
+			packageContentArray(flag, result, res);
+		});
 });
 
-router.post('/getHisContentByUser', function (req, res) {
+router.post('/getHisContentByUser', function(req, res) {
 
-	contentMgmt.getHisContentByUser(req.body.user_id, req.body.last_timestamp, function (flag, result) {
-		packageContentArray(flag, result, res);
-	});
+	contentMgmt.getHisContentByUser(req.body.user_id, req.body.last_timestamp,
+		function(flag, result) {
+			packageContentArray(flag, result, res);
+		});
 });
 
-router.post('/getAllContentByUser', function (req, res) {
-	contentMgmt.getAllContentByUser(req.body.user_id, function (flag, result) {
+router.post('/getAllContentByUser', function(req, res) {
+	contentMgmt.getAllContentByUser(req.body.user_id, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });
 
-router.post('/getContentBaseInfo', function (req, res) {
-	contentMgmt.getContentBaseInfo(req.body.content_id, function (flag, result) {
+router.post('/getContentBaseInfo', function(req, res) {
+	contentMgmt.getContentBaseInfo(req.body.content_id, function(flag, result) {
 		packageContentArray(flag, result, res);
 	});
 
 });
 
 // add by wanghan 20141231 for get popular content
-router.post('/getPopularContent', function (req, res) {
-	contentMgmt.getPopularContent(req.body, function (flag, result) {
+router.post('/getPopularContent', function(req, res) {
+	contentMgmt.getPopularContent(req.body, function(flag, result) {
 		packageContentArray(flag, result, res);
 	});
 });
 
-router.post('/getContentCommentsList', function (req, res) {
+router.post('/getContentCommentsList', function(req, res) {
 
-	contentMgmt.getContentCommentsList(req.body.content_id, function (flag, result) {
+	contentMgmt.getContentCommentsList(req.body.content_id, function(flag,
+		result) {
 		var returnData = {
 			comments: []
 		};
 		if (flag && result) {
-			result.forEach(function (item) {
+			result.forEach(function(item) {
 				var commentInfo = {
 					comment_content: item.comment_content,
 
@@ -261,29 +271,33 @@ router.post('/getContentCommentsList', function (req, res) {
 	});
 });
 
-router.post('/addSeeCount', function (req, res) {
-	contentMgmt.addSeeCount(req.body.content_id, function (flag, result) {
+router.post('/addSeeCount', function(req, res) {
+	contentMgmt.addSeeCount(req.body.content_id, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });
 
-router.post('/addGoodCount', function (req, res) {
+router.post('/addGoodCount', function(req, res) {
 	// update to database
 	// update to redis
 	// push msg to user
 
-	contentMgmt.addGoodCount(req.body.content_id, req.body.user_id, function (flag, result) {
+	contentMgmt.addGoodCount(req.body.content_id, req.body.user_id, function(
+		flag, result) {
 		if (flag && result) {
 			// cannot click good for one content mutiple time
-			log.debug('before updateGoodCount and insertGoodInfo', log.getFileNameAndLineNum(__filename));
+			log.debug('before updateGoodCount and insertGoodInfo', log.getFileNameAndLineNum(
+				__filename));
 			if (result.length === 0) {
 
-				log.debug('updateGoodCount and insertGoodInfo', log.getFileNameAndLineNum(__filename));
+				log.debug('updateGoodCount and insertGoodInfo', log.getFileNameAndLineNum(
+					__filename));
 				contentMgmt.updateGoodCount(req.body.content_id);
 				contentMgmt.insertGoodInfo(req.body.content_id, req.body.user_id);
 
 				if (req.body.content_user_id !== req.body.user_id) {
-					log.debug(req.body.content_user_id + ', ' + req.body.user_id, log.getFileNameAndLineNum(__filename));
+					log.debug(req.body.content_user_id + ', ' + req.body.user_id, log.getFileNameAndLineNum(
+						__filename));
 					apnToUser(req.body.content_user_id, req.body.user_name + '赞了你的状态');
 					// update redis
 					redisOper.increaseUnreadGoodCount(req.body.content_user_id);
@@ -292,18 +306,18 @@ router.post('/addGoodCount', function (req, res) {
 			} else {
 				log.debug('already in good info', log.getFileNameAndLineNum(__filename));
 			}
-		}else {
+		} else {
 			log.debug(result, log.getFileNameAndLineNum(__filename));
 		}
 		routeFunc.feedBack(flag, result, res);
 	});
 });
 
-function apnToUser (user_id, content) {
+function apnToUser(user_id, content) {
 	// apn push
-	userMgmt.getTokenByUserId(user_id, function (flag, result) {
+	userMgmt.getTokenByUserId(user_id, function(flag, result) {
 		if (flag) {
-			result.forEach(function (item) {
+			result.forEach(function(item) {
 				var pushMsg = {
 					content: content,
 					badge: item.count
@@ -313,11 +327,12 @@ function apnToUser (user_id, content) {
 
 				log.debug('count ' + item.count, log.getFileNameAndLineNum(__filename));
 
-				userMgmt.updateDeviceNotifyCount(item.device_token, item.count + 1, function (flag, result) {
-					if (!flag) {
-						log.error(result, log.getFileNameAndLineNum(__filename));
-					}
-				});
+				userMgmt.updateDeviceNotifyCount(item.device_token, item.count + 1,
+					function(flag, result) {
+						if (!flag) {
+							log.error(result, log.getFileNameAndLineNum(__filename));
+						}
+					});
 
 				return;
 			});
@@ -325,23 +340,26 @@ function apnToUser (user_id, content) {
 	});
 }
 
-router.post('/deleteContent', function (req, res) {
-	contentMgmt.deleteContent(req.body.content_id, function (flag, result) {
+router.post('/deleteContent', function(req, res) {
+	contentMgmt.deleteContent(req.body.content_id, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 
 	//delete content image
-	contentMgmt.getContentImage(req.body.content_id, function(flag, result){
-		if(flag){
-			result.forEach(function(item){
+	contentMgmt.getContentImage(req.body.content_id, function(flag, result) {
+		if (flag) {
+			result.forEach(function(item) {
 				var image_url = item.image_url;
 				var image_compress_url = item.image_compress_url;
 
-				image_url = image_url.substr(image_url.lastIndexOf('name=')+5);
-				image_compress_url = image_compress_url.substr(image_compress_url.lastIndexOf('name=')+5);
+				image_url = image_url.substr(image_url.lastIndexOf('name=') + 5);
+				image_compress_url = image_compress_url.substr(image_compress_url.lastIndexOf(
+					'name=') + 5);
 
-				var fullImageName = path.join(global_config.env.homedir, config.imageInfo.imageRootDir, image_url);
-				var fullCompressImageName = path.join(global_config.env.homedir, config.imageInfo.imageRootDir, image_compress_url);
+				var fullImageName = path.join(global_config.env.homedir, config.imageInfo
+					.imageRootDir, image_url);
+				var fullCompressImageName = path.join(global_config.env.homedir,
+					config.imageInfo.imageRootDir, image_compress_url);
 
 				log.debug(fullImageName, log.getFileNameAndLineNum(__filename));
 				log.debug(fullCompressImageName, log.getFileNameAndLineNum(__filename));
@@ -350,13 +368,14 @@ router.post('/deleteContent', function (req, res) {
 				imageOper.deleteImage(fullCompressImageName);
 			});
 
-			contentMgmt.deleteContentImage(req.body.content_id, function(flag, result){
-				if(!flag){
+			contentMgmt.deleteContentImage(req.body.content_id, function(flag,
+				result) {
+				if (!flag) {
 					log.error(result, log.getFileNameAndLineNum(__filename));
 				}
 			});
 
-		}else{
+		} else {
 			log.error(result, log.getFileNameAndLineNum(__filename));
 		}
 	});
@@ -365,8 +384,8 @@ router.post('/deleteContent', function (req, res) {
 });
 
 // add by wanghan 20141219 for add active comment
-router.post('/addCommentToContent', function (req, res) {
-	contentMgmt.addCommentToContent(req.body, function (flag, result) {
+router.post('/addCommentToContent', function(req, res) {
+	contentMgmt.addCommentToContent(req.body, function(flag, result) {
 		if (flag) {
 			// apn
 			if (req.body.to_user_id === req.body.user_id) {
@@ -382,8 +401,8 @@ router.post('/addCommentToContent', function (req, res) {
 	});
 });
 
-router.post('/reportContent', function (req, res) {
-	contentMgmt.insertReportContent(req.body, function (flag, result) {
+router.post('/reportContent', function(req, res) {
+	contentMgmt.insertReportContent(req.body, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });

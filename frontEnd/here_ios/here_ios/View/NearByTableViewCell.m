@@ -192,9 +192,13 @@ static const int updateTimeWidth = 100;
     if (userInfo.gender==0) {
         genderImage.image = [UIImage imageNamed:@"woman32white.png"];
         ageAndGenderView.backgroundColor = genderPink;
-    }else{
+        ageAndGenderView.hidden = NO;
+    }else if (userInfo.gender == 1){
         genderImage.image = [UIImage imageNamed:@"man32white.png"];
         ageAndGenderView.backgroundColor = subjectColor;
+        ageAndGenderView.hidden = NO;
+    }else{
+        ageAndGenderView.hidden = YES;
     }
     
     ageAndGenderLabel.text = [[NSString alloc] initWithFormat:@"%ld", userInfo.age];

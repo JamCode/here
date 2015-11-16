@@ -15,6 +15,7 @@
 #import "NetWork.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "macro.h"
+#import "RegisterPhoneNumViewController.h"
 
 @interface RegisterNickNameViewController ()
 {
@@ -104,10 +105,10 @@ static const int textview_height = 44;
 {
     _userInfo.nickName = textField.text;
     
-    RegisterUserInfoViewController* registerUserInfo = [[RegisterUserInfoViewController alloc] init];
-    registerUserInfo.userInfo = _userInfo;
+    RegisterPhoneNumViewController* registerPhoneInfo = [[RegisterPhoneNumViewController alloc] init];
+    registerPhoneInfo.userInfo = _userInfo;
     
-    [self.navigationController pushViewController:registerUserInfo animated:YES];
+    [self.navigationController pushViewController:registerPhoneInfo animated:YES];
 }
 
 
