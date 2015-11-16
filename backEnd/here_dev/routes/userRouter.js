@@ -745,8 +745,8 @@ router.post('/updateUserGender', function(req, res) {
 	});
 });
 
-router.post('/updateUserGender', function(req, res) {
-	userMgmt.updateUserGender(req.body, function(flag, result) {
+router.post('/updateBirthDay', function(req, res) {
+	userMgmt.updateBirthDay(req.body, function(flag, result) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });
