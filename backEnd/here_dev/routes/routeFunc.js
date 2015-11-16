@@ -1,5 +1,3 @@
-
-
 var log = global.log;
 var config = require('../config/config');
 
@@ -16,6 +14,6 @@ exports.feedBack = function(flag, result, res) {
 		//email.sendMail(result);
 
 	}
-	//log.debug(JSON.stringify(returnData), log.getFileNameAndLineNum(__filename));
+	log.debug(JSON.stringify(returnData), log.getFileNameAndLineNum(__filename));
 	res.send(returnData);
 };
