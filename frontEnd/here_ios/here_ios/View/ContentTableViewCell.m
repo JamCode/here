@@ -286,7 +286,9 @@ static const int ageWidth = 18;
             _ageAndGenderView.hidden = YES;
         }
         
+        NSLog(@"%@", model.userInfo.birthday);
         
+        model.userInfo.age = [Tools getAgeFromBirthDay:model.userInfo.birthday];
         
         _ageAndGenderLabel.text = [[NSString alloc] initWithFormat:@"%ld", model.userInfo.age];
     }

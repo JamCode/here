@@ -541,7 +541,7 @@ typedef enum  {
     
     NSDateComponents *curComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
     
-    UITableViewCell* cell =  [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    UITableViewCell* cell =  [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
     
     cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:dateDesc]];
     
@@ -1184,7 +1184,7 @@ typedef enum  {
     
     _userInfo.age = [Tools getAgeFromBirthDay:_userInfo.birthday];
     
-    [settingStrArray setObject:[[NSNumber alloc] initWithInteger:_userInfo.age]  atIndexedSubscript:1];
+    [settingStrArray setObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.age]  atIndexedSubscript:1];
     
 }
 
