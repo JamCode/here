@@ -1087,6 +1087,16 @@ typedef enum  {
     NSLog(@"更新资料成功");
     [Tools AlertBigMsg:@"更新资料成功"];
     _userInfo.gender = lastUpdateGender;
+    
+    if (_userInfo.gender == 0) {
+        [settingStrArray setObject:@"女" atIndexedSubscript:0];
+
+    }
+    
+    if (_userInfo.gender == 1) {
+        [settingStrArray setObject:@"男" atIndexedSubscript:0];
+    }
+    
 }
 
 - (void)updateError:(id)sender

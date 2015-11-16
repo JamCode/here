@@ -10,7 +10,7 @@ exports.checkUserNameExist = function(reqBody, callback) {
 
 exports.updateUserGender = function(reqBody, callback) {
 	var sql = "update user_base_info set user_gender = ? where user_id = ?";
-	conn.executeSql(sql, [reqBody.user_id, reqBody.user_gender], callback);
+	conn.executeSql(sql, [reqBody.user_gender, reqBody.user_id], callback);
 };
 
 
