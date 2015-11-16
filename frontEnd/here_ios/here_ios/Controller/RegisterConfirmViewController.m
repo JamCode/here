@@ -177,7 +177,7 @@ static const int notice_height = 18;
     //异步注册信息
     NetWork* netWork = [[NetWork alloc] init];
     
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.phoneNum, _userInfo.certificateNo, encodePassword, @"/register"] forKeys:@[@"user_phone", @"user_certificate_code", @"user_password",@"childpath"]];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.phoneNum, _userInfo.certificateNo, _userInfo.nickName, encodePassword, @"/register"] forKeys:@[@"user_phone", @"user_certificate_code", @"user_name", @"user_password",@"childpath"]];
     
     NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(registerSuccess:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerFail:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(certificateNotMatch:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerException:) objCType:@encode(SEL)] ] forKeys:@[[[NSNumber alloc] initWithInt:REGISTER_SUCCESS],[[NSNumber alloc] initWithInt:REGISTER_FAIL],[[NSNumber alloc] initWithInt:CERTIFICATE_CODE_NOT_MATCH],[[NSNumber alloc] initWithInt:EXCEPTION]]];
     

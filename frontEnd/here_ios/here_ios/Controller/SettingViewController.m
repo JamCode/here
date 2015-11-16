@@ -82,8 +82,14 @@
     
     UIActionSheet* sheet;
     UIActionSheet* backgroundSheet;
+    UIActionSheet* genderSheet;
+    
+    
+    
     
     BOOL isInBlack;
+    
+    NSInteger lastUpdateGender;
     
     //UIImageView* lastVisitUserFace;
 }
@@ -319,6 +325,20 @@ typedef enum  {
     [backgroundSheet showInView:self.view];
 }
 
+
+- (void)clickGender:(id)sender
+{
+    if ([[AppDelegate getMyUserInfo].userID isEqualToString:_userInfo.userID] == false){
+        return;
+    }
+    
+    
+    genderSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"女",@"男", nil];
+    
+    [genderSheet showInView:self.view];
+    
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     NSLog(@"%ld", buttonIndex);
@@ -332,6 +352,29 @@ typedef enum  {
             
             [self presentViewController:picker animated:YES completion:nil];
         }
+        
+    }
+    
+    if (actionSheet == genderSheet) {
+        
+        UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        
+        
+        if (buttonIndex == 0) {
+            //女
+            cell.detailTextLabel.text = @"女";
+            lastUpdateGender = 0;
+            [self updateUserGender:lastUpdateGender];
+        }
+        
+        if (buttonIndex == 1) {
+            //男
+            cell.detailTextLabel.text = @"男";
+            lastUpdateGender = 1;
+            [self updateUserGender:lastUpdateGender];
+        }
+        
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
         
     }
     
@@ -985,6 +1028,19 @@ typedef enum  {
             settingChild.index = indexPath.row;
             [self.navigationController pushViewController:settingChild animated:YES];
         }
+        
+        
+        if(indexPath.row == 0){
+            //性别
+            [self clickGender:nil];
+            
+        }
+        
+        if(indexPath.row == 1){
+            //年龄
+        }
+        
+        
     }
     
     if(indexPath.section == publishAndPhoto&&indexPath.row == 0){
@@ -1023,21 +1079,28 @@ typedef enum  {
             [self.navigationController pushViewController:comTable animated:YES];
         }
     }
+    
 }
 
 - (void)updateSuccess:(id)sender
 {
     NSLog(@"更新资料成功");
+    [Tools AlertBigMsg:@"更新资料成功"];
+    _userInfo.gender = lastUpdateGender;
 }
 
 - (void)updateError:(id)sender
 {
     alertMsg(@"更新资料失败");
+    [Tools AlertBigMsg:@"更新资料失败"];
+
 }
 
 - (void)updateException:(id)sender
 {
     alertMsg(@"未知问题");
+    [Tools AlertBigMsg:@"更新资料失败"];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -1058,13 +1121,8 @@ typedef enum  {
         [self.tableView reloadData];
         NSLog(@"changed user info");
         
-        //update to server
-        NetWork* netWork = [[NetWork alloc] init];
-        NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, _userInfo.career, _userInfo.company, _userInfo.sign, _userInfo.interest, @"/updateUserInfo"] forKeys:@[@"user_id", @"user_career", @"user_company", @"user_sign", @"user_interest", @"childpath"]];
+        [self updateUserInfo];
         
-        NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(updateSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
-        
-        [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
         _changedFlag = false;
     }
     
@@ -1073,6 +1131,30 @@ typedef enum  {
     
 
     
+}
+
+
+- (void)updateUserGender:(NSInteger)user_gender
+{
+    //update to server
+    NetWork* netWork = [[NetWork alloc] init];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID,[[NSNumber alloc] initWithInteger:user_gender], @"/updateUserGender"] forKeys:@[@"user_id", @"user_gender", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(updateSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
+}
+
+- (void)updateUserInfo
+{
+    //update to server
+    NetWork* netWork = [[NetWork alloc] init];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, _userInfo.career, _userInfo.company, _userInfo.sign, _userInfo.interest, @"/updateUserInfo"] forKeys:@[@"user_id", @"user_career", @"user_company", @"user_sign", @"user_interest", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(updateSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
+
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
