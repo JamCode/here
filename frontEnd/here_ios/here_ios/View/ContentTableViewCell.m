@@ -272,6 +272,7 @@ static const int ageWidth = 18;
         
         _ageAndGenderView.center = CGPointMake(_ageAndGenderView.center.x, _nickName.center.y);
         
+        NSLog(@"%ld", model.userInfo.gender);
         
         if (model.userInfo.gender==0) {
             genderImage.image = [UIImage imageNamed:@"woman32white.png"];

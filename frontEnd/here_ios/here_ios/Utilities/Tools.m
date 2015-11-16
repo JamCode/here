@@ -185,7 +185,7 @@
 
 + (NSInteger)getAgeFromBirthDay:(NSString*)birthday
 {
-    if(birthday == nil){
+    if(birthday == nil || [birthday isEqual:@""]){
         return 0;
     }
     

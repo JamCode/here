@@ -13,6 +13,12 @@ exports.updateUserGender = function(reqBody, callback) {
 	conn.executeSql(sql, [reqBody.user_gender, reqBody.user_id], callback);
 };
 
+exports.updateBirthDay = function(reqBody, callback) {
+	var sql = "update user_base_info set user_birth_day = ? where user_id = ?";
+	conn.executeSql(sql, [reqBody.user_birth_day, reqBody.user_id], callback);
+
+};
+
 
 exports.submitFeedback = function(reqBody, callback) {
 

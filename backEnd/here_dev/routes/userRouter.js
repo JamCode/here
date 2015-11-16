@@ -745,6 +745,12 @@ router.post('/updateUserGender', function(req, res) {
 	});
 });
 
+router.post('/updateUserGender', function(req, res) {
+	userMgmt.updateUserGender(req.body, function(flag, result) {
+		routeFunc.feedBack(flag, result, res);
+	});
+});
+
 router.post('/checkNameExist', function(req, res) {
 	userMgmt.checkUserNameExist(req.body, function(flag, result) {
 		var returnData = {};

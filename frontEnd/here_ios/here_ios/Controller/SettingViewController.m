@@ -84,12 +84,14 @@
     UIActionSheet* backgroundSheet;
     UIActionSheet* genderSheet;
     
+    UIDatePicker *datePicker;
     
     
     
     BOOL isInBlack;
     
     NSInteger lastUpdateGender;
+    NSString* lastBirthday;
     
     //UIImageView* lastVisitUserFace;
 }
@@ -509,6 +511,41 @@ typedef enum  {
     [backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewPress:)]];
     
     
+    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, ScreenHeight-260, ScreenWidth, 220)];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+    datePicker.hidden = YES;
+    
+    [datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    
+    [self.navigationController.view addSubview:datePicker];
+
+    
+}
+
+- (void)dateChanged:(id)sender
+{
+    NSLog(@"date change");
+    NSDate* selectDate = datePicker.date;
+    
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:selectDate];
+    
+    NSInteger year= [components year];
+    
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString* dateDesc = [formatter stringFromDate:selectDate];
+    
+    NSLog(@"%@", dateDesc);
+    
+    NSDateComponents *curComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    
+    UITableViewCell* cell =  [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:dateDesc]];
+    
+    lastBirthday = dateDesc;
 }
 
 
@@ -537,8 +574,36 @@ typedef enum  {
         faceBackgroundView.frame = f;
         
     }
+    
+
+    
+    
+    
+    if ([Tools getAgeFromBirthDay:lastBirthday]!=[Tools getAgeFromBirthDay:_userInfo.birthday]&&datePicker.hidden == NO) {
+        //更新年龄
+        
+        [self updateBirthDay:lastBirthday];
+        
+    }
+    
+    
+    datePicker.hidden = YES;
+    
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    
 }
 
+
+- (void)updateBirthDay:(NSString*)user_birth_day
+{
+    //update to server
+    NetWork* netWork = [[NetWork alloc] init];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID,user_birth_day, @"/updateBirthDay"] forKeys:@[@"user_id", @"user_birth_day", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(updateSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
+}
 
 
 - (void)startLoading
@@ -594,8 +659,10 @@ typedef enum  {
     
     if (_userInfo.gender == 0) {
         genderView.image = [UIImage imageNamed:@"womanSetting.png"];
-    }else{
+    }else if (_userInfo.gender == 1){
         genderView.image = [UIImage imageNamed:@"manSetting.png"];
+    }else{
+        genderView.image = nil;
     }
     
     //NSLog(@"")
@@ -655,6 +722,11 @@ typedef enum  {
     }
     
     [self setNickNameLabel];
+    
+    
+    lastUpdateGender = _userInfo.gender;
+    lastBirthday = _userInfo.birthday;
+    
 }
 
 
@@ -694,7 +766,14 @@ typedef enum  {
     
     [ageAndGenderView addSubview: ageAndGenderLabel];
     
-    ageAndGenderLabel.text = [[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:_userInfo.birthday]];
+    
+    if (_userInfo.birthday == nil||_userInfo.birthday == [NSNull class]
+        ||[_userInfo.birthday isEqualToString:@""]) {
+        ageAndGenderLabel.text = @"未知";
+    }else{
+        ageAndGenderLabel.text = [[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:_userInfo.birthday]];
+    }
+    
     
     if (_userInfo.gender==0) {
         genderImage.image = [UIImage imageNamed:@"woman32white.png"];
@@ -1038,6 +1117,10 @@ typedef enum  {
         
         if(indexPath.row == 1){
             //年龄
+            datePicker.hidden = NO;
+            
+            
+            
         }
         
         
@@ -1086,7 +1169,9 @@ typedef enum  {
 {
     NSLog(@"更新资料成功");
     [Tools AlertBigMsg:@"更新资料成功"];
+    
     _userInfo.gender = lastUpdateGender;
+    _userInfo.birthday = lastBirthday;
     
     if (_userInfo.gender == 0) {
         [settingStrArray setObject:@"女" atIndexedSubscript:0];
@@ -1096,6 +1181,10 @@ typedef enum  {
     if (_userInfo.gender == 1) {
         [settingStrArray setObject:@"男" atIndexedSubscript:0];
     }
+    
+    _userInfo.age = [Tools getAgeFromBirthDay:_userInfo.birthday];
+    
+    [settingStrArray setObject:[[NSNumber alloc] initWithInteger:_userInfo.age]  atIndexedSubscript:1];
     
 }
 
@@ -1116,6 +1205,8 @@ typedef enum  {
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    datePicker.hidden = YES;
+    
     //[self.navigationController.navigationBar lt_reset];
 }
 
