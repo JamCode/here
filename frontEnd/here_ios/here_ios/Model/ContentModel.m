@@ -31,7 +31,8 @@
     _userInfo.faceImageURLStr = [element objectForKey:@"user_face_image"];
     _userInfo.userID = [element objectForKey:@"user_id"];
     _userInfo.gender = [[element objectForKey:@"user_gender"] integerValue];
-    _userInfo.age = [[element objectForKey:@"user_age"] integerValue];
+    _userInfo.birthday = [Tools getJsonObject:[element objectForKey:@"user_birth_day"]];
+    
     _userInfo.faceImageThumbnailURLStr = [element objectForKey:@"user_facethumbnail"];
     
     _contentID = [element objectForKey:@"content_id"];
