@@ -82,7 +82,7 @@
 {
     NSLog(@"enter registerButtonAction");
     
-    RegisterPhoneNumViewController* firstRegister = [[RegisterPhoneNumViewController alloc] init];
+    RegisterNickNameViewController* firstRegister = [[RegisterNickNameViewController alloc] init];
     
     [self.navigationController pushViewController:firstRegister animated:YES];
 }

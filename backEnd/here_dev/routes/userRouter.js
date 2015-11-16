@@ -452,7 +452,7 @@ router.post('/register', function(req, res) {
 
 
 				user_info.user_phone = fields.user_phone;
-				user_info.name = md5(fields.user_phone).substr(0, 6);
+				user_info.name = fields.user_name;
 				user_info.password = fields.user_password;
 				user_info.user_gender = -1;
 				var defaultImageUrl = 'http://' + networkInterface.eth1[0].address +
