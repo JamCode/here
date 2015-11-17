@@ -1,7 +1,5 @@
 var fs = require('fs');
 var path = require('path');
-var util = require('util');
-var EventEmitter = require('events').EventEmitter;
 fs.exists = fs.exists || path.exists;
 var conn = require('../database/utility.js');
 
@@ -72,7 +70,6 @@ function LineReader(file) {
         self.emit('end');
     });
 }
-util.inherits(LineReader, EventEmitter);
 
 /**
  * `Stream` data event handler.
