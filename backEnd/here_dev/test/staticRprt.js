@@ -4,7 +4,7 @@ var util = require('util');
 var EventEmitter = require('events').EventEmitter;
 fs.exists = fs.exists || path.exists;
 var mysql = require('mysql');
-var conn = require('./utility.js');
+var conn = require('../database/utility.js');
 var config = require('../config/config');
 
 
@@ -156,124 +156,12 @@ LineReader.prototype.ondata = function (data) {
   this.ondata(data.slice(i + 1));
 };
 
-/**
-*定义一个Map
-**/
-function HashMap(){
-    //定义长度
-    var length = 0;
-    //创建一个对象
-    var obj = new Object();
-
-    /**
-    * 判断Map是否为空
-    */
-    this.isEmpty = function(){
-        return length == 0;
-    };
-
-    /**
-    * 判断对象中是否包含给定Key
-    */
-    this.containsKey=function(key){
-        return (key in obj);
-    };
-
-    /**
-    * 判断对象中是否包含给定的Value
-    */
-    this.containsValue=function(value){
-        for(var key in obj){
-            if(obj[key] == value){
-                return true;
-            }
-        }
-        return false;
-    };
-
-    /**
-    *向map中添加数据
-    */
-    this.put=function(key,value){
-        if(!this.containsKey(key)){
-            length++;
-        }
-        obj[key] = value;
-    };
-
-    /**
-    * 根据给定的Key获得Value
-    */
-    this.get=function(key){
-        return this.containsKey(key)?obj[key]:null;
-    };
-
-    /**
-    * 根据给定的Key删除一个值
-    */
-    this.remove=function(key){
-        if(this.containsKey(key)&&(delete obj[key])){
-            length--;
-        }
-    };
-
-    /**
-    * 获得Map中的所有Value
-    */
-    this.values=function(){
-        var _values= new Array();
-        for(var key in obj){
-            _values.push(obj[key]);
-        }
-        return _values;
-    };
-
-    /**
-    * 获得Map中的所有Key
-    */
-    this.keySet=function(){
-        var _keys = new Array();
-        for(var key in obj){
-            _keys.push(key);
-        }
-        return _keys;
-    };
-
-    /**
-    * 获得Map的长度
-    */
-    this.size = function(){
-        return length;
-    };
-
-    /**
-    * 清空Map
-    */
-    this.clear = function(){
-        length = 0;
-        obj = new Object();
-    };
-}
-
 function daliyRprt(dirPath,fromFile){
-  var dateStr = Date.now();
-  console.log(dirPath+fromFile);
-  var toFile = dirPath+fromFile+dateStr;
-  exports.copyfile(dirPath+fromFile, toFile, function(err) {
-  if (err) {
-    throw err;
-  }
-  console.log('copy file success.');
-  // clear access.log
-  fs.writeFile(dirPath+fromFile,"",function (err) {
-      if (err) throw err ;
-   console.log("File Saved !"); //文件被保存
-   }) ;
   var pvCount = 0;
   var uvCount = 0;
   //var uvMap = new HashMap();
   var uvMap = {};
-   new LineReader(toFile).on('line', function(line) {
+   new LineReader(dirPath+fromFile).on('line', function(line) {
     //console.log('%d: %s', ++pvCount, line.toString());
 	++pvCount;
 	var lineStr =line.toString();
@@ -295,7 +183,17 @@ function daliyRprt(dirPath,fromFile){
 	  var curDateStr = y+M+d;
 	  var todayRprtDate = y+M+d+"-----[pvCount :"+pvCount+";uvCount:"+uvCount+"]";
 	  //console.log('read a file done.');
-	  conn.executeSql(sql, [pvCount, uvCount, timestamp,curDateStr], callback);
+	  conn.executeSql(sql, [pvCount, uvCount, timestamp,curDateStr], function (flag,result) {
+		if (flag) {
+		  console.log("insert OK");
+      fs.writeFile(dirPath+fromFile,"",function (err) {
+          if (err) throw err ;
+       console.log("File Saved !"); //文件被保存
+       }) ;
+		}else{
+      console.log(result);
+    }
+  });
     //create rprtLog file
 	  var rptLogNm= 'rptLog.txt';
 	  exports.mkdir(path.dirname(dirPath+rptLogNm), function (err) {
@@ -312,6 +210,7 @@ function daliyRprt(dirPath,fromFile){
   });
 });
 }
-var fromFile ='access.log';//var dirPath = 'C:\\Users\\Micheal\\AppData\\Roaming\\npm\\node_modules\\';
-var dirPath = '/home/wanghan/here/backEnd/here_dev/'
+var homePath = process.env.HOME;
+var fromFile ='access.log';
+var dirPath = homePath+'/here/backEnd/here_dev/';
 daliyRprt(dirPath,fromFile);
