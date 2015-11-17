@@ -17,7 +17,7 @@
 #import "NetWork.h"
 #import "ContentDetailViewController.h"
 #import "MessageTableViewController.h"
-#import <FIR/FIR.h>
+//#import <FIR/FIR.h>
 #import "Tools.h"
 #import "ConfigAccess.h"
 
@@ -118,7 +118,7 @@
     //高德地图key for ad version
     
     //bug 跟踪
-    [FIR handleCrashWithKey:@"93fe308e58239051b512b539beccc87b"];
+    //[FIR handleCrashWithKey:@"93fe308e58239051b512b539beccc87b"];
     
     
     

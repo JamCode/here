@@ -24,7 +24,6 @@
 		B24D65D01BA6AC5800F33A96 /* here_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D65CF1BA6AC5800F33A96 /* here_iosTests.m */; };
 		B24D65E01BA6B9D300F33A96 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B24D65DB1BA6B9D300F33A96 /* Model.xcdatamodeld */; };
 		B24D65E11BA6B9D300F33A96 /* Pri_msg.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D65DE1BA6B9D300F33A96 /* Pri_msg.m */; };
-		B24D65E31BA6BAB200F33A96 /* FIR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B24D65E21BA6BAB200F33A96 /* FIR.framework */; };
 		B24D66E91BA6BB1F00F33A96 /* commentCount.png in Resources */ = {isa = PBXBuildFile; fileRef = B24D65E61BA6BB1F00F33A96 /* commentCount.png */; };
 		B24D66EA1BA6BB1F00F33A96 /* date.png in Resources */ = {isa = PBXBuildFile; fileRef = B24D65E71BA6BB1F00F33A96 /* date.png */; };
 		B24D66EB1BA6BB1F00F33A96 /* description.png in Resources */ = {isa = PBXBuildFile; fileRef = B24D65E81BA6BB1F00F33A96 /* description.png */; };
@@ -226,7 +225,6 @@
 		B24D65DC1BA6B9D300F33A96 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		B24D65DD1BA6B9D300F33A96 /* Pri_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pri_msg.h; sourceTree = "<group>"; };
 		B24D65DE1BA6B9D300F33A96 /* Pri_msg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pri_msg.m; sourceTree = "<group>"; };
-		B24D65E21BA6BAB200F33A96 /* FIR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FIR.framework; sourceTree = "<group>"; };
 		B24D65E61BA6BB1F00F33A96 /* commentCount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = commentCount.png; sourceTree = "<group>"; };
 		B24D65E71BA6BB1F00F33A96 /* date.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = date.png; sourceTree = "<group>"; };
 		B24D65E81BA6BB1F00F33A96 /* description.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = description.png; sourceTree = "<group>"; };
@@ -478,7 +476,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B24D65E31BA6BAB200F33A96 /* FIR.framework in Frameworks */,
 				B24EC9641BAAA90C006E12CB /* MapKit.framework in Frameworks */,
 				B24D691A1BA6C8A300F33A96 /* libmp3lame.a in Frameworks */,
 				E777BF15ECD86C660D85C8AE /* libPods.a in Frameworks */,
@@ -546,7 +543,6 @@
 				B24D68171BA6C16700F33A96 /* Model */,
 				B24D65E41BA6BB1F00F33A96 /* icons */,
 				B24D67E21BA6C02800F33A96 /* View */,
-				B24D65E21BA6BAB200F33A96 /* FIR.framework */,
 				B24D65B41BA6AC5800F33A96 /* AppDelegate.h */,
 				B24D65B51BA6AC5800F33A96 /* AppDelegate.m */,
 				B24D65BD1BA6AC5800F33A96 /* Main.storyboard */,
