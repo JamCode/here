@@ -10,6 +10,7 @@
 #if error exist, send email to monitor
 
 $HOME = $ENV{HOME};
+$env = $ENV{ENV};
 
 `grep -i -n error $HOME/logs/*>$HOME/err_report.txt`;
 
@@ -18,7 +19,7 @@ my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($time);
 $year += 1900;
 $mon ++;
 
-$subject = $year."-".$mon."-".$mday."-错误报告";
+$subject = $year."-".$mon."-".$mday."-错误报告_".$env;
 print $subject."\n";
 
 $filePath = "$HOME/err_report.txt";

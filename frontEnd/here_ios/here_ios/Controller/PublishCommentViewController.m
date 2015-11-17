@@ -76,6 +76,9 @@
     feedbackTextView.labelText = @"评论成功";
     [feedbackTextView show:YES];
     [feedbackTextView hide:YES afterDelay:1.0];
+    
+    
+    
 }
 
 

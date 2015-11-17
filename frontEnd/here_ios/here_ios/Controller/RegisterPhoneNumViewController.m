@@ -41,17 +41,27 @@ static const int tableview_cell_height = 44;
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];//状态栏白色
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = activeViewControllerbackgroundColor;
     UILabel *navTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     [navTitle setTextColor:[UIColor whiteColor]];
     [navTitle setText:@"登录信息"];
     navTitle.textAlignment = NSTextAlignmentCenter;
     navTitle.font = [UIFont boldSystemFontOfSize:20];
     self.navigationItem.titleView = navTitle;
+    
+    self.view.backgroundColor = activeViewControllerbackgroundColor;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
     

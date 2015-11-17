@@ -177,15 +177,11 @@ static const int notice_height = 18;
     //异步注册信息
     NetWork* netWork = [[NetWork alloc] init];
     
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.phoneNum, _userInfo.certificateNo, _userInfo.nickName, encodePassword, [NSNumber numberWithInteger:_userInfo.age], [NSNumber numberWithInteger:_userInfo.gender], _userInfo.birthday, @"/register"] forKeys:@[@"user_phone", @"user_certificate_code", @"user_name", @"user_password", @"user_age", @"user_gender", @"user_birth_day", @"childpath"]];
-    
-    NSDictionary* images = [[NSDictionary alloc] initWithObjects:@[_userInfo.faceImage] forKeys:@[@"user_facethumbnail"]];
-    
-    
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.phoneNum, _userInfo.certificateNo, _userInfo.nickName, encodePassword, @"/register"] forKeys:@[@"user_phone", @"user_certificate_code", @"user_name", @"user_password",@"childpath"]];
     
     NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(registerSuccess:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerFail:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(certificateNotMatch:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(registerException:) objCType:@encode(SEL)] ] forKeys:@[[[NSNumber alloc] initWithInt:REGISTER_SUCCESS],[[NSNumber alloc] initWithInt:REGISTER_FAIL],[[NSNumber alloc] initWithInt:CERTIFICATE_CODE_NOT_MATCH],[[NSNumber alloc] initWithInt:EXCEPTION]]];
     
-    [netWork message:message images:images feedbackcall:feedbackcall complete:^{
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
         [loadingView hide:YES];
     } callObject:self];
 }
@@ -214,6 +210,9 @@ static const int notice_height = 18;
 {
     NSDictionary* feedback = (NSDictionary*)sender;
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    app.myInfo = [[UserInfoModel alloc] init];
+    
     [app.myInfo fillWithData:feedback];
     
     NSUserDefaults *mySettingData = [NSUserDefaults standardUserDefaults];
@@ -240,6 +239,8 @@ static const int notice_height = 18;
     sideMenu.navigationController.navigationBar.hidden = YES;
     
     [self presentViewController:sideMenu animated:YES completion:nil];
+    
+    [Tools AlertBigMsg:@"请在设置中更新您的个人资料"];
 }
 
 - (void)didReceiveMemoryWarning
