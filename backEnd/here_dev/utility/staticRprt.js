@@ -119,7 +119,6 @@ LineReader.prototype.ondata = function(data) {
 function daliyRprt(dirPath, fromFile) {
     var pvCount = 0;
     var uvCount = 0;
-    //var uvMap = new HashMap();
     var uvMap = {};
     new LineReader(dirPath + fromFile).on('line', function(line) {
         //console.log('%d: %s', ++pvCount, line.toString());
