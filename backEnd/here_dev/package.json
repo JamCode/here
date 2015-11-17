@@ -1,56 +1,45 @@
 {
-    "name": "here",
-    "version": "1.0.4",
-    "author": "wanghan",
-    "description": "here picture social ",
-    "scripts": {
-        "start": "startall.sh",
-        "stop":"stopall.sh"
-    },
-
-    "dependencies": 
-    {
-        "redis": "*",
-        "express": "*",
-        "mysql": "*",
-        "socket.io": "*",
-        "socket.io-client": "*",
-        "body-parser": "*",
-        "formidable": "*",
-        "request": "*",
-        "MD5": "*",
-        "mysql-queues": "*",
-        "geolib": "*",
-        "jade": "*",
-        "ejs": "*",
-        "xml2js":"*",
-        "strong-mq": "*",
-        "apn": "*",
-        "async": "*",
-        "nodemailer":"*",
-        "gm": "*",
-        "log4js":"*",
-        "parseuri":"*",
-        "sticky-session":"*",
-        "domain":"*",
-        "morgan":"*",
-        "xml2js":"*",
-        "ejs":"*"
-    },
-
-    "devDependencies": {
-        "pre-commit": "*",
-        "jslint": "*"
-    },
-
-    "pre-commit": [
-        "test",
-        "jslint"
-    ], 
-
-    "scripts": {
-        "test": "ls",
-        "jslint": "jslint './*.js'"
-    }
+  "name": "here",
+  "version": "1.0.4",
+  "author": "wanghan",
+  "description": "here picture social ",
+  "scripts": {
+    "test": "ls",
+    "jslint": "jslint './*.js'"
+  },
+  "dependencies": {
+    "MD5": "*",
+    "apn": "*",
+    "async": "*",
+    "body-parser": "*",
+    "domain": "*",
+    "ejs": "*",
+    "express": "*",
+    "formidable": "*",
+    "geolib": "*",
+    "gm": "*",
+    "jade": "*",
+    "line-reader": "^0.3.0",
+    "log4js": "*",
+    "morgan": "*",
+    "mysql": "*",
+    "mysql-queues": "*",
+    "nodemailer": "*",
+    "parseuri": "*",
+    "redis": "*",
+    "request": "*",
+    "socket.io": "*",
+    "socket.io-client": "*",
+    "sticky-session": "*",
+    "strong-mq": "*",
+    "xml2js": "*"
+  },
+  "devDependencies": {
+    "pre-commit": "*",
+    "jslint": "*"
+  },
+  "pre-commit": [
+    "test",
+    "jslint"
+  ]
 }
-
