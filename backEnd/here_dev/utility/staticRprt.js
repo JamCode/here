@@ -55,17 +55,10 @@ function daliyRprt(dirPath, fromFile) {
 
         //this is last line
         if (last === true) {
+            InsertToDatabase(pvCount, uvCount);
+            generateReportEmail(pvCount, uvCount);
             return false;
         }
-    }).then(function(err) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        console.log('read access log finish');
-
-        InsertToDatabase(pvCount, uvCount);
-        generateReportEmail(pvCount, uvCount);
     });
 }
 
