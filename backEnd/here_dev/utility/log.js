@@ -59,22 +59,34 @@ exports.getFileNameAndLineNum = function(fullfilename) {
 
 exports.info = function(info, fileNameLineNum, sq) {
     if (sq != null) {
-        logger.info('[' + sq + ']' + fileNameLineNum + ' ' + info);
+        logger.info('[' + sq + '] ' + fileNameLineNum + ' ' + info);
     } else {
         logger.info(fileNameLineNum + ' ' + info);
     }
 };
 
-exports.debug = function(info, fileNameLineNum) {
-    logger.debug(fileNameLineNum + ' ' + info);
+exports.debug = function(info, fileNameLineNum, sq) {
+    if (sq != null) {
+        logger.debug('[' + sq + '] ' + fileNameLineNum + ' ' + info);
+    } else {
+        logger.debug(fileNameLineNum + ' ' + info);
+    }
 };
 
-exports.error = function(info, fileNameLineNum) {
-    logger.error(fileNameLineNum + ' ' + info);
+exports.error = function(info, fileNameLineNum, sq) {
+    if (sq != null) {
+        logger.error('[' + sq + '] ' + fileNameLineNum + ' ' + info);
+    } else {
+        logger.error(fileNameLineNum + ' ' + info);
+    }
 };
 
-exports.warn = function(info, fileNameLineNum) {
-    logger.warn(fileNameLineNum + ' ' + info);
+exports.warn = function(info, fileNameLineNum, sq) {
+    if (sq != null) {
+        logger.warn('[' + sq + '] ' + fileNameLineNum + ' ' + info);
+    } else {
+        logger.warn(fileNameLineNum + ' ' + info);
+    }
 };
 
 exports.logPrint = function(level, info) {
