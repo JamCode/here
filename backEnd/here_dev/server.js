@@ -97,7 +97,8 @@ function startHTTPServer(port) {
 	// 该路由使用的中间件
 	global.app.use(function(req, res, next) {
 		req.body.sq = Date.now();
-		log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
+		log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename),
+			req.body.sq);
 		next();
 	});
 
