@@ -2,21 +2,26 @@ var path = require('path');
 var config = require('../config/config');
 var global_config = null;
 
-if (process.env.ENV === 'dev') { global_config = require('../config/dev_env_config'); }
+if (process.env.ENV === 'dev') {
+    global_config = require('../config/dev_env_config');
+}
 
-if (process.env.ENV === 'pro') { global_config = require('../config/pro_env_config'); }
+if (process.env.ENV === 'pro') {
+    global_config = require('../config/pro_env_config');
+}
 
 var log4js = require('log4js');
 var logger;
 
-exports.SetLogFileName = function (fileName) {
+exports.SetLogFileName = function(fileName) {
     log4js.configure({
         appenders: [{
             type: 'console'
         }, {
             type: 'dateFile',
             absolute: true,
-            filename: path.join(global_config.env.homedir, 'logs', fileName),
+            filename: path.join(global_config.env.homedir,
+                'logs', fileName),
             maxLogSize: 1024 * 1024,
             backups: 4,
             pattern: 'yyyy-MM-dd.log',
@@ -32,12 +37,12 @@ exports.SetLogFileName = function (fileName) {
     logger.setLevel('DEBUG');
 };
 
-exports.getFileNameAndLineNum = function (fullfilename) {
+exports.getFileNameAndLineNum = function(fullfilename) {
     // console.log('enter getFileNameAndLineNum');
     try {
         throw new Error('get file name and line number');
         // console.log('throw exception');
-    } catch(err) {
+    } catch (err) {
         var filename = fullfilename.substr(fullfilename.lastIndexOf('/'));
         var stackArr = err.stack.split('\n');
         // console.log(err.stack);
@@ -52,23 +57,27 @@ exports.getFileNameAndLineNum = function (fullfilename) {
     }
 };
 
-exports.info = function (info, fileNameLineNum) {
-    logger.info(fileNameLineNum + ' ' + info);
+exports.info = function(info, fileNameLineNum, sq) {
+    if (sq != null) {
+        logger.info('[' + sq + ']' + fileNameLineNum + ' ' + info);
+    } else {
+        logger.info(fileNameLineNum + ' ' + info);
+    }
 };
 
-exports.debug = function (info, fileNameLineNum) {
+exports.debug = function(info, fileNameLineNum) {
     logger.debug(fileNameLineNum + ' ' + info);
 };
 
-exports.error = function (info, fileNameLineNum) {
+exports.error = function(info, fileNameLineNum) {
     logger.error(fileNameLineNum + ' ' + info);
 };
 
-exports.warn = function (info, fileNameLineNum) {
+exports.warn = function(info, fileNameLineNum) {
     logger.warn(fileNameLineNum + ' ' + info);
 };
 
-exports.logPrint = function (level, info) {
+exports.logPrint = function(level, info) {
 
     if (level === config.logLevel.DEBUG) {
         logger.debug(info);
