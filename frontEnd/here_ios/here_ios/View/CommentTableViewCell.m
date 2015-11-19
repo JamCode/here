@@ -58,7 +58,7 @@ static const int commentDateWidth = 70;
 {
     CGFloat realHeight = [CommentTableViewCell getCommentlabelHeight:commentModel.commentStr] + 20 + faceViewWidth;
     
-    if (commentModel.good_count>0) {
+    if (commentModel.comment_good_count>0) {
         realHeight += 22;
     }
     
@@ -156,7 +156,7 @@ static const int commentDateWidth = 70;
         
         commentGoodLabel.font = [UIFont fontWithName:@"Arial" size:14];
         commentGoodLabel.textColor = [UIColor grayColor];
-        commentGoodLabel.text = [[NSString alloc] initWithFormat:@"%ld", commentElement.comment_good_count];
+        commentGoodLabel.text = [[NSString alloc] initWithFormat:@"赞%ld", commentElement.comment_good_count];
     }
     
     

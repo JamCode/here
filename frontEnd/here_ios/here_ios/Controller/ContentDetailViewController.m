@@ -221,6 +221,8 @@
             
             _contentModel.to_content = 0;
             [self commentButtonAction:nil];
+            [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+
         }
         
         if (buttonIndex == 0) {
@@ -231,13 +233,18 @@
         }
     }
     
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 
 }
 
 - (void)commentGoodActionSuccess:(id)sender
 {
     
+    NSIndexPath* indexpath = [self.tableView indexPathForSelectedRow];
+    CommentModel* commentmodel = [comments objectAtIndex:indexpath.row];
+    commentmodel.comment_good_count++;
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    [self.tableView reloadData];
+
 }
 
 - (void)commentGoodActionRepeat:(id)sender

@@ -35,6 +35,8 @@ router.post('/commentGood', function(req, res) {
 				}
 			});
 
+			//推送到前端
+
 		}else{
 			log.debug(result.code, log.getFileNameAndLineNum(__filename), req.body.sq);
 			if(result.code === 'ER_DUP_ENTRY'){
