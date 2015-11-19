@@ -1,6 +1,15 @@
 var conn = require('./utility.js');
 var log = global.log;
 
+
+
+exports.increaseCommentGoodCount = function(reqbody, callback){
+	var sql = "update content_comment_info set good_count = good_count+1 " +
+	" where content_comment_id = ?";
+	conn.executeSql(sql, [reqbody.content_comment_id], callback);
+};
+
+
 exports.insertReportContent = function (contentBody, callback) {
 	var sql = 'insert into content_report_info(cri_content_id) values(?)';
 	conn.executeSql(sql, [contentBody.content_id], callback);
