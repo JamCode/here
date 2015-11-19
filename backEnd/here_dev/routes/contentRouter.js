@@ -37,7 +37,7 @@ router.post('/commentGood', function(req, res) {
 
 			//推送到前端
 			apnToUser(req.body.comment_user_id, req.body.user_name + '赞了你的评论');
-			
+
 
 		}else{
 			log.debug(result.code, log.getFileNameAndLineNum(__filename), req.body.sq);
@@ -297,7 +297,6 @@ router.post('/getContentCommentsList', function(req, res) {
 			returnData.code = config.returnCode.ERROR;
 			log.logPrint(config.logLevel.ERROR, JSON.stringify(req.body));
 		}
-		log.debug(JSON.stringify(returnData), log.getFileNameAndLineNum(__filename), req.body.sq);
 		res.send(returnData);
 	});
 });
