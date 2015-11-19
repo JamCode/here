@@ -600,7 +600,7 @@ static const int ageWidth = 18;
     [self increaseCommentCount];
     
     if (_contentDetail!=nil) {
-        [_contentDetail addDetailCommentSuccess:commentModel];
+        [_contentDetail addNewCommentCell:commentModel];
     }
     
     if (_tableView!=nil) {
