@@ -228,10 +228,9 @@
 
 }
 
-- (void)addDetailCommentSuccess:(id)sender
+
+- (void)addNewCommentCell:(CommentModel*)commentModel
 {
-    CommentModel* commentModel = lastCommentModel;
-    
     mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
     mbProgress.mode = MBProgressHUDModeText;
     [self.view addSubview:mbProgress];
@@ -254,6 +253,14 @@
     [self.tableView endUpdates];
     
     self.tableView.tableFooterView = nil;
+
+}
+
+- (void)addDetailCommentSuccess:(id)sender
+{
+    CommentModel* commentModel = lastCommentModel;
+    
+    [self addNewCommentCell:commentModel];
     
 }
 
