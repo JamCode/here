@@ -673,21 +673,41 @@ router.post('/getNoticeMsgCount', function(req, res) {
 							callback(null, reply);
 						}
 					});
+			},
+			function(callback) {
+				//  do some more stuff ...
+				redis_client.hget(config.hashKey.commentGoodUnreadCount, req.body.user_id,
+					function(err, reply) {
+						if (err) {
+							log.error(err, log.getFileNameAndLineNum(__filename));
+							callback(err, reply);
+						} else {
+							log.debug(req.body.user_id + ' ' + config.hashKey.commentGoodUnreadCount +
+								' ' + reply,
+								log.getFileNameAndLineNum(__filename));
+							if (reply == null) {
+								reply = parseInt(0, 10);
+							}
+							callback(null, reply);
+						}
+					});
 			}
 		],
 		//  optional callback
 		function(err, results) {
 
 			var resultData = {};
+
 			if (err) {
 				log.error(err, log.getFileNameAndLineNum(__filename));
 				resultData.code = config.returnCode.ERROR;
 			} else {
 				log.debug('unread notice msg count: ' + results, log.getFileNameAndLineNum(
 					__filename));
-				resultData.data = results[0] + results[1];
+				resultData.data = results[0] + results[1] + results[2];
 				resultData.unreadCommentsCount = results[0];
 				resultData.unreadGoodCount = results[1];
+				returnData.unreadCommentGoodCount = results[2];
 				resultData.code = config.returnCode.SUCCESS;
 			}
 			res.send(resultData);

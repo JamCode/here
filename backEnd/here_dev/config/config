@@ -98,6 +98,7 @@ exports.returnCode = {
 exports.hashKey = {
 
 	commentUnreadCount: 'here_commentUnreadCount',
-	goodUnreadCount: 'here_goodUnreadCount'
+	goodUnreadCount: 'here_goodUnreadCount',
+	commentGoodUnreadCount: 'here_commentGoodUnreadCount'
 
 };
