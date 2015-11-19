@@ -30,6 +30,7 @@ router.post('/commentGood', function(req, res) {
 		if(flag){
 			returnData.code = config.returnCode.SUCCESS;
 		}else{
+			log.debug(result.code, log.getFileNameAndLineNum(__filename), req.body.sq);
 			returnData.code = config.returnCode.ERROR;
 			log.error(result, log.getFileNameAndLineNum(__filename), req.body.sq);
 		}
