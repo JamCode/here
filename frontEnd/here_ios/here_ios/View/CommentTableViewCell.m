@@ -12,6 +12,7 @@
 #import "Tools.h"
 #import "FaceView.h"
 #import "CommentModel.h"
+#import <Masonry.h>
 
 
 @implementation CommentTableViewCell
@@ -53,9 +54,13 @@ static const int commentDateWidth = 70;
     return requireSize.height;
 }
 
-+ (CGFloat)getCellHeight:(NSString*)commentStr
++ (CGFloat)getCellHeight:(CommentModel*)commentModel
 {
-    CGFloat realHeight = [CommentTableViewCell getCommentlabelHeight:commentStr] + 20 + faceViewWidth;
+    CGFloat realHeight = [CommentTableViewCell getCommentlabelHeight:commentModel.commentStr] + 20 + faceViewWidth;
+    
+    if (commentModel.good_count>0) {
+        realHeight += 22;
+    }
     
     if (realHeight > cellHeight) {
         return realHeight;
@@ -117,7 +122,7 @@ static const int commentDateWidth = 70;
     }
     
     
-    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, [CommentTableViewCell getCellHeight:commentStr])];
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, [CommentTableViewCell getCellHeight:commentElement])];
     
     commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(namelabel.frame.origin.x, namelabel.frame.origin.y+namelabel.frame.size.height+5, ScreenWidth - 20 - faceImageView.frame.origin.x - faceImageView.frame.size.width, [CommentTableViewCell getCommentlabelHeight:commentStr])];
     
@@ -137,11 +142,21 @@ static const int commentDateWidth = 70;
     commentDateLabel.font = [UIFont fontWithName:@"Arial" size:14];
     [self addSubview:commentDateLabel];
     
-    
+    NSLog(@"%ld", commentElement.good_count);
     if(commentElement.good_count == 0){
         [commentGoodLabel removeFromSuperview];
     }else{
-        //commentGoodLabel.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+        [self addSubview:commentGoodLabel];
+
+        [commentGoodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(88, 22));
+            make.top.equalTo(commentLabel.mas_bottom);
+            make.left.equalTo(commentDateLabel.mas_left);
+        }];
+        
+        commentGoodLabel.font = [UIFont fontWithName:@"Arial" size:14];
+        commentGoodLabel.textColor = [UIColor grayColor];
+        commentGoodLabel.text = [[NSString alloc] initWithFormat:@"%ld", commentElement.good_count];
     }
     
     

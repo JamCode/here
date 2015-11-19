@@ -1499,7 +1499,7 @@
 				B2BFEB061BE8BC1A000296EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		B24D65D31BA6AC5800F33A96 /* Build configuration list for PBXNativeTarget "here_ios" */ = {
 			isa = XCConfigurationList;
@@ -1508,7 +1508,7 @@
 				B2BFEB071BE8BC1A000296EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		B24D65D61BA6AC5800F33A96 /* Build configuration list for PBXNativeTarget "here_iosTests" */ = {
 			isa = XCConfigurationList;
@@ -1517,7 +1517,7 @@
 				B2BFEB081BE8BC1A000296EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
