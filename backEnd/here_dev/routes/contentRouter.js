@@ -37,7 +37,7 @@ router.post('/commentGood', function(req, res) {
 
 			//推送到前端
 			apnToUser(req.body.comment_user_id, req.body.user_name + '赞了你的评论');
-
+			redisOper.increaseUnreadCommentGoodCount(req.body.comment_user_id);
 
 		}else{
 			log.debug(result.code, log.getFileNameAndLineNum(__filename), req.body.sq);
