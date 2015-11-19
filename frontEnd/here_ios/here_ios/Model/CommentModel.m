@@ -45,6 +45,8 @@
     
     _content_comment_id = [feedback objectForKey:@"content_comment_id"];
     
+    _good_count = [[feedback objectForKey:@"good_count"] integerValue];
+    
     //_contentModel.userInfo.faceImageThumbnailURLStr = [feedback objectForKey:@""]
     
 }

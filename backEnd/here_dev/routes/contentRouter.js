@@ -283,7 +283,8 @@ router.post('/getContentCommentsList', function(req, res) {
 					to_user_name: item.to_user_name,
 
 					comment_timestamp: item.comment_timestamp,
-					to_content: item.to_content
+					to_content: item.to_content,
+					good_count: item.good_count
 				};
 				returnData.comments.push(commentInfo);
 			});
