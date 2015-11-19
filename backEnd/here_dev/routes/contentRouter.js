@@ -293,7 +293,7 @@ router.post('/getContentCommentsList', function(req, res) {
 			returnData.code = config.returnCode.ERROR;
 			log.logPrint(config.logLevel.ERROR, JSON.stringify(req.body));
 		}
-		log.debug(returnData, log.getFileNameAndLineNum(__filename), req.body.sq);
+		log.debug(JSON.stringify(returnData), log.getFileNameAndLineNum(__filename), req.body.sq);
 		res.send(returnData);
 	});
 });
