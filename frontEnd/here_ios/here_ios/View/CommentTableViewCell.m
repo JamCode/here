@@ -142,8 +142,8 @@ static const int commentDateWidth = 70;
     commentDateLabel.font = [UIFont fontWithName:@"Arial" size:14];
     [self addSubview:commentDateLabel];
     
-    NSLog(@"%ld", commentElement.good_count);
-    if(commentElement.good_count == 0){
+    NSLog(@"%ld", commentElement.comment_good_count);
+    if(commentElement.comment_good_count == 0){
         [commentGoodLabel removeFromSuperview];
     }else{
         [self addSubview:commentGoodLabel];
@@ -156,7 +156,7 @@ static const int commentDateWidth = 70;
         
         commentGoodLabel.font = [UIFont fontWithName:@"Arial" size:14];
         commentGoodLabel.textColor = [UIColor grayColor];
-        commentGoodLabel.text = [[NSString alloc] initWithFormat:@"%ld", commentElement.good_count];
+        commentGoodLabel.text = [[NSString alloc] initWithFormat:@"%ld", commentElement.comment_good_count];
     }
     
     

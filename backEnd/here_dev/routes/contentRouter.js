@@ -284,7 +284,7 @@ router.post('/getContentCommentsList', function(req, res) {
 
 					comment_timestamp: item.comment_timestamp,
 					to_content: item.to_content,
-					good_count: item.good_count
+					comment_good_count: item.comment_good_count
 				};
 				returnData.comments.push(commentInfo);
 			});
