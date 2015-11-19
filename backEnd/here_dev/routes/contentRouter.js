@@ -23,6 +23,20 @@ log.info(imageHomeUrl, log.getFileNameAndLineNum(__filename));
 
 var redisOper = require('../utility/redisOper');
 
+
+router.post('/commentGood', function(req, res) {
+	contentMgmt.commentGood(req.body, function(flag, result){
+		var returnData = {};
+		if(flag){
+			returnData.code = config.returnCode.SUCCESS;
+		}else{
+			returnData.code = config.returnCode.ERROR;
+			log.error(result, log.getFileNameAndLineNum(__filename), req.body.sq);
+		}
+		res.send(returnData);
+	});
+});
+
 router.post('/getAllContentLocation', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
 	contentMgmt.getAllContentLocation(req.body.user_id, function(flag, result) {

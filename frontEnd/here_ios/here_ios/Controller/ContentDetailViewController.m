@@ -68,7 +68,7 @@
     [self getContentCommentsList];
     //[self addSeeCount];
    
-    feedbackComments = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"回复评论", nil];
+    feedbackComments = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"赞", @"回复评论", nil];
     toCommentUser = [[UserInfoModel alloc] init];
     
     
@@ -208,7 +208,7 @@
     
     if (actionSheet == feedbackComments) {
         NSLog(@"Button %ld", (long)buttonIndex);
-        if (buttonIndex == 0) {
+        if (buttonIndex == 1) {
             NSIndexPath* indexPath =  [self.tableView indexPathForSelectedRow];
             
             NSLog(@"%ld", indexPath.row);
@@ -222,10 +222,22 @@
             _contentModel.to_content = 0;
             [self commentButtonAction:nil];
         }
+        
+        if (buttonIndex == 0) {
+            //赞评论
+            NSIndexPath* indexPath =  [self.tableView indexPathForSelectedRow];
+            CommentModel* commentModel = [comments objectAtIndex:indexPath.row];
+            [self commentGoodAction:commentModel];
+        }
     }
     
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 
+}
+
+- (void)commentGoodAction:(CommentModel*)commentModel
+{
+    
 }
 
 - (void)addDetailCommentSuccess:(id)sender

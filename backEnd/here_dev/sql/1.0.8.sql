@@ -1,0 +1,6 @@
+#147
+CREATE TABLE `comment_good_base_info` (
+	`content_comment_id` varchar(100) NOT NULL,
+	`user_id` varchar(100) NOT NULL,
+	PRIMARY KEY (`content_comment_id`,`user_id`)
+) ENGINE=InnoDB;

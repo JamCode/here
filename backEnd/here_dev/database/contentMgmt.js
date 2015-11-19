@@ -43,6 +43,13 @@ exports.insertContent = function (contentBody, callback) {
 
 // end by wanghan 20141129 for publish active message
 
+
+exports.commentGood = function(reqbody, callback){
+	var sql = "insert into comment_good_base_info(content_comment_id, user_id) "+
+	" values(?, ?)";
+	conn.executeSql(sql, [reqbody.content_comment_id, reqbody.user_id], callback);
+};
+
 exports.insertContentImage = function (contentImageBody, callback) {
 	log.info(contentImageBody.content_id +
 		',' + contentImageBody.image_url +
