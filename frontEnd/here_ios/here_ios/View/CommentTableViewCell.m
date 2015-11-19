@@ -20,6 +20,8 @@
     UILabel* namelabel;
     UILabel* commentLabel;
     UILabel* commentDateLabel;
+    UILabel* commentGoodLabel;
+
 }
 static const int cellHeight = 64;
 static const int faceViewWidth = 36;
@@ -73,7 +75,11 @@ static const int commentDateWidth = 70;
         return self;
     }
     
+    
+
+    
     //init face image
+    commentGoodLabel = [[UILabel alloc] init];
     
     faceImageView = [[FaceView alloc] initWithFrame:CGRectMake(faceImageView_x, 10, faceViewWidth, faceViewWidth)];
     faceImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -130,6 +136,14 @@ static const int commentDateWidth = 70;
     commentDateLabel.textColor = [UIColor grayColor];
     commentDateLabel.font = [UIFont fontWithName:@"Arial" size:14];
     [self addSubview:commentDateLabel];
+    
+    
+    if(commentElement.good_count == 0){
+        [commentGoodLabel removeFromSuperview];
+    }else{
+        //commentGoodLabel.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+    }
+    
     
     
     return self;
