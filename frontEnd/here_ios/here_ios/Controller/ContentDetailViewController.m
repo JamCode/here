@@ -255,7 +255,7 @@
 - (void)commentGoodAction:(CommentModel*)commentModel
 {
     NetWork* netWork = [[NetWork alloc] init];
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[commentModel.content_comment_id, myUserInfo.userID, @"/commentGood"] forKeys:@[@"content_comment_id", @"user_id", @"childpath"]];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[commentModel.content_comment_id, myUserInfo.userID, commentModel.sendUserInfo.userID, myUserInfo.nickName,  @"/commentGood"] forKeys:@[@"content_comment_id", @"user_id", @"comment_user_id", @"user_name",  @"childpath"]];
     
     NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(commentGoodActionSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(commentGoodActionRepeat:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:COMMENT_GOOD_EXIST]]];
     
