@@ -18,7 +18,7 @@ function InsertToDatabase(pvCount, uvCount) {
     var sql =
         "insert into daliy_report(pv_count,uv_count,timestamp,date)values(?,?,?,?)";
     var timestamp = Date.now() / 1000;
-    var curDateStr = getDate();
+    var curDateStr = new Date();
 
     //console.log('read a file done.');
     conn.executeSql(sql, [pvCount, uvCount, timestamp, curDateStr],
