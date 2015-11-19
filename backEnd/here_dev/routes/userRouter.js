@@ -707,7 +707,7 @@ router.post('/getNoticeMsgCount', function(req, res) {
 				resultData.data = results[0] + results[1] + results[2];
 				resultData.unreadCommentsCount = results[0];
 				resultData.unreadGoodCount = results[1];
-				returnData.unreadCommentGoodCount = results[2];
+				resultData.unreadCommentGoodCount = results[2];
 				resultData.code = config.returnCode.SUCCESS;
 			}
 			res.send(resultData);
