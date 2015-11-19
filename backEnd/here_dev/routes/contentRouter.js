@@ -31,8 +31,12 @@ router.post('/commentGood', function(req, res) {
 			returnData.code = config.returnCode.SUCCESS;
 		}else{
 			log.debug(result.code, log.getFileNameAndLineNum(__filename), req.body.sq);
-			returnData.code = config.returnCode.ERROR;
-			log.error(result, log.getFileNameAndLineNum(__filename), req.body.sq);
+			if(result.code == 'ER_DUP_ENTRY'){
+				returnData.code = config.returnCode.COMMENT_GOOD_EXIST;
+			}else{
+				returnData.code = config.returnCode.ERROR;
+				log.error(result, log.getFileNameAndLineNum(__filename), req.body.sq);
+			}
 		}
 		res.send(returnData);
 	});

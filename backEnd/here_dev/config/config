@@ -90,7 +90,9 @@ exports.returnCode = {
 
 	USER_EXIST: 1500,
 
-	USER_NOT_EXIST: 1501
+	USER_NOT_EXIST: 1501,
+
+	COMMENT_GOOD_EXIST: 1601
 };
 
 exports.hashKey = {
