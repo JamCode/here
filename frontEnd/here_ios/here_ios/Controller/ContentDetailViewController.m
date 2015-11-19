@@ -235,9 +235,24 @@
 
 }
 
-- (void)commentGoodAction:(CommentModel*)commentModel
+- (void)commentGoodActionSuccess:(id)sender
 {
     
+}
+
+- (void)commentGoodActionRepeat:(id)sender
+{
+    [Tools AlertBigMsg:@"不能重复点赞"];
+}
+
+- (void)commentGoodAction:(CommentModel*)commentModel
+{
+    NetWork* netWork = [[NetWork alloc] init];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[commentModel.content_comment_id, myUserInfo.userID, @"/commentGood"] forKeys:@[@"content_comment_id", @"user_id", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(commentGoodActionSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(commentGoodActionRepeat:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:COMMENT_GOOD_EXIST]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
 }
 
 - (void)addDetailCommentSuccess:(id)sender

@@ -17,7 +17,7 @@
 @property ContentModel* contentModel;
 
 
-
+@property NSString* content_comment_id;
 @property long publish_time;
 @property NSString* commentStr;
 
