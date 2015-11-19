@@ -19,7 +19,7 @@ var networkInterface = os.networkInterfaces();
 var imageHomeUrl = 'http://' + networkInterface.eth1[0].address + ':' +
 	global_config.httpServerInfo.listen_port + config.imageInfo.url;
 
-log.info(imageHomeUrl, log.getFileNameAndLineNum(__filename));
+log.debug(imageHomeUrl, log.getFileNameAndLineNum(__filename));
 
 var redisOper = require('../utility/redisOper');
 
