@@ -20,6 +20,6 @@ system("`node $HOME/here/backEnd/here_dev/utility/staticRprt.js &`");
 # printf $mydate;
 
 
+printf 'before';
 system("`>$HOME/here/backEnd/here_dev/access.log`");
-
-exit(0);
+printf 'end';
