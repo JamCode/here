@@ -8,7 +8,7 @@
 $HOME = $ENV{HOME};
 
 #Run and Create Rport data task
-system("`node $HOME/here/backEnd/here_dev/utility/staticRprt.js &`");
+#system("`node $HOME/here/backEnd/here_dev/utility/staticRprt.js &`");
 
 my $time = shift || time();
 my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($time);
