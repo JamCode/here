@@ -8,7 +8,7 @@
 $HOME = $ENV{HOME};
 
 #Run and Create Rport data task
-printf 'count pv and upv'
+printf 'count pv and upv';
 system("node $HOME/here/backEnd/here_dev/utility/staticRprt.js");
 
 # my $time = shift || time();
