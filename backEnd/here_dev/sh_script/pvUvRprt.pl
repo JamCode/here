@@ -19,6 +19,6 @@ system("`node $HOME/here/backEnd/here_dev/utility/staticRprt.js &`");
 #
 # printf $mydate;
 
-system("`tar czvf $HOME/log_back/accessLog.tar $HOME/here/backEnd/here_dev/access.log`");
+`tar czvf $HOME/log_back/accessLog.tar $HOME/here/backEnd/here_dev/access.log`
 
 system("`>$HOME/here/backEnd/here_dev/access.log`");
