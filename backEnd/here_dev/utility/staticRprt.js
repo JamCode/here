@@ -28,6 +28,7 @@ function InsertToDatabase(pvCount, uvCount) {
             } else {
                 console.log(result);
             }
+            conn.closePool();
         });
 }
 
