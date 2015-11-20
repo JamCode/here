@@ -7,9 +7,6 @@
 
 $HOME = $ENV{HOME};
 
-system("`tar czvf $HOME/log_back/accessLog.tar $HOME/here/backEnd/here_dev/access.log`");
-
-
 #Run and Create Rport data task
 system("`node $HOME/here/backEnd/here_dev/utility/staticRprt.js &`");
 
@@ -24,3 +21,5 @@ system("`node $HOME/here/backEnd/here_dev/utility/staticRprt.js &`");
 
 
 system("`>$HOME/here/backEnd/here_dev/access.log`");
+
+exit(0);
