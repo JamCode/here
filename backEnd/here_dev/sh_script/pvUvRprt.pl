@@ -17,6 +17,6 @@ $mon ++;
 
 my $mydate= $year."-".$mon."-".$mday;
 
-system("`tar czvf $HOME/log_back/$mydate'_accessLog.tar' $HOME/here/backEnd/here_dev/access.log`");
+system("`tar czvf $HOME/log_back/$mydate'_accessLog.tar' $HOME/here/backEnd/here_dev/access.log &`");
 
-system("`rm -rf $HOME/here/backEnd/here_dev/access.log`");
+system("`rm -rf $HOME/here/backEnd/here_dev/access.log &`");
