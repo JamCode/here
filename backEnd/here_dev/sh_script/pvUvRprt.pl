@@ -8,7 +8,8 @@
 $HOME = $ENV{HOME};
 
 #Run and Create Rport data task
-system("`node $HOME/here/backEnd/here_dev/utility/staticRprt.js &`");
+printf 'count pv and upv'
+system("node $HOME/here/backEnd/here_dev/utility/staticRprt.js");
 
 # my $time = shift || time();
 # my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($time);
@@ -20,6 +21,6 @@ system("`node $HOME/here/backEnd/here_dev/utility/staticRprt.js &`");
 # printf $mydate;
 
 
-printf 'before';
+printf 'clear access.log';
 system("`>$HOME/here/backEnd/here_dev/access.log`");
 printf 'end';
