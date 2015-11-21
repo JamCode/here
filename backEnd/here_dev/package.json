@@ -24,6 +24,7 @@
     "morgan": "*",
     "mysql": "*",
     "mysql-queues": "*",
+    "node-schedule": "^0.5.1",
     "nodemailer": "*",
     "parseuri": "*",
     "redis": "*",
