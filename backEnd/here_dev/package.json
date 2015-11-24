@@ -15,6 +15,7 @@
     "domain": "*",
     "ejs": "*",
     "express": "*",
+    "file-stream-rotator": "0.0.6",
     "formidable": "*",
     "geolib": "*",
     "gm": "*",
