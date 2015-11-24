@@ -86,7 +86,9 @@ function startHTTPServer(port) {
 		extended: false
 	}));
 
-	var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {
+
+	var accessLogStream = fs.createWriteStream(path.join(global_config.env.homedir,
+		'logs', 'access.log'), {
 		flags: 'a',
 		encoding: 'utf-8'
 	});

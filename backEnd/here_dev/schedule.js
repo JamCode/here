@@ -6,7 +6,7 @@ var schedule = require("node-schedule");
 var pvCountRprt = require("./utility/staticRprt.js");
 
 
-schedule.scheduleJob('*/1 * * * *', function(){
+schedule.scheduleJob('57 23 * * *', function(){
     log.info("pv count start");
     pvCountRprt.start();
 });
