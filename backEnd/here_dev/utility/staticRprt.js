@@ -2,6 +2,8 @@ var path = require('path');
 var LineReader = require('line-reader');
 var conn = require('../database/utility.js');
 var emailTool = require('./emailTool');
+var log = global.log;
+
 
 function getDate() {
     var date = new Date();
@@ -26,7 +28,7 @@ function InsertToDatabase(pvCount, uvCount) {
             if (flag) {
                 console.log("insert OK");
             } else {
-                console.log(result);
+                log.error(result, log.getFileNameAndLineNum(__filename));
             }
             conn.closePool();
         });
@@ -63,8 +65,9 @@ function daliyRprt(dirPath, fromFile) {
     });
 }
 
-
-var homePath = process.env.HOME;
-var fromFile = 'access.log';
-var dirPath = homePath + '/here/backEnd/here_dev/';
-daliyRprt(dirPath, fromFile);
+exports.start = function(){
+    var homePath = process.env.HOME;
+    var fromFile = 'access.log';
+    var dirPath = homePath + '/here/backEnd/here_dev/';
+    daliyRprt(dirPath, fromFile);
+};

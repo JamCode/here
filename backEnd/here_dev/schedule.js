@@ -1,5 +1,12 @@
-var schedule = require("node-schedule");
+var log = require('./utility/log');
+log.SetLogFileName('logSchedule_');
+global.log = log; // 设置全局
 
-var j = schedule.scheduleJob('*/1 * * * *', function(){
-    console.log('The answer to life, the universe, and everything!');
+var schedule = require("node-schedule");
+var pvCountRprt = require("./utility/staticRprt.js");
+
+
+schedule.scheduleJob('*/1 * * * *', function(){
+    pvCountRprt.start();
+    console.log('pv count start');
 });
