@@ -88,19 +88,14 @@ function startHTTPServer(port) {
 		extended: false
 	}));
 
-
 	// create a rotating write stream
-	var accessLog = fileStreamRotator.getStream({
-		filename: '/access-%DATE%.log',
-		frequency: 'daily',
-		verbose: false
+	var accessLogStream = fileStreamRotator.getStream({
+  		filename: path.join(global_config.env.homedir,
+			'logs', '/access-%DATE%.log'),
+  		frequency: 'daily',
+  		verbose: false
 	});
-
-	var accessLogStream = fs.createWriteStream(path.join(global_config.env.homedir,
-		'logs', accessLog), {
-		flags: 'a',
-		encoding: 'utf-8'
-	});
+	
 	global.app.use(morgan('short', {
 		stream: accessLogStream
 	}));
