@@ -7,6 +7,6 @@ var pvCountRprt = require("./utility/staticRprt.js");
 
 
 schedule.scheduleJob('*/1 * * * *', function(){
+    log.info("pv count start");
     pvCountRprt.start();
-    console.log('pv count start');
 });

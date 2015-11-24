@@ -30,7 +30,6 @@ function InsertToDatabase(pvCount, uvCount) {
             } else {
                 log.error(result, log.getFileNameAndLineNum(__filename));
             }
-            conn.closePool();
         });
 }
 
