@@ -66,6 +66,6 @@ function daliyRprt(logPath) {
 
 exports.start = function(){
     var logPath = path.join(process.env.HOME,
-		'logs', 'access.log');
+        'logs', 'access_%DATE%.log');
     daliyRprt(logPath);
 };

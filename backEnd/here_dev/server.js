@@ -91,7 +91,7 @@ function startHTTPServer(port) {
 	// create a rotating write stream
 	var accessLogStream = fileStreamRotator.getStream({
   		filename: path.join(global_config.env.homedir,
-			'logs', '/access-%DATE%.log'),
+			'logs', '/access_%DATE%.log'),
   		frequency: 'daily',
   		verbose: false,
 		date_format: "YYYY-MM-DD"
