@@ -93,9 +93,10 @@ function startHTTPServer(port) {
   		filename: path.join(global_config.env.homedir,
 			'logs', '/access-%DATE%.log'),
   		frequency: 'daily',
-  		verbose: false
+  		verbose: false,
+		date_format: "YYYY-MM-DD"
 	});
-	
+
 	global.app.use(morgan('short', {
 		stream: accessLogStream
 	}));
