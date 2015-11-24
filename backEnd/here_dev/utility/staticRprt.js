@@ -41,11 +41,11 @@ function generateReportEmail(pvCount, uvCount) {
     emailTool.sendMail(todayRprt, curDateStr + "_访问量统计");
 }
 
-function daliyRprt(dirPath, fromFile) {
+function daliyRprt(logPath) {
     var pvCount = 0;
     var uvCount = 0;
     var uvMap = {};
-    LineReader.eachLine(path.join(dirPath, fromFile), function(line, last) {
+    LineReader.eachLine(logPath, function(line, last) {
         ++pvCount;
         var lineStr = line.toString();
         var obj = [];
@@ -65,8 +65,7 @@ function daliyRprt(dirPath, fromFile) {
 }
 
 exports.start = function(){
-    var homePath = process.env.HOME;
-    var fromFile = 'access.log';
-    var dirPath = homePath + '/here/backEnd/here_dev/';
-    daliyRprt(dirPath, fromFile);
+    var logPath = path.join(process.env.HOME,
+		'logs', 'access.log');
+    daliyRprt(logPath);
 };
