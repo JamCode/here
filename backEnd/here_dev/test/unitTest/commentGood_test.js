@@ -10,7 +10,7 @@ var hostname = '112.74.102.178';
 
 
 var commentGoodJson = {
-    childpath: '/commentGood',
+    childpath: 'commentGood',
     content_comment_id: 'commentGoodtest',
     user_id: 'commentGoodtest',
     comment_user_id: 'commentGoodtest',
