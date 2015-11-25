@@ -1,10 +1,10 @@
 var http = require('http');
 var global_config;
 if (process.env.ENV === 'dev') {
-    global_config = require('./config/dev_env_config');
+    global_config = require('../../config/dev_env_config');
 }
 if (process.env.ENV === 'pro') {
-    global_config = require('./config/pro_env_config');
+    global_config = require('../../config/pro_env_config');
 }
 
 var hostname = '112.74.102.178';
