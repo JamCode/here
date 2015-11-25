@@ -44,5 +44,5 @@ var req = http.request(options, function(res) {
     console.log("Got error: " + e.message);
 });
 
-req.write(require('querystring').stringify(commentGoodJson)+"\n");
+req.write(JSON.stringify(commentGoodJson)+"\n");
 req.end();
