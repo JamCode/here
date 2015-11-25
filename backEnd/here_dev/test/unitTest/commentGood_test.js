@@ -24,7 +24,8 @@ var options = {
     method: 'POST',
     path: commentGoodJson.childpath,
     headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json; encoding=utf-8',
+        'Accept': 'application/json',
         'Content-Length': querystring.stringify(commentGoodJson).length
     }
 };
