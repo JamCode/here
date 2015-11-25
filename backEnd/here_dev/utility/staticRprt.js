@@ -2,6 +2,8 @@ var path = require('path');
 var LineReader = require('line-reader');
 var conn = require('../database/utility.js');
 var emailTool = require('./emailTool');
+var log = global.log;
+
 
 function getDate() {
     var date = new Date();
@@ -26,7 +28,7 @@ function InsertToDatabase(pvCount, uvCount) {
             if (flag) {
                 console.log("insert OK");
             } else {
-                console.log(result);
+                log.error(result, log.getFileNameAndLineNum(__filename));
             }
         });
 }
@@ -39,11 +41,11 @@ function generateReportEmail(pvCount, uvCount) {
     emailTool.sendMail(todayRprt, curDateStr + "_访问量统计");
 }
 
-function daliyRprt(dirPath, fromFile) {
+function daliyRprt(logPath) {
     var pvCount = 0;
     var uvCount = 0;
     var uvMap = {};
-    LineReader.eachLine(path.join(dirPath, fromFile), function(line, last) {
+    LineReader.eachLine(logPath, function(line, last) {
         ++pvCount;
         var lineStr = line.toString();
         var obj = [];
@@ -62,8 +64,8 @@ function daliyRprt(dirPath, fromFile) {
     });
 }
 
-
-var homePath = process.env.HOME;
-var fromFile = 'access.log';
-var dirPath = homePath + '/here/backEnd/here_dev/';
-daliyRprt(dirPath, fromFile);
+exports.start = function(){
+    var logPath = path.join(process.env.HOME,
+        'logs', 'access_%DATE%.log');
+    daliyRprt(logPath);
+};

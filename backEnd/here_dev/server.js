@@ -28,6 +28,8 @@ var email = require('./utility/emailTool');
 
 var fs = require('fs');
 var morgan = require('morgan');
+var fileStreamRotator = require('file-stream-rotator')
+
 
 if (cluster.isMaster) {
 	// require('os').cpus().forEach(function(){
@@ -86,10 +88,15 @@ function startHTTPServer(port) {
 		extended: false
 	}));
 
-	var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {
-		flags: 'a',
-		encoding: 'utf-8'
+	// create a rotating write stream
+	var accessLogStream = fileStreamRotator.getStream({
+  		filename: path.join(global_config.env.homedir,
+			'logs', '/access_%DATE%.log'),
+  		frequency: 'daily',
+  		verbose: false,
+		date_format: "YYYY-MM-DD"
 	});
+
 	global.app.use(morgan('short', {
 		stream: accessLogStream
 	}));
