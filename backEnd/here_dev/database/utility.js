@@ -16,6 +16,23 @@ var domain = require('domain');
 var domainObj = domain.create();
 var path = require('path');
 
+
+exports.closePool = function(){
+	if(pool != null){
+		pool.end(function (err) {
+			if(err){
+				if(log){
+					log.error(err, log.getFileNameAndLineNum(__filename));
+				}else{
+					console.log(err);
+				}
+			}
+			pool = null;
+  			// all connections in the pool have ended
+		});
+	}
+};
+
 function decodeDBStr (mysqlDev) {
 	var decipher = crypto.createDecipher('aes-256-cbc', '123');
 	var decrypted = decipher.update(mysqlDev.user, 'hex', 'binary');

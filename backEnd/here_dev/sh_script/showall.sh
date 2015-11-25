@@ -3,3 +3,4 @@
 
 ps -ef|grep `<$HOME/webServer.pid`
 ps -ef|grep `<$HOME/socketServer.pid`
+ps -ef|grep `<$HOME/schedule.pid`
