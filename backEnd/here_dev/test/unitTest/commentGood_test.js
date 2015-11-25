@@ -1,5 +1,4 @@
 var http = require('http');
-var querystring = require('querystring');
 var global_config;
 if (process.env.ENV === 'dev') {
     global_config = require('../../config/dev_env_config');
@@ -26,7 +25,7 @@ var options = {
     headers: {
         'Content-Type': 'application/json; encoding=utf-8',
         'Accept': 'application/json',
-        'Content-Length': querystring.stringify(commentGoodJson).length
+        'Content-Length': JSON.stringify(commentGoodJson).length
     }
 };
 
