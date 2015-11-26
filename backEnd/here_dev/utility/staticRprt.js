@@ -26,7 +26,7 @@ function InsertToDatabase(pvCount, uvCount) {
     conn.executeSql(sql, [pvCount, uvCount, timestamp, curDateStr],
         function(flag, result) {
             if (flag) {
-                console.log("insert OK");
+                log.info("insert pvcount OK", log.getFileNameAndLineNum(__filename));
             } else {
                 log.error(result, log.getFileNameAndLineNum(__filename));
             }

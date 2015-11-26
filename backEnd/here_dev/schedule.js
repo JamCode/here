@@ -15,6 +15,6 @@ fs.writeFileSync(pidfile, process.pid, {
 
 
 schedule.scheduleJob('57 23 * * *', function(){
-    log.info("pv count start");
+    log.info("pv count start", log.getFileNameAndLineNum(__filename));
     pvCountRprt.start();
 });
