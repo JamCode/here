@@ -68,7 +68,7 @@
     [self getContentCommentsList];
     //[self addSeeCount];
    
-    feedbackComments = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"回复评论", nil];
+    feedbackComments = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"赞", @"回复评论", nil];
     toCommentUser = [[UserInfoModel alloc] init];
     
     
@@ -208,7 +208,7 @@
     
     if (actionSheet == feedbackComments) {
         NSLog(@"Button %ld", (long)buttonIndex);
-        if (buttonIndex == 0) {
+        if (buttonIndex == 1) {
             NSIndexPath* indexPath =  [self.tableView indexPathForSelectedRow];
             
             NSLog(@"%ld", indexPath.row);
@@ -221,11 +221,48 @@
             
             _contentModel.to_content = 0;
             [self commentButtonAction:nil];
+            [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+
+        }
+        
+        if (buttonIndex == 0) {
+            //赞评论
+            NSIndexPath* indexPath =  [self.tableView indexPathForSelectedRow];
+            CommentModel* commentModel = [comments objectAtIndex:indexPath.row];
+            [self commentGoodAction:commentModel];
         }
     }
     
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 
+}
+
+- (void)commentGoodActionSuccess:(id)sender
+{
+    
+    NSIndexPath* indexpath = [self.tableView indexPathForSelectedRow];
+    CommentModel* commentmodel = [comments objectAtIndex:indexpath.row];
+    commentmodel.comment_good_count++;
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    [self.tableView reloadData];
+
+}
+
+- (void)commentGoodActionRepeat:(id)sender
+{
+    [Tools AlertBigMsg:@"不能重复点赞"];
+}
+
+- (void)commentGoodAction:(CommentModel*)commentModel
+{
+    NetWork* netWork = [[NetWork alloc] init];
+    
+    NSLog(@"%@", commentModel.sendUserInfo.userID);
+    
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[commentModel.content_comment_id, myUserInfo.userID, commentModel.sendUserInfo.userID, myUserInfo.nickName,  @"/commentGood"] forKeys:@[@"content_comment_id", @"user_id", @"comment_user_id", @"user_name",  @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(commentGoodActionSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(commentGoodActionRepeat:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:COMMENT_GOOD_EXIST]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
 }
 
 

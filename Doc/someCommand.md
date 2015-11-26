@@ -27,3 +27,10 @@ tar –xvf file.tar //解压 tar包
 ## pod 更新
 pod install --verbose --no-repo-update
 pod update --verbose --no-repo-update
+
+
+## cul测试
+
+post包测试
+
+>* curl -d "user_id=xxx&user_name=xxxx" "http://112.74.102.178:8080/api"

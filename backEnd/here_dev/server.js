@@ -28,7 +28,7 @@ var email = require('./utility/emailTool');
 
 var fs = require('fs');
 var morgan = require('morgan');
-var fileStreamRotator = require('file-stream-rotator')
+var fileStreamRotator = require('file-stream-rotator');
 
 
 if (cluster.isMaster) {
