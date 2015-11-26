@@ -135,9 +135,6 @@ static const int ageWidth = 18;
         _distanceLabel.font = [UIFont fontWithName:@"Arial" size:timeFontSize];
         _distanceLabel.textColor = [UIColor lightGrayColor];
         
-        _deleteLabel = [[UILabel alloc] init];
-        
-        
         [self addSubview:_faceView];
         [self addSubview:_nickName];
         
@@ -150,7 +147,6 @@ static const int ageWidth = 18;
         [self addSubview:_goodCountLabel];
         [self addSubview:_commentCountLabel];
         [self addSubview:_distanceLabel];
-        [self addSubview:_deleteLabel];
         
         imageArray = [[NSMutableArray alloc] init];
         
@@ -499,17 +495,6 @@ static const int ageWidth = 18;
     
     _distanceLabel.text = [[NSString alloc] initWithFormat:@"%@", [Tools showDistance:userLocation otherLocation:myLocation]];
     [Tools resizeLabel:_distanceLabel maxHeight:contentDetailInfoHeight maxWidth:100 fontSize:timeFontSize];
-    
-    
-    
-    
-    UserInfoModel* myinfo = [AppDelegate getMyUserInfo];
-    
-    if([model.userInfo.userID isEqualToString:myinfo.userID]){
-        
-    }else{
-        
-    }
     
 }
 
