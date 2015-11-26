@@ -38,6 +38,7 @@ function generateReportEmail(pvCount, uvCount) {
     var curDateStr = getDate();
     var todayRprt = curDateStr + "-----[pvCount :" + pvCount +
         ";uvCount:" + uvCount + "]";
+    log.info(todayRprt, log.getFileNameAndLineNum(__filename));
     emailTool.sendMail(todayRprt, curDateStr + "_访问量统计");
 }
 
@@ -45,6 +46,8 @@ function daliyRprt(logPath) {
     var pvCount = 0;
     var uvCount = 0;
     var uvMap = {};
+    log.info("enter daliyRprt for analyze "+logPath, log.getFileNameAndLineNum(__filename));
+
     LineReader.eachLine(logPath, function(line, last) {
         ++pvCount;
         var lineStr = line.toString();
