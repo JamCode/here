@@ -152,7 +152,10 @@ static const int faceimage_width = 64;
         [app.sideMenu closeMenuAnimated:YES completion:nil];
         UINavigationController* nav =  (UINavigationController*)[app.tabBarViewController.viewControllers objectAtIndex:0];
         
-        ComTableViewCtrl* comTableCtrl = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[GoodDetailAction alloc] init]];
+        GoodDetailAction* commentGoodAction = [[GoodDetailAction alloc] init];
+        commentGoodAction.commentGoodFlag = true;
+        
+        ComTableViewCtrl* comTableCtrl = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:commentGoodAction];
         
         comTableCtrl.hidesBottomBarWhenPushed = YES;
         [nav pushViewController:comTableCtrl animated:NO];

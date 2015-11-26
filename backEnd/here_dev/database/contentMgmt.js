@@ -54,9 +54,10 @@ exports.insertContent = function (contentBody, callback) {
 
 
 exports.commentGood = function(reqbody, callback){
-	var sql = "insert into comment_good_base_info(content_comment_id, user_id) "+
-	" values(?, ?)";
-	conn.executeSql(sql, [reqbody.content_comment_id, reqbody.user_id], callback);
+	var timestamp = Date.now() / 1000;
+	var sql = "insert into comment_good_base_info(content_comment_id, user_id, cgbi_timestamp) "+
+	" values(?, ?, ?)";
+	conn.executeSql(sql, [reqbody.content_comment_id, reqbody.user_id, timestamp], callback);
 };
 
 exports.insertContentImage = function (contentImageBody, callback) {
