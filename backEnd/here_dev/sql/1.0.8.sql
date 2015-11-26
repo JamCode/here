@@ -6,5 +6,8 @@ CREATE TABLE `comment_good_base_info` (
 ) ENGINE=InnoDB;
 ALTER TABLE `content_comment_info`
 	ADD COLUMN `good_count` int(11) NOT NULL DEFAULT 0 AFTER `to_content`;
-ALTER TABLE `content_comment_info` 
+ALTER TABLE `content_comment_info`
 	CHANGE COLUMN `good_count` `comment_good_count` int(11) NOT NULL DEFAULT 0
+
+ALTER TABLE `comment_good_base_info`
+	ADD COLUMN `cgbi_timestamp` bigint(20) NULL

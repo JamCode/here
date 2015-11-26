@@ -255,6 +255,18 @@ exports.getUnreadComments = function(user_id, timestamp, callback) {
 	conn.executeSql(sql, [user_id, timestamp], callback);
 };
 
+
+exports.getUnreadCommentGood = function(reqBody, callback){
+	var sql = "select a.*, b.*, c.* from `comment_good_base_info` a, " +
+	" `content_comment_info` b, `user_base_info` c " +
+	" where a.`user_id` = c.`user_id` " +
+	" and a.content_comment_id = b.content_comment_id " +
+	" and b.comment_user_id = ? " +
+	" and a.cgbi_timestamp< ? " +
+	" order by a.cgbi_timestamp desc limit 6";
+	conn.executeSql(sql, [reqBody.comment_user_id, reqBody.cgbi_timestamp], callback);
+};
+
 exports.getUnreadGood = function(reqBody, callback) {
 	var sql =
 		'select a.*, b.*, c.* from good_base_info a, content_base_info b, user_base_info c ' +

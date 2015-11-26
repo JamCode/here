@@ -22,17 +22,30 @@
 
 - (void)pullUpAction:(pullCompleted)completedBlock
 {
-    GoodModel* goodModel = [dataList lastObject];
-    if (goodModel == nil) {
-        completedBlock();
+    if(_commentGoodFlag == false){
+        GoodModel* goodModel = [dataList lastObject];
+        if (goodModel == nil) {
+            completedBlock();
+        }else{
+            [self getGood:goodModel.publish_time handleAction:@selector(getGoodHisSuccess:) pullComplete:completedBlock];
+        }
     }else{
-        [self getGood:goodModel.publish_time handleAction:@selector(getGoodHisSuccess:) pullComplete:completedBlock];
+        GoodModel* goodModel = [dataList lastObject];
+        if (goodModel == nil) {
+            completedBlock();
+        }else{
+            [self getGoodComment:goodModel.publish_time handleAction:@selector(getGoodHisSuccess:) pullComplete:completedBlock];
+        }
     }
 }
 
 - (void)pullDownAction:(pullCompleted)completedBlock
 {
-    [self getGood:[[NSDate date] timeIntervalSince1970] handleAction:@selector(getGoodSuccess:) pullComplete:completedBlock];
+    if(_commentGoodFlag == false){
+        [self getGood:[[NSDate date] timeIntervalSince1970] handleAction:@selector(getGoodSuccess:) pullComplete:completedBlock];
+    }else{
+        [self getGoodComment:[[NSDate date] timeIntervalSince1970] handleAction:@selector(getGoodSuccess:) pullComplete:completedBlock];
+    }
 }
 
 - (NSInteger)rowNum
@@ -105,12 +118,31 @@
     for (int i=0; i<[data count]; ++i) {
         NSDictionary* element = [data objectAtIndex:i];
         GoodModel* goodModel = [[GoodModel alloc] init];
-        [goodModel setGoodModel:element];
+        if(_commentGoodFlag == false){
+            [goodModel setGoodModel:element];
+        }else{
+            [goodModel setCommentGoodModel:element];
+        }
         [dataList addObject:goodModel];
     }
-
-
 }
+
+
+- (void)getGoodComment:(long)lastTimestamp handleAction:(SEL)handleAction pullComplete:(pullCompleted)pullComplete
+{
+    NetWork* netWork = [[NetWork alloc] init];
+    UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
+    
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myInfo.userID, [NSNumber numberWithLong:lastTimestamp], @"/getUnreadCommentGood"] forKeys:@[@"comment_user_id", @"cgbi_timestamp", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&handleAction objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(getGoodError:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(getGoodException:) objCType:@encode(SEL)] ] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS],[[NSNumber alloc] initWithInt:ERROR],[[NSNumber alloc] initWithInt:EXCEPTION]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
+        pullComplete();
+    } callObject:self];
+}
+
+
 
 
 - (void)getGood:(long)lastTimestamp handleAction:(SEL)handleAction pullComplete:(pullCompleted)pullComplete
@@ -154,7 +186,11 @@
     for (int i=0; i<[data count]; ++i) {
         NSDictionary* element = [data objectAtIndex:i];
         GoodModel* goodModel = [[GoodModel alloc] init];
-        [goodModel setGoodModel:element];
+        if(_commentGoodFlag == false){
+            [goodModel setGoodModel:element];
+        }else{
+            [goodModel setCommentGoodModel:element];
+        }
         [dataList addObject:goodModel];
     }
 
