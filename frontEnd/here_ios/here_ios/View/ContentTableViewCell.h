@@ -29,7 +29,7 @@
 @property UILabel* goodCountLabel;
 @property UILabel* commentCountLabel;
 @property UILabel* distanceLabel;
-
+@property UILabel* deleteLabel;
 
 
 
