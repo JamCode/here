@@ -8,5 +8,5 @@ var commentGoodJson = {
     user_name: 'commentGoodtest'
 };
 
-var runner = require('unitTestRunner.js');
+var runner = require('./unitTestRunner.js');
 runner.runTest(commentGoodJson, commentGoodJson.childpath);
