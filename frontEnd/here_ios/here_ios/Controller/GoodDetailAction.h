@@ -10,4 +10,7 @@
 #import "ComTableViewCtrl.h"
 @interface GoodDetailAction : NSObject<ComTableViewDelegate>
 
+
+@property bool commentGoodFlag;
+
 @end

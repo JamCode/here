@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "UserInfoModel.h"
 #import "ContentModel.h"
+#import "CommentModel.h"
 
 @interface GoodModel : NSObject
 
 @property UserInfoModel* counterUserInfo;
 @property UserInfoModel* sendUserInfo;
 @property ContentModel* contentModel;
+@property CommentModel* commentModel;
 
 
 @property long publish_time;
@@ -22,5 +24,7 @@
 
 
 - (void)setGoodModel:(NSDictionary*)feedback;
+
+- (void)setCommentGoodModel:(NSDictionary*)feedback;
 
 @end
