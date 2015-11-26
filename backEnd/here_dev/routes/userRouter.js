@@ -625,6 +625,16 @@ router.post('/getUnreadComments', function(req, res) {
 
 });
 
+
+router.post('/getUnreadCommentGood', function(req, res){
+
+	userMgmt.getUnreadCommentGood(req.body, function(flag, result) {
+		routeFunc.feedBack(flag, result, res);
+	});
+
+	redis_client.hset(config.hashKey.commentGoodUnreadCount, req.body.comment_user_id, 0);
+});
+
 router.post('/getUnreadGood', function(req, res) {
 
 	userMgmt.getUnreadGood(req.body, function(flag, result) {
