@@ -35,6 +35,6 @@ exports.runTest = function(jsonObject, childpath){
         console.log("Got error: " + e.message);
     });
 
-    req.write(JSON.stringify(jsonObject)+"\n");
+    req.write(JSON.stringify(jsonObject));
     req.end();
 };
