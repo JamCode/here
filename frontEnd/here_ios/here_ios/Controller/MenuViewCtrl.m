@@ -219,6 +219,12 @@ static const int faceimage_width = 64;
     count = [[feedback objectForKey:@"unreadGoodCount"] integerValue];
     [cell setNoticeCount:count];
     
+    
+    index = [NSIndexPath indexPathForRow:2 inSection:0];
+    cell = (MenuCell*)[self.tableView cellForRowAtIndexPath:index];
+    count = [[feedback objectForKey:@"unreadCommentGoodCount"] integerValue];
+    [cell setNoticeCount:count];
+    
 }
 
 - (void)removeNoticeCount
