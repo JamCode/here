@@ -69,13 +69,11 @@ function daliyRprt(logPath) {
 }
 
 exports.start = function(){
-    var date = Date.now();
     shell.cd(path.join(process.env.HOME,
         'logs'));
     shell.ls('access*.log').forEach(function(file){
-        
+        var logPath = path.join(process.env.HOME,
+            'logs', file);
+        daliyRprt(logPath);
     });
-    var logPath = path.join(process.env.HOME,
-        'logs', 'access_%DATE%.log');
-    daliyRprt(logPath);
 };
