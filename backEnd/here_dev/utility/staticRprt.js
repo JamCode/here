@@ -2,6 +2,7 @@ var path = require('path');
 var LineReader = require('line-reader');
 var conn = require('../database/utility.js');
 var emailTool = require('./emailTool');
+var shell = require('shelljs');
 var log = global.log;
 
 
@@ -68,6 +69,12 @@ function daliyRprt(logPath) {
 }
 
 exports.start = function(){
+    var date = Date.now();
+    shell.cd(path.join(process.env.HOME,
+        'logs'));
+    shell.ls('access*.log').forEach(function(file){
+        
+    });
     var logPath = path.join(process.env.HOME,
         'logs', 'access_%DATE%.log');
     daliyRprt(logPath);
