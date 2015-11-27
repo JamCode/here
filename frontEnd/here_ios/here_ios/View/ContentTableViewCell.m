@@ -23,6 +23,7 @@
 #import "ContentModel.h"
 #import "ContentDetailViewController.h"
 #import "InputToolbar.h"
+#import <Masonry.h>
 
 
 @implementation ContentTableViewCell
@@ -413,7 +414,13 @@ static const int ageWidth = 18;
     [self addSubview:funView];
     
     
-    reportButton.frame = CGRectMake(ScreenWidth - 36 - 5, _ageAndGenderView.frame.origin.y, 32, 32);
+    [reportButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(_ageAndGenderLabel.mas_top);
+        make.right.mas_equalTo(self.mas_right).offset(-10);
+        make.size.mas_equalTo(CGSizeMake(22, 22));
+    }];
+    
+    reportButton.frame = CGRectMake(ScreenWidth - 22 - 5, _ageAndGenderView.frame.origin.y, 22, 22);
     
     reportButton.center = CGPointMake(reportButton.center.x, _ageAndGenderView.center.y);
     

@@ -146,7 +146,23 @@ static const int faceimage_width = 64;
         [nav pushViewController:comTableCtrl animated:NO];
     }
     
-    if (indexPath.row == 2) {
+    if(indexPath.row == 2){
+        //评论的赞
+        
+        [app.sideMenu closeMenuAnimated:YES completion:nil];
+        UINavigationController* nav =  (UINavigationController*)[app.tabBarViewController.viewControllers objectAtIndex:0];
+        
+        GoodDetailAction* commentGoodAction = [[GoodDetailAction alloc] init];
+        commentGoodAction.commentGoodFlag = true;
+        
+        ComTableViewCtrl* comTableCtrl = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:commentGoodAction];
+        
+        comTableCtrl.hidesBottomBarWhenPushed = YES;
+        [nav pushViewController:comTableCtrl animated:NO];
+    }
+
+    
+    if (indexPath.row == 3) {
         //附近的人
         [app.sideMenu closeMenuAnimated:YES completion:nil];
         UINavigationController* nav =  (UINavigationController*)[app.tabBarViewController.viewControllers objectAtIndex:0];
@@ -155,18 +171,6 @@ static const int faceimage_width = 64;
         [nav pushViewController:comTableCtrl animated:NO];
     }
     
-    if(indexPath.row == 3){
-        //我的资料
-        
-        [app.sideMenu closeMenuAnimated:YES completion:nil];
-        UINavigationController* nav =  (UINavigationController*)[app.tabBarViewController.viewControllers objectAtIndex:0];
-        
-        SettingViewController* userSetting = [[SettingViewController alloc] init:[AppDelegate getMyUserInfo]];
-        
-        userSetting.hidesBottomBarWhenPushed = YES;
-        [nav pushViewController:userSetting animated:NO];
-        
-    }
 }
 
 
@@ -215,6 +219,12 @@ static const int faceimage_width = 64;
     count = [[feedback objectForKey:@"unreadGoodCount"] integerValue];
     [cell setNoticeCount:count];
     
+    
+    index = [NSIndexPath indexPathForRow:2 inSection:0];
+    cell = (MenuCell*)[self.tableView cellForRowAtIndexPath:index];
+    count = [[feedback objectForKey:@"unreadCommentGoodCount"] integerValue];
+    [cell setNoticeCount:count];
+    
 }
 
 - (void)removeNoticeCount
@@ -256,11 +266,11 @@ static const int faceimage_width = 64;
     }
     
     if (indexPath.row == 2) {
-        cell.textLabel.text = @"附近的人";
+        cell.textLabel.text = @"评论的赞";
     }
     
     if (indexPath.row == 3) {
-        cell.textLabel.text = @"我的资料";
+        cell.textLabel.text = @"附近的人";
     }
     
     cell.textLabel.font = [UIFont fontWithName:@"Arial" size:18];

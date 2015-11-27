@@ -54,16 +54,18 @@ exports.sha1Cryp = function (str) {
 exports.executeSql = function (sql, para, callback) {
 	pool.getConnection(function (err, conn) {
 		if (err) {
-			log.error(err, log.getFileNameAndLineNum(__filename));
 			if (typeof callback === 'function') {
 				callback(false, err);
+			}else{
+				log.error(err, log.getFileNameAndLineNum(__filename));
 			}
 		}else {
 			conn.query(sql, para, function (err, result) {
 				if (err) {
-					log.error(sql + ' ' + err, log.getFileNameAndLineNum(__filename));
 					if (typeof callback === 'function') {
 						callback(false, err);
+					}else{
+						log.error(sql + ' ' + err, log.getFileNameAndLineNum(__filename));
 					}
 				}else {
 					if (typeof callback === 'function') callback(true, result);
@@ -77,16 +79,18 @@ exports.executeSql = function (sql, para, callback) {
 exports.executeSqlString = function (sql, callback) {
 	pool.getConnection(function (err, conn) {
 		if (err) {
-			log.error(err, log.getFileNameAndLineNum(__filename));
 			if (typeof callback === 'function') {
 				callback(false, err);
+			}else{
+				log.error(err, log.getFileNameAndLineNum(__filename));
 			}
 		}else {
 			conn.query(sql, function (err, result) {
 				if (err) {
-					log.error(sql + ' ' + err, log.getFileNameAndLineNum(__filename));
 					if (typeof callback === 'function') {
 						callback(false, err);
+					}else {
+						log.error(sql + ' ' + err, log.getFileNameAndLineNum(__filename));
 					}
 
 				}else {

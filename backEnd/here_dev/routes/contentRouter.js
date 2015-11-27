@@ -19,9 +19,39 @@ var networkInterface = os.networkInterfaces();
 var imageHomeUrl = 'http://' + networkInterface.eth1[0].address + ':' +
 	global_config.httpServerInfo.listen_port + config.imageInfo.url;
 
-log.info(imageHomeUrl, log.getFileNameAndLineNum(__filename));
+log.debug(imageHomeUrl, log.getFileNameAndLineNum(__filename));
 
 var redisOper = require('../utility/redisOper');
+
+
+router.post('/commentGood', function(req, res) {
+	contentMgmt.commentGood(req.body, function(flag, result){
+		var returnData = {};
+		if(flag){
+			returnData.code = config.returnCode.SUCCESS;
+			contentMgmt.increaseCommentGoodCount(req.body, function(flag, result){
+				if(!flag){
+					log.error(result, log.getFileNameAndLineNum(__filename), req.body.sq);
+				}
+			});
+
+			//推送到前端
+			log.debug(req.body.comment_user_id, log.getFileNameAndLineNum(__filename), req.body.sq);
+			apnToUser(req.body.comment_user_id, req.body.user_name + '赞了你的评论');
+			redisOper.increaseUnreadCommentGoodCount(req.body.comment_user_id);
+
+		}else{
+			log.debug(result.code, log.getFileNameAndLineNum(__filename), req.body.sq);
+			if(result.code === 'ER_DUP_ENTRY'){
+				returnData.code = config.returnCode.COMMENT_GOOD_EXIST;
+			}else{
+				returnData.code = config.returnCode.ERROR;
+				log.error(result, log.getFileNameAndLineNum(__filename), req.body.sq);
+			}
+		}
+		res.send(returnData);
+	});
+});
 
 router.post('/getAllContentLocation', function(req, res) {
 	// log.logPrint(config.logLevel.INFO, JSON.stringify(req.body));
@@ -258,7 +288,8 @@ router.post('/getContentCommentsList', function(req, res) {
 					to_user_name: item.to_user_name,
 
 					comment_timestamp: item.comment_timestamp,
-					to_content: item.to_content
+					to_content: item.to_content,
+					comment_good_count: item.comment_good_count
 				};
 				returnData.comments.push(commentInfo);
 			});
