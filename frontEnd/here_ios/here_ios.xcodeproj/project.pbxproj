@@ -181,6 +181,10 @@
 		B26C73D61BFB536700E281FA /* camera178*144.png in Resources */ = {isa = PBXBuildFile; fileRef = B26C73D51BFB536700E281FA /* camera178*144.png */; };
 		B29B5ED21BA9499D00D62757 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29B5ED11BA9499D00D62757 /* InfoPlist.strings */; };
 		B2A33D081BDDFF5F00D8F18D /* Last_pri_msg.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A33D071BDDFF5F00D8F18D /* Last_pri_msg.m */; };
+		B2A97E541C083EC700205458 /* UITableView+FDIndexPathHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A97E4D1C083EC700205458 /* UITableView+FDIndexPathHeightCache.m */; };
+		B2A97E551C083EC700205458 /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A97E4F1C083EC700205458 /* UITableView+FDKeyedHeightCache.m */; };
+		B2A97E561C083EC700205458 /* UITableView+FDTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A97E511C083EC700205458 /* UITableView+FDTemplateLayoutCell.m */; };
+		B2A97E571C083EC700205458 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A97E531C083EC700205458 /* UITableView+FDTemplateLayoutCellDebug.m */; };
 		B2BFEB021BE893E3000296EF /* config.geojson in Resources */ = {isa = PBXBuildFile; fileRef = B2BFEB011BE893E3000296EF /* config.geojson */; };
 		B2BFEB051BE897FE000296EF /* ConfigAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BFEB041BE897FE000296EF /* ConfigAccess.m */; };
 		E777BF15ECD86C660D85C8AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF27723DED1CCDC21653282 /* libPods.a */; };
@@ -466,6 +470,14 @@
 		B29B5ED11BA9499D00D62757 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		B2A33D061BDDFF5F00D8F18D /* Last_pri_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Last_pri_msg.h; sourceTree = "<group>"; };
 		B2A33D071BDDFF5F00D8F18D /* Last_pri_msg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Last_pri_msg.m; sourceTree = "<group>"; };
+		B2A97E4C1C083EC700205458 /* UITableView+FDIndexPathHeightCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDIndexPathHeightCache.h"; sourceTree = "<group>"; };
+		B2A97E4D1C083EC700205458 /* UITableView+FDIndexPathHeightCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDIndexPathHeightCache.m"; sourceTree = "<group>"; };
+		B2A97E4E1C083EC700205458 /* UITableView+FDKeyedHeightCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDKeyedHeightCache.h"; sourceTree = "<group>"; };
+		B2A97E4F1C083EC700205458 /* UITableView+FDKeyedHeightCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDKeyedHeightCache.m"; sourceTree = "<group>"; };
+		B2A97E501C083EC700205458 /* UITableView+FDTemplateLayoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDTemplateLayoutCell.h"; sourceTree = "<group>"; };
+		B2A97E511C083EC700205458 /* UITableView+FDTemplateLayoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCell.m"; sourceTree = "<group>"; };
+		B2A97E521C083EC700205458 /* UITableView+FDTemplateLayoutCellDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDTemplateLayoutCellDebug.h"; sourceTree = "<group>"; };
+		B2A97E531C083EC700205458 /* UITableView+FDTemplateLayoutCellDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCellDebug.m"; sourceTree = "<group>"; };
 		B2BFEB011BE893E3000296EF /* config.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config.geojson; sourceTree = "<group>"; };
 		B2BFEB031BE897FE000296EF /* ConfigAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigAccess.h; sourceTree = "<group>"; };
 		B2BFEB041BE897FE000296EF /* ConfigAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigAccess.m; sourceTree = "<group>"; };
@@ -732,6 +744,7 @@
 		B24D67E21BA6C02800F33A96 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B2A97E4B1C083EC700205458 /* UITableView+FDTemplateLayoutCell */,
 				B24D67E31BA6C06800F33A96 /* ImageEnlarge.h */,
 				B24D67E41BA6C06800F33A96 /* ImageEnlarge.m */,
 				B24D67E51BA6C06800F33A96 /* CommentDetailCell.h */,
@@ -976,6 +989,21 @@
 				B24D69151BA6C8A300F33A96 /* Waver.m */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		B2A97E4B1C083EC700205458 /* UITableView+FDTemplateLayoutCell */ = {
+			isa = PBXGroup;
+			children = (
+				B2A97E4C1C083EC700205458 /* UITableView+FDIndexPathHeightCache.h */,
+				B2A97E4D1C083EC700205458 /* UITableView+FDIndexPathHeightCache.m */,
+				B2A97E4E1C083EC700205458 /* UITableView+FDKeyedHeightCache.h */,
+				B2A97E4F1C083EC700205458 /* UITableView+FDKeyedHeightCache.m */,
+				B2A97E501C083EC700205458 /* UITableView+FDTemplateLayoutCell.h */,
+				B2A97E511C083EC700205458 /* UITableView+FDTemplateLayoutCell.m */,
+				B2A97E521C083EC700205458 /* UITableView+FDTemplateLayoutCellDebug.h */,
+				B2A97E531C083EC700205458 /* UITableView+FDTemplateLayoutCellDebug.m */,
+			);
+			path = "UITableView+FDTemplateLayoutCell";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1255,8 +1283,10 @@
 				B24D68AD1BA6C46900F33A96 /* RegisterPhoneNumViewController.m in Sources */,
 				B24D691F1BA6C8A400F33A96 /* pinyin.c in Sources */,
 				B24D68A31BA6C46900F33A96 /* TalkViewController.m in Sources */,
+				B2A97E551C083EC700205458 /* UITableView+FDKeyedHeightCache.m in Sources */,
 				B24D68061BA6C06800F33A96 /* CommentDetailCell.m in Sources */,
 				B24D69381BA6C8A400F33A96 /* SocketIOTransportXHR.m in Sources */,
+				B2A97E541C083EC700205458 /* UITableView+FDIndexPathHeightCache.m in Sources */,
 				B24D68B41BA6C46900F33A96 /* ImageBrowseAction.m in Sources */,
 				B24D680C1BA6C06800F33A96 /* NearByTableViewCell.m in Sources */,
 				B24D691D1BA6C8A400F33A96 /* NetWork.m in Sources */,
@@ -1273,6 +1303,7 @@
 				B24D68AB1BA6C46900F33A96 /* RegisterNickNameViewController.m in Sources */,
 				B24D69311BA6C8A400F33A96 /* CONTRIBUTORS.md in Sources */,
 				B24D680B1BA6C06800F33A96 /* TalkTableViewCell.m in Sources */,
+				B2A97E561C083EC700205458 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				B24D68611BA6C3F200F33A96 /* MapPointModel.m in Sources */,
 				B24D68661BA6C3F200F33A96 /* PriMsgModel.m in Sources */,
 				B24D691E1BA6C8A400F33A96 /* NSString+Emojize.m in Sources */,
@@ -1283,6 +1314,7 @@
 				B24D69391BA6C8A400F33A96 /* TextFieldView.m in Sources */,
 				B24D65B31BA6AC5800F33A96 /* main.m in Sources */,
 				B24D65B91BA6AC5800F33A96 /* here_ios.xcdatamodeld in Sources */,
+				B2A97E571C083EC700205458 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
