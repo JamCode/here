@@ -11,7 +11,7 @@
 typedef void(^pullCompleted)();
 @class ComTableViewCtrl;
 
-@protocol ComTableViewDelegate <NSObject>
+@protocol ComTableViewDelegate <NSObject, UITableViewDelegate, UITableViewDataSource>
 
 @optional
 - (void)pullUpAction:(pullCompleted)completedBlock; //上拉响应函数

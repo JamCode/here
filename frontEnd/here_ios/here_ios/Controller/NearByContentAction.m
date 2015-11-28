@@ -18,6 +18,7 @@
 #import "MenuViewCtrl.h"
 #import "CommentModel.h"
 #import "PublishContentViewController.h"
+#import "ContentSectionView.h"
 
 
 static const int noticeLabelHeight = 10;
@@ -55,8 +56,38 @@ static const int leftbarWidth = 20;
 
 - (NSInteger)rowNum
 {
+    return 1;
+}
+
+
+//- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    return @"1";
+//}
+
+
+- (NSInteger)sectionNum
+{
     return [contentModeArray count];
 }
+
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return [ContentSectionView contentSectionHeight];
+}
+
+
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    ContentSectionView* contentSectionView = [[ContentSectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, [ContentSectionView contentSectionHeight])];
+    [contentSectionView configure:[contentModeArray objectAtIndex:section]];
+    
+    return contentSectionView;
+}
+
 
 - (UITableViewCell*)generateCell:(UITableView*)tableview indexPath:(NSIndexPath *)indexPath
 {
@@ -72,7 +103,7 @@ static const int leftbarWidth = 20;
     cell.backgroundColor = [UIColor whiteColor];
     cell.tableView = comTable.tableView;
     
-    ContentModel* contentmodel = [contentModeArray objectAtIndex:indexPath.row];
+    ContentModel* contentmodel = [contentModeArray objectAtIndex:indexPath.section];
     [cell setContentModel:contentmodel];
     return cell;
 }
@@ -265,6 +296,8 @@ static const int leftbarWidth = 20;
 
 - (void)initAction:(ComTableViewCtrl*)comTableViewCtrl
 {
+    comTableViewCtrl.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     myInfo = [AppDelegate getMyUserInfo];
     
     comTable = comTableViewCtrl;

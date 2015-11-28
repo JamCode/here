@@ -39,6 +39,8 @@
     self.contentMode = UIViewContentModeScaleAspectFill;
     
     [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(faceViewPress:)]];
+    
+    [self sd_setImageWithURL:[[NSURL alloc] initWithString:myinfo.faceImageThumbnailURLStr]];
 }
 
 - (void)forbiddenPress
