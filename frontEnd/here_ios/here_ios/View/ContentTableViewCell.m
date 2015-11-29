@@ -51,6 +51,9 @@
     UIImageView* contentImageView;
     
     
+    UIView* buttonsView;
+    UIView* contentView;
+    
     
 }
 
@@ -78,8 +81,7 @@ static const int ageHeight = 16;
 static const int ageWidth = 18;
 
 
-
-
+static const int buttonsView_height = 54;
 
 
 - (ContentModel*)getMyContentModel
@@ -93,8 +95,12 @@ static const int ageWidth = 18;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self){
         contentImageView = [[UIImageView alloc] init];
+        buttonsView = [[UIView alloc] init];
+        contentView = [[UIView alloc] init];
         
         [self addSubview:contentImageView];
+        [self addSubview:buttonsView];
+        [self addSubview:contentView];
     }
     return self;
 }
@@ -108,42 +114,7 @@ static const int ageWidth = 18;
 
 + (CGFloat)getTotalHeight:(ContentModel*)model maxContentHeight:(NSInteger)maxHeight
 {
-//    float imageViewHeight = 0;
-//    if (model.imageModelArray!=nil&&[model.imageModelArray count]>1) {
-//        imageViewHeight = contentImageHeight;
-//    }
-//    
-//    if (model.imageModelArray!=nil&&[model.imageModelArray count]==1) {
-//        imageViewHeight = maxImageHeight;
-//    }
-//    
-//    CGSize contentSize;
-//    if (model.contentStr == nil||[model.contentStr isEqualToString:@""]) {
-//        contentSize = CGSizeMake(0, 0);
-//    }else{
-//        contentSize = [Tools getTextArrange:model.contentStr maxRect:CGSizeMake(ScreenWidth - faceImageWidth - 2*spaceValue - spaceValue, ScreenWidth) fontSize:contentFontSize];
-//    }
-//    
-//    
-//    //return 300;
-//    CGFloat cellHeight = 0;
-//    
-//    
-//    cellHeight =  2*spaceValue+nickNameHeight+spaceValue+contentSize.height+spaceValue+imageViewHeight+spaceValue+ contentDetailInfoHeight+2*spaceValue;
-//    
-//    if (model.contentStr == nil||[model.contentStr isEqualToString:@""]) {
-//        cellHeight -= spaceValue;
-//    }
-//    
-//    if (imageViewHeight == 0) {
-//        cellHeight -= spaceValue;
-//    }
-//    
-//    
-//    NSLog(@"%f", cellHeight);
-//    return cellHeight;
-    
-    return ScreenWidth+88;
+    return ScreenWidth+buttonsView_height+44;
 }
 
 
@@ -159,6 +130,17 @@ static const int ageWidth = 18;
     contentImageView.clipsToBounds = YES;
     
     
+    [buttonsView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.mas_left);
+        make.top.mas_equalTo(contentImageView.mas_bottom);
+        make.size.mas_equalTo(CGSizeMake(ScreenWidth, buttonsView_height));
+    }];
+    
+    CALayer *border = [CALayer layer];
+    border.frame = CGRectMake(0.0f, buttonsView_height - 0.3f, ScreenWidth, 0.3f);
+    border.backgroundColor = [UIColor lightGrayColor].CGColor;
+    [buttonsView.layer addSublayer:border];
+    
 }
 
 
@@ -167,7 +149,13 @@ static const int ageWidth = 18;
     myContentModel = model;
     ImageModel* imageModel = model.imageModelArray[0];
     
-    [contentImageView sd_setImageWithURL:[[NSURL alloc] initWithString:imageModel.imageUrlStr]];
+//    [contentImageView sd_setImageWithURL:[[NSURL alloc] initWithString:imageModel.imageUrlStr]];
+    
+    
+    [contentImageView sd_setImageWithURL:[[NSURL alloc] initWithString:imageModel.imageUrlStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        [Tools scaleToSize:image size:CGSizeMake(ScreenWidth, ScreenWidth*image.size.height/image.size.width) imageView:contentImageView];
+    }];
     
     
 //    //int contentImageWidth = (ScreenWidth - _nickName.frame.origin.x - 10)/3;

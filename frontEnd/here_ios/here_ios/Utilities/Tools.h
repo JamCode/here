@@ -18,7 +18,7 @@
 + (CLLocationManager*)initLocationManager:(id)delegate;
 + (void)startLocation:(CLLocationManager*)locationManager;
 - (UIImage *)scaleToSize:(UIImage *)img size:(CGSize)newsize imageUrl:(NSString*)imageUrl;
-+ (UIImage *)scaleToSize:(UIImage *)img size:(CGSize)newsize;
++ (void)scaleToSize:(UIImage *)img size:(CGSize)newsize imageView:(UIImageView*)imageView;
 
 + (NSInteger)getAgeFromBirthDay:(NSString*)birthday;
 

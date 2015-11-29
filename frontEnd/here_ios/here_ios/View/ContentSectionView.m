@@ -45,6 +45,8 @@ static long timeFont = 14;
         faceView = [[FaceView alloc] init];
         userNameLabel = [[UILabel alloc] init];
         timeLabel = [[UILabel alloc] init];
+        faceView.layer.cornerRadius = face_height/2;
+        faceView.layer.masksToBounds = YES;
         
         [self addSubview:faceView];
         [self addSubview:userNameLabel];
@@ -82,6 +84,10 @@ static long timeFont = 14;
         make.bottom.mas_equalTo(self.mas_bottom).with.offset(-10);
         make.size.mas_equalTo(CGSizeMake(face_height, face_height));
     }];
+    
+    NSLog(@"%f", faceView.frame.size.width);
+    
+    
     
     [userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(faceView.mas_right).offset(10);
