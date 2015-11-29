@@ -63,6 +63,45 @@ static int bottomActiveHeight = 30;
     }
 }
 
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if([comTableDelegate respondsToSelector:@selector(tableView:viewForHeaderInSection:)]){
+        return [comTableDelegate tableView:tableView viewForHeaderInSection:section];
+    }else{
+        return nil;
+    }
+}
+
+- (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if([comTableDelegate respondsToSelector:@selector(tableView:viewForFooterInSection:)]){
+        return [comTableDelegate tableView:tableView viewForFooterInSection:section];
+    }else{
+        return nil;
+    }
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if([comTableDelegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)]){
+        return [comTableDelegate tableView:tableView heightForHeaderInSection:section];
+    }else{
+        return 0;
+    }
+}
+
+- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if ([comTableDelegate respondsToSelector:@selector(tableView:titleForHeaderInSection:)]) {
+        return [comTableDelegate tableView:tableView titleForHeaderInSection:section];
+    }else{
+        return NULL;
+    }
+    
+}
+
 - (void)initAction
 {
     if ([comTableDelegate respondsToSelector:@selector(initAction:)]) {
