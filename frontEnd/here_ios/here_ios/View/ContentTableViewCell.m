@@ -160,13 +160,14 @@ static const int buttons_height = 34;
         myContentModel.goodFlag = false;
         [goodbutton setBackgroundImage:[UIImage imageNamed:@"good.png"] forState:UIControlStateNormal];
         [loc deleteContentGoodInfo:myContentModel.contentID];
-        
-        [self sendGood:nil];
+        [self cancelGood:nil];
         
     }else{
         myContentModel.goodFlag = true;
         [goodbutton setBackgroundImage:[UIImage imageNamed:@"good_after.png"] forState:UIControlStateNormal];
         [loc insertContentGoodInfo:myContentModel.contentID];
+        [self sendGood:nil];
+
     }
 }
 
