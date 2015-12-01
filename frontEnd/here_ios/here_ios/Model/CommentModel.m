@@ -47,6 +47,8 @@
     
     _comment_good_count = [[feedback objectForKey:@"comment_good_count"] integerValue];
     
+    _to_content = [[feedback objectForKey:@"to_content"] integerValue];
+    
     //_contentModel.userInfo.faceImageThumbnailURLStr = [feedback objectForKey:@""]
     
 }

@@ -148,6 +148,15 @@ static const int buttons_height = 34;
 - (void)clickCommentButton:(id)sender
 {
     NSLog(@"clickCommentButton");
+    
+    
+    ContentDetailViewController* contentDetailView = [[ContentDetailViewController alloc] init];
+    
+    contentDetailView.contentModel = myContentModel;
+    
+    contentDetailView.hidesBottomBarWhenPushed = YES;
+    
+    [[Tools curNavigator] pushViewController:contentDetailView animated:YES];
 }
 
 - (void)clickGoodButton:(id)sender
