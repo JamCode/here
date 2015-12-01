@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="14F1021" minimumToolsVersion="Xcode 4.3">
+    <entity name="Content_good_info" representedClassName="Content_good_info" syncable="YES">
+        <attribute name="content_id" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Last_pri_msg" representedClassName="Last_pri_msg" syncable="YES">
         <attribute name="counter_face_image_url" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="counter_nick_name" optional="YES" attributeType="String" syncable="YES"/>
@@ -27,5 +30,6 @@
     <elements>
         <element name="Last_pri_msg" positionX="-63" positionY="9" width="128" height="180"/>
         <element name="Loc_pri_msg" positionX="-63" positionY="-18" width="128" height="210"/>
+        <element name="Content_good_info" positionX="-63" positionY="63" width="128" height="60"/>
     </elements>
 </model>

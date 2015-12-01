@@ -83,7 +83,8 @@ function insertContentLocationInfo (content_id, content_publish_latitude, conten
 
 exports.getNearbyContent = function (reqBody, callback) {
 
-	var sql = 'select a.*, b.*,c.image_url, c.image_compress_url from content_base_info a left join content_image_info c on a.content_id = c.content_id, user_base_info b ' +
+	var sql = 'select a.*, b.*,c.image_url, c.image_compress_url ' +
+	' from content_base_info a left join content_image_info c on a.content_id = c.content_id, user_base_info b ' +
 	' where a.user_id = b.user_id ' +
 	' and ((ABS(?-a.content_publish_latitude)*111)<100 and  ABS(? - a.content_publish_longitude)*COS(?)*111<100)' +
 	' and content_publish_timestamp<? ' +
@@ -180,9 +181,17 @@ exports.addGoodCount = function (content_id, user_id, callback) {
 	conn.executeSql(sql, [user_id, content_id], callback);
 };
 
-exports.updateGoodCount = function (content_id) {
-	var sql = 'update content_base_info set content_good_count = content_good_count + 1 where content_id = ?';
+exports.cancelGood = function(content_id, callback){
+	var sql = 'update content_base_info set content_good_count = content_good_count - 1 where content_id = ?';
+	conn.executeSql(sql, [content_id], callback);
+	sql = 'update user_base_info set good_count = good_count - 1 where user_id in ' +
+	' (select user_id from content_base_info where content_id = ?)';
 	conn.executeSql(sql, [content_id], null);
+};
+
+exports.updateGoodCount = function (content_id, callback) {
+	var sql = 'update content_base_info set content_good_count = content_good_count + 1 where content_id = ?';
+	conn.executeSql(sql, [content_id], callback);
 	sql = 'update user_base_info set good_count = good_count + 1 where user_id in ' +
 	' (select user_id from content_base_info where content_id = ?)';
 	conn.executeSql(sql, [content_id], null);

@@ -57,6 +57,8 @@
                     }else{
                         [callObject performSelector:outSelector withObject:feedback];
                     }
+                }else{
+                    [self msgError:feedback path:[message objectForKey:@"childpath"]];
                 }
             }
             
@@ -80,7 +82,10 @@
 {
     //alertMsg(@"msg error");
     NSDictionary* feedback = (NSDictionary*)sender;
-    [Tools AlertMsg:[[NSString alloc] initWithFormat:@"error code:%@:%@", [feedback objectForKey:@"code"], path]];
+    
+    if([[feedback objectForKey:@"code"] integerValue] != SUCCESS){
+        [Tools AlertMsg:[[NSString alloc] initWithFormat:@"error code:%@:%@", [feedback objectForKey:@"code"], path]];
+    }
 }
 
 

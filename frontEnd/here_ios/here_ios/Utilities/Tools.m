@@ -129,9 +129,9 @@
 
 + (void)scaleToSize:(UIImage *)img size:(CGSize)newsize imageView:(UIImageView*)imageView
 {
-    dispatch_queue_attr_t msgqueue = (dispatch_queue_attr_t)dispatch_queue_create("msgqueue", NULL);
+    dispatch_queue_t msgqueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    dispatch_async((dispatch_queue_t)msgqueue, ^{
+    dispatch_async(msgqueue, ^{
         if([[UIScreen mainScreen] scale] == 2.0){
             UIGraphicsBeginImageContextWithOptions(newsize, NO, 2.0);
         }else{

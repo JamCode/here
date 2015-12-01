@@ -55,6 +55,13 @@
     UIView* contentView;
     
     
+    UIButton* goodbutton;
+    UIButton* commentButton;
+    UIButton* transferButton;
+    UIButton* morebutton;
+    
+    
+    
 }
 
 static const int faceImageWidth = 48;
@@ -82,6 +89,7 @@ static const int ageWidth = 18;
 
 
 static const int buttonsView_height = 54;
+static const int buttons_height = 34;
 
 
 - (ContentModel*)getMyContentModel
@@ -98,11 +106,68 @@ static const int buttonsView_height = 54;
         buttonsView = [[UIView alloc] init];
         contentView = [[UIView alloc] init];
         
+        goodbutton = [[UIButton alloc] init];
+        [goodbutton addTarget:self action:@selector(clickGoodButton:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        commentButton = [[UIButton alloc] init];
+        [commentButton addTarget:self action:@selector(clickCommentButton:) forControlEvents:UIControlEventTouchUpInside];
+        
+        transferButton = [[UIButton alloc] init];
+        [transferButton addTarget:self action:@selector(clickTransferButton:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        morebutton = [[UIButton alloc] init];
+        [morebutton addTarget:self action:@selector(clickMoreButton:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        [buttonsView addSubview:goodbutton];
+        [buttonsView addSubview:commentButton];
+        [buttonsView addSubview:transferButton];
+        [buttonsView addSubview:morebutton];
+
+        
         [self addSubview:contentImageView];
         [self addSubview:buttonsView];
         [self addSubview:contentView];
     }
     return self;
+}
+
+
+- (void)clickMoreButton:(id)sender
+{
+    NSLog(@"clickMoreButton");
+}
+
+- (void)clickTransferButton:(id)sender
+{
+    NSLog(@"clickTransferButton");
+}
+
+- (void)clickCommentButton:(id)sender
+{
+    NSLog(@"clickCommentButton");
+}
+
+- (void)clickGoodButton:(id)sender
+{
+    
+    LocDatabase* loc = [AppDelegate getLocDatabase];
+    
+    NSLog(@"clickGoodButton");
+    if (myContentModel.goodFlag == true) {
+        myContentModel.goodFlag = false;
+        [goodbutton setBackgroundImage:[UIImage imageNamed:@"good.png"] forState:UIControlStateNormal];
+        [loc deleteContentGoodInfo:myContentModel.contentID];
+        
+        [self sendGood:nil];
+        
+    }else{
+        myContentModel.goodFlag = true;
+        [goodbutton setBackgroundImage:[UIImage imageNamed:@"good_after.png"] forState:UIControlStateNormal];
+        [loc insertContentGoodInfo:myContentModel.contentID];
+    }
 }
 
 
@@ -141,6 +206,39 @@ static const int buttonsView_height = 54;
     border.backgroundColor = [UIColor lightGrayColor].CGColor;
     [buttonsView.layer addSublayer:border];
     
+    
+    //good button
+    [goodbutton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(buttonsView.mas_left).offset(10);
+        make.top.mas_equalTo(buttonsView.mas_top).offset(10);
+        make.size.mas_equalTo(CGSizeMake(buttons_height, buttons_height));
+    }];
+    
+    
+    //comment button
+    [commentButton setBackgroundImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
+    [commentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(goodbutton.mas_right).offset(10);
+        make.top.mas_equalTo(goodbutton.mas_top);
+        make.size.mas_equalTo(CGSizeMake(buttons_height, buttons_height));
+    }];
+    
+    //transfer button
+    [transferButton setBackgroundImage:[UIImage imageNamed:@"transfer.png"] forState:UIControlStateNormal];
+    [transferButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(commentButton.mas_right).offset(10);
+        make.top.mas_equalTo(commentButton.mas_top);
+        make.size.mas_equalTo(CGSizeMake(buttons_height, buttons_height));
+    }];
+    
+    //more button
+    [morebutton setBackgroundImage:[UIImage imageNamed:@"more.png"] forState:UIControlStateNormal];
+    [morebutton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(buttonsView.mas_right).offset(-10);
+        make.top.mas_equalTo(commentButton.mas_top);
+        make.size.mas_equalTo(CGSizeMake(buttons_height, buttons_height));
+    }];
+    
 }
 
 
@@ -152,79 +250,21 @@ static const int buttonsView_height = 54;
 //    [contentImageView sd_setImageWithURL:[[NSURL alloc] initWithString:imageModel.imageUrlStr]];
     
     
+    //contentImageView.image = [UIImage imageNamed:@"IMG_3461.JPG"];
+    
+    
+    
+    
     [contentImageView sd_setImageWithURL:[[NSURL alloc] initWithString:imageModel.imageUrlStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         [Tools scaleToSize:image size:CGSizeMake(ScreenWidth, ScreenWidth*image.size.height/image.size.width) imageView:contentImageView];
     }];
     
-    
-//    //int contentImageWidth = (ScreenWidth - _nickName.frame.origin.x - 10)/3;
-//    int contentImageWidth = maxImageHeight;
-//    
-//    if ([model.imageModelArray count]>1) {
-//        contentImageWidth = contentImageHeight;
-//    }
-//    
-//    
-//    for (int i=0; i<[model.imageModelArray count]; ++i) {
-//        ImageModel* imageModel = [model.imageModelArray objectAtIndex:i];
-//        ImageEnlarge* imageView = [[ImageEnlarge alloc] initWithParentView:[Tools appRootViewController].view];
-//        
-//        if (_contentLabel.text!=nil&&![_contentLabel.text isEqual:@""]) {
-//            imageView.frame = CGRectMake(_nickName.frame.origin.x+i*(contentImageWidth+minSpaceValue), _contentLabel.frame.origin.y+_contentLabel.frame.size.height+spaceValue, contentImageWidth, contentImageWidth);
-//        }else{
-//            imageView.frame = CGRectMake(_nickName.frame.origin.x+i*(contentImageWidth+minSpaceValue), _contentLabel.frame.origin.y, contentImageWidth, contentImageWidth);
-//        }
-//        
-//        imageView.tag = 11;
-//        imageView.contentMode = UIViewContentModeScaleAspectFill;
-//        imageView.clipsToBounds = YES;
-//        
-//        [imageView setThumbnailUrl:imageModel.imageThumbnailStr];
-//        [imageView setImageUrl:imageModel.imageUrlStr];
-//        [self addSubview:imageView];
-//        [imageArray addObject:imageView];
-//        
-//    }
-//    
-//    
-//    
-//    
-//    
-//    //_addressLabel.text = model.address;
-//    
-//    [self showContentDetailInfo:model];
-//    
-//    if ([model.imageModelArray count]>0) {
-//        UIImageView* imageView = [imageArray objectAtIndex:0];
-//        
-//        
-//        _goodCountLabel.frame = CGRectMake(_goodCountLabel.frame.origin.x, imageView.frame.origin.y+imageView.frame.size.height+spaceValue, _goodCountLabel.frame.size.width, _goodCountLabel.frame.size.height);
-//        
-//    }else{
-//        _goodCountLabel.frame = CGRectMake(_goodCountLabel.frame.origin.x, _contentLabel.frame.origin.y+_contentLabel.frame.size.height+spaceValue, _goodCountLabel.frame.size.width, _goodCountLabel.frame.size.height);
-//        
-//    }
-//    
-//    if (model.commentFlag == true) {
-//        _commentCountLabel.textColor = subjectColor;
-//    }else{
-//        _commentCountLabel.textColor = [UIColor lightGrayColor];
-//    }
-//    
-//    if (model.goodFlag == true) {
-//        _goodCountLabel.textColor = subjectColor;
-//    }else{
-//        _goodCountLabel.textColor = [UIColor lightGrayColor];
-//    }
-//    
-//    
-//    
-//    _commentCountLabel.frame = CGRectMake(_goodCountLabel.frame.origin.x+_goodCountLabel.frame.size.width+minSpaceValue, _goodCountLabel.frame.origin.y , _commentCountLabel.frame.size.width, _commentCountLabel.frame.size.height);
-//    
-//    
-//    _distanceLabel.frame = CGRectMake(_commentCountLabel.frame.origin.x+_commentCountLabel.frame.size.width+minSpaceValue, _goodCountLabel.frame.origin.y , _distanceLabel.frame.size.width, _distanceLabel.frame.size.height);
-//    
+    if(model.goodFlag == true){
+        [goodbutton setBackgroundImage:[UIImage imageNamed:@"good_after.png"] forState:UIControlStateNormal];
+    }else{
+        [goodbutton setBackgroundImage:[UIImage imageNamed:@"good.png"] forState:UIControlStateNormal];
+    }
     
 }
 
@@ -425,6 +465,19 @@ static const int buttonsView_height = 54;
     
 }
 
+- (void)cancelGood:(id)sender
+{
+    
+    NetWork* netWork = [[NetWork alloc] init];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myContentModel.contentID, @"/cancelGood"] forKeys:@[@"content_id", @"childpath"]];
+    
+    
+    [netWork message:message images:nil feedbackcall:nil complete:^{
+        
+    } callObject:self];
+
+}
+
 - (void)sendGood:(id)sender
 {
     
@@ -437,7 +490,7 @@ static const int buttonsView_height = 54;
     
     NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myContentModel.contentID, myUserInfo.userID,  myContentModel.userInfo.userID, @"/addGoodCount"] forKeys:@[@"content_id", @"user_id", @"content_user_id", @"childpath"]];
     
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(sendGoodSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(sendGoodError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(sendGoodException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(sendGoodSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
     
     
     [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
@@ -478,10 +531,10 @@ static const int buttonsView_height = 54;
 
 - (void)sendGoodSuccess:(id)sender
 {
-    [self increaseGoodCount];
-    if (_tableView!=nil) {
-        [_tableView reloadData];
-    }
+//    [self increaseGoodCount];
+//    if (_tableView!=nil) {
+//        [_tableView reloadData];
+//    }
 }
 
 
