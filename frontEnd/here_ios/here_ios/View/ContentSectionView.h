@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ContentModel.h"
-#import <JCRBlurView.h>
 
 @interface ContentSectionView : UIView
 

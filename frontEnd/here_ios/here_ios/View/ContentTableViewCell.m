@@ -24,6 +24,9 @@
 #import "ContentDetailViewController.h"
 #import "InputToolbar.h"
 #import <Masonry.h>
+#import <YYWebImage/YYWebImage.h>
+
+
 
 
 @implementation ContentTableViewCell
@@ -262,13 +265,24 @@ static const int buttons_height = 34;
     
     //contentImageView.image = [UIImage imageNamed:@"IMG_3461.JPG"];
     
-    
-    
-    
-    [contentImageView sd_setImageWithURL:[[NSURL alloc] initWithString:imageModel.imageUrlStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [contentImageView yy_setImageWithURL:[[NSURL alloc] initWithString:imageModel.imageUrlStr] placeholder:nil options:YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionProgressiveBlur| YYWebImageOptionProgressive progress:^(NSInteger receivedSize, NSInteger expectedSize) {
         
-        [Tools scaleToSize:image size:CGSizeMake(ScreenWidth, ScreenWidth*image.size.height/image.size.width) imageView:contentImageView];
+        //progress = (float)receivedSize / expectedSize;
+        
+    } transform:^UIImage *(UIImage *image, NSURL *url) {
+        image = [image yy_imageByResizeToSize:CGSizeMake(ScreenWidth, ScreenWidth*image.size.height/image.size.width) contentMode:UIViewContentModeScaleAspectFit];
+        return image;
+    } completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
+        ;
     }];
+    
+    
+    
+    
+//    [contentImageView sd_setImageWithURL:[[NSURL alloc] initWithString:imageModel.imageUrlStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        
+//        [Tools scaleToSize:image size:CGSizeMake(ScreenWidth, ScreenWidth*image.size.height/image.size.width) imageView:contentImageView];
+//    }];
     
     if(model.goodFlag == true){
         [goodbutton setBackgroundImage:[UIImage imageNamed:@"good_after.png"] forState:UIControlStateNormal];

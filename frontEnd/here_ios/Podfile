@@ -10,5 +10,5 @@ pod 'SocketRocket'
 #pod 'AMapSearch' #搜索服务SDK
 pod 'SDWebImage', '~>3.7'
 pod 'Masonry'
-pod 'iOS-blur'
+pod 'YYWebImage'
 #pod 'AsyncDisplayKit'
