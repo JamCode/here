@@ -99,6 +99,9 @@ static const int leftbarWidth = 20;
         NSLog(@"new cell");
     }
     
+    
+    cell.tableView = tableview;
+    cell.contentModeArray = contentModeArray;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor whiteColor];
     cell.tableView = comTable.tableView;

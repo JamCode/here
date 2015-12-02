@@ -133,6 +133,11 @@ static const int buttons_height = 34;
         [self addSubview:contentImageView];
         [self addSubview:buttonsView];
         [self addSubview:contentView];
+        
+        
+        sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
+
+        
     }
     return self;
 }
@@ -141,6 +146,9 @@ static const int buttons_height = 34;
 - (void)clickMoreButton:(id)sender
 {
     NSLog(@"clickMoreButton");
+    
+    [sheet showInView:[Tools appRootViewController].view];
+    
 }
 
 - (void)clickTransferButton:(id)sender
@@ -204,7 +212,7 @@ static const int buttons_height = 34;
         make.size.mas_equalTo(CGSizeMake(ScreenWidth, ScreenWidth));
     }];
     
-    contentImageView.contentMode = UIViewContentModeScaleAspectFill;
+    //contentImageView.contentMode = UIViewContentModeScaleAspectFill;
     contentImageView.clipsToBounds = YES;
     
     
@@ -270,19 +278,13 @@ static const int buttons_height = 34;
         //progress = (float)receivedSize / expectedSize;
         
     } transform:^UIImage *(UIImage *image, NSURL *url) {
-        image = [image yy_imageByResizeToSize:CGSizeMake(ScreenWidth, ScreenWidth*image.size.height/image.size.width) contentMode:UIViewContentModeScaleAspectFit];
+        image = [image yy_imageByResizeToSize:CGSizeMake(ScreenWidth, ScreenWidth*image.size.height/image.size.width) contentMode:UIViewContentModeCenter];
         return image;
     } completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
         ;
     }];
     
-    
-    
-    
-//    [contentImageView sd_setImageWithURL:[[NSURL alloc] initWithString:imageModel.imageUrlStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//        
-//        [Tools scaleToSize:image size:CGSizeMake(ScreenWidth, ScreenWidth*image.size.height/image.size.width) imageView:contentImageView];
-//    }];
+
     
     if(model.goodFlag == true){
         [goodbutton setBackgroundImage:[UIImage imageNamed:@"good_after.png"] forState:UIControlStateNormal];
@@ -296,6 +298,11 @@ static const int buttons_height = 34;
 - (void)reportContentSuccess:(id)sender
 {
     [Tools AlertBigMsg:@"举报成功"];
+    
+    if(_contentModeArray != nil){
+        [_contentModeArray removeObject:myContentModel];
+        [self.tableView reloadData];
+    }
 }
 
 - (void)sendReportMsg

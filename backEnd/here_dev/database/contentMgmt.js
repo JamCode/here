@@ -11,7 +11,7 @@ exports.increaseCommentGoodCount = function(reqbody, callback){
 
 
 exports.insertReportContent = function (contentBody, callback) {
-	var sql = 'insert into content_report_info(cri_content_id) values(?)';
+	var sql = 'update content_base_info set content_report = 1 where content_id = ?';
 	conn.executeSql(sql, [contentBody.content_id], callback);
 };
 
@@ -42,8 +42,7 @@ exports.insertContent = function (contentBody, callback) {
 		contentBody.anonymous,
 		contentBody.content_image_url,
 		contentBody.address], callback);
-
-	if (contentBody.cityDesc != null && contentBody.cityDesc != '') {
+	if (contentBody.cityDesc != null && contentBody.cityDesc !== '') {
 		insertContentLocationInfo(contentBody.content_id,
 			contentBody.publish_latitude, contentBody.publish_longitude,
 			contentBody.cityDesc, null);
@@ -88,6 +87,7 @@ exports.getNearbyContent = function (reqBody, callback) {
 	' where a.user_id = b.user_id ' +
 	' and ((ABS(?-a.content_publish_latitude)*111)<100 and  ABS(? - a.content_publish_longitude)*COS(?)*111<100)' +
 	' and content_publish_timestamp<? ' +
+	' and content_report = 0' +
 	' order by content_publish_timestamp DESC limit 8';
 
 	conn.executeSql(sql, [reqBody.user_latitude, reqBody.user_longitude, reqBody.user_latitude, reqBody.last_timestamp], callback);
