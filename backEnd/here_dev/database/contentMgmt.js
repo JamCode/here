@@ -153,7 +153,7 @@ exports.addCommentToContent = function (reqBody, callback) {
 	var content_comment_id = conn.sha1Cryp(reqBody.content_id + reqBody.user_id + reqBody.to_user_id + timestamp);
 	var sql = 'insert into content_comment_info ' +
 	'(content_comment_id, content_id, comment_user_id, comment_to_user_id, ' +
-	' comment_content, comment_timestamp, to_content) values(?,?,?,?,?,?)';
+	' comment_content, comment_timestamp, to_content) values(?,?,?,?,?,?,?)';
 	conn.executeSql(sql, [content_comment_id, reqBody.content_id,
 		reqBody.user_id, reqBody.to_user_id, reqBody.comment, timestamp, reqBody.to_content], callback);
 

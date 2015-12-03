@@ -49,8 +49,6 @@
     CommentModel* commentModel;
     
     InputToolbar* inputToolBar;
-    
-    
     UIImageView* contentImageView;
     
     
@@ -64,6 +62,12 @@
     UIButton* morebutton;
     
     
+    UILabel* goodCountLabel;
+    UILabel* commentCountLabel;
+    
+    UILabel* contentlabel;
+    
+    
     
 }
 
@@ -74,7 +78,7 @@ static const int addressLabelHeight = 18;
 static const int contentDetailInfoHeight = 18;
 static const int timeHeight = 18;
 static const int nameFontSize = 18;
-static const int timeFontSize = 12;
+static const int timeFontSize = 15;
 static const int contentFontSize = 16;
 static const int spaceValue = 10;
 static const int minSpaceValue = 5;
@@ -124,11 +128,18 @@ static const int buttons_height = 34;
         [morebutton addTarget:self action:@selector(clickMoreButton:) forControlEvents:UIControlEventTouchUpInside];
         
         
+        
+        goodCountLabel = [[UILabel alloc] init];
+        commentCountLabel = [[UILabel alloc] init];
+        
+        
         [buttonsView addSubview:goodbutton];
         [buttonsView addSubview:commentButton];
         [buttonsView addSubview:transferButton];
         [buttonsView addSubview:morebutton];
-
+        [buttonsView addSubview:goodCountLabel];
+        [buttonsView addSubview:commentCountLabel];
+        
         
         [self addSubview:contentImageView];
         [self addSubview:buttonsView];
@@ -181,12 +192,14 @@ static const int buttons_height = 34;
         [goodbutton setBackgroundImage:[UIImage imageNamed:@"good.png"] forState:UIControlStateNormal];
         [loc deleteContentGoodInfo:myContentModel.contentID];
         [self cancelGood:nil];
+        [self decreaseGoodCount];
         
     }else{
         myContentModel.goodFlag = true;
         [goodbutton setBackgroundImage:[UIImage imageNamed:@"good_after.png"] forState:UIControlStateNormal];
         [loc insertContentGoodInfo:myContentModel.contentID];
         [self sendGood:nil];
+        [self increaseGoodCount];
 
     }
 }
@@ -235,19 +248,38 @@ static const int buttons_height = 34;
         make.size.mas_equalTo(CGSizeMake(buttons_height, buttons_height));
     }];
     
+    goodCountLabel.font = [UIFont fontWithName:@"Arial" size:timeFontSize];
+    goodCountLabel.textColor = [UIColor grayColor];
+    [goodCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(goodbutton.mas_right);
+        make.centerY.mas_equalTo(goodbutton.mas_centerY);
+    }];
+    goodCountLabel.text = [[NSString alloc] initWithFormat:@"%ld", myContentModel.goodCount];
+    [Tools resizeLabel:goodCountLabel maxHeight:contentDetailInfoHeight maxWidth:100 fontSize:timeFontSize];
+    
     
     //comment button
     [commentButton setBackgroundImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
     [commentButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(goodbutton.mas_right).offset(10);
+        make.left.mas_equalTo(goodCountLabel.mas_right).offset(10);
         make.top.mas_equalTo(goodbutton.mas_top);
         make.size.mas_equalTo(CGSizeMake(buttons_height, buttons_height));
     }];
     
+    commentCountLabel.font = [UIFont fontWithName:@"Arial" size:timeFontSize];
+    commentCountLabel.textColor = [UIColor grayColor];
+    [commentCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(commentButton.mas_right);
+        make.centerY.mas_equalTo(commentButton.mas_centerY);
+    }];
+    commentCountLabel.text = [[NSString alloc] initWithFormat:@"%ld", myContentModel.commentCount];
+    [Tools resizeLabel:commentCountLabel maxHeight:contentDetailInfoHeight maxWidth:100 fontSize:timeFontSize];
+    
+    
     //transfer button
     [transferButton setBackgroundImage:[UIImage imageNamed:@"transfer.png"] forState:UIControlStateNormal];
     [transferButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(commentButton.mas_right).offset(10);
+        make.left.mas_equalTo(commentCountLabel.mas_right).offset(10);
         make.top.mas_equalTo(commentButton.mas_top);
         make.size.mas_equalTo(CGSizeMake(buttons_height, buttons_height));
     }];
@@ -259,6 +291,15 @@ static const int buttons_height = 34;
         make.top.mas_equalTo(commentButton.mas_top);
         make.size.mas_equalTo(CGSizeMake(buttons_height, buttons_height));
     }];
+    
+    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(buttonsView.mas_bottom);
+        make.left.mas_equalTo(self.mas_left);
+        make.size.mas_equalTo(CGSizeMake(ScreenWidth, 88));
+    }];
+    
+    
+    
     
 }
 
@@ -370,11 +411,15 @@ static const int buttons_height = 34;
     
 }
 
+
+- (void)decreaseGoodCount
+{
+    goodCountLabel.text = [[NSString alloc] initWithFormat:@"%ld赞", --myContentModel.goodCount];
+}
+
 - (void)increaseGoodCount
 {
-    _goodCountLabel.text = [[NSString alloc] initWithFormat:@"%ld赞", ++myContentModel.goodCount];
-    _goodCountLabel.textColor = subjectColor;
-    myContentModel.goodFlag = true;
+    goodCountLabel.text = [[NSString alloc] initWithFormat:@"%ld赞", ++myContentModel.goodCount];
 }
 
 - (void)hidenKeyboard
