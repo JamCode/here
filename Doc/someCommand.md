@@ -34,3 +34,6 @@ pod update --verbose --no-repo-update
 post包测试
 
 >* curl -d "user_id=xxx&user_name=xxxx" "http://112.74.102.178:8080/api"
+
+## 端口占用
+>* lsof -i:被占用的端口号

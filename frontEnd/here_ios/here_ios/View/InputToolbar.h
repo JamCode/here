@@ -11,7 +11,7 @@
 
 @protocol InputToolbarDelegate <NSObject>
 
-@optional
+@required
 - (void)sendAction:(NSString*)msg; //点击发送响应函数
 @end
 

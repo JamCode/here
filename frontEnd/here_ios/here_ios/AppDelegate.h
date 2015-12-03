@@ -11,6 +11,8 @@
 #import "SocketIO.h"
 //#import "socket.IO-objc/SocketIO.h"
 #import "TWTSideMenuViewController.h"
+#import "LocDatabase.h"
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, SocketIODelegate>
 
@@ -20,6 +22,7 @@
 @property SocketIO* mysocket;
 @property UITabBarController* tabBarViewController;
 @property TWTSideMenuViewController* sideMenu;
+@property LocDatabase* locDatabase;
 
 
 @property NSString* serverDomain;
@@ -31,5 +34,6 @@
 + (UserInfoModel*)getMyUserInfo;
 - (NSString*)getMyID;
 - (void)backToStartView;
++ (LocDatabase*) getLocDatabase;
 
 @end

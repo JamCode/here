@@ -451,7 +451,7 @@ static const int noticeLabelHeight = 20;
     
     locDatabase = [[LocDatabase alloc] init];
     if(![locDatabase connectToDatabase:myInfo.userID]){
-        alertMsg(@"数据库问题");
+        alertMsg(@"本地数据库问题");
         return;
     }
     

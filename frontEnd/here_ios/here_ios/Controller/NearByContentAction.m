@@ -32,6 +32,7 @@ static const int leftbarWidth = 20;
     UIButton* leftBar;
     UILabel* noticelabel;
     UserInfoModel* myInfo;
+    LocDatabase* locDatabase;
 }
 
 - (void)pullUpAction:(pullCompleted)completedBlock
@@ -98,6 +99,9 @@ static const int leftbarWidth = 20;
         NSLog(@"new cell");
     }
     
+    
+    cell.tableView = tableview;
+    cell.contentModeArray = contentModeArray;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor whiteColor];
     cell.tableView = comTable.tableView;
@@ -166,6 +170,10 @@ static const int leftbarWidth = 20;
         CLLocation* userPosition = [[CLLocation alloc] initWithLatitude:contentMode.latitude longitude:contentMode.longitude];
         CLLocationDistance meters = [myPosition distanceFromLocation:userPosition];
         contentMode.distanceMeters = meters;
+        
+        
+        NSInteger goodCount = [locDatabase getCountContentGoodInfo:contentMode.contentID];
+        contentMode.goodFlag = goodCount;
         
         [contentModeArray addObject:contentMode];
         
@@ -303,6 +311,13 @@ static const int leftbarWidth = 20;
     
     contentModeArray = [[NSMutableArray alloc] init];
     locationManager = [[CLLocationManager alloc] init];
+    
+    locDatabase = [[LocDatabase alloc] init];
+    if(![locDatabase connectToDatabase:myInfo.userID]){
+        [Tools AlertBigMsg:@"本地数据库问题"];
+        return;
+    }
+    
     
     if ([CLLocationManager locationServicesEnabled] == false) {
         [Tools AlertMsg:@"定位服务无法使用"];

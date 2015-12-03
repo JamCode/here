@@ -12,6 +12,7 @@
 
 @interface Tools : NSObject
 
++ (CGSize)getLabelSize:(NSString*)text maxHeight:(int)maxHeight maxWidth:(int)maxWidth fontSize:(int)fontSize;
 + (NSString*)getJsonObject:(NSObject*)object;
 + (CGRect)relativeFrameForScreenWithView:(UIView *)v;
 + (NSString*)showTime:(long)timeStamp;

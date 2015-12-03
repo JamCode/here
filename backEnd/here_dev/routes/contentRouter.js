@@ -308,39 +308,28 @@ router.post('/addSeeCount', function(req, res) {
 	});
 });
 
+
+router.post('/cancelGood', function(req, res){
+	contentMgmt.cancelGood(req.body.content_id, function(flag, result){
+		routeFunc.feedBack(flag, result, res);
+	});
+});
+
 router.post('/addGoodCount', function(req, res) {
 	// update to database
 	// update to redis
 	// push msg to user
-
-	contentMgmt.addGoodCount(req.body.content_id, req.body.user_id, function(
-		flag, result) {
-		if (flag && result) {
-			// cannot click good for one content mutiple time
-			log.debug('before updateGoodCount and insertGoodInfo', log.getFileNameAndLineNum(
-				__filename));
-			if (result.length === 0) {
-
-				log.debug('updateGoodCount and insertGoodInfo', log.getFileNameAndLineNum(
-					__filename));
-				contentMgmt.updateGoodCount(req.body.content_id);
-				contentMgmt.insertGoodInfo(req.body.content_id, req.body.user_id);
-
-				if (req.body.content_user_id !== req.body.user_id) {
-					log.debug(req.body.content_user_id + ', ' + req.body.user_id, log.getFileNameAndLineNum(
-						__filename));
-					apnToUser(req.body.content_user_id, req.body.user_name + '赞了你的状态');
-					// update redis
-					redisOper.increaseUnreadGoodCount(req.body.content_user_id);
-				}
-
-			} else {
-				log.debug('already in good info', log.getFileNameAndLineNum(__filename));
-			}
-		} else {
-			log.debug(result, log.getFileNameAndLineNum(__filename));
-		}
+	contentMgmt.updateGoodCount(req.body.content_id, function(flag, result){
 		routeFunc.feedBack(flag, result, res);
+		if(flag){
+			if (req.body.content_user_id !== req.body.user_id) {
+				log.debug(req.body.content_user_id + ', ' + req.body.user_id, log.getFileNameAndLineNum(
+					__filename));
+				apnToUser(req.body.content_user_id, req.body.user_name + '赞了你的状态');
+				// update redis
+				redisOper.increaseUnreadGoodCount(req.body.content_user_id);
+			}
+		}
 	});
 });
 
