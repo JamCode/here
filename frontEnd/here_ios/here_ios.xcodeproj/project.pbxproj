@@ -574,7 +574,6 @@
 				B24D69161BA6C8A300F33A96 /* Utilities */,
 				B24D68181BA6C21C00F33A96 /* Controller */,
 				B24D68171BA6C16700F33A96 /* Model */,
-				B24D65E41BA6BB1F00F33A96 /* icons */,
 				B24D67E21BA6C02800F33A96 /* View */,
 				B24D65B41BA6AC5800F33A96 /* AppDelegate.h */,
 				B24D65B51BA6AC5800F33A96 /* AppDelegate.m */,
@@ -582,6 +581,7 @@
 				B24D65C01BA6AC5800F33A96 /* Images.xcassets */,
 				B24D65C21BA6AC5800F33A96 /* LaunchScreen.xib */,
 				B24D65B71BA6AC5800F33A96 /* here_ios.xcdatamodeld */,
+				B24D65E41BA6BB1F00F33A96 /* icons */,
 				B24D65B01BA6AC5800F33A96 /* Supporting Files */,
 			);
 			path = here_ios;

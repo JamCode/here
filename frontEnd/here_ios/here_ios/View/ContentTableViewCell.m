@@ -141,9 +141,19 @@ static const int buttons_height = 34;
         [buttonsView addSubview:commentCountLabel];
         
         
+        contentlabel = [[UILabel alloc] init];
+        [contentView addSubview:contentlabel];
+        
         [self addSubview:contentImageView];
         [self addSubview:buttonsView];
         [self addSubview:contentView];
+        
+        
+        
+        UIView *border = [[UIView alloc] init];
+        border.frame = CGRectMake(0.0f, buttonsView_height - 1, ScreenWidth, 0.5);
+        border.backgroundColor = [UIColor lightGrayColor];
+        [buttonsView addSubview:border];
         
         
         sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
@@ -213,7 +223,9 @@ static const int buttons_height = 34;
 
 + (CGFloat)getTotalHeight:(ContentModel*)model maxContentHeight:(NSInteger)maxHeight
 {
-    return ScreenWidth+buttonsView_height+44;
+    CGSize labelSize = [Tools getLabelSize:model.contentStr maxHeight:ScreenHeight maxWidth:ScreenWidth - 40 fontSize:contentFontSize];
+    
+    return ScreenWidth+buttonsView_height+labelSize.height+40;
 }
 
 
@@ -235,10 +247,8 @@ static const int buttons_height = 34;
         make.size.mas_equalTo(CGSizeMake(ScreenWidth, buttonsView_height));
     }];
     
-    CALayer *border = [CALayer layer];
-    border.frame = CGRectMake(0.0f, buttonsView_height - 0.3f, ScreenWidth, 0.3f);
-    border.backgroundColor = [UIColor lightGrayColor].CGColor;
-    [buttonsView.layer addSublayer:border];
+    
+    
     
     
     //good button
@@ -256,6 +266,12 @@ static const int buttons_height = 34;
     }];
     goodCountLabel.text = [[NSString alloc] initWithFormat:@"%ld", myContentModel.goodCount];
     [Tools resizeLabel:goodCountLabel maxHeight:contentDetailInfoHeight maxWidth:100 fontSize:timeFontSize];
+    
+//    if(myContentModel.goodCount == 0){
+//        goodCountLabel.hidden = YES;
+//    }else{
+//        goodCountLabel.hidden = NO;
+//    }
     
     
     //comment button
@@ -275,6 +291,12 @@ static const int buttons_height = 34;
     commentCountLabel.text = [[NSString alloc] initWithFormat:@"%ld", myContentModel.commentCount];
     [Tools resizeLabel:commentCountLabel maxHeight:contentDetailInfoHeight maxWidth:100 fontSize:timeFontSize];
     
+//    if(myContentModel.commentCount==0){
+//        commentCountLabel.hidden = YES;
+//    }else{
+//        commentCountLabel.hidden = NO;
+//    }
+    
     
     //transfer button
     [transferButton setBackgroundImage:[UIImage imageNamed:@"transfer.png"] forState:UIControlStateNormal];
@@ -292,13 +314,33 @@ static const int buttons_height = 34;
         make.size.mas_equalTo(CGSizeMake(buttons_height, buttons_height));
     }];
     
+    
+    
+    if(![myContentModel.contentStr isEqualToString:@""]){
+        contentlabel.text = [[NSString alloc] initWithFormat:@"%@ %@", myContentModel.userInfo.nickName, myContentModel.contentStr];
+        
+        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:contentlabel.text];
+        [str addAttribute:NSForegroundColorAttributeName value:subjectColor range:NSMakeRange(0,myContentModel.userInfo.nickName.length)];
+        [str addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:NSMakeRange(myContentModel.userInfo.nickName.length, contentlabel.text.length - myContentModel.userInfo.nickName.length)];
+        contentlabel.attributedText = str;
+    }else{
+        contentlabel.text = @"";
+    }
+    
+    contentlabel.font = [UIFont fontWithName:@"Arial" size:contentFontSize];
+    [Tools resizeLabel:contentlabel maxHeight:200 maxWidth:ScreenWidth-40 fontSize:contentFontSize];
+    
     [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(buttonsView.mas_bottom);
         make.left.mas_equalTo(self.mas_left);
-        make.size.mas_equalTo(CGSizeMake(ScreenWidth, 88));
+        make.size.mas_equalTo(CGSizeMake(ScreenWidth, contentlabel.frame.size.height+20));
     }];
     
     
+    [contentlabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(contentView.mas_top).offset(20);
+        make.left.mas_equalTo(contentView.mas_left).offset(20);
+    }];
     
     
 }

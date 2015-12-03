@@ -406,6 +406,13 @@
 }
 
 
++ (CGSize)getLabelSize:(NSString*)text maxHeight:(int)maxHeight maxWidth:(int)maxWidth fontSize:(int)fontSize
+{
+    CGSize nameSize = [Tools getTextArrange:text maxRect:CGSizeMake(maxWidth, maxHeight) fontSize:fontSize];
+    return nameSize;
+}
+
+
 + (void)resizeLabel:(UILabel*)label maxHeight:(int)maxHeight maxWidth:(int)maxWidth fontSize:(int)fontSize
 {
     CGSize nameSize = [Tools getTextArrange:label.text maxRect:CGSizeMake(maxWidth, maxHeight) fontSize:fontSize];
