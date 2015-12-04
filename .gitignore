@@ -14,3 +14,5 @@ frontEnd/here_ios/here_ios.xcodeproj/project.xcworkspace/xcuserdata/wangjam.xcus
 *.xcbkptlist
 
 backEnd/here_dev/npm-debug.log
+
+frontEnd/here_ios/Pods/Pods.xcodeproj/xcuserdata/wangjam.xcuserdatad/xcschemes/xcschememanagement.plist
