@@ -8,9 +8,8 @@ var router = express.Router();
 var path = require('path');
 
 router.get('/', function (req, res) {
-	log.debug(filePath, log.getFileNameAndLineNum(__filename));
-	
 	var filePath = path.join(global_config.env.homedir, config.imageInfo.imageRootDir, req.query.name);
+	log.debug(filePath, log.getFileNameAndLineNum(__filename));
 	fs.exists(filePath, function (exists) {
 		if (exists) {
 			res.sendFile(filePath);
