@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
 		if (exists) {
 			res.sendFile(filePath);
 		}else {
-			log.logPrint(config.logLevel.ERROR, filePath + ' not exists');
+			log.error(filePath + ' not exists', log.getFileNameAndLineNum(__filename));
 		}
 	});
 });
