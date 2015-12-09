@@ -447,6 +447,12 @@ static const int ageWidth = 18;
 - (void)reportContentSuccess:(id)sender
 {
     [Tools AlertBigMsg:@"举报成功"];
+    
+    if(_contentArray != nil){
+        [_contentArray removeObject:myContentModel];
+        [_tableView reloadData];
+    }
+    
 }
 
 - (void)sendReportMsg
