@@ -19,7 +19,6 @@
         self.nickName = [[NSString alloc] init];
         self.password = [[NSString alloc] init];
         self.company = @"";
-        self.userID = @"";
         self.sign = @"";
         self.career = @"";
         self.interest = @"";

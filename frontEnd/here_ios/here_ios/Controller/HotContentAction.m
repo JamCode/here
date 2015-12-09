@@ -15,7 +15,6 @@
 #import "NetWork.h"
 #import "AppDelegate.h"
 #import <CoreLocation/CoreLocation.h>
-#import "ContentSectionView.h"
 
 @implementation HotContentAction
 {
@@ -86,28 +85,24 @@
     [self fillContentList:sender];
 }
 
-
-
-
-
 - (NSInteger)rowNum
-{
-    return 1;
-}
-
-- (NSInteger)sectionNum
 {
     return [contentModeArray count];
 }
 
+- (NSInteger)sectionNum
+{
+    return 1;
+}
+
 - (void)didSelectedCell:(ComTableViewCtrl*)comTableViewCtrl IndexPath:(NSIndexPath *)indexPath
 {
-//    ContentModel* model = [contentModeArray objectAtIndex:indexPath.row];
-//    ContentDetailViewController* contentDetail = [[ContentDetailViewController alloc] init];
-//    
-//    contentDetail.contentModel = model;
-//    contentDetail.hidesBottomBarWhenPushed = YES;
-//    [comTableViewCtrl.navigationController pushViewController:contentDetail animated:YES];
+    ContentModel* model = [contentModeArray objectAtIndex:indexPath.row];
+    ContentDetailViewController* contentDetail = [[ContentDetailViewController alloc] init];
+    
+    contentDetail.contentModel = model;
+    contentDetail.hidesBottomBarWhenPushed = YES;
+    [comTableViewCtrl.navigationController pushViewController:contentDetail animated:YES];
 }
 
 - (void)initAction:(ComTableViewCtrl*)comTableViewCtrl
@@ -123,8 +118,6 @@
     navTitle.textAlignment = NSTextAlignmentCenter;
     navTitle.font = [UIFont boldSystemFontOfSize:20];
     comTable.navigationItem.titleView = navTitle;
-    
-    comTable.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (CGFloat)cellHeight:(UITableView*)tableView indexPath:(NSIndexPath *)indexPath
@@ -133,43 +126,16 @@
     return [ContentTableViewCell getTotalHeight:model maxContentHeight:ScreenHeight];
 }
 
-- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    ContentSectionView* contentSectionView = [[ContentSectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, [ContentSectionView contentSectionHeight])];
-    [contentSectionView configure:[contentModeArray objectAtIndex:section]];
-    
-    return contentSectionView;
-}
-
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return [ContentSectionView contentSectionHeight];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"commentButtonHide" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"commentKeyboardHide" object:nil];
 }
 
 - (UITableViewCell*)generateCell:(UITableView*)tableview indexPath:(NSIndexPath *)indexPath
 {
     static NSString* cellId = @"hotContentCell";
-    ContentTableViewCell *cell = [tableview dequeueReusableCellWithIdentifier:cellId];
-    
-    if (cell==nil) {
-        cell = [[ContentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-        NSLog(@"new cell");
-    }
-    
-    
-    cell.tableView = tableview;
-    cell.contentModeArray = contentModeArray;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = [UIColor whiteColor];
-    cell.tableView = comTable.tableView;
-    
-    ContentModel* contentmodel = [contentModeArray objectAtIndex:indexPath.section];
-    [cell setContentModel:contentmodel];
-    return cell;
+    return [ContentTableViewCell generateCell:tableview cellId:cellId contentList:contentModeArray indexPath:indexPath];
 }
 
 

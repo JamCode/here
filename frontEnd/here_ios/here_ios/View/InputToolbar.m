@@ -175,9 +175,7 @@ static const double bottomToolbarHeight = 48;
 
 - (void)showInput
 {
-    if (![commentInputView isFirstResponder]) {
-        [commentInputView becomeFirstResponder];
-    }
+    [commentInputView becomeFirstResponder];
 }
 
 @end

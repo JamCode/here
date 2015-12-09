@@ -100,16 +100,6 @@ static const int tableview_cell_height = 44;
     [mySettingData setObject:app.myInfo.password forKey:@"password"];
     [mySettingData synchronize];
     
-    //本地库连接
-    NSLog(@"%@", app.myInfo.userID);
-    app.locDatabase = [[LocDatabase alloc] init];
-    if(![app.locDatabase connectToDatabase:app.myInfo.userID]){
-        alertMsg(@"本地数据库问题");
-        return;
-    }
-
-    
-    
     TabBarViewController* tabbarView = [[TabBarViewController alloc] init];
     app.tabBarViewController = tabbarView;
     

@@ -22,8 +22,6 @@
 @property NSString* commentStr;
 @property NSInteger comment_good_count;
 
-@property NSInteger to_content;
-
 - (void)setCommentModel:(NSDictionary*)feedback;
 
 

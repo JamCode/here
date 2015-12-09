@@ -67,8 +67,6 @@
     _socketIP = [ConfigAccess socketIP];
     _socketPort = [ConfigAccess socketPort];
     
-
-    
     NSLog(@"%@", _serverDomain);
     
     
@@ -128,12 +126,6 @@
     return YES;
 }
 
-
-+ (LocDatabase*) getLocDatabase
-{
-    AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    return app.locDatabase;
-}
 
 + (SocketIO*) getMySocket
 {

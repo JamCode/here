@@ -112,20 +112,14 @@ static const int commentDateWidth = 70;
     
     
     
-    if(commentElement.to_content == 1){
-        commentStr = [[NSString alloc] initWithFormat:@"%@", commentElement.commentStr];
+    
+    if (commentElement.contentModel.anonymous == 1
+        &&[commentElement.counterUserInfo.userID isEqual:commentElement.contentModel.userInfo.userID]) {
+        //匿名
+        commentStr = [[NSString alloc] initWithFormat:@"回复 %@: %@", @"匿名作者", commentElement.commentStr];
     }else{
         commentStr = [[NSString alloc] initWithFormat:@"回复 %@: %@", commentElement.counterUserInfo.nickName,commentElement.commentStr];
     }
-    
-    
-//    if (commentElement.contentModel.anonymous == 1
-//        &&[commentElement.counterUserInfo.userID isEqual:commentElement.contentModel.userInfo.userID]) {
-//        //匿名
-//        commentStr = [[NSString alloc] initWithFormat:@"回复 %@: %@", @"匿名作者", commentElement.commentStr];
-//    }else{
-//        commentStr = [[NSString alloc] initWithFormat:@"回复 %@: %@", commentElement.counterUserInfo.nickName,commentElement.commentStr];
-//    }
     
     
     [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, [CommentTableViewCell getCellHeight:commentElement])];

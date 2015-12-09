@@ -55,10 +55,13 @@
     
     myUserInfo = [AppDelegate getMyUserInfo];
     
-    inputToolbar = [[InputToolbar alloc] init];
-    inputToolbar.inputDelegate = self;
+    //self.tableView.hidden = YES;
     
-    [[Tools curNavigator].view addSubview:inputToolbar];
+    if(_contentModel.userInfo.faceImageThumbnailURLStr == nil){
+        [self getContentBaseInfo];
+    }
+    
+    
     
     
     
@@ -66,8 +69,10 @@
     //[self addSeeCount];
    
     feedbackComments = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"赞", @"回复评论", nil];
+    toCommentUser = [[UserInfoModel alloc] init];
     
     
+    //[self initCommentInputView];
     
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]){
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
@@ -78,16 +83,52 @@
     
     self.tableView.tableFooterView=[[UIView alloc]init];
     
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"评论" style:UIBarButtonItemStylePlain target:self action:@selector(commentButtonAction:)];
-    
-    
+    if ([_contentModel.userInfo.userID isEqualToString:myUserInfo.userID]) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonAction:)];
+
+    }
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [inputToolbar showInput];
 
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView == self.tableView) {
+        //[myTextField resignFirstResponder];
+        [inputToolbar hideInput];
+        [inputToolbar removeFromSuperview];
+        inputToolbar = nil;
+    }
+}
+
+- (void)getContentBaseInfoSuccess:(id)sender
+{
+    [mbProgress hide:YES];
+    [mbProgress removeFromSuperview];
+    mbProgress = nil;
+    
+    
+    NSDictionary* feedback = (NSDictionary*)sender;
+    NSDictionary* contents = [feedback objectForKey:@"contents"];
+    
+    
+    NSDictionary* element = [contents objectForKey:_contentModel.contentID];
+    
+    if (element == nil) {
+        return;
+    }
+    
+    
+    [_contentModel setContentModel:element];
+    
+    CLLocation* myPosition = [[CLLocation alloc] initWithLatitude:myUserInfo.latitude longitude:myUserInfo.longitude];
+    CLLocation* userPosition = [[CLLocation alloc] initWithLatitude:_contentModel.latitude longitude:_contentModel.longitude];
+    
+    CLLocationDistance meters = [myPosition distanceFromLocation:userPosition];
+    _contentModel.distanceMeters = meters;
+        
+    [self.tableView reloadData];
 }
 
 - (void)deleteButtonAction:(id)sender
@@ -139,6 +180,23 @@
     if (buttonIndex == 1) {
         [self deleteContent];
     }
+}
+
+- (void)getContentBaseInfo
+{
+    
+    mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:mbProgress];
+    [mbProgress show:YES];
+    
+    
+    NetWork* netWork = [[NetWork alloc] init];
+    
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_contentModel.contentID, @"/getContentBaseInfo"] forKeys:@[@"content_id", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(getContentBaseInfoSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
 }
 
 
@@ -220,7 +278,7 @@
     [self.tableView beginUpdates];
     
     NSMutableArray* indexPaths = [[NSMutableArray alloc] init];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
     [indexPaths addObject:indexPath];
     
     
@@ -231,7 +289,8 @@
     [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView endUpdates];
     
-    self.tableView.tableFooterView=[[UIView alloc]init];
+    self.tableView.tableFooterView = nil;
+
 }
 
 - (void)addDetailCommentSuccess:(id)sender
@@ -246,18 +305,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-
+    
 
 }
 
 - (void)sendAction:(NSString *)msg
 {
-    msg = [msg stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([msg isEqualToString:@""]) {
-        return;
-    }
-    
     [inputToolbar hideInput];
+    [inputToolbar removeFromSuperview];
+    inputToolbar = nil;
     [self sendDetailComment:msg];
 }
 
@@ -265,14 +321,25 @@
 {
     [super viewWillDisappear:YES];
     
-    [inputToolbar hideInput];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"commentButtonHide" object:nil];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"commentKeyboardHide" object:nil];
     
+    if (inputToolbar!=nil) {
+        [inputToolbar hideInput];
+        [inputToolbar removeFromSuperview];
+        inputToolbar = nil;
+    }
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+
+
+
+
+
 
 
 
@@ -346,9 +413,37 @@
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 1) {
         CommentTableViewCell* cell = [[CommentTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"commentcell" commentElement:[comments objectAtIndex:indexPath.row] content_user_id:_contentModel.userInfo.userID nav:self.navigationController];
         
+        return cell;
+    }
+    
+    if (indexPath.section == 0) {
+        
+        
+        static NSString* cellIdentifier = @"ContentTableViewCell";
+        ContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        // Configure the cell...
+        // Configure the cell...
+        if (cell==nil) {
+            cell = [[ContentTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+            NSLog(@"new cell");
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor whiteColor];
+        //cell.contentViewCtrl = self;
+        //cell.parentViewController = self.navigationController;
+        //cell.index = indexPath;
+        
+        //NSLog(@"set image");
+        
+        [cell setContentModel:_contentModel];
+        cell.contentDetail = self;
+        
+        contentCell = cell;
         return cell;
     }
     
@@ -386,38 +481,31 @@
     lastCommentModel.sendUserInfo = myUserInfo;
     lastCommentModel.contentModel = _contentModel;
     
-    
-    if (toCommentUser != nil) {
-        lastCommentModel.counterUserInfo = toCommentUser;
-        lastCommentModel.to_content = 0;
-    }else{
+    lastCommentModel.counterUserInfo = toCommentUser;
+    if (lastCommentModel.counterUserInfo == nil) {
         lastCommentModel.counterUserInfo = _contentModel.userInfo;
-        lastCommentModel.to_content = 1;
     }
     
-    lastCommentModel.publish_time = [[NSDate date] timeIntervalSince1970];
+    
     lastCommentModel.commentStr = msg;
     
     
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[lastCommentModel.contentModel.contentID, lastCommentModel.sendUserInfo.userID, lastCommentModel.counterUserInfo.userID, lastCommentModel.commentStr, lastCommentModel.sendUserInfo.nickName, [[NSNumber alloc] initWithInteger:lastCommentModel.to_content], @"/addCommentToContent"]forKeys:@[@"content_id", @"user_id", @"to_user_id", @"comment", @"user_name", @"to_content", @"childpath"]];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[lastCommentModel.contentModel.contentID, lastCommentModel.sendUserInfo.userID, lastCommentModel.counterUserInfo.userID, lastCommentModel.commentStr, lastCommentModel.sendUserInfo.nickName, @"/addCommentToContent"] forKeys:@[@"content_id", @"user_id", @"to_user_id", @"comment", @"user_name", @"childpath"]];
     
     NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(addDetailCommentSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(addCommentError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(addCommentException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
     
     
+//    mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:mbProgress];
+//    [mbProgress show:YES];
+    
     [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
-        toCommentUser = nil;
+            //[mbProgress hide:YES];
+            //[mbProgress removeFromSuperview];
+            //mbProgress = nil;
     } callObject:self];
 }
 
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if(scrollView == self.tableView){
-        if(inputToolbar!=nil){
-            [inputToolbar hideInput];
-        }
-    }
-}
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
@@ -430,23 +518,37 @@
 {
     
     if (indexPath.section == 0) {
-        
-        return [CommentTableViewCell getCellHeight:[comments objectAtIndex:indexPath.row]];
+        if (indexPath.row == 0) {
+            
+            return [ContentTableViewCell getTotalHeight:_contentModel maxContentHeight:ScreenHeight];
+        }
+    }
+    
+    if (indexPath.section == 1) {
+        UITableViewCell* cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+        return cell.frame.size.height;
     }
     
     return 0;
+    //UITableViewCell* cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    
 }
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
+    if (section == 1) {
         return [comments count];
+    }
+    
+    if (section == 0) {
+        return 1;
     }
     
     return 0;
@@ -454,6 +556,11 @@
 
 - (void)commentButtonAction:(id)sender
 {
+    inputToolbar = [[InputToolbar alloc] init];
+    inputToolbar.inputDelegate = self;
+    
+    [[Tools curNavigator].view addSubview:inputToolbar];
+    
     [inputToolbar showInput];
 }
 

@@ -57,8 +57,6 @@
                     }else{
                         [callObject performSelector:outSelector withObject:feedback];
                     }
-                }else{
-                    [self msgError:feedback path:[message objectForKey:@"childpath"]];
                 }
             }
             
@@ -82,10 +80,7 @@
 {
     //alertMsg(@"msg error");
     NSDictionary* feedback = (NSDictionary*)sender;
-    
-    if([[feedback objectForKey:@"code"] integerValue] != SUCCESS){
-        [Tools AlertMsg:[[NSString alloc] initWithFormat:@"error code:%@:%@", [feedback objectForKey:@"code"], path]];
-    }
+    [Tools AlertMsg:[[NSString alloc] initWithFormat:@"error code:%@:%@", [feedback objectForKey:@"code"], path]];
 }
 
 
@@ -97,23 +92,10 @@
         [request setPostValue:[message objectForKey:key] forKey:key];
     }
     
-    
-    
     for (NSString* key in images) {
         UIImage* image = [images objectForKey:key];
+        NSData* imageData = UIImageJPEGRepresentation(image, 0.7);
         
-        NSData* imageData = UIImageJPEGRepresentation(image, 1.0);
-        
-        if(imageData.length>64*1024&&imageData.length<1024*1024){
-            imageData = UIImageJPEGRepresentation(image, 0.6);
-        }else if(imageData.length>=1024*1024){
-            imageData = UIImageJPEGRepresentation(image, 0.4);
-        }
-        
-        
-        
-        
-        NSLog(@"%ld", imageData.length);
         [request setPostValue:key forKey:key];
         [request addData:imageData withFileName:key andContentType:@"image/jpeg" forKey:key];
     }

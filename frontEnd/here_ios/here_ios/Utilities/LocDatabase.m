@@ -12,7 +12,6 @@
 #import "PriMsgModel.h"
 #import "Last_pri_msg.h"
 #import "macro.h"
-#import "Content_good_info.h"
 
 @implementation LocDatabase
 {
@@ -399,80 +398,6 @@
         return FALSE;
     }
     return true;
-}
-
-- (BOOL)insertContentGoodInfo:(NSString*)content_id
-{
-    NSError* error;
-    Content_good_info* msg = [NSEntityDescription insertNewObjectForEntityForName:@"Content_good_info" inManagedObjectContext:context];
-    msg.content_id = content_id;
-    
-    if (![context save:&error]) {
-        NSLog(@"Error %@", [error localizedDescription]);
-        return FALSE;
-    }
-    
-    return TRUE;
-
-}
-
-- (BOOL)deleteContentGoodInfo:(NSString*)content_id
-{
-    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Content_good_info" inManagedObjectContext:context]];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"content_id = '%@'",content_id]];
-    
-    [fetchRequest setPredicate:predicate];
-    
-    NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"content_id" ascending:NO];
-    NSArray* desc = [NSArray arrayWithObject:sortDesc];
-    [fetchRequest setSortDescriptors:desc];
-
-    
-    NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
-    
-    NSError* error;
-    if (![fetchController performFetch:&error]) {
-        NSLog(@"Error %@", [error localizedDescription]);
-        return FALSE;
-    }
-    
-    for (Content_good_info* msg in fetchController.fetchedObjects) {
-        [context deleteObject:msg];
-    }
-    
-    if (![context save:&error]) {
-        NSLog(@"Error %@", [error localizedDescription]);
-        return FALSE;
-    }
-
-    return TRUE;
-
-}
-
-- (NSInteger)getCountContentGoodInfo:(NSString*)content_id
-{
-    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Content_good_info" inManagedObjectContext:context]];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"content_id = '%@'",content_id]];
-    
-    [fetchRequest setPredicate:predicate];
-    
-    NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"content_id" ascending:NO];
-    NSArray* desc = [NSArray arrayWithObject:sortDesc];
-    [fetchRequest setSortDescriptors:desc];
-    
-    
-    NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
-
-    NSError* error;
-    if (![fetchController performFetch:&error]) {
-        NSLog(@"Error %@", [error localizedDescription]);
-        return FALSE;
-    }
-    
-    return [fetchController.fetchedObjects count];
-    
 }
 
 

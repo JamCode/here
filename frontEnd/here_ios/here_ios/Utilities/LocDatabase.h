@@ -10,7 +10,6 @@
 #import "Pri_msg.h"
 #import "PriMsgModel.h"
 #import "LastMsgModel.h"
-#import "Content_good_info.h"
 @interface LocDatabase : NSObject
 
 
@@ -37,10 +36,6 @@
 - (BOOL)updatePriMsg:(PriMsgModel*)priMsg;
 
 //- (BOOL)deleteUserAllMsg:(NSString*)user_id;
-
-- (BOOL)insertContentGoodInfo:(NSString*)content_id;
-- (BOOL)deleteContentGoodInfo:(NSString*)content_id;
-- (NSInteger)getCountContentGoodInfo:(NSString*)content_id;
 
 
 @end
