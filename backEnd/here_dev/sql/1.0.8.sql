@@ -11,3 +11,7 @@ ALTER TABLE `content_comment_info`
 
 ALTER TABLE `comment_good_base_info`
 	ADD COLUMN `cgbi_timestamp` bigint(20) NULL
+
+#169
+ALTER TABLE `content_base_info`
+	ADD COLUMN `content_report` int(32) NOT NULL DEFAULT 0
