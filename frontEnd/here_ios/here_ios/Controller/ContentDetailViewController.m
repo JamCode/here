@@ -83,10 +83,10 @@
     
     self.tableView.tableFooterView=[[UIView alloc]init];
     
-    if ([_contentModel.userInfo.userID isEqualToString:myUserInfo.userID]) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonAction:)];
-
-    }
+//    if ([_contentModel.userInfo.userID isEqualToString:myUserInfo.userID]) {
+//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonAction:)];
+//
+//    }
 }
 
 
@@ -137,25 +137,7 @@
     [choose show];
 }
 
-- (void)deleteContent
-{
-    mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:mbProgress];
-    [mbProgress show:YES];
-    
-    NetWork* netWork = [[NetWork alloc] init];
-    
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_contentModel.contentID, @"/deleteContent"] forKeys:@[@"content_id", @"childpath"]];
-    
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(deleteContentSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
-    
-    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
-//        [mbProgress hide:YES];
-//        [mbProgress removeFromSuperview];
-//        mbProgress = nil;
-    } callObject:self];
-    
-}
+
 
 
 - (void)hudWasHidden:(MBProgressHUD *)hud
@@ -175,12 +157,12 @@
     
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        [self deleteContent];
-    }
-}
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (buttonIndex == 1) {
+//        [self deleteContent];
+//    }
+//}
 
 - (void)getContentBaseInfo
 {

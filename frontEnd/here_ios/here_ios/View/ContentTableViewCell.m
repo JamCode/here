@@ -158,7 +158,9 @@ static const int ageWidth = 18;
         
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hidenKeyboard) name:@"commentKeyboardHide" object:nil];
         
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
+        
+        
+        
         
         
     }
@@ -440,6 +442,16 @@ static const int ageWidth = 18;
 //    _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(reportButton.frame.origin.x-_timeLabel.frame.size.width - 5, _nickName.frame.origin.y, 0, timeHeight)];
 
     
+    UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
+    
+    if([myContentModel.userInfo.userID isEqualToString:myInfo.userID]){
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"删除", @"举报", nil];
+    }else{
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
+    }
+    
+
+    
     
 }
 
@@ -475,11 +487,54 @@ static const int ageWidth = 18;
     } callObject:self];
 }
 
+- (void)deleteContentSuccess:(id)sender
+{
+    [Tools AlertBigMsg:@"删除成功"];
+    
+    if(_contentArray != nil){
+        [_contentArray removeObject:myContentModel];
+        [_tableView reloadData];
+    }
+    
+}
+
+- (void)deleteContent
+{
+    
+    NetWork* netWork = [[NetWork alloc] init];
+    
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myContentModel.contentID, @"/deleteContent"] forKeys:@[@"content_id", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(deleteContentSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
+
+    } callObject:self];
+    
+}
+
+
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        //举报
-        [self sendReportMsg];
+    UserInfoModel* myinfo = [AppDelegate getMyUserInfo];
+    
+    if([myinfo.userID isEqualToString:myContentModel.userInfo.userID]){
+        
+        if(buttonIndex == 0){
+            [self deleteContent];
+        }
+        
+        if(buttonIndex == 1){
+            //举报
+            [self sendReportMsg];
+        }
+        
+        
+    }else{
+        if (buttonIndex == 0) {
+            //举报
+            [self sendReportMsg];
+        }
     }
 }
 
@@ -679,6 +734,7 @@ static const int ageWidth = 18;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor whiteColor];
     cell.tableView = tableView;
+    cell.contentArray = contentList;
     
     ContentModel* contentmodel = [contentList objectAtIndex:indexPath.row];
     [cell setContentModel:contentmodel];
