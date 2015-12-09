@@ -18,7 +18,7 @@
 #import "MenuViewCtrl.h"
 #import "CommentModel.h"
 #import "PublishContentViewController.h"
-#import "ContentSectionView.h"
+
 
 static const int noticeLabelHeight = 10;
 static const int leftbarWidth = 20;
@@ -55,38 +55,8 @@ static const int leftbarWidth = 20;
 
 - (NSInteger)rowNum
 {
-    return 1;
-}
-
-
-//- (nullable NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    return @"1";
-//}
-
-
-- (NSInteger)sectionNum
-{
     return [contentModeArray count];
 }
-
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return [ContentSectionView contentSectionHeight];
-}
-
-
-
-- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    ContentSectionView* contentSectionView = [[ContentSectionView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, [ContentSectionView contentSectionHeight])];
-    [contentSectionView configure:[contentModeArray objectAtIndex:section]];
-    
-    return contentSectionView;
-}
-
 
 - (UITableViewCell*)generateCell:(UITableView*)tableview indexPath:(NSIndexPath *)indexPath
 {
@@ -102,19 +72,19 @@ static const int leftbarWidth = 20;
     cell.backgroundColor = [UIColor whiteColor];
     cell.tableView = comTable.tableView;
     
-    ContentModel* contentmodel = [contentModeArray objectAtIndex:indexPath.section];
+    ContentModel* contentmodel = [contentModeArray objectAtIndex:indexPath.row];
     [cell setContentModel:contentmodel];
     return cell;
 }
 
 - (void)didSelectedCell:(ComTableViewCtrl*)comTableViewCtrl IndexPath:(NSIndexPath *)indexPath
 {
-//    ContentModel* model = [contentModeArray objectAtIndex:indexPath.row];
-//    ContentDetailViewController* contentDetail = [[ContentDetailViewController alloc] init];
-//    
-//    contentDetail.contentModel = model;
-//    contentDetail.hidesBottomBarWhenPushed = YES;
-//    [comTableViewCtrl.navigationController pushViewController:contentDetail animated:YES];
+    ContentModel* model = [contentModeArray objectAtIndex:indexPath.row];
+    ContentDetailViewController* contentDetail = [[ContentDetailViewController alloc] init];
+    
+    contentDetail.contentModel = model;
+    contentDetail.hidesBottomBarWhenPushed = YES;
+    [comTableViewCtrl.navigationController pushViewController:contentDetail animated:YES];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -295,8 +265,6 @@ static const int leftbarWidth = 20;
 
 - (void)initAction:(ComTableViewCtrl*)comTableViewCtrl
 {
-    comTableViewCtrl.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
     myInfo = [AppDelegate getMyUserInfo];
     
     comTable = comTableViewCtrl;
@@ -381,9 +349,6 @@ static const int leftbarWidth = 20;
     [app.sideMenu openMenuAnimated:YES completion:nil];
     
 }
-
-
-
 
 - (CGFloat)cellHeight:(UITableView*)tableView indexPath:(NSIndexPath *)indexPath
 {

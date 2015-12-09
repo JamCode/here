@@ -73,7 +73,7 @@ static const int selectHeight = 44;
     
     
     cameraImageView = [[UIImageView alloc] initWithFrame:CGRectMake((ScreenWidth-camera_width)/2, camera_y, camera_width, camera_height)];
-    //cameraImageView.image = [UIImage imageNamed:@"camera178*144.png"];
+    cameraImageView.image = [UIImage imageNamed:@"camera178*144.png"];
     cameraImageView.userInteractionEnabled = YES;
     cameraImageView.contentMode = UIViewContentModeScaleAspectFill;
     

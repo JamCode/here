@@ -131,6 +131,25 @@
     [tableView setDelegate:self];
     [tableView setDataSource:self];
     
+    
+    //匿名发送按钮
+//    UIView* firstSeperateLine = [[UIView alloc] initWithFrame:CGRectMake(10, addImageview.frame.origin.y+addImageview.frame.size.height+10, ScreenWidth - 10, 0.5)];
+//    firstSeperateLine.backgroundColor = sepeartelineColor;
+//    [mainView addSubview:firstSeperateLine];
+//    
+//    UILabel* anonymousLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, firstSeperateLine.frame.origin.y, 80, 36)];
+//    anonymousLabel.text = @"匿名发送";
+//    anonymousLabel.textColor = [UIColor grayColor];
+//    anonymousLabel.font = [UIFont fontWithName:@"Arial" size:18];
+//    [mainView addSubview:anonymousLabel];
+//    
+//    anonymousSwitch = [[ UISwitch alloc]initWithFrame:CGRectMake(ScreenWidth/5*4,anonymousLabel.frame.origin.y+5,0.0,0.0)];
+//    [mainView addSubview:anonymousSwitch];
+//    
+//    [contentTextView becomeFirstResponder];
+//
+    
+    
     anonymousSwitch = [[ UISwitch alloc]initWithFrame:CGRectMake(ScreenWidth/5*4, 0, 0.0 ,0.0)];
     
     
@@ -297,8 +316,6 @@
     
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-    picker.allowsEditing = YES;
-    
     //picker.allowsEditing = YES;
     [self presentViewController:picker animated:YES completion:nil];
 }
@@ -343,16 +360,16 @@
     [tableView.tableHeaderView addSubview:imageview];
     
     if (aImage.size.width>aImage.size.height) {
-        [Tools scaleToSize:aImage size:CGSizeMake(aImage.size.width*2*imageview.frame.size.height/aImage.size.height, 2*imageview.frame.size.height) imageView:imageview];
+        imageview.image = [Tools scaleToSize:aImage size:CGSizeMake(aImage.size.width*2*imageview.frame.size.height/aImage.size.height, 2*imageview.frame.size.height)];
 
     }else{
-        [Tools scaleToSize:aImage size:CGSizeMake(2*imageview.frame.size.width, aImage.size.height*2*imageview.frame.size.width/aImage.size.width) imageView:imageview];
+        imageview.image = [Tools scaleToSize:aImage size:CGSizeMake(2*imageview.frame.size.width, aImage.size.height*2*imageview.frame.size.width/aImage.size.width)];
     }
     
     
     [imageArray addObject:aImage];
     
-    if ([imageArray count] >= 1) {
+    if ([imageArray count] >= 3) {
         addImageview.hidden = YES;
     }else{
         addImageview.frame = CGRectMake(addImageview.frame.origin.x+addImageview.frame.size.width+5, addImageview.frame.origin.y, addImageview.frame.size.width, addImageview.frame.size.height);
@@ -382,13 +399,6 @@
 - (void)publishContentButton:(id)sender
 {
     NSString* content = contentTextView.text;
-    
-    
-    if (addImage == false) {
-        [Tools AlertBigMsg:@"需要添加图片"];
-        return;
-    }
-    
     if (([content isEqualToString: @""]||content == nil)&&addImage == false) {
         return;
     }

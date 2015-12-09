@@ -19,6 +19,10 @@
 @interface ContentTableViewCell : UITableViewCell<OptionFunViewDelegate, UIScrollViewDelegate, UITextViewDelegate, UIActionSheetDelegate, InputToolbarDelegate>
 
 
+@property FaceView* faceView;
+@property UIView* cutoffLine;
+@property UILabel* nickName;
+@property UILabel* timeLabel;
 @property UILabel* contentLabel;
 @property UILabel* addressLabel;
 //@property UILabel* contentDetailInfoLabel;//赞数，评论数
@@ -26,6 +30,12 @@
 @property UILabel* commentCountLabel;
 @property UILabel* distanceLabel;
 
+
+
+
+
+@property UIView* ageAndGenderView;
+@property UILabel* ageAndGenderLabel; 
 
 
 + (CGFloat)getTotalHeight:(ContentModel*)model maxContentHeight:(NSInteger)maxHeight;

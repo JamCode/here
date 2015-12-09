@@ -127,56 +127,29 @@
 }
 
 
-+ (void)scaleToSize:(UIImage *)img size:(CGSize)newsize imageView:(UIImageView*)imageView
++ (UIImage *)scaleToSize:(UIImage *)img size:(CGSize)newsize
 {
-    dispatch_queue_attr_t msgqueue = (dispatch_queue_attr_t)dispatch_queue_create("msgqueue", NULL);
+    if([[UIScreen mainScreen] scale] == 2.0){
+        UIGraphicsBeginImageContextWithOptions(newsize, NO, 2.0);
+    }else{
+        UIGraphicsBeginImageContext(newsize);
+    }
     
-    dispatch_async((dispatch_queue_t)msgqueue, ^{
-        if([[UIScreen mainScreen] scale] == 2.0){
-            UIGraphicsBeginImageContextWithOptions(newsize, NO, 2.0);
-        }else{
-            UIGraphicsBeginImageContext(newsize);
-        }
-        
-        
-        // 绘制改变大小的图片
-        [img drawInRect:CGRectMake(0, 0, newsize.width, newsize.height)];
-        
-        // 从当前context中创建一个改变大小后的图片
-        UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-        if (scaledImage == nil) {
-            scaledImage = img;
-        }
-        
-        // 使当前的context出堆栈
-        UIGraphicsEndImageContext();
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            imageView.image = scaledImage;
-        });
-    });
     
-//    if([[UIScreen mainScreen] scale] == 2.0){
-//        UIGraphicsBeginImageContextWithOptions(newsize, NO, 2.0);
-//    }else{
-//        UIGraphicsBeginImageContext(newsize);
-//    }
-//    
-//    
-//    // 绘制改变大小的图片
-//    [img drawInRect:CGRectMake(0, 0, newsize.width, newsize.height)];
-//    
-//    // 从当前context中创建一个改变大小后的图片
-//    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-//    if (scaledImage == nil) {
-//        scaledImage = img;
-//    }
-//    
-//    // 使当前的context出堆栈
-//    UIGraphicsEndImageContext();
-//    
-//    // 返回新的改变大小后的图片
-//    return scaledImage;
+    // 绘制改变大小的图片
+    [img drawInRect:CGRectMake(0, 0, newsize.width, newsize.height)];
+    
+    // 从当前context中创建一个改变大小后的图片
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    if (scaledImage == nil) {
+        scaledImage = img;
+    }
+    
+    // 使当前的context出堆栈
+    UIGraphicsEndImageContext();
+    
+    // 返回新的改变大小后的图片
+    return scaledImage;
 }
 
 - (UIImage *)scaleToSize:(UIImage *)img size:(CGSize)newsize imageUrl:(NSString*)imageUrl
