@@ -26,6 +26,7 @@
 #import "BlackListAction.h"
 #import "MasterSettingCtrl.h"
 #import "FeedBackCtrl.h"
+#import "LocDatabase.h"
 
 //#import "ImageBrowseViewCtrl.h"
 //#import "VisitListCtrl.h"
@@ -188,19 +189,17 @@ typedef enum  {
 
 - (void)settingButtonAction:(id)sender
 {
-    //    TalkViewController* talk = [[TalkViewController alloc] init];
-    //    talk.counterInfo = _userInfo;
-    //    talk.hidesBottomBarWhenPushed = YES;
-    //    [self.navigationController pushViewController:talk animated:YES];
+
+    
+    
     
     if (isInBlack == false) {
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"私信", @"加入黑名单", nil];
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"关注", @"私信", @"加入黑名单", nil];
     }else{
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles: @"私信", @"解除黑名单", nil];
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles: @"关注", @"私信", @"解除黑名单", nil];
     }
     
     [sheet showInView:self.view];
-    
     
 }
 

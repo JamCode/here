@@ -12,6 +12,8 @@
 #import "PriMsgModel.h"
 #import "Last_pri_msg.h"
 #import "macro.h"
+#import "Content_good_info.h"
+#import "Follow_base_info.h"
 
 @implementation LocDatabase
 {
