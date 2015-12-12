@@ -8,3 +8,7 @@
 
 ## 删除远程不存在的本地流
 >* git fetch -p
+
+
+## 提交服务器
+>* git commit -a -m "xxx"
