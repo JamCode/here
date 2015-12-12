@@ -316,6 +316,9 @@ router.post('/getUserInfo', function(req, res) {
 			returnData.good_count = result[0].good_count;
 			returnData.location_latitude = result[0].location_latitude;
 			returnData.location_longitude = result[0].location_longitude;
+			returnData.code = config.returnCode.SUCCESS;
+			returnData.user_fans_count = result[0].user_fans_count;
+			returnData.user_follow_count = result[0].user_follow_count;
 
 			if (result[0].city_visit_count == null) {
 				log.debug('city_visit_count is null', log.getFileNameAndLineNum(
