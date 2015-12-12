@@ -898,6 +898,51 @@ router.post('/submitFeedback', function(req, res) {
 	});
 });
 
+
+//#171
+router.post('/cancelFollowUser', function(req, res){
+	userMgmt.cancelFollowUser(req.body, function(flag, result){
+		routeFunc.feedBack(flag, result, res);
+	});
+});
+
+router.post('/followUser', function(req, res){
+	userMgmt.followUser(req.body, function(flag, result){
+		var returnData = {};
+		if(!flag){
+			if(result.code === 'ER_DUP_ENTRY'){
+				returnData.code = config.returnCode.FOLLOW_USER_EXIST;
+			}else{
+				log.error(result, log.getFileNameAndLineNum(__filename), req.body.sq);
+				returnData.code = config.returnCode.ERROR;
+			}
+		}else{
+			returnData.code = config.returnCode.SUCCESS;
+		}
+		res.send(returnData);
+	});
+});
+
+router.post('/getfollowUser', function(req, res){
+	userMgmt.getfollowUser(req.body, function(flag, result){
+		routeFunc.feedBack(flag, result, res, req.body.sq);
+	});
+});
+
+
+router.post('/getFansUser', function(req, res){
+	userMgmt.getFansUser(req.body, function(flag, result){
+		routeFunc.feedBack(flag, result, res, req.body.sq);
+	});
+});
+
+router.post('/getfollowInfo', function(req, res){
+	userMgmt.getfollowInfo(req.body, function(flag, result){
+		routeFunc.feedBack(flag, result, res, req.body.sq);
+	});
+});
+
+
 router.get('/testfile', function(req, res) {
 	res.send('testfile');
 });
