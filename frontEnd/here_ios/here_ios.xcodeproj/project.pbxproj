@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B204474E1C1BFEB5007DFE14 /* Content_good_info+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B20447471C1BFEB4007DFE14 /* Content_good_info+CoreDataProperties.m */; };
+		B204474F1C1BFEB5007DFE14 /* Content_good_info.m in Sources */ = {isa = PBXBuildFile; fileRef = B20447491C1BFEB5007DFE14 /* Content_good_info.m */; };
+		B20447501C1BFEB5007DFE14 /* Follow_base_info+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = B204474B1C1BFEB5007DFE14 /* Follow_base_info+CoreDataProperties.m */; };
+		B20447511C1BFEB5007DFE14 /* Follow_base_info.m in Sources */ = {isa = PBXBuildFile; fileRef = B204474D1C1BFEB5007DFE14 /* Follow_base_info.m */; };
 		B2050CE41BB7AAD500074E92 /* HotContentAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B2050CE31BB7AAD500074E92 /* HotContentAction.m */; };
 		B208D2301BE1043600AFAE39 /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = B208D22F1BE1043600AFAE39 /* dot.png */; };
 		B208D2321BE104E600AFAE39 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = B208D2311BE104E600AFAE39 /* down.png */; };
@@ -199,6 +203,14 @@
 		636B860494494DAFB67B35FB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8DF27723DED1CCDC21653282 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9911EC87AD469992DE0EB08F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B20447461C1BFEB4007DFE14 /* Content_good_info+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Content_good_info+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B20447471C1BFEB4007DFE14 /* Content_good_info+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Content_good_info+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B20447481C1BFEB4007DFE14 /* Content_good_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Content_good_info.h; sourceTree = "<group>"; };
+		B20447491C1BFEB5007DFE14 /* Content_good_info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Content_good_info.m; sourceTree = "<group>"; };
+		B204474A1C1BFEB5007DFE14 /* Follow_base_info+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Follow_base_info+CoreDataProperties.h"; sourceTree = "<group>"; };
+		B204474B1C1BFEB5007DFE14 /* Follow_base_info+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Follow_base_info+CoreDataProperties.m"; sourceTree = "<group>"; };
+		B204474C1C1BFEB5007DFE14 /* Follow_base_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Follow_base_info.h; sourceTree = "<group>"; };
+		B204474D1C1BFEB5007DFE14 /* Follow_base_info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Follow_base_info.m; sourceTree = "<group>"; };
 		B2050CE21BB7AAD500074E92 /* HotContentAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotContentAction.h; sourceTree = "<group>"; };
 		B2050CE31BB7AAD500074E92 /* HotContentAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotContentAction.m; sourceTree = "<group>"; };
 		B208D22F1BE1043600AFAE39 /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
@@ -512,6 +524,14 @@
 			isa = PBXGroup;
 			children = (
 				B24D65DB1BA6B9D300F33A96 /* Model.xcdatamodeld */,
+				B20447461C1BFEB4007DFE14 /* Content_good_info+CoreDataProperties.h */,
+				B20447471C1BFEB4007DFE14 /* Content_good_info+CoreDataProperties.m */,
+				B20447481C1BFEB4007DFE14 /* Content_good_info.h */,
+				B20447491C1BFEB5007DFE14 /* Content_good_info.m */,
+				B204474A1C1BFEB5007DFE14 /* Follow_base_info+CoreDataProperties.h */,
+				B204474B1C1BFEB5007DFE14 /* Follow_base_info+CoreDataProperties.m */,
+				B204474C1C1BFEB5007DFE14 /* Follow_base_info.h */,
+				B204474D1C1BFEB5007DFE14 /* Follow_base_info.m */,
 				B2A33D061BDDFF5F00D8F18D /* Last_pri_msg.h */,
 				B2A33D071BDDFF5F00D8F18D /* Last_pri_msg.m */,
 				B24D65DD1BA6B9D300F33A96 /* Pri_msg.h */,
@@ -1216,11 +1236,13 @@
 				B24D69181BA6C8A300F33A96 /* CBStoreHouseRefreshControl.m in Sources */,
 				B267C63D1BA7F45900D12035 /* VisitCell.m in Sources */,
 				B24D68B51BA6C46900F33A96 /* SettingChildViewController.m in Sources */,
+				B204474F1C1BFEB5007DFE14 /* Content_good_info.m in Sources */,
 				B267C6401BA7F55600D12035 /* VisitListAction.m in Sources */,
 				B24D68691BA6C3F200F33A96 /* FriendMsgMode.m in Sources */,
 				B24D68A21BA6C46900F33A96 /* TabBarViewController.m in Sources */,
 				B24D691B1BA6C8A400F33A96 /* LocDatabase.m in Sources */,
 				B24D69371BA6C8A400F33A96 /* SocketIOTransportWebsocket.m in Sources */,
+				B20447511C1BFEB5007DFE14 /* Follow_base_info.m in Sources */,
 				B24D68081BA6C06800F33A96 /* ImageBrowseCell.m in Sources */,
 				B24D68B61BA6C46900F33A96 /* CoreDataTestViewController.m in Sources */,
 				B24D69341BA6C8A400F33A96 /* SocketIO.m in Sources */,
@@ -1244,6 +1266,7 @@
 				B24D68A81BA6C46900F33A96 /* NearByPersonAction.m in Sources */,
 				B24D680D1BA6C06800F33A96 /* RegisterCellViewTableViewCell.m in Sources */,
 				B24D68A51BA6C46900F33A96 /* MyContentAction.m in Sources */,
+				B204474E1C1BFEB5007DFE14 /* Content_good_info+CoreDataProperties.m in Sources */,
 				B24D69351BA6C8A400F33A96 /* SocketIOJSONSerialization.m in Sources */,
 				B24D693F1BA6C8A400F33A96 /* Waver.m in Sources */,
 				B24D69361BA6C8A400F33A96 /* SocketIOPacket.m in Sources */,
@@ -1251,6 +1274,7 @@
 				B24D68AD1BA6C46900F33A96 /* RegisterPhoneNumViewController.m in Sources */,
 				B24D691F1BA6C8A400F33A96 /* pinyin.c in Sources */,
 				B24D68A31BA6C46900F33A96 /* TalkViewController.m in Sources */,
+				B20447501C1BFEB5007DFE14 /* Follow_base_info+CoreDataProperties.m in Sources */,
 				B24D68061BA6C06800F33A96 /* CommentDetailCell.m in Sources */,
 				B24D69381BA6C8A400F33A96 /* SocketIOTransportXHR.m in Sources */,
 				B24D68B41BA6C46900F33A96 /* ImageBrowseAction.m in Sources */,
