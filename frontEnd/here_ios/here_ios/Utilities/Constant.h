@@ -87,7 +87,7 @@
 
 
 
-#define space 8
+#define minSpace 8
 
 
 #endif

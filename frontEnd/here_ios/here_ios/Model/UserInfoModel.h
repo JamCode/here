@@ -58,6 +58,9 @@
 @property NSString* birthday;
 
 
+@property NSInteger user_fans_count;
+@property NSInteger user_follow_count;
+
 - (void)fillWithData:(NSDictionary*)data;
 
 

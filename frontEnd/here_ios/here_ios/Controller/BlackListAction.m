@@ -17,6 +17,8 @@
 #import "PriMsgTableViewCell.h"
 #import "SettingViewController.h"
 #import "Tools.h"
+#import <YYWebImage/YYWebImage.h>
+#import "UserCell.h"
 
 
 @implementation BlackListAction
@@ -88,21 +90,42 @@
 
 - (UITableViewCell*)generateCell:(UITableView*)tableview indexPath:(NSIndexPath *)indexPath
 {
-    PriMsgTableViewCell *cell = [tableview dequeueReusableCellWithIdentifier:@"blackCell"];
+    UserCell *cell = [tableview dequeueReusableCellWithIdentifier:@"blackCell"];
     
     if (cell==nil) {
-        cell = [[PriMsgTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"blackCell"];
+        cell = [[UserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"blackCell"];
         NSLog(@"new cell");
     }
     
     
     UserInfoModel* userInfo = (UserInfoModel*)[dataList objectAtIndex:indexPath.row];
-    [cell.imageView sd_setImageWithURL:[[NSURL alloc] initWithString:userInfo.faceImageThumbnailURLStr]];
-    cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    cell.imageView.clipsToBounds = YES;
     
-    cell.textLabel.text = userInfo.nickName;
-    cell.detailTextLabel.text = userInfo.sign;
+    
+    [cell.faceImageView sd_setImageWithURL:[[NSURL alloc] initWithString:userInfo.faceImageThumbnailURLStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    }];
+    
+    
+    
+//    [cell.imageView yy_setImageWithURL:[[NSURL alloc] initWithString:userInfo.faceImageThumbnailURLStr] placeholder:nil options:YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionProgressiveBlur| YYWebImageOptionProgressive progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+//        
+//        //progress = (float)receivedSize / expectedSize;
+//        
+//    } transform:^UIImage *(UIImage *image, NSURL *url) {
+//        return image;
+//    } completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
+//        ;
+//    }];
+    
+    
+    
+    //cell.imageView.image = [UIImage imagewith]
+    
+    //cell.imageView.image = [UIImage imageNamed:@"active.png"];
+    //cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    //cell.imageView.clipsToBounds = YES;
+    
+    cell.nickNameLabel.text = userInfo.nickName;
+    cell.userSign.text = userInfo.sign;
     return cell;
 }
 

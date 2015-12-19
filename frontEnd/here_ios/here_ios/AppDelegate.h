@@ -19,7 +19,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property UserInfoModel* myInfo;
-@property LocDatabase* locdatabase;
+@property LocDatabase* locDatabase;
 
 @property SocketIO* mysocket;
 @property UITabBarController* tabBarViewController;
@@ -30,6 +30,7 @@
 @property NSString* socketIP;
 @property NSInteger socketPort;
 
++ (LocDatabase*) getLocDatabase;
 
 + (SocketIO*) getMySocket;
 + (UserInfoModel*)getMyUserInfo;

@@ -130,7 +130,7 @@
 + (LocDatabase*)getLocDatabase
 {
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    return app.locdatabase;
+    return app.locDatabase;
 }
 
 + (SocketIO*) getMySocket

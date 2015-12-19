@@ -90,6 +90,7 @@
     
     
     BOOL isInBlack;
+    BOOL isFollow;
     
     NSInteger lastUpdateGender;
     NSString* lastBirthday;
@@ -139,6 +140,22 @@ static const int ageHeight = 18;
 static const int ageWidth = 30;
 
 
+
+typedef enum {
+    publish,
+    photo
+} publishDetail;
+
+
+typedef enum {
+    follow,
+    fans,
+    gender,
+    age,
+    start,
+    sign
+} userDetail;
+
 typedef enum  {
     publishAndPhoto,
     details,
@@ -178,7 +195,7 @@ typedef enum  {
     
     
     
-    settingTitleArray = [[NSMutableArray alloc] initWithArray:@[@"性别", @"年龄", @"星座", @"个人签名"]];
+    settingTitleArray = [[NSMutableArray alloc] initWithArray:@[@"关注", @"粉丝", @"性别", @"年龄", @"星座", @"个人签名"]];
     
     tableviewHeight = 0;
     _changedFlag = false;
@@ -190,14 +207,28 @@ typedef enum  {
 - (void)settingButtonAction:(id)sender
 {
 
+    LocDatabase* loc = [AppDelegate getLocDatabase];
     
+    NSString* followStr = @"";
+    NSString* blackStr = @"";
     
-    
-    if (isInBlack == false) {
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"关注", @"私信", @"加入黑名单", nil];
+    if(![loc followedUser:_userInfo.userID]){
+        //未关注
+        followStr = @"关注";
+        isFollow = false;
     }else{
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles: @"关注", @"私信", @"解除黑名单", nil];
+        //已关注
+        followStr = @"取消关注";
+        isFollow = true;
     }
+    
+    if(isInBlack == false){
+        blackStr = @"加入黑名单";
+    }else{
+        blackStr = @"解除黑名单";
+    }
+    
+    sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:followStr, @"私信", blackStr, nil];
     
     [sheet showInView:self.view];
     
@@ -380,7 +411,18 @@ typedef enum  {
     }
     
     if (actionSheet == sheet) {
+        
         if (buttonIndex == 0) {
+            //关注
+            if (isFollow == true) {
+                [self cancelFollowedUser:nil];
+            }else{
+                [self followedUser:nil];
+            }
+            
+        }
+        
+        if (buttonIndex == 1) {
             //私信
             TalkViewController* talk = [[TalkViewController alloc] init];
             talk.counterInfo = _userInfo;
@@ -388,7 +430,7 @@ typedef enum  {
             [self.navigationController pushViewController:talk animated:YES];
         }
         
-        if (buttonIndex == 1) {
+        if (buttonIndex == 2) {
             //黑名单
             if (isInBlack == false) {
                 [self setToBlackList];
@@ -407,6 +449,50 @@ typedef enum  {
 //        self.navigationController.navigationBar.alpha =1;
 //    }
 //}
+
+- (void)followedUser:(id)sender
+{
+    NetWork* netWork = [[NetWork alloc] init];
+    
+    UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myInfo.userID, _userInfo.userID, @"/followUser"] forKeys:@[@"user_id", @"followed_user_id", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(followedUserSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
+        ;
+    } callObject:self];
+}
+
+- (void)cancelFollowedUser:(id)sender
+{
+    NetWork* netWork = [[NetWork alloc] init];
+    
+    UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
+    
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myInfo.userID, _userInfo.userID, @"/cancelFollowUser"] forKeys:@[@"user_id", @"followed_user_id", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(cancelFollowedUserSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
+        ;
+    } callObject:self];
+}
+
+- (void)cancelFollowedUserSuccess:(id)sender
+{
+    LocDatabase* loc = [AppDelegate getLocDatabase];
+    [loc delFollowInfo:_userInfo.userID];
+    [Tools AlertBigMsg:@"取消关注"];
+}
+
+- (void)followedUserSuccess:(id)sender
+{
+    LocDatabase* loc = [AppDelegate getLocDatabase];
+    [loc addFollowInfo:_userInfo.userID];
+    [Tools AlertBigMsg:@"关注成功"];
+}
+
 
 
 - (void)showSetting:(id)sender
@@ -681,6 +767,12 @@ typedef enum  {
     
     
     [settingStrArray removeAllObjects];
+    
+    
+    
+    [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.user_follow_count]];
+    
+    [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.user_fans_count]];
     
     if (_userInfo.gender == 1) {
         [settingStrArray addObject:@"男"];
@@ -1096,7 +1188,16 @@ typedef enum  {
     
     if(indexPath.section ==details){
         
-        if(indexPath.row == 3){
+        if(indexPath.row == follow){
+            
+        }
+        
+        if(indexPath.row == fans){
+            
+        }
+        
+        
+        if(indexPath.row == sign){
             _changedFlag = false;
             SettingChildViewController* settingChild = [[SettingChildViewController alloc] init];
             settingChild.settingStrArray = settingStrArray;
@@ -1108,18 +1209,15 @@ typedef enum  {
         }
         
         
-        if(indexPath.row == 0){
+        if(indexPath.row == gender){
             //性别
             [self clickGender:nil];
             
         }
         
-        if(indexPath.row == 1){
+        if(indexPath.row == age){
             //年龄
             datePicker.hidden = NO;
-            
-            
-            
         }
         
         
@@ -1173,17 +1271,17 @@ typedef enum  {
     _userInfo.birthday = lastBirthday;
     
     if (_userInfo.gender == 0) {
-        [settingStrArray setObject:@"女" atIndexedSubscript:0];
+        [settingStrArray setObject:@"女" atIndexedSubscript:gender];
 
     }
     
     if (_userInfo.gender == 1) {
-        [settingStrArray setObject:@"男" atIndexedSubscript:0];
+        [settingStrArray setObject:@"男" atIndexedSubscript:gender];
     }
     
     _userInfo.age = [Tools getAgeFromBirthDay:_userInfo.birthday];
     
-    [settingStrArray setObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.age]  atIndexedSubscript:1];
+    [settingStrArray setObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.age]  atIndexedSubscript:age];
     
 }
 
