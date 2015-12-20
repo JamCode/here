@@ -105,7 +105,7 @@
     
     ComTableViewCtrl* nearContentTableCtrl = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[NearByContentAction alloc] init]];
     
-    ComTableViewCtrl* followContentTableCtrl = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[FollowedContentAction alloc] init]];
+    ComTableViewCtrl* followContentTableCtrl = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[FollowedContentAction alloc] init]];
 
     
     MessageTableViewController* message = [[MessageTableViewController alloc] init];
