@@ -1197,16 +1197,19 @@ typedef enum  {
             FollowListAction* followAction = [[FollowListAction alloc] init];
             followAction.userInfo = _userInfo;
             ComTableViewCtrl* followUserTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:followAction];
-            
+            followUserTable.hidesBottomBarWhenPushed = YES;
+
             [self.navigationController pushViewController:followUserTable animated:YES];
+            
         }
         
         if(indexPath.row == fans){
             FansListAction* fansAction = [[FansListAction alloc] init];
             fansAction.userInfo = _userInfo;
-            ComTableViewCtrl* followUserTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:fansAction];
+            ComTableViewCtrl* fansUserTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:fansAction];
+            fansUserTable.hidesBottomBarWhenPushed = YES;
             
-            [self.navigationController pushViewController:followUserTable animated:YES];
+            [self.navigationController pushViewController:fansUserTable animated:YES];
         }
         
         

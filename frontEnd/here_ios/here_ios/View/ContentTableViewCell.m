@@ -24,6 +24,8 @@
 #import "ContentDetailViewController.h"
 #import "InputToolbar.h"
 #import <Masonry.h>
+#import "LocDatabase.h"
+
 
 
 @implementation ContentTableViewCell
@@ -384,12 +386,15 @@ static const int ageWidth = 18;
         _commentCountLabel.textColor = [UIColor lightGrayColor];
     }
     
-    if (model.goodFlag == true) {
+    
+    
+    LocDatabase* loc = [AppDelegate getLocDatabase];
+    if([loc getCountContentGoodInfo:model.contentID]>0){
         _goodCountLabel.textColor = subjectColor;
     }else{
         _goodCountLabel.textColor = [UIColor lightGrayColor];
+
     }
-    
     
     
     _commentCountLabel.frame = CGRectMake(_goodCountLabel.frame.origin.x+_goodCountLabel.frame.size.width+minSpaceValue, _goodCountLabel.frame.origin.y , _commentCountLabel.frame.size.width, _commentCountLabel.frame.size.height);
@@ -408,8 +413,10 @@ static const int ageWidth = 18;
     funView.center = CGPointMake(funView.center.x, _goodCountLabel.center.y);
     
     funView.tag = 11;
+    
+    
+    
     funView.funTitles = @[@"赞", @"评论"];
-    //self.funtitles = funView.funTitles;
     
     funView.delegate = self;
     
@@ -759,6 +766,9 @@ static const int ageWidth = 18;
     if (_tableView!=nil) {
         [_tableView reloadData];
     }
+    
+    LocDatabase* loc = [AppDelegate getLocDatabase];
+    [loc insertContentGoodInfo:myContentModel.contentID];
 }
 
 
