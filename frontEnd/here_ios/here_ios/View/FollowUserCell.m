@@ -62,7 +62,7 @@
     [_nickNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_faceView.mas_right).offset(minSpace);
         make.top.mas_equalTo(_faceView.mas_top);
-        make.size.mas_equalTo(CGSizeMake(120, 2*minSpace));
+        make.size.mas_equalTo(CGSizeMake(180, 2*minSpace));
     }];
     
     _nickNameLabel.font = [UIFont fontWithName:@"Arial" size:16];
@@ -71,7 +71,7 @@
     [_userSignLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_faceView.mas_right).offset(minSpace);
         make.top.mas_equalTo(_nickNameLabel.mas_bottom).offset(minSpace);
-        make.size.mas_equalTo(CGSizeMake(120, 2*minSpace));
+        make.size.mas_equalTo(CGSizeMake(180, 2*minSpace));
     }];
     
     _userSignLabel.font = [UIFont fontWithName:@"Arial" size:14];

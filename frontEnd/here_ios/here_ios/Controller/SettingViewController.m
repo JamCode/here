@@ -458,7 +458,7 @@ typedef enum  {
     NetWork* netWork = [[NetWork alloc] init];
     
     UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myInfo.userID, _userInfo.userID, @"/followUser"] forKeys:@[@"user_id", @"followed_user_id", @"childpath"]];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myInfo.userID, myInfo.nickName, _userInfo.userID, @"/followUser"] forKeys:@[@"user_id", @"user_name",  @"followed_user_id", @"childpath"]];
     
     NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(followedUserSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
     

@@ -921,6 +921,27 @@ router.post('/followUser', function(req, res){
 			}
 		}else{
 			returnData.code = config.returnCode.SUCCESS;
+
+			//apn 推送给被关注的人消息
+			userMgmt.getUserTokenInfo(req.body.followed_user_id, function(flag, result) {
+				if (flag) {
+					if (result.length > 0) {
+						var pushMsg = {
+							content: req.body.user_name + '查看了你的资料',
+							msgtype: 'msg',
+							badge: result[0].count
+						};
+						// apn to user
+						conn.pushMsgToUsers(result[0].device_token, pushMsg);
+					} else {
+						log.warn(req.body.followed_user_id + ' has no device token', log.getFileNameAndLineNum(
+							__filename));
+					}
+				} else {
+					log.error(result, log.getFileNameAndLineNum(__filename));
+				}
+			});
+
 		}
 		res.send(returnData);
 	});
