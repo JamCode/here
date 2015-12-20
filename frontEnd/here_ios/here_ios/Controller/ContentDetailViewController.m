@@ -68,7 +68,7 @@
     [self getContentCommentsList];
     //[self addSeeCount];
    
-    feedbackComments = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"回复评论", nil];
+    feedbackComments = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"赞", @"回复评论", nil];
     toCommentUser = [[UserInfoModel alloc] init];
     
     
@@ -83,10 +83,10 @@
     
     self.tableView.tableFooterView=[[UIView alloc]init];
     
-    if ([_contentModel.userInfo.userID isEqualToString:myUserInfo.userID]) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonAction:)];
-
-    }
+//    if ([_contentModel.userInfo.userID isEqualToString:myUserInfo.userID]) {
+//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonAction:)];
+//
+//    }
 }
 
 
@@ -137,25 +137,7 @@
     [choose show];
 }
 
-- (void)deleteContent
-{
-    mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:mbProgress];
-    [mbProgress show:YES];
-    
-    NetWork* netWork = [[NetWork alloc] init];
-    
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_contentModel.contentID, @"/deleteContent"] forKeys:@[@"content_id", @"childpath"]];
-    
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(deleteContentSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
-    
-    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
-//        [mbProgress hide:YES];
-//        [mbProgress removeFromSuperview];
-//        mbProgress = nil;
-    } callObject:self];
-    
-}
+
 
 
 - (void)hudWasHidden:(MBProgressHUD *)hud
@@ -175,12 +157,12 @@
     
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        [self deleteContent];
-    }
-}
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (buttonIndex == 1) {
+//        [self deleteContent];
+//    }
+//}
 
 - (void)getContentBaseInfo
 {
@@ -208,7 +190,7 @@
     
     if (actionSheet == feedbackComments) {
         NSLog(@"Button %ld", (long)buttonIndex);
-        if (buttonIndex == 0) {
+        if (buttonIndex == 1) {
             NSIndexPath* indexPath =  [self.tableView indexPathForSelectedRow];
             
             NSLog(@"%ld", indexPath.row);
@@ -221,17 +203,53 @@
             
             _contentModel.to_content = 0;
             [self commentButtonAction:nil];
+            [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+
+        }
+        
+        if (buttonIndex == 0) {
+            //赞评论
+            NSIndexPath* indexPath =  [self.tableView indexPathForSelectedRow];
+            CommentModel* commentModel = [comments objectAtIndex:indexPath.row];
+            [self commentGoodAction:commentModel];
         }
     }
     
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 
 }
 
-- (void)addDetailCommentSuccess:(id)sender
+- (void)commentGoodActionSuccess:(id)sender
 {
-    CommentModel* commentModel = lastCommentModel;
     
+    NSIndexPath* indexpath = [self.tableView indexPathForSelectedRow];
+    CommentModel* commentmodel = [comments objectAtIndex:indexpath.row];
+    commentmodel.comment_good_count++;
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    [self.tableView reloadData];
+
+}
+
+- (void)commentGoodActionRepeat:(id)sender
+{
+    [Tools AlertBigMsg:@"不能重复点赞"];
+}
+
+- (void)commentGoodAction:(CommentModel*)commentModel
+{
+    NetWork* netWork = [[NetWork alloc] init];
+    
+    NSLog(@"%@", commentModel.sendUserInfo.userID);
+    
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[commentModel.content_comment_id, myUserInfo.userID, commentModel.sendUserInfo.userID, myUserInfo.nickName,  @"/commentGood"] forKeys:@[@"content_comment_id", @"user_id", @"comment_user_id", @"user_name",  @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(commentGoodActionSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(commentGoodActionRepeat:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:COMMENT_GOOD_EXIST]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
+}
+
+
+- (void)addNewCommentCell:(CommentModel*)commentModel
+{
     mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
     mbProgress.mode = MBProgressHUDModeText;
     [self.view addSubview:mbProgress];
@@ -254,6 +272,14 @@
     [self.tableView endUpdates];
     
     self.tableView.tableFooterView = nil;
+
+}
+
+- (void)addDetailCommentSuccess:(id)sender
+{
+    CommentModel* commentModel = lastCommentModel;
+    
+    [self addNewCommentCell:commentModel];
     
 }
 
@@ -378,7 +404,7 @@
     if (indexPath.section == 0) {
         
         
-        static NSString* cellIdentifier = @"ContentTableViewCell";
+        static NSString* cellIdentifier = @"DetailContentTableViewCell";
         ContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         // Configure the cell...
@@ -390,11 +416,6 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
-        //cell.contentViewCtrl = self;
-        //cell.parentViewController = self.navigationController;
-        //cell.index = indexPath;
-        
-        //NSLog(@"set image");
         
         [cell setContentModel:_contentModel];
         cell.contentDetail = self;

@@ -90,12 +90,17 @@ exports.returnCode = {
 
 	USER_EXIST: 1500,
 
-	USER_NOT_EXIST: 1501
+	USER_NOT_EXIST: 1501,
+
+	COMMENT_GOOD_EXIST: 1601,
+
+	FOLLOW_USER_EXIST: 1701
 };
 
 exports.hashKey = {
 
 	commentUnreadCount: 'here_commentUnreadCount',
-	goodUnreadCount: 'here_goodUnreadCount'
+	goodUnreadCount: 'here_goodUnreadCount',
+	commentGoodUnreadCount: 'here_commentGoodUnreadCount'
 
 };

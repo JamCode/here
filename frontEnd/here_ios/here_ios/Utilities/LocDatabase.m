@@ -12,6 +12,8 @@
 #import "PriMsgModel.h"
 #import "Last_pri_msg.h"
 #import "macro.h"
+#import "Content_good_info.h"
+#import "Follow_base_info.h"
 
 @implementation LocDatabase
 {
@@ -25,10 +27,10 @@
 {
     model = [NSManagedObjectModel mergedModelFromBundles:nil];
     //NSManagedObjectModel* model = [[NSManagedObjectModel alloc] init];
-    
+
     // 传入模型对象，初始化NSPersistentStoreCoordinator
     psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    
+
     // 构建SQLite数据库文件的路径
     NSString *docs = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSURL *url = [NSURL fileURLWithPath:[docs stringByAppendingPathComponent:fileName]];
@@ -52,26 +54,26 @@
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Loc_pri_msg" inManagedObjectContext:context]];
     [fetchRequest setFetchLimit:limitCount];
-    
+
     //NSNumber* timeStamp_num = [[NSNumber alloc] initWithInteger:timeStamp];
-    
+
     NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"((receive_user_id = '%@' and sender_user_id='%@') or (receive_user_id = '%@' and sender_user_id='%@')) and send_timestamp<%ld", userID, otherUserID, otherUserID, userID, timeStamp]];
-    
+
     [fetchRequest setPredicate:predicate];
-    
+
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"send_timestamp" ascending:NO];
     NSArray* desc = [NSArray arrayWithObject:sortDesc];
     [fetchRequest setSortDescriptors:desc];
-    
+
     NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
-    
+
     NSError* error;
     if (![fetchController performFetch:&error]) {
         NSLog(@"Error %@", [error localizedDescription]);
     }
-    
+
     NSMutableArray* temp = [[NSMutableArray alloc] init];
-    
+
     for (Pri_msg* msg in fetchController.fetchedObjects) {
         PriMsgModel* priMsg = [[PriMsgModel alloc] init];
         priMsg.message_content = msg.message_content;
@@ -84,10 +86,10 @@
         priMsg.unread = [msg.unread intValue];
         priMsg.msg_srno = msg.msg_srno;
         priMsg.sendStatus = [msg.send_status integerValue];
-        
+
         [temp insertObject:priMsg atIndex:0];
     }
-    
+
     return temp;
 }
 
@@ -96,34 +98,34 @@
     //删除之前的最近记录
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Last_pri_msg" inManagedObjectContext:context]];
-    
+
     NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"counter_user_id = '%@'", priMsg.counter_user_id]];
-    
+
     [fetchRequest setPredicate:predicate];
-    
+
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"time_stamp" ascending:NO];
     NSArray* desc = [NSArray arrayWithObject:sortDesc];
     [fetchRequest setSortDescriptors:desc];
-    
+
     NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
-    
+
     NSError* error;
     if (![fetchController performFetch:&error]) {
         NSLog(@"Error %@", [error localizedDescription]);
         return FALSE;
     }
-    
+
     for (Last_pri_msg* msg in fetchController.fetchedObjects) {
         if (msg.time_stamp>[[NSNumber alloc] initWithInteger:priMsg.time_stamp]) {
             return true;
         }
         [context deleteObject:msg];
     }
-    
-    
+
+
     //插入最新的最近记录
     Last_pri_msg* msg = [NSEntityDescription insertNewObjectForEntityForName:@"Last_pri_msg" inManagedObjectContext:context];
-    
+
     msg.counter_user_id = priMsg.counter_user_id;
     msg.counter_face_image_url = priMsg.counter_face_image_url;
     msg.time_stamp = [[NSNumber alloc] initWithInteger:priMsg.time_stamp];
@@ -132,14 +134,14 @@
     msg.unreadCount = [[NSNumber alloc] initWithInteger:priMsg.unreadCount];
     msg.msg_type = [[NSNumber alloc] initWithInteger:priMsg.msg_type];
     msg.msg_srno = priMsg.msg_srno;
-    
+
     NSLog(@"%ld", [msg.msg_type integerValue]);
     NSLog(@"%ld", [msg.unreadCount integerValue]);
     if (![context save:&error]) {
         NSLog(@"Error %@", [error localizedDescription]);
         return FALSE;
     }
-    
+
     return TRUE;
 }
 
@@ -149,26 +151,26 @@
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Loc_pri_msg" inManagedObjectContext:context]];
     [fetchRequest setFetchLimit:1];
-    
+
     NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"msg_id = '%@'", msg_id]];
     [fetchRequest setPredicate:predicate];
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"send_timestamp" ascending:NO];
     NSArray* desc = [NSArray arrayWithObject:sortDesc];
     [fetchRequest setSortDescriptors:desc];
-    
-    
+
+
     NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
-    
-    
+
+
     if (![fetchController performFetch:&error]) {
         NSLog(@"Error %@", [error localizedDescription]);
         return nil;
     }
-    
+
     if ([fetchController.fetchedObjects count] == 0) {
         return nil;
     }
-    
+
     Pri_msg* msg = [fetchController.fetchedObjects objectAtIndex:0];
     PriMsgModel* priMsg = [[PriMsgModel alloc] init];
     priMsg.message_content = msg.message_content;
@@ -180,7 +182,7 @@
     priMsg.unread = [msg.unread intValue];
     priMsg.msg_srno = msg.msg_srno;
     priMsg.sendStatus = [msg.send_status integerValue];
-    
+
     return priMsg;
 
 }
@@ -201,13 +203,13 @@
     msg.data = priMsg.data;
     msg.unread = [[NSNumber alloc] initWithInt:priMsg.unread];
     msg.send_status = [[NSNumber alloc] initWithInteger:priMsg.sendStatus];
-    
+
     if ([priMsg.msg_srno isEqual:[NSNull null]]) {
         //previous version not have msg_srno
         priMsg.msg_srno = priMsg.msg_id;
     }
     msg.msg_srno = priMsg.msg_srno;
-    
+
     if (![context save:&error]) {
         NSLog(@"Error %@", [error localizedDescription]);
         return FALSE;
@@ -221,23 +223,23 @@
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Loc_pri_msg" inManagedObjectContext:context]];
     [fetchRequest setFetchLimit:1];
-    
+
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"send_timestamp" ascending:NO];
     NSArray* desc = [NSArray arrayWithObject:sortDesc];
     [fetchRequest setSortDescriptors:desc];
-    
+
     NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"receive_user_id = '%@'", myuserID]];
     [fetchRequest setPredicate:predicate];
-    
-    
+
+
     NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
-    
+
     NSError* error;
     if (![fetchController performFetch:&error]) {
         NSLog(@"Error %@", [error localizedDescription]);
         return nil;
     }
-    
+
     for (Pri_msg* msg in fetchController.fetchedObjects) {
         PriMsgModel* priMsg = [[PriMsgModel alloc] init];
         priMsg.message_content = msg.message_content;
@@ -249,10 +251,10 @@
         priMsg.unread = [msg.unread intValue];
         priMsg.msg_srno = msg.msg_srno;
         priMsg.sendStatus = [msg.send_status integerValue];
-        
+
         return priMsg;
     }
-    
+
     return nil;
 }
 
@@ -263,20 +265,20 @@
     [fetchRequest setFetchLimit:1];
     NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"counter_user_id = '%@'", counterID]];
     [fetchRequest setPredicate:predicate];
-    
+
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"time_stamp" ascending:NO];
     NSArray* desc = [NSArray arrayWithObject:sortDesc];
     [fetchRequest setSortDescriptors:desc];
-    
+
     NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
-    
-    
+
+
     NSError* error;
     if (![fetchController performFetch:&error]) {
         NSLog(@"Error %@", [error localizedDescription]);
         return nil;
     }
-    
+
     for (Last_pri_msg* msg in fetchController.fetchedObjects) {
         LastMsgModel* priMsg = [[LastMsgModel alloc] init];
         priMsg.time_stamp =  [msg.time_stamp integerValue];
@@ -286,10 +288,10 @@
         priMsg.msg = msg.msg;
         priMsg.msg_type = [msg.msg_type integerValue];
         priMsg.msg_srno = msg.msg_srno;
-        
+
         return priMsg;
     }
-    
+
     return nil;
 }
 
@@ -297,21 +299,21 @@
 {
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Last_pri_msg" inManagedObjectContext:context]];
-    
 
-    
+
+
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"time_stamp" ascending:NO];
     NSArray* desc = [NSArray arrayWithObject:sortDesc];
     [fetchRequest setSortDescriptors:desc];
-    
+
     NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
-    
+
     NSError* error;
     if (![fetchController performFetch:&error]) {
         NSLog(@"Error %@", [error localizedDescription]);
         return FALSE;
     }
-    
+
     NSMutableArray* result = [[NSMutableArray alloc] init];
     for (Last_pri_msg* msg in fetchController.fetchedObjects) {
         LastMsgModel* priMsg = [[LastMsgModel alloc] init];
@@ -323,7 +325,7 @@
         priMsg.unreadCount = [msg.unreadCount integerValue];
         priMsg.msg_type = [msg.msg_type integerValue];
         priMsg.msg_srno = msg.msg_srno;
-        
+
         [result addObject:priMsg];
     }
     return result;
@@ -337,7 +339,7 @@
     [fetchRequest setReturnsObjectsAsFaults:NO];
     [fetchRequest setPredicate:predicate];
     NSArray *dataArray = [context executeFetchRequest:fetchRequest error:nil];
-    
+
     if ([dataArray count]>0) {
         Pri_msg* msg = [dataArray objectAtIndex:0];
         msg.unread = [[NSNumber alloc] initWithInt:priMsg.unread];
@@ -345,7 +347,7 @@
         BOOL result = [context save:nil];
         return result;
     }
-    
+
     return false;
 
 }
@@ -355,25 +357,25 @@
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Last_pri_msg" inManagedObjectContext:context]];
     NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"counter_user_id = '%@'",lastMsg.counter_user_id]];
-    
+
     [fetchRequest setPredicate:predicate];
-    
+
     NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"time_stamp" ascending:NO];
     NSArray* desc = [NSArray arrayWithObject:sortDesc];
     [fetchRequest setSortDescriptors:desc];
-    
+
     NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
-    
+
     NSError* error;
     if (![fetchController performFetch:&error]) {
         NSLog(@"Error %@", [error localizedDescription]);
         return FALSE;
     }
-    
+
     for (Last_pri_msg* msg in fetchController.fetchedObjects) {
         [context deleteObject:msg];
     }
-    
+
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Loc_pri_msg" inManagedObjectContext:context]];
     predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"receive_user_id = '%@' or sender_user_id = '%@'", lastMsg.counter_user_id, lastMsg.counter_user_id]];
     [fetchRequest setPredicate:predicate];
@@ -381,18 +383,18 @@
     desc = [NSArray arrayWithObject:sortDesc];
     [fetchRequest setSortDescriptors:desc];
     fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
-    
+
     if (![fetchController performFetch:&error]) {
         NSLog(@"Error %@", [error localizedDescription]);
         return FALSE;
     }
-    
+
     for (Pri_msg* msg in fetchController.fetchedObjects) {
         NSLog(@"%@", msg.message_content);
         [context deleteObject:msg];
     }
-    
-    
+
+
     if (![context save:&error]) {
         NSLog(@"Error %@", [error localizedDescription]);
         return FALSE;
@@ -400,6 +402,187 @@
     return true;
 }
 
+- (BOOL)insertContentGoodInfo:(NSString*)content_id
+{
+    NSError* error;
+    Content_good_info* msg = [NSEntityDescription insertNewObjectForEntityForName:@"Content_good_info" inManagedObjectContext:context];
+    msg.content_id = content_id;
 
+    if (![context save:&error]) {
+        NSLog(@"Error %@", [error localizedDescription]);
+        return FALSE;
+    }
+
+    return TRUE;
+
+}
+
+- (BOOL)deleteContentGoodInfo:(NSString*)content_id
+{
+    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Content_good_info" inManagedObjectContext:context]];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"content_id = '%@'",content_id]];
+
+    [fetchRequest setPredicate:predicate];
+
+    NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"content_id" ascending:NO];
+    NSArray* desc = [NSArray arrayWithObject:sortDesc];
+    [fetchRequest setSortDescriptors:desc];
+
+
+    NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
+
+    NSError* error;
+    if (![fetchController performFetch:&error]) {
+        NSLog(@"Error %@", [error localizedDescription]);
+        return FALSE;
+    }
+
+    for (Content_good_info* msg in fetchController.fetchedObjects) {
+        [context deleteObject:msg];
+    }
+
+    if (![context save:&error]) {
+        NSLog(@"Error %@", [error localizedDescription]);
+        return FALSE;
+    }
+
+    return TRUE;
+
+}
+
+- (NSInteger)getCountContentGoodInfo:(NSString*)content_id
+{
+    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Content_good_info" inManagedObjectContext:context]];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"content_id = '%@'",content_id]];
+
+    [fetchRequest setPredicate:predicate];
+
+    NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"content_id" ascending:NO];
+    NSArray* desc = [NSArray arrayWithObject:sortDesc];
+    [fetchRequest setSortDescriptors:desc];
+
+
+    NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
+
+    NSError* error;
+    if (![fetchController performFetch:&error]) {
+        NSLog(@"Error %@", [error localizedDescription]);
+        return FALSE;
+    }
+
+    return [fetchController.fetchedObjects count];
+
+}
+
+
+- (BOOL)clearFollowInfo
+{
+    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Follow_base_info" inManagedObjectContext:context]];
+
+    NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"followed_user_id" ascending:NO];
+    NSArray* desc = [NSArray arrayWithObject:sortDesc];
+    [fetchRequest setSortDescriptors:desc];
+
+
+    NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
+
+    NSError* error;
+    if (![fetchController performFetch:&error]) {
+        NSLog(@"Error %@", [error localizedDescription]);
+        return FALSE;
+    }
+
+    for (Follow_base_info* msg in fetchController.fetchedObjects) {
+        [context deleteObject:msg];
+    }
+
+    if (![context save:&error]) {
+        NSLog(@"Error %@", [error localizedDescription]);
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+- (BOOL)addFollowInfo:(NSString*)followed_user_id
+{
+    NSError* error;
+    Follow_base_info* msg = [NSEntityDescription insertNewObjectForEntityForName:@"Follow_base_info" inManagedObjectContext:context];
+
+    msg.followed_user_id = followed_user_id;
+
+    if (![context save:&error]) {
+        NSLog(@"Error %@", [error localizedDescription]);
+        return FALSE;
+    }
+
+    return TRUE;
+
+}
+
+- (BOOL)delFollowInfo:(NSString*)followed_user_id
+{
+    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Follow_base_info" inManagedObjectContext:context]];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"followed_user_id = '%@'",followed_user_id]];
+
+    [fetchRequest setPredicate:predicate];
+
+    NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"followed_user_id" ascending:NO];
+    NSArray* desc = [NSArray arrayWithObject:sortDesc];
+    [fetchRequest setSortDescriptors:desc];
+
+
+    NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
+
+    NSError* error;
+    if (![fetchController performFetch:&error]) {
+        NSLog(@"Error %@", [error localizedDescription]);
+        return FALSE;
+    }
+
+    for (Follow_base_info* msg in fetchController.fetchedObjects) {
+        [context deleteObject:msg];
+    }
+
+    if (![context save:&error]) {
+        NSLog(@"Error %@", [error localizedDescription]);
+        return FALSE;
+    }
+
+    return TRUE;
+
+}
+
+- (BOOL)followedUser:(NSString*)followed_user_id
+{
+    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Follow_base_info" inManagedObjectContext:context]];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:[[NSString alloc] initWithFormat:@"followed_user_id = '%@'",followed_user_id]];
+
+    [fetchRequest setPredicate:predicate];
+
+    NSSortDescriptor* sortDesc = [[NSSortDescriptor alloc] initWithKey:@"followed_user_id" ascending:NO];
+    NSArray* desc = [NSArray arrayWithObject:sortDesc];
+    [fetchRequest setSortDescriptors:desc];
+
+
+    NSFetchedResultsController* fetchController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Root"];
+
+    NSError* error;
+    if (![fetchController performFetch:&error]) {
+        NSLog(@"Error %@", [error localizedDescription]);
+        return FALSE;
+    }
+
+    if([fetchController.fetchedObjects count]>0){
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
 
 @end

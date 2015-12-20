@@ -71,6 +71,9 @@ static const int leftbarWidth = 20;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor whiteColor];
     cell.tableView = comTable.tableView;
+    cell.contentArray = contentModeArray;
+    
+    
     
     ContentModel* contentmodel = [contentModeArray objectAtIndex:indexPath.row];
     [cell setContentModel:contentmodel];

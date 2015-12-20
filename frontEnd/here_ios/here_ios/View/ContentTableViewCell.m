@@ -23,6 +23,9 @@
 #import "ContentModel.h"
 #import "ContentDetailViewController.h"
 #import "InputToolbar.h"
+#import <Masonry.h>
+#import "LocDatabase.h"
+
 
 
 @implementation ContentTableViewCell
@@ -157,7 +160,9 @@ static const int ageWidth = 18;
         
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hidenKeyboard) name:@"commentKeyboardHide" object:nil];
         
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
+        
+        
+        
         
         
     }
@@ -381,12 +386,15 @@ static const int ageWidth = 18;
         _commentCountLabel.textColor = [UIColor lightGrayColor];
     }
     
-    if (model.goodFlag == true) {
+    
+    
+    LocDatabase* loc = [AppDelegate getLocDatabase];
+    if([loc getCountContentGoodInfo:model.contentID]>0){
         _goodCountLabel.textColor = subjectColor;
     }else{
         _goodCountLabel.textColor = [UIColor lightGrayColor];
+
     }
-    
     
     
     _commentCountLabel.frame = CGRectMake(_goodCountLabel.frame.origin.x+_goodCountLabel.frame.size.width+minSpaceValue, _goodCountLabel.frame.origin.y , _commentCountLabel.frame.size.width, _commentCountLabel.frame.size.height);
@@ -405,15 +413,23 @@ static const int ageWidth = 18;
     funView.center = CGPointMake(funView.center.x, _goodCountLabel.center.y);
     
     funView.tag = 11;
+    
+    
+    
     funView.funTitles = @[@"赞", @"评论"];
-    //self.funtitles = funView.funTitles;
     
     funView.delegate = self;
     
     [self addSubview:funView];
     
     
-    reportButton.frame = CGRectMake(ScreenWidth - 36 - 5, _ageAndGenderView.frame.origin.y, 32, 32);
+    [reportButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(_ageAndGenderLabel.mas_top);
+        make.right.mas_equalTo(self.mas_right).offset(-10);
+        make.size.mas_equalTo(CGSizeMake(22, 22));
+    }];
+    
+    reportButton.frame = CGRectMake(ScreenWidth - 22 - 5, _ageAndGenderView.frame.origin.y, 22, 22);
     
     reportButton.center = CGPointMake(reportButton.center.x, _ageAndGenderView.center.y);
     
@@ -433,6 +449,16 @@ static const int ageWidth = 18;
 //    _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(reportButton.frame.origin.x-_timeLabel.frame.size.width - 5, _nickName.frame.origin.y, 0, timeHeight)];
 
     
+    UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
+    
+    if([myContentModel.userInfo.userID isEqualToString:myInfo.userID]){
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"删除", @"举报", nil];
+    }else{
+        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
+    }
+    
+
+    
     
 }
 
@@ -440,6 +466,12 @@ static const int ageWidth = 18;
 - (void)reportContentSuccess:(id)sender
 {
     [Tools AlertBigMsg:@"举报成功"];
+    
+    if(_contentArray != nil){
+        [_contentArray removeObject:myContentModel];
+        [_tableView reloadData];
+    }
+    
 }
 
 - (void)sendReportMsg
@@ -462,11 +494,54 @@ static const int ageWidth = 18;
     } callObject:self];
 }
 
+- (void)deleteContentSuccess:(id)sender
+{
+    [Tools AlertBigMsg:@"删除成功"];
+    
+    if(_contentArray != nil){
+        [_contentArray removeObject:myContentModel];
+        [_tableView reloadData];
+    }
+    
+}
+
+- (void)deleteContent
+{
+    
+    NetWork* netWork = [[NetWork alloc] init];
+    
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myContentModel.contentID, @"/deleteContent"] forKeys:@[@"content_id", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(deleteContentSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
+
+    } callObject:self];
+    
+}
+
+
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        //举报
-        [self sendReportMsg];
+    UserInfoModel* myinfo = [AppDelegate getMyUserInfo];
+    
+    if([myinfo.userID isEqualToString:myContentModel.userInfo.userID]){
+        
+        if(buttonIndex == 0){
+            [self deleteContent];
+        }
+        
+        if(buttonIndex == 1){
+            //举报
+            [self sendReportMsg];
+        }
+        
+        
+    }else{
+        if (buttonIndex == 0) {
+            //举报
+            [self sendReportMsg];
+        }
     }
 }
 
@@ -600,7 +675,7 @@ static const int ageWidth = 18;
     [self increaseCommentCount];
     
     if (_contentDetail!=nil) {
-        [_contentDetail addDetailCommentSuccess:commentModel];
+        [_contentDetail addNewCommentCell:commentModel];
     }
     
     if (_tableView!=nil) {
@@ -666,6 +741,7 @@ static const int ageWidth = 18;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = [UIColor whiteColor];
     cell.tableView = tableView;
+    cell.contentArray = contentList;
     
     ContentModel* contentmodel = [contentList objectAtIndex:indexPath.row];
     [cell setContentModel:contentmodel];
@@ -690,6 +766,9 @@ static const int ageWidth = 18;
     if (_tableView!=nil) {
         [_tableView reloadData];
     }
+    
+    LocDatabase* loc = [AppDelegate getLocDatabase];
+    [loc insertContentGoodInfo:myContentModel.contentID];
 }
 
 

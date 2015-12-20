@@ -86,4 +86,8 @@
 #define totalLocationTryCount 6
 
 
+
+#define minSpace 8
+
+
 #endif

@@ -17,10 +17,10 @@
 @property ContentModel* contentModel;
 
 
-
+@property NSString* content_comment_id;
 @property long publish_time;
 @property NSString* commentStr;
-
+@property NSInteger comment_good_count;
 
 - (void)setCommentModel:(NSDictionary*)feedback;
 

@@ -2,6 +2,9 @@ var path = require('path');
 var LineReader = require('line-reader');
 var conn = require('../database/utility.js');
 var emailTool = require('./emailTool');
+var shell = require('shelljs');
+var log = global.log;
+
 
 function getDate() {
     var date = new Date();
@@ -18,15 +21,15 @@ function InsertToDatabase(pvCount, uvCount) {
     var sql =
         "insert into daliy_report(pv_count,uv_count,timestamp,date)values(?,?,?,?)";
     var timestamp = Date.now() / 1000;
-    var curDateStr = getDate();
+    var curDateStr = new Date();
 
     //console.log('read a file done.');
     conn.executeSql(sql, [pvCount, uvCount, timestamp, curDateStr],
         function(flag, result) {
             if (flag) {
-                console.log("insert OK");
+                log.info("insert pvcount OK", log.getFileNameAndLineNum(__filename));
             } else {
-                console.log(result);
+                log.error(result, log.getFileNameAndLineNum(__filename));
             }
         });
 }
@@ -36,14 +39,17 @@ function generateReportEmail(pvCount, uvCount) {
     var curDateStr = getDate();
     var todayRprt = curDateStr + "-----[pvCount :" + pvCount +
         ";uvCount:" + uvCount + "]";
+    log.info(todayRprt, log.getFileNameAndLineNum(__filename));
     emailTool.sendMail(todayRprt, curDateStr + "_访问量统计");
 }
 
-function daliyRprt(dirPath, fromFile) {
+function daliyRprt(logPath) {
     var pvCount = 0;
     var uvCount = 0;
     var uvMap = {};
-    LineReader.eachLine(path.join(dirPath, fromFile), function(line, last) {
+    log.info("enter daliyRprt for analyze "+logPath, log.getFileNameAndLineNum(__filename));
+
+    LineReader.eachLine(logPath, function(line, last) {
         ++pvCount;
         var lineStr = line.toString();
         var obj = [];
@@ -62,8 +68,12 @@ function daliyRprt(dirPath, fromFile) {
     });
 }
 
-
-var homePath = process.env.HOME;
-var fromFile = 'access.log';
-var dirPath = homePath + '/here/backEnd/here_dev/';
-daliyRprt(dirPath, fromFile);
+exports.start = function(){
+    shell.cd(path.join(process.env.HOME,
+        'logs'));
+    shell.ls('access*.log').forEach(function(file){
+        var logPath = path.join(process.env.HOME,
+            'logs', file);
+        daliyRprt(logPath);
+    });
+};

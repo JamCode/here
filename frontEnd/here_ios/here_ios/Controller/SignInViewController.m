@@ -86,6 +86,51 @@ static const int tableview_cell_height = 44;
     return 2;
 }
 
+
+- (void)getfollowInfo
+{
+    //[app.locDatabase clearFollowInfo];
+    
+    
+    
+    UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
+    
+    NSDictionary* message = [[NSDictionary alloc]
+                             initWithObjects:@[myInfo.userID,
+                                               @"/getfollowInfo"]
+                             forKeys:@[@"user_id",  @"childpath"]];
+    
+    
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:
+                                  @[[NSValue valueWithBytes:&@selector(getfollowInfoSuccess:) objCType:@encode(SEL)]]forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
+    
+    
+    NetWork* netWork = [[NetWork alloc] init];
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
+    } callObject:self];
+    
+    
+    
+}
+
+
+- (void)getfollowInfoSuccess:(id)sender
+{
+    AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    [app.locDatabase clearFollowInfo];
+    
+    NSDictionary* feedback = (NSDictionary*)sender;
+    
+    NSArray* data = [feedback objectForKey:@"data"];
+    
+    for (NSDictionary* element in data) {
+        [app.locDatabase addFollowInfo:[element objectForKey:@"followed_user_id"]];
+    }
+    
+}
+
+
 - (void)loginSuccess:(id)sender
 {
     NSDictionary* feedback = (NSDictionary*)sender;
@@ -93,6 +138,20 @@ static const int tableview_cell_height = 44;
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     
     [app.myInfo fillWithData:feedback];
+    
+    
+    //本地库连接
+    NSLog(@"%@", app.myInfo.userID);
+    app.locDatabase = [[LocDatabase alloc] init];
+    if(![app.locDatabase connectToDatabase:app.myInfo.userID]){
+        alertMsg(@"本地数据库问题");
+        return;
+    }
+    
+    [self getfollowInfo];
+    
+    
+    
     
     //用户登录信息持久化
     NSUserDefaults *mySettingData = [NSUserDefaults standardUserDefaults];

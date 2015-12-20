@@ -1,8 +1,17 @@
 var conn = require('./utility.js');
 var log = global.log;
 
+
+
+exports.increaseCommentGoodCount = function(reqbody, callback){
+	var sql = "update content_comment_info set comment_good_count = comment_good_count+1 " +
+	" where content_comment_id = ?";
+	conn.executeSql(sql, [reqbody.content_comment_id], callback);
+};
+
+
 exports.insertReportContent = function (contentBody, callback) {
-	var sql = 'insert into content_report_info(cri_content_id) values(?)';
+	var sql = 'update content_base_info set content_report = 1 where content_id = ?';
 	conn.executeSql(sql, [contentBody.content_id], callback);
 };
 
@@ -43,6 +52,14 @@ exports.insertContent = function (contentBody, callback) {
 
 // end by wanghan 20141129 for publish active message
 
+
+exports.commentGood = function(reqbody, callback){
+	var timestamp = Date.now() / 1000;
+	var sql = "insert into comment_good_base_info(content_comment_id, user_id, cgbi_timestamp) "+
+	" values(?, ?, ?)";
+	conn.executeSql(sql, [reqbody.content_comment_id, reqbody.user_id, timestamp], callback);
+};
+
 exports.insertContentImage = function (contentImageBody, callback) {
 	log.info(contentImageBody.content_id +
 		',' + contentImageBody.image_url +
@@ -70,6 +87,7 @@ exports.getNearbyContent = function (reqBody, callback) {
 	' where a.user_id = b.user_id ' +
 	' and ((ABS(?-a.content_publish_latitude)*111)<100 and  ABS(? - a.content_publish_longitude)*COS(?)*111<100)' +
 	' and content_publish_timestamp<? ' +
+	' and content_report = 0' +
 	' order by content_publish_timestamp DESC limit 8';
 
 	conn.executeSql(sql, [reqBody.user_latitude, reqBody.user_longitude, reqBody.user_latitude, reqBody.last_timestamp], callback);
@@ -213,4 +231,15 @@ exports.deleteContent = function (content_id, callback) {
 exports.getAllContentImage = function (callback) {
 	var sql = 'select *from content_image_info';
 	conn.executeSql(sql, [], callback);
+};
+
+exports.getfollowContent = function(reqbody, callback){
+	var sql = 'select a.*, b.*, c.* from content_base_info a left join content_image_info c on a.content_id = c.content_id, user_base_info b ' +
+	' where a.user_id = b.user_id ' +
+	' and a.user_id in ' +
+	'(select followed_user_id from user_follow_base_info where user_id = ?) ' +
+	' and a.content_publish_timestamp < ? ' +
+	' and a.content_report = 0' +
+	' order by a.content_publish_timestamp desc limit 8';
+	conn.executeSql(sql, [reqbody.user_id, reqbody.timestamp], callback);
 };
