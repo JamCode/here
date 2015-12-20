@@ -451,7 +451,7 @@ exports.getFansUser = function(reqbody, callback){
 };
 
 exports.getfollowUser = function(reqbody, callback){
-	var sql = "select *from user_follow_base_info a, user_base_info b " +
+	var sql = "select a.*, b.* from user_follow_base_info a, user_base_info b " +
 	" where a.user_id = b.user_id and a.user_id = ? and a.follow_timestamp< ? " +
 	"order by follow_timestamp desc limit 12 ";
 	conn.executeSql(sql, [reqbody.user_id, reqbody.follow_timestamp], callback);

@@ -61,6 +61,8 @@
 @property NSInteger user_fans_count;
 @property NSInteger user_follow_count;
 
+@property NSInteger follow_timestamp;
+
 - (void)fillWithData:(NSDictionary*)data;
 
 

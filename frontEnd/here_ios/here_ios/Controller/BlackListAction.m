@@ -30,7 +30,7 @@
 }
 
 
-- (void)pullDownAction:(pullCompleted)completedBlock; //下拉响应函数
+- (void)pullDownAction:(pullCompleted)completedBlock //下拉响应函数
 {
     completed = completedBlock;
     [self getBlackList];

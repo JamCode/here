@@ -27,6 +27,8 @@
 #import "MasterSettingCtrl.h"
 #import "FeedBackCtrl.h"
 #import "LocDatabase.h"
+#import "FollowListAction.h"
+
 
 //#import "ImageBrowseViewCtrl.h"
 //#import "VisitListCtrl.h"
@@ -1190,6 +1192,9 @@ typedef enum  {
         
         if(indexPath.row == follow){
             
+            ComTableViewCtrl* followUserTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[FollowListAction alloc] init]];
+            
+            [self.navigationController pushViewController:followUserTable animated:YES];
         }
         
         if(indexPath.row == fans){

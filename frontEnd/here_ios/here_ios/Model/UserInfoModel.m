@@ -75,6 +75,9 @@
     _latitude = [[data objectForKey:@"location_latitude"] doubleValue];
     _longitude = [[data objectForKey:@"location_longitude"] doubleValue];
     
+    
+    _follow_timestamp = [[data objectForKey:@"follow_timestamp"] integerValue];
+    
 }
 
 //data[‘user_phone’] = “登录电话”;

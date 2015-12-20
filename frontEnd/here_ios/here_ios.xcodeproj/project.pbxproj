@@ -177,6 +177,8 @@
 		B24D693F1BA6C8A400F33A96 /* Waver.m in Sources */ = {isa = PBXBuildFile; fileRef = B24D69151BA6C8A300F33A96 /* Waver.m */; };
 		B24EC9641BAAA90C006E12CB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B24EC9631BAAA90B006E12CB /* MapKit.framework */; };
 		B24EC9671BAAB98D006E12CB /* visitView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24EC9661BAAB98D006E12CB /* visitView.m */; };
+		B2550A291C26653C00812D41 /* FollowUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2550A281C26653C00812D41 /* FollowUserCell.m */; };
+		B2550A2C1C26695000812D41 /* FollowListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B2550A2B1C26695000812D41 /* FollowListAction.m */; };
 		B26323331BF1F67900C75F81 /* InputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B26323321BF1F67900C75F81 /* InputToolbar.m */; };
 		B267C63D1BA7F45900D12035 /* VisitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63C1BA7F45900D12035 /* VisitCell.m */; };
 		B267C6401BA7F55600D12035 /* VisitListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63F1BA7F55600D12035 /* VisitListAction.m */; };
@@ -465,6 +467,10 @@
 		B24EC9631BAAA90B006E12CB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B24EC9651BAAB98D006E12CB /* visitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = visitView.h; sourceTree = "<group>"; };
 		B24EC9661BAAB98D006E12CB /* visitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = visitView.m; sourceTree = "<group>"; };
+		B2550A271C26653C00812D41 /* FollowUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowUserCell.h; sourceTree = "<group>"; };
+		B2550A281C26653C00812D41 /* FollowUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowUserCell.m; sourceTree = "<group>"; };
+		B2550A2A1C26695000812D41 /* FollowListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowListAction.h; sourceTree = "<group>"; };
+		B2550A2B1C26695000812D41 /* FollowListAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowListAction.m; sourceTree = "<group>"; };
 		B26323311BF1F67900C75F81 /* InputToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputToolbar.h; sourceTree = "<group>"; };
 		B26323321BF1F67900C75F81 /* InputToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputToolbar.m; sourceTree = "<group>"; };
 		B267C63B1BA7F45900D12035 /* VisitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitCell.h; sourceTree = "<group>"; };
@@ -755,6 +761,8 @@
 		B24D67E21BA6C02800F33A96 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B2550A271C26653C00812D41 /* FollowUserCell.h */,
+				B2550A281C26653C00812D41 /* FollowUserCell.m */,
 				B24D67E31BA6C06800F33A96 /* ImageEnlarge.h */,
 				B24D67E41BA6C06800F33A96 /* ImageEnlarge.m */,
 				B290F5C91C1DC66A0023079C /* UserCell.h */,
@@ -830,6 +838,8 @@
 			isa = PBXGroup;
 			children = (
 				B24D686B1BA6C46900F33A96 /* Property List.plist */,
+				B2550A2A1C26695000812D41 /* FollowListAction.h */,
+				B2550A2B1C26695000812D41 /* FollowListAction.m */,
 				B2392B421BABF183009FE00C /* BlackListAction.h */,
 				B2392B431BABF183009FE00C /* BlackListAction.m */,
 				B2689B3A1BBCD753008B8AF0 /* MasterSettingCtrl.h */,
@@ -1281,6 +1291,7 @@
 				B290F5CB1C1DC66B0023079C /* UserCell.m in Sources */,
 				B24D69351BA6C8A400F33A96 /* SocketIOJSONSerialization.m in Sources */,
 				B24D693F1BA6C8A400F33A96 /* Waver.m in Sources */,
+				B2550A291C26653C00812D41 /* FollowUserCell.m in Sources */,
 				B24D69361BA6C8A400F33A96 /* SocketIOPacket.m in Sources */,
 				B24D693B1BA6C8A400F33A96 /* Tools.m in Sources */,
 				B24D68AD1BA6C46900F33A96 /* RegisterPhoneNumViewController.m in Sources */,
@@ -1298,6 +1309,7 @@
 				B2392B441BABF183009FE00C /* BlackListAction.m in Sources */,
 				B24D693C1BA6C8A400F33A96 /* TWTSideMenuViewController.m in Sources */,
 				B24D68B01BA6C46900F33A96 /* CommentDetailAction.m in Sources */,
+				B2550A2C1C26695000812D41 /* FollowListAction.m in Sources */,
 				B24D68601BA6C3F200F33A96 /* UserInfoModel.m in Sources */,
 				B2BFEB051BE897FE000296EF /* ConfigAccess.m in Sources */,
 				B24D68B91BA6C46900F33A96 /* ContentDetailViewController.m in Sources */,
