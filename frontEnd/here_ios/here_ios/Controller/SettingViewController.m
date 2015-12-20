@@ -1089,7 +1089,7 @@ typedef enum  {
     }else if (section == details){
         return [settingTitleArray count];
     }else if(section == support){
-        return 2;
+        return 3;
     }else if(section == logout){
         return 1;
     }
@@ -1274,6 +1274,12 @@ typedef enum  {
             comTable.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:comTable animated:YES];
         }
+        
+        if(indexPath.row == 2){
+            //版本号
+            
+            
+        }
     }
     
 }
@@ -1398,6 +1404,16 @@ typedef enum  {
         }
         if(indexPath.row == 0){
             cell.textLabel.text = @"黑名单";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        
+        if (indexPath.row == 2) {
+            cell.textLabel.text = @"当前版本";
+            NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+            NSString* app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+            
+            
+            cell.detailTextLabel.text = app_Version;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
        
