@@ -76,6 +76,9 @@
     _longitude = [[data objectForKey:@"location_longitude"] doubleValue];
     
     
+    _user_follow_count = [[data objectForKey:@"user_follow_count"] integerValue];
+    _user_fans_count = [[data objectForKey:@"user_fans_count"] integerValue];
+    
     _follow_timestamp = [[data objectForKey:@"follow_timestamp"] integerValue];
     
 }

@@ -13,7 +13,7 @@
 @interface FollowUserCell : UITableViewCell
 
 
-@property FaceView* faceView;
+@property UIImageView* faceView;
 @property UILabel* nickNameLabel;
 @property UILabel* userSignLabel;
 @property UIButton* followButton;

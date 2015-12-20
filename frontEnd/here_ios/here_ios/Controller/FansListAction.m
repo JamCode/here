@@ -1,11 +1,12 @@
 //
-//  FollowListAction.m
+//  FansListAction.m
 //  here_ios
 //
 //  Created by wang jam on 12/20/15.
 //  Copyright © 2015 jam wang. All rights reserved.
 //
 
+#import "FansListAction.h"
 #import "FollowListAction.h"
 #import "FollowUserCell.h"
 #import "NetWork.h"
@@ -15,7 +16,8 @@
 #import "Constant.h"
 #import "AppDelegate.h"
 
-@implementation FollowListAction
+
+@implementation FansListAction
 {
     NSMutableArray* dataList;
     pullCompleted completed;
@@ -23,11 +25,12 @@
 }
 
 
+
 - (void)pullDownAction:(pullCompleted)completedBlock //下拉响应函数
 {
     completed = completedBlock;
     
-    [self getFollowList:[[NSDate date] timeIntervalSince1970] handleAction:@selector(getFollowListSuccess:)];
+    [self getFansList:[[NSDate date] timeIntervalSince1970] handleAction:@selector(getFansListSuccess:)];
 }
 
 
@@ -38,15 +41,15 @@
     UserInfoModel* userInfo = [dataList lastObject];
     
     if (userInfo!=nil) {
-        [self getFollowList:userInfo.follow_timestamp handleAction:@selector(getFollowListHisSuccess:)];
+        [self getFansList:userInfo.follow_timestamp handleAction:@selector(getFansListHisSuccess:)];
     }else{
-        [self getFollowList:[[NSDate date] timeIntervalSince1970] handleAction:@selector(getFollowListHisSuccess:)];
+        [self getFansList:[[NSDate date] timeIntervalSince1970] handleAction:@selector(getFansListHisSuccess:)];
     }
     
 }
 
 
-- (void)getFollowListHisSuccess:(id)sender
+- (void)getFansListHisSuccess:(id)sender
 {
     NSDictionary* feedback = (NSDictionary*)sender;
     NSArray* contents = [feedback objectForKey:@"data"];
@@ -63,24 +66,24 @@
     }];
     
     [comtable.tableView reloadData];
-
+    
 }
 
-- (void)getFollowListSuccess:(id)sender
+- (void)getFansListSuccess:(id)sender
 {
     [dataList removeAllObjects];
     
-    [self getFollowListHisSuccess:sender];
+    [self getFansListHisSuccess:sender];
     
 }
 
-- (void)getFollowList:(NSInteger)timestamp handleAction:(SEL)handleAction
+- (void)getFansList:(NSInteger)timestamp handleAction:(SEL)handleAction
 {
     //异步注册信息
     NetWork* netWork = [[NetWork alloc] init];
     
     
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, [[NSNumber alloc] initWithInteger:timestamp],  @"/getfollowUser"] forKeys:@[@"user_id", @"follow_timestamp", @"childpath"]];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, [[NSNumber alloc] initWithInteger:timestamp],  @"/getFansUser"] forKeys:@[@"followed_user_id", @"follow_timestamp", @"childpath"]];
     
     NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&handleAction objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
     

@@ -11,6 +11,8 @@
 #import "macro.h"
 #import "Tools.h"
 #import <Masonry.h>
+#import "SDWebImage/UIImageView+WebCache.h"
+
 
 
 
@@ -22,7 +24,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]){
-        _faceView = [[FaceView alloc] init];
+        _faceView = [[UIImageView alloc] init];
         _nickNameLabel = [[UILabel alloc] init];
         _userSignLabel = [[UILabel alloc] init];
         _followButton = [[UIButton alloc] init];
@@ -41,12 +43,9 @@
 
 - (void)configureCell:(UserInfoModel*)userInfo
 {
-    [_faceView setUserInfo:userInfo nav:[Tools curNavigator]];
-    
+    [_faceView sd_setImageWithURL:[[NSURL alloc] initWithString:userInfo.faceImageThumbnailURLStr]];
     _nickNameLabel.text = userInfo.nickName;
     _userSignLabel.text = userInfo.sign;
-    
-    
 }
 
 
@@ -71,7 +70,7 @@
     
     [_userSignLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_faceView.mas_right).offset(minSpace);
-        make.top.mas_equalTo(_userSignLabel.mas_bottom).offset(minSpace);
+        make.top.mas_equalTo(_nickNameLabel.mas_bottom).offset(minSpace);
         make.size.mas_equalTo(CGSizeMake(120, 2*minSpace));
     }];
     

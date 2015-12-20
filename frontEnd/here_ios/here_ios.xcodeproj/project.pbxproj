@@ -179,6 +179,7 @@
 		B24EC9671BAAB98D006E12CB /* visitView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24EC9661BAAB98D006E12CB /* visitView.m */; };
 		B2550A291C26653C00812D41 /* FollowUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2550A281C26653C00812D41 /* FollowUserCell.m */; };
 		B2550A2C1C26695000812D41 /* FollowListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B2550A2B1C26695000812D41 /* FollowListAction.m */; };
+		B2550A2F1C267D6200812D41 /* FansListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B2550A2E1C267D6200812D41 /* FansListAction.m */; };
 		B26323331BF1F67900C75F81 /* InputToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B26323321BF1F67900C75F81 /* InputToolbar.m */; };
 		B267C63D1BA7F45900D12035 /* VisitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63C1BA7F45900D12035 /* VisitCell.m */; };
 		B267C6401BA7F55600D12035 /* VisitListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B267C63F1BA7F55600D12035 /* VisitListAction.m */; };
@@ -471,6 +472,8 @@
 		B2550A281C26653C00812D41 /* FollowUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowUserCell.m; sourceTree = "<group>"; };
 		B2550A2A1C26695000812D41 /* FollowListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowListAction.h; sourceTree = "<group>"; };
 		B2550A2B1C26695000812D41 /* FollowListAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowListAction.m; sourceTree = "<group>"; };
+		B2550A2D1C267D6200812D41 /* FansListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FansListAction.h; sourceTree = "<group>"; };
+		B2550A2E1C267D6200812D41 /* FansListAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FansListAction.m; sourceTree = "<group>"; };
 		B26323311BF1F67900C75F81 /* InputToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputToolbar.h; sourceTree = "<group>"; };
 		B26323321BF1F67900C75F81 /* InputToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputToolbar.m; sourceTree = "<group>"; };
 		B267C63B1BA7F45900D12035 /* VisitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitCell.h; sourceTree = "<group>"; };
@@ -838,6 +841,8 @@
 			isa = PBXGroup;
 			children = (
 				B24D686B1BA6C46900F33A96 /* Property List.plist */,
+				B2550A2D1C267D6200812D41 /* FansListAction.h */,
+				B2550A2E1C267D6200812D41 /* FansListAction.m */,
 				B2550A2A1C26695000812D41 /* FollowListAction.h */,
 				B2550A2B1C26695000812D41 /* FollowListAction.m */,
 				B2392B421BABF183009FE00C /* BlackListAction.h */,
@@ -1239,6 +1244,7 @@
 				B24D68141BA6C06800F33A96 /* OptionFunButtonView.m in Sources */,
 				B24D68151BA6C06800F33A96 /* OptionFunView.m in Sources */,
 				B24D68A91BA6C46900F33A96 /* MessageTableViewController.m in Sources */,
+				B2550A2F1C267D6200812D41 /* FansListAction.m in Sources */,
 				B2A33D081BDDFF5F00D8F18D /* Last_pri_msg.m in Sources */,
 				B24D68641BA6C3F200F33A96 /* ImageModel.m in Sources */,
 				B24D68B31BA6C46900F33A96 /* SettingViewController.m in Sources */,
