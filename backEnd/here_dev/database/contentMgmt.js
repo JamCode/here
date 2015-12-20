@@ -232,3 +232,14 @@ exports.getAllContentImage = function (callback) {
 	var sql = 'select *from content_image_info';
 	conn.executeSql(sql, [], callback);
 };
+
+exports.getfollowContent = function(reqbody, callback){
+	var sql = 'select a.*, b.*, c.* from content_base_info a left join content_image_info c on a.content_id = c.content_id, user_base_info b ' +
+	' where a.user_id = b.user_id ' +
+	' and a.user_id in ' +
+	'(select followed_user_id from user_follow_base_info where user_id = ?) ' +
+	' and a.content_publish_timestamp < ? ' +
+	' and a.content_report = 0' +
+	' order by a.content_publish_timestamp desc limit 8';
+	conn.executeSql(sql, [reqbody.user_id, reqbody.timestamp], callback);
+};

@@ -38,4 +38,14 @@
 //- (BOOL)deleteUserAllMsg:(NSString*)user_id;
 
 
+- (BOOL)insertContentGoodInfo:(NSString*)content_id;
+- (BOOL)deleteContentGoodInfo:(NSString*)content_id;
+- (NSInteger)getCountContentGoodInfo:(NSString*)content_id;
+
+- (BOOL)clearFollowInfo;
+- (BOOL)addFollowInfo:(NSString*)followed_user_id;
+- (BOOL)delFollowInfo:(NSString*)followed_user_id;
+- (BOOL)followedUser:(NSString*)followed_user_id; //检查是否关注
+
+
 @end

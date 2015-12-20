@@ -127,6 +127,12 @@
 }
 
 
++ (LocDatabase*)getLocDatabase
+{
+    AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    return app.locDatabase;
+}
+
 + (SocketIO*) getMySocket
 {
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];

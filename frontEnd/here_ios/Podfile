@@ -1,6 +1,5 @@
 platform :ios, '8.0'
 pod 'LBBlurredImage'
-pod 'AFNetworking'
 pod 'ASIHTTPRequest'
 pod 'EGOTableViewPullRefresh'
 pod 'MBProgressHUD'
@@ -10,4 +9,6 @@ pod 'SocketRocket'
 #pod 'AMapSearch' #搜索服务SDK
 pod 'SDWebImage', '~>3.7'
 pod 'Masonry'
+pod 'YYWebImage'
+pod 'YYModel'
 #pod 'AsyncDisplayKit'

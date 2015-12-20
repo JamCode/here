@@ -20,6 +20,8 @@
 #import "ComTableViewCtrl.h"
 #import "HotContentAction.h"
 #import "MasterSettingCtrl.h"
+#import "FollowedContentAction.h"
+
 
 
 @interface TabBarViewController ()
@@ -103,7 +105,7 @@
     
     ComTableViewCtrl* nearContentTableCtrl = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:[[NearByContentAction alloc] init]];
     
-    ComTableViewCtrl* hotContentTableCtrl = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[HotContentAction alloc] init]];
+    ComTableViewCtrl* followContentTableCtrl = [[ComTableViewCtrl alloc] init:YES allowPullUp:NO initLoading:YES comDelegate:[[FollowedContentAction alloc] init]];
 
     
     MessageTableViewController* message = [[MessageTableViewController alloc] init];
@@ -114,7 +116,7 @@
     
     
     [self initChildView:controllers viewController:nearContentTableCtrl title:@"附近"];
-    [self initChildView:controllers viewController:hotContentTableCtrl title:@"热门"];
+    [self initChildView:controllers viewController:followContentTableCtrl title:@"关注"];
     [self initChildView:controllers viewController:message title:@"消息"];
     [self initChildView:controllers viewController:setting title:@"设置"];
     

@@ -438,6 +438,14 @@ router.post('/reportContent', function(req, res) {
 	});
 });
 
+//#171
+router.post('/getfollowContent', function(req, res){
+	contentMgmt.getfollowContent(req.body, function(flag, result){
+		packageContentArray(flag, result, res);
+	});
+});
+
+
 // router.get('/converContentImage', function(req, res){
 //     log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename));
 //     databaseOperation.getAllContentImage(function(flag, result){

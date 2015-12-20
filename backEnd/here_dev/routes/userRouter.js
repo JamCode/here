@@ -316,6 +316,9 @@ router.post('/getUserInfo', function(req, res) {
 			returnData.good_count = result[0].good_count;
 			returnData.location_latitude = result[0].location_latitude;
 			returnData.location_longitude = result[0].location_longitude;
+			returnData.code = config.returnCode.SUCCESS;
+			returnData.user_fans_count = result[0].user_fans_count;
+			returnData.user_follow_count = result[0].user_follow_count;
 
 			if (result[0].city_visit_count == null) {
 				log.debug('city_visit_count is null', log.getFileNameAndLineNum(
@@ -897,6 +900,72 @@ router.post('/submitFeedback', function(req, res) {
 		routeFunc.feedBack(flag, result, res);
 	});
 });
+
+
+//#171
+router.post('/cancelFollowUser', function(req, res){
+	userMgmt.cancelFollowUser(req.body, function(flag, result){
+		routeFunc.feedBack(flag, result, res);
+	});
+});
+
+router.post('/followUser', function(req, res){
+	userMgmt.followUser(req.body, function(flag, result){
+		var returnData = {};
+		if(!flag){
+			if(result.code === 'ER_DUP_ENTRY'){
+				returnData.code = config.returnCode.FOLLOW_USER_EXIST;
+			}else{
+				log.error(result, log.getFileNameAndLineNum(__filename), req.body.sq);
+				returnData.code = config.returnCode.ERROR;
+			}
+		}else{
+			returnData.code = config.returnCode.SUCCESS;
+
+			//apn 推送给被关注的人消息
+			userMgmt.getUserTokenInfo(req.body.followed_user_id, function(flag, result) {
+				if (flag) {
+					if (result.length > 0) {
+						var pushMsg = {
+							content: req.body.user_name + '查看了你的资料',
+							msgtype: 'msg',
+							badge: result[0].count
+						};
+						// apn to user
+						conn.pushMsgToUsers(result[0].device_token, pushMsg);
+					} else {
+						log.warn(req.body.followed_user_id + ' has no device token', log.getFileNameAndLineNum(
+							__filename));
+					}
+				} else {
+					log.error(result, log.getFileNameAndLineNum(__filename));
+				}
+			});
+
+		}
+		res.send(returnData);
+	});
+});
+
+router.post('/getfollowUser', function(req, res){
+	userMgmt.getfollowUser(req.body, function(flag, result){
+		routeFunc.feedBack(flag, result, res, req.body.sq);
+	});
+});
+
+
+router.post('/getFansUser', function(req, res){
+	userMgmt.getFansUser(req.body, function(flag, result){
+		routeFunc.feedBack(flag, result, res, req.body.sq);
+	});
+});
+
+router.post('/getfollowInfo', function(req, res){
+	userMgmt.getfollowInfo(req.body, function(flag, result){
+		routeFunc.feedBack(flag, result, res, req.body.sq);
+	});
+});
+
 
 router.get('/testfile', function(req, res) {
 	res.send('testfile');

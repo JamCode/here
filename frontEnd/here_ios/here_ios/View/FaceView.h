@@ -14,5 +14,6 @@
 - (void)setUserInfo:(UserInfoModel*)userInfo nav:(UINavigationController*)nav;
 - (void)forbiddenPress;
 @property bool primsgButtonShow;
+- (id)initWithFrame:(CGRect)frame;
 
 @end
