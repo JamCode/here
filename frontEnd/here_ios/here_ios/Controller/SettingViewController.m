@@ -246,13 +246,7 @@ typedef enum  {
     //    [self.navigationController popViewControllerAnimated:YES];
     
     
-    loadingView = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:loadingView];
-    loadingView.labelText = @"设置黑名单成功";
-    loadingView.mode = MBProgressHUDModeText;
-    loadingView.removeFromSuperViewOnHide = YES;
-    [loadingView show:YES];
-    [loadingView hide:YES afterDelay:2];
+    [Tools AlertBigMsg:@"设置黑名单成功"];
     
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -278,13 +272,9 @@ typedef enum  {
     //    [_parentCtrl.tableView reloadData];
     //    [self.navigationController popViewControllerAnimated:YES];
     
-    loadingView = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:loadingView];
-    loadingView.labelText = @"解除黑名单成功";
-    loadingView.mode = MBProgressHUDModeText;
-    loadingView.removeFromSuperViewOnHide = YES;
-    [loadingView show:YES];
-    [loadingView hide:YES afterDelay:2];
+    
+    [Tools AlertBigMsg:@"解除黑名单成功"];
+    
     
     //[self.navigationController popViewControllerAnimated:YES];
     
@@ -1132,31 +1122,28 @@ typedef enum  {
 
 - (void)logout
 {
-    loadingView = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:loadingView];
     
-    [loadingView showAnimated:YES whileExecutingBlock:^{
-        
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        // Do something...
         //清理本地账户信息
         NSUserDefaults *mySettingData = [NSUserDefaults standardUserDefaults];
         [mySettingData removeObjectForKey:@"phone"];
         [mySettingData removeObjectForKey:@"password"];
         [mySettingData synchronize];
-        [NSThread sleepForTimeInterval:3.0];
         
-        //发送注销请求给服务器
-        
-    } completionBlock:^{
-        //self.parentViewController.view.hidden = NO;
-        [self dismissViewControllerAnimated:YES completion:nil];
-        AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        
-        [app backToStartView];
-        
-        //[self.navigationController popToRootViewControllerAnimated:YES];
-        
-        //self.view.hidden = NO;
-    }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
+            AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+            
+            [app backToStartView];
+
+            
+        });
+    });
+
 }
 
 

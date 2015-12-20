@@ -240,6 +240,7 @@ exports.getfollowContent = function(reqbody, callback){
 	'(select followed_user_id from user_follow_base_info where user_id = ?) ' +
 	' and a.content_publish_timestamp < ? ' +
 	' and a.content_report = 0' +
+	' and a.anonymous <> 1 ' +
 	' order by a.content_publish_timestamp desc limit 8';
 	conn.executeSql(sql, [reqbody.user_id, reqbody.timestamp], callback);
 };
