@@ -404,7 +404,7 @@
     if (indexPath.section == 0) {
         
         
-        static NSString* cellIdentifier = @"ContentTableViewCell";
+        static NSString* cellIdentifier = @"DetailContentTableViewCell";
         ContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         // Configure the cell...
@@ -416,11 +416,6 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
-        //cell.contentViewCtrl = self;
-        //cell.parentViewController = self.navigationController;
-        //cell.index = indexPath;
-        
-        //NSLog(@"set image");
         
         [cell setContentModel:_contentModel];
         cell.contentDetail = self;
