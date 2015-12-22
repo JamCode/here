@@ -62,6 +62,8 @@ schedule.scheduleJob('59 23 * * *', function(){
     });
 });
 
+
+
 process.on('uncaughtException', function(err) {
     log.error('schedule process Caught exception: ' +
         err.stack);
