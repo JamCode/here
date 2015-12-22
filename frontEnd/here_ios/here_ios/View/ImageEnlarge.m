@@ -131,7 +131,8 @@
     
     [parent addSubview:backgroundView];
     
-    if (enlargeImageUrl!=nil) {
+    //#182
+    if (enlargeImageUrl!=nil&&(NSNull*)enlargeImageUrl!=[NSNull null]) {
         [enlargeImageview sd_setImageWithURL:[[NSURL alloc] initWithString:enlargeImageUrl]  placeholderImage:imageview.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         }];
     }
@@ -191,7 +192,10 @@
 - (void)setThumbnailUrl:(NSString*)imageUrl
 {
     thumbnailUrl = imageUrl;
-    [(UIImageView*)self sd_setImageWithURL:[[NSURL alloc] initWithString:thumbnailUrl]];
+    //#182
+    if((NSNull*)thumbnailUrl != [NSNull null]){
+        [(UIImageView*)self sd_setImageWithURL:[[NSURL alloc] initWithString:thumbnailUrl]];
+    }
 }
 
 - (void)setImageUrl:(NSString*)imageUrl
