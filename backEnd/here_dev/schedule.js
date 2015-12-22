@@ -27,7 +27,7 @@ schedule.scheduleJob('57 23 * * *', function(){
 
 
 //文件系统报告
-schedule.scheduleJob('58 23 * * *', function(){
+schedule.scheduleJob('59 23 * * *', function(){
     log.info("file system report start", log.getFileNameAndLineNum(__filename));
     child_process.execFile('./sh_script/sysReport.pl', null, {}, function(err, stdout, stderr){
         if(err!=null){
@@ -38,6 +38,29 @@ schedule.scheduleJob('58 23 * * *', function(){
     });
 });
 
+//日志错误统计
+schedule.scheduleJob('58 23 * * *', function(){
+    log.info("errorLogReport start", log.getFileNameAndLineNum(__filename));
+    child_process.execFile('./sh_script/errorLogReport.pl', null, {}, function(err, stdout, stderr){
+        if(err!=null){
+            log.error(err, log.getFileNameAndLineNum(__filename));
+        }else{
+            log.info("errorLogReport finish", log.getFileNameAndLineNum(__filename));
+        }
+    });
+});
+
+//日志压缩备份
+schedule.scheduleJob('59 23 * * *', function(){
+    log.info("zipHereLog start", log.getFileNameAndLineNum(__filename));
+    child_process.execFile('./sh_script/zipHereLog.sh', null, {}, function(err, stdout, stderr){
+        if(err!=null){
+            log.error(err, log.getFileNameAndLineNum(__filename));
+        }else{
+            log.info("zipHereLog finish", log.getFileNameAndLineNum(__filename));
+        }
+    });
+});
 
 process.on('uncaughtException', function(err) {
     log.error('schedule process Caught exception: ' +
