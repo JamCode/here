@@ -1171,12 +1171,18 @@ typedef enum  {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    if ([app.myInfo.userID isEqualToString:_userInfo.userID] == false&&indexPath.section == details) {
-        //基本资料只能本用户点击修改
-        return;
-    }
+    
+    
+    
     
     if(indexPath.section ==details){
+        
+        //#183
+        if ([app.myInfo.userID isEqualToString:_userInfo.userID] == false&&indexPath.row != follow&&indexPath.row!=fans) {
+            //基本资料只能本用户点击修改
+            return;
+        }
+
         
         if(indexPath.row == follow){
             
@@ -1377,7 +1383,8 @@ typedef enum  {
         cell.textLabel.text = @"";
     }
     
-    
+    cell.textLabel.textColor = [UIColor blackColor];
+
     if (indexPath.section == logout) {
         cell.textLabel.text = @"退出账户";
         cell.textLabel.textColor = subjectColor;
