@@ -29,7 +29,7 @@ schedule.scheduleJob('57 23 * * *', function(){
 //文件系统报告
 schedule.scheduleJob('58 23 * * *', function(){
     log.info("file system report start", log.getFileNameAndLineNum(__filename));
-    process.execFile('./sh_script/sysReport.pl', null, {}, function(err, stdout, stderr){
+    child_process.execFile('./sh_script/sysReport.pl', null, {}, function(err, stdout, stderr){
         if(err!=null){
             log.error(err, log.getFileNameAndLineNum(__filename));
         }else{
