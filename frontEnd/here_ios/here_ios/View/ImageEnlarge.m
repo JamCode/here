@@ -133,8 +133,13 @@
     
     //#182
     if (enlargeImageUrl!=nil&&(NSNull*)enlargeImageUrl!=[NSNull null]) {
-        [enlargeImageview sd_setImageWithURL:[[NSURL alloc] initWithString:enlargeImageUrl]  placeholderImage:imageview.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        
+        
+        [enlargeImageview sd_setImageWithURL:[[NSURL alloc] initWithString:enlargeImageUrl] placeholderImage:imageview.image options:SDWebImageAllowInvalidSSLCertificates completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            ;
         }];
+        
     }
     
     // animations settings
