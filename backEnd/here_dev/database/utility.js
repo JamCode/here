@@ -10,11 +10,13 @@ if (process.env.ENV === 'pro') {
 	global_config = require('../config/pro_env_config');
 }
 var crypto = require('crypto');
-global_config.mysql_dev = decodeDBStr(global_config.mysql_dev);
-var pool = mysql.createPool(global_config.mysql_dev);
 var domain = require('domain');
 var domainObj = domain.create();
 var path = require('path');
+global_config.mysql_dev = decodeDBStr(global_config.mysql_dev);
+
+var pool = mysql.createPool(global_config.mysql_dev);
+
 
 
 exports.closePool = function(){
