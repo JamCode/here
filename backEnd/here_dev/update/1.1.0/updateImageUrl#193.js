@@ -12,8 +12,17 @@ conn.executeSql(sql, [], function(flag, result){
             var image_compress_url = item.image_compress_url;
             image_url = image_url.replace('http:', 'https:');
             image_compress_url = image_compress_url.replace('http:', 'https:');
-            console.log(image_url);
-            console.log(image_compress_url);
+
+
+            var updateSql = "update content_image_info set image_url = ?, image_compress_url = ? " +
+            " where content_id = ? ";
+            conn.executeSql(updateSql, [image_url, image_compress_url, item.content_id], function(flag, result){
+                if(!flag){
+                    console.log(result);
+                }else{
+                    console.log('update '+ item.content_id);
+                }
+            });
         });
     }else{
         console.log(result);
