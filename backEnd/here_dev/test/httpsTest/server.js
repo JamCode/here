@@ -24,17 +24,14 @@ var options = {
   cert: fs.readFileSync('./server.crt')
 };
 
-https.createServer(options, app, function (req, res) {
-  res.writeHead(200);
-  res.end("hello world\n");
-}).listen(port1);
-
-
+https.createServer(options, app).listen(port1);
 
 
 var http = require('http');
 var port2 = 4434;
-var server = http.createServer(app, function(req, res){
-    res.end('hello world\n');
-});
+var server = http.createServer(app);
 server.listen(port2);
+
+app.get('/', function(req, res){
+    res.send('hello world');
+});
