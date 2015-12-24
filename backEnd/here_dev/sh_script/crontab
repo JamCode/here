@@ -1,5 +1,1 @@
 
-59 23 * * * $HOME/here/backEnd/here_dev/sh_script/sysReport.pl
-58 23 * * * $HOME/here/backEnd/here_dev/sh_script/errorLogReport.pl
-59 23 * * * $HOME/here/backEnd/here_dev/sh_script/zipHereLog.sh
-57 23 * * * $HOME/here/backEnd/here_dev/sh_script/pvUvRprt.pl
