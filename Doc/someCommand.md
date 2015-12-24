@@ -34,3 +34,7 @@ pod update --verbose --no-repo-update
 post包测试
 
 >* curl -d "user_id=xxx&user_name=xxxx" "http://112.74.102.178:8080/api"
+
+
+## 抓包测试
+>* sudo tcpdump -X -s 0 'tcp port 10666 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)'

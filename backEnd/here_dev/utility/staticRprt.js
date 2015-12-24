@@ -40,7 +40,7 @@ function generateReportEmail(pvCount, uvCount) {
     var todayRprt = curDateStr + "-----[pvCount :" + pvCount +
         ";uvCount:" + uvCount + "]";
     log.info(todayRprt, log.getFileNameAndLineNum(__filename));
-    emailTool.sendMail(todayRprt, curDateStr + "_访问量统计");
+    emailTool.sendMail(todayRprt, curDateStr + "_访问量统计_" + process.env.ENV);
 }
 
 function daliyRprt(logPath) {
