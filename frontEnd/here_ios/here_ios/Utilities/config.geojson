@@ -1,12 +1,12 @@
 {
     "pro" : {
-           "ServerDomain" : "http://123.57.229.67:8080",
+           "ServerDomain" : "https://123.57.229.67:8080",
            "SocketIP" : "123.57.229.67",
            "SocketPort" : 10666
     },
     
     "dev" : {
-           "ServerDomain" : "http://112.74.102.178:8080",
+           "ServerDomain" : "https://112.74.102.178:8080",
            "SocketIP" : "112.74.102.178",
            "SocketPort" : 10666
            

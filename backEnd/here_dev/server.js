@@ -120,8 +120,8 @@ function startHTTPServer(port) {
 
 
 	var options = {
-	  key: fs.readFileSync('./key/server.key'),
-	  cert: fs.readFileSync('./key/server.crt')
+	  key: fs.readFileSync(__dirname + '/key/server.key'),
+	  cert: fs.readFileSync(__dirname + '/key/server.crt')
 	};
 
 	https.createServer(options, global.app).listen(port);
