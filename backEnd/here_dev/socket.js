@@ -19,7 +19,7 @@ var conn = require('./database/utility.js');
 var cluster = require('cluster');
 var email = require('./utility/emailTool');
 var redis = require('redis');
-var redisClient = redis.createClient();
+var redisClient = redis.createClient({auth_pass:global_config.redis_pass.pass});
 var fs = require('fs');
 var async = require('async');
 
