@@ -28,7 +28,7 @@ https.createServer(options, app).listen(port1);
 
 
 var http = require('http');
-var port2 = 4434;
+var port2 = 8080;
 var server = http.createServer(app);
 server.listen(port2);
 

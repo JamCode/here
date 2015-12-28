@@ -1,5 +1,6 @@
+var global_config = global.global_config;
 var redis = require('redis');
-var redis_client = redis.createClient();
+var redis_client = redis.createClient({auth_pass:global_config.redis_pass.pass});
 var config = require('../config/config');
 var log = global.log;
 
