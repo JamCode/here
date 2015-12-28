@@ -34,6 +34,7 @@
         self.layer.masksToBounds = YES;
         self.layer.shouldRasterize = YES;
         self.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(faceViewPress:)]];
     }
     return self;
 }
@@ -44,13 +45,8 @@
     myinfo = userInfo;
     parentNav = nav;
     _primsgButtonShow = YES;
-    
     self.userInteractionEnabled = YES;
-    
     self.contentMode = UIViewContentModeScaleAspectFill;
-    
-    [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(faceViewPress:)]];
-    
     
     
 }
