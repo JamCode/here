@@ -14,3 +14,8 @@ create or replace view image_url_v
 #200
 UPDATE `user_base_info` set `user_face_image`   = REPLACE (user_face_image, 'http', 'https');
 UPDATE `user_base_info` set `user_facethumbnail` = REPLACE (user_facethumbnail,  'http', 'https');
+
+
+#193
+UPDATE `content_image_info` set `image_url` = REPLACE (`image_url`, 'http:', 'https:');
+UPDATE `content_image_info` set `image_compress_url` = REPLACE (`image_compress_url`, 'http:', 'https:') ;
