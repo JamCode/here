@@ -19,3 +19,8 @@ exports.mysql_dev = {
     database: 'pro_online',
     port: 3306
 };
+
+exports.redis_pass = {
+    pass: 'here_dev'
+};
+

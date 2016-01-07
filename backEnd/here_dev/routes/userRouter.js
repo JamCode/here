@@ -14,13 +14,13 @@ var path = require('path');
 var conn = require('../database/utility.js');
 var log = global.log;
 var redis = require('redis');
-var redis_client = redis.createClient();
+var redis_client = redis.createClient({auth_pass:global_config.redis_pass.pass});
 var imageOper = require('../utility/imageOper');
 var async = require('async');
 var os = require('os');
 var networkInterface = os.networkInterfaces();
 
-var imageHomeUrl = 'http://' + networkInterface.eth1[0].address + ':' +
+var imageHomeUrl = 'https://' + networkInterface.eth1[0].address + ':' +
 	global_config.httpServerInfo.listen_port + config.imageInfo.url;
 
 log.debug(imageHomeUrl, log.getFileNameAndLineNum(__filename));
