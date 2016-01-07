@@ -113,12 +113,33 @@ NSString* const SocketIOException = @"SocketIOException";
     [self connectToHost:host onPort:port withParams:params withNamespace:endpoint withConnectionTimeout:defaultConnectionTimeout];
 }
 
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+{
+    NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
+    
+    id<NSURLAuthenticationChallengeSender> sender = [challenge sender];
+    
+    if ([[protectionSpace authenticationMethod] isEqualToString:NSURLAuthenticationMethodServerTrust])
+    {
+        SecTrustRef trust = [[challenge protectionSpace] serverTrust];
+        
+        NSURLCredential *credential = [[NSURLCredential alloc] initWithTrust:trust];
+        
+        [sender useCredential:credential forAuthenticationChallenge:challenge];
+    }
+    else
+    {
+        [sender performDefaultHandlingForAuthenticationChallenge:challenge];
+    }
+}
+
 - (void) connectToHost:(NSString *)host
                 onPort:(NSInteger)port
             withParams:(NSDictionary *)params
          withNamespace:(NSString *)endpoint
  withConnectionTimeout:(NSTimeInterval)connectionTimeout
 {
+    
     if (!_isConnected && !_isConnecting) {
         _isConnecting = YES;
         
@@ -901,7 +922,8 @@ NSString* const SocketIOException = @"SocketIOException";
     
     if ([_delegate respondsToSelector:@selector(socketIO:onError:)]) {
         NSMutableDictionary *errorInfo = [[NSDictionary dictionaryWithObject:error
-                                                                      forKey:NSUnderlyingErrorKey] mutableCopy];
+                                                                      forKey:
+                                           NSUnderlyingErrorKey] mutableCopy];
         
         NSError *err = [NSError errorWithDomain:SocketIOError
                                            code:errorCode

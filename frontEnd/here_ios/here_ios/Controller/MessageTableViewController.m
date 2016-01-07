@@ -23,6 +23,7 @@
 #import "FriendMsgMode.h"
 #import "Tools.h"
 #import <MBProgressHUD.h>
+#import "ConfigAccess.h"
 
 
 @interface MessageTableViewController ()
@@ -112,9 +113,16 @@ static const int noticeLabelHeight = 20;
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
     mysocket.useSecure = YES;
+    
+    
     [mysocket connectToHost:app.socketIP onPort:app.socketPort withParams:nil withNamespace:nil withConnectionTimeout:3];
     
 }
+
+
+
+
+
 
 - (void)startConnectActiveView
 {
