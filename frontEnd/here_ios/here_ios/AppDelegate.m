@@ -78,7 +78,7 @@
     _myInfo.password = (NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
     
     _mysocket = [[SocketIO alloc] initWithDelegate:self];
-    _mysocket.useSecure = YES;//use https
+    //_mysocket.useSecure = YES;//use https
     
     
     if (_myInfo.phoneNum == nil||_myInfo.password == nil
