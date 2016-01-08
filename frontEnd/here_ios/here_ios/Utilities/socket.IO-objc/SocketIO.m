@@ -113,25 +113,25 @@ NSString* const SocketIOException = @"SocketIOException";
     [self connectToHost:host onPort:port withParams:params withNamespace:endpoint withConnectionTimeout:defaultConnectionTimeout];
 }
 
-- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
-{
-    NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
-    
-    id<NSURLAuthenticationChallengeSender> sender = [challenge sender];
-    
-    if ([[protectionSpace authenticationMethod] isEqualToString:NSURLAuthenticationMethodServerTrust])
-    {
-        SecTrustRef trust = [[challenge protectionSpace] serverTrust];
-        
-        NSURLCredential *credential = [[NSURLCredential alloc] initWithTrust:trust];
-        
-        [sender useCredential:credential forAuthenticationChallenge:challenge];
-    }
-    else
-    {
-        [sender performDefaultHandlingForAuthenticationChallenge:challenge];
-    }
-}
+//- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+//{
+//    NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
+//    
+//    id<NSURLAuthenticationChallengeSender> sender = [challenge sender];
+//    
+//    if ([[protectionSpace authenticationMethod] isEqualToString:NSURLAuthenticationMethodServerTrust])
+//    {
+//        SecTrustRef trust = [[challenge protectionSpace] serverTrust];
+//        
+//        NSURLCredential *credential = [[NSURLCredential alloc] initWithTrust:trust];
+//        
+//        [sender useCredential:credential forAuthenticationChallenge:challenge];
+//    }
+//    else
+//    {
+//        [sender performDefaultHandlingForAuthenticationChallenge:challenge];
+//    }
+//}
 
 - (void) connectToHost:(NSString *)host
                 onPort:(NSInteger)port

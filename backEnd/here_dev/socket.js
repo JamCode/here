@@ -216,12 +216,13 @@ function getMissedMsgAsync (result, fn) {
 function startSocketServer () {
 
     var options = {
-	  key: fs.readFileSync(__dirname + '/key/server.key'),
-	  cert: fs.readFileSync(__dirname + '/key/server.crt')
+	  //key: fs.readFileSync(__dirname + '/key/server.key'),
+	  //cert: fs.readFileSync(__dirname + '/key/server.crt')
 	};
 
     var app = require('express')();
-    var server = require('https').createServer(options, app);
+    //var server = require('https').createServer(options, app);
+    var server = require('http').createServer(app);
     var io = require('socket.io')(server);
     server.listen(socketPort);
     log.logPrint(config.logLevel.DEBUG, 'start listen socket '+socketPort);

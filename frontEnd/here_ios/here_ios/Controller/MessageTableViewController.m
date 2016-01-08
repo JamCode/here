@@ -112,7 +112,7 @@ static const int noticeLabelHeight = 20;
     
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
 
-    mysocket.useSecure = YES;
+    //mysocket.useSecure = YES;
     
     
     [mysocket connectToHost:app.socketIP onPort:app.socketPort withParams:nil withNamespace:nil withConnectionTimeout:3];
@@ -147,7 +147,7 @@ static const int noticeLabelHeight = 20;
 {
     [self stopActiveView:@"连接异常"];
     
-    NSLog(@"socketIODidDisconnect %@", error);
+    NSLog(@"socketIODidDisconnect %@", error.domain);
     
     [self performSelector:@selector(socketConnect) withObject:nil afterDelay:1];
 }
