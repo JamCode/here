@@ -133,6 +133,34 @@ NSString* const SocketIOException = @"SocketIOException";
 //    }
 //}
 
+
+//hotfix1
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge{
+    //    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+    //        if (!(self.options & SDWebImageDownloaderAllowInvalidSSLCertificates) &&
+    //            [challenge.sender respondsToSelector:@selector(performDefaultHandlingForAuthenticationChallenge:)]) {
+    //            [challenge.sender performDefaultHandlingForAuthenticationChallenge:challenge];
+    //        } else {
+    //            NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+    //            [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
+    //        }
+    //    } else {
+    if ([challenge previousFailureCount] == 0) {
+        //NSURLCredential 这个类是表示身份验证凭据不可变对象。凭证的实际类型声明的类的构造函数来确定。
+        NSURLCredential* cre = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+        //[challenge.sender useCredential:cre forAuthenticationChallenge:challenge];
+        
+        SecTrustRef trustRef = [[challenge protectionSpace] serverTrust];
+        CFIndex count = SecTrustGetCertificateCount(trustRef);
+        [challenge.sender useCredential:cre forAuthenticationChallenge:challenge];
+        
+    } else {
+        [[challenge sender] continueWithoutCredentialForAuthenticationChallenge:challenge];
+    }
+    //}
+}
+
+
 - (void) connectToHost:(NSString *)host
                 onPort:(NSInteger)port
             withParams:(NSDictionary *)params

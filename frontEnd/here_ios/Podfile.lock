@@ -20,6 +20,7 @@ PODS:
   - SDWebImage (3.7.3):
     - SDWebImage/Core
   - SDWebImage/Core (3.7.3)
+  - Socket.IO-Client-Swift (4.1.2)
   - SocketRocket (0.4.2)
   - YYModel (0.9.5)
   - YYWebImage (0.9.10)
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - Masonry
   - MBProgressHUD
   - SDWebImage (~> 3.7)
+  - Socket.IO-Client-Swift
   - SocketRocket
   - YYModel
   - YYWebImage
@@ -43,6 +45,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  Socket.IO-Client-Swift: e9e173cf20d6fa33c1c1c4f6354c7b168259eeb6
   SocketRocket: ffe08119b00ef982f6c37052a4705a057c8494ad
   YYModel: dd2bdc9097f8a90c53512a87d55d28340ade1371
   YYWebImage: 23e7f2bc8c5d0f61fd690d32a3c5dc0f3542a233
