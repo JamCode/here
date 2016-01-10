@@ -26,6 +26,7 @@
 #import "ConfigAccess.h"
 
 
+
 @interface MessageTableViewController ()
 {
     NSMutableArray* priMsgFriendArray;
