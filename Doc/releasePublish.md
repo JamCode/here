@@ -15,6 +15,12 @@
 ## 发布版本号
 >* git push --tags
 
+## hotfix分支创建
+
+>* git flow hotfix start <release>
+>* git flow hotfix finish <release>
+
+
 ## 下载release压缩包
 
 ## 发布前台app
