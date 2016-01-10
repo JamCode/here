@@ -38,3 +38,19 @@ post包测试
 
 ## 抓包测试
 >* sudo tcpdump -X -s 0 'tcp port 10666 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)'
+
+
+## openssl证书生成
+
+>* 生成服务器端的非对称秘钥
+openssl genrsa -des3 -out server.key 1024
+
+>* 生成签名请求的CSR文件
+openssl req -new -key server.key -out server.csr
+
+>* 自己对证书进行签名，签名的有效期是365天
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+
+>* 去除证书文件的password
+cp server.key server.key.orig
+openssl rsa -in server.key.orig -out server.key
