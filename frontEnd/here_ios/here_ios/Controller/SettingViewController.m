@@ -1408,7 +1408,7 @@ typedef enum  {
             
             
             cell.detailTextLabel.text = app_Version;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.accessoryType = UITableViewCellAccessoryNone;
         }
        
     }
