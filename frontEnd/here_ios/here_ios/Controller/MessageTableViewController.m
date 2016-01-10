@@ -23,6 +23,8 @@
 #import "FriendMsgMode.h"
 #import "Tools.h"
 #import <MBProgressHUD.h>
+#import "ConfigAccess.h"
+
 
 
 @interface MessageTableViewController ()
@@ -108,9 +110,20 @@ static const int noticeLabelHeight = 20;
     [timer invalidate];
     timer = nil;
     timer =[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startConnectActiveView) userInfo:nil repeats:YES];
-    [mysocket connectToHost:SocketIP onPort:SocketPort withParams:nil withNamespace:nil withConnectionTimeout:3];
+    
+    AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+
+    //mysocket.useSecure = YES;
+    
+    
+    [mysocket connectToHost:app.socketIP onPort:app.socketPort withParams:nil withNamespace:nil withConnectionTimeout:3];
     
 }
+
+
+
+
+
 
 - (void)startConnectActiveView
 {
@@ -135,7 +148,7 @@ static const int noticeLabelHeight = 20;
 {
     [self stopActiveView:@"连接异常"];
     
-    NSLog(@"socketIODidDisconnect %@", error);
+    NSLog(@"socketIODidDisconnect %@", error.domain);
     
     [self performSelector:@selector(socketConnect) withObject:nil afterDelay:1];
 }

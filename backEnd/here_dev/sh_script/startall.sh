@@ -7,11 +7,13 @@
 
 forever stop $HOME/here/backEnd/here_dev/server.js
 forever stop $HOME/here/backEnd/here_dev/socket.js
+forever stop $HOME/here/backEnd/here_dev/schedule.js
 
 forever cleanlogs
 
 forever start -l server.log $HOME/here/backEnd/here_dev/server.js
 forever start -l socket.log $HOME/here/backEnd/here_dev/socket.js
+forever start -l schedule.log $HOME/here/backEnd/here_dev/schedule.js
 
 
 #nohup node $HOME/dev/here_dev/socket.js &

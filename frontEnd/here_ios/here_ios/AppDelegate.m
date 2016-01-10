@@ -17,8 +17,9 @@
 #import "NetWork.h"
 #import "ContentDetailViewController.h"
 #import "MessageTableViewController.h"
-#import <FIR/FIR.h>
+//#import <FIR/FIR.h>
 #import "Tools.h"
+#import "ConfigAccess.h"
 
 @implementation AppDelegate
 
@@ -59,6 +60,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    
+    //get config
+    _serverDomain = [ConfigAccess serverDomain];
+    _socketIP = [ConfigAccess socketIP];
+    _socketPort = [ConfigAccess socketPort];
+    
+    NSLog(@"%@", _serverDomain);
+    
+    
+    
     _tabBarViewController = nil;
     _myInfo = [[UserInfoModel alloc] init];
     
@@ -66,6 +78,14 @@
     _myInfo.password = (NSString*)[[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
     
     _mysocket = [[SocketIO alloc] initWithDelegate:self];
+    
+
+    //#206
+#ifdef DEBUG
+    _mysocket.useSecure = YES;//use https
+#else
+    _mysocket.useSecure = NO;//not use https
+#endif
     
     if (_myInfo.phoneNum == nil||_myInfo.password == nil
         ||_myInfo.phoneNum.length == 0||_myInfo.password.length == 0) {
@@ -106,11 +126,20 @@
     //高德地图key for ad version
     
     //bug 跟踪
-    [FIR handleCrashWithKey:@"93fe308e58239051b512b539beccc87b"];
+    //[FIR handleCrashWithKey:@"93fe308e58239051b512b539beccc87b"];
+    
+    
+    
     
     return YES;
 }
 
+
++ (LocDatabase*)getLocDatabase
+{
+    AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    return app.locDatabase;
+}
 
 + (SocketIO*) getMySocket
 {

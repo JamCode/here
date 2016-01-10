@@ -1,0 +1,8 @@
+{
+    "eqeqeq": true,
+    "eqnull": true,
+    "loopfunc": true,
+    "unused": "vars",
+    "node": true,
+    "undef": true
+}

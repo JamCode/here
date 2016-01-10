@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SocketIO.h"
-@interface MessageTableViewController : UITableViewController<SocketIODelegate>
+@interface MessageTableViewController : UITableViewController<SocketIODelegate, NSURLConnectionDelegate>
 - (void)checkMissedMsg;
 
 - (void)deleteMsg:(NSString*)user_id;

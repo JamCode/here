@@ -27,18 +27,28 @@
 */
 
 
+- (id)initWithFrame:(CGRect)frame
+{
+    if(self = [super initWithFrame:frame]){
+        self.layer.cornerRadius = self.frame.size.height/2;
+        self.layer.masksToBounds = YES;
+        self.layer.shouldRasterize = YES;
+        self.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(faceViewPress:)]];
+    }
+    return self;
+}
+
 
 - (void)setUserInfo:(UserInfoModel*)userInfo nav:(UINavigationController*)nav
 {
     myinfo = userInfo;
     parentNav = nav;
     _primsgButtonShow = YES;
-    
     self.userInteractionEnabled = YES;
-    
     self.contentMode = UIViewContentModeScaleAspectFill;
     
-    [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(faceViewPress:)]];
+    
 }
 
 - (void)forbiddenPress

@@ -185,6 +185,10 @@
 
 + (NSInteger)getAgeFromBirthDay:(NSString*)birthday
 {
+    if(birthday == nil || [birthday isEqual:@""]){
+        return 0;
+    }
+    
     NSDateComponents *curComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
     
     
@@ -200,6 +204,11 @@
 
 + (NSString*)getStarDesc:(NSString*)birthday
 {
+    
+    if (birthday == nil) {
+        return @"";
+    }
+    
     NSDateFormatter*dateFormatter =[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     NSDate* date =[dateFormatter dateFromString:birthday];

@@ -61,18 +61,25 @@
     _sign = [data objectForKey:@"user_sign"] == [NSNull null]?@"":[data objectForKey:@"user_sign"];
     _interest = [data objectForKey:@"user_interest"] == [NSNull null]?@"":[data objectForKey:@"user_interest"];
     
-    _certificateProcess = [[data objectForKey:@"user_certificated_process"] intValue];
     
     
     _user_background_image_url = [data objectForKey:@"user_background_image_url"];
     
-    _birthday = [data objectForKey:@"user_birth_day"];
+    _birthday = [data objectForKey:@"user_birth_day"] == [NSNull null]?@"":[data objectForKey:@"user_birth_day"];
     _refresh_timestamp = [[data objectForKey:@"refresh_timestamp"] integerValue];
     
-    _age = [Tools getAgeFromBirthDay:_birthday];
+    if (_birthday != nil&&_birthday!= [NSNull null]) {
+        _age = [Tools getAgeFromBirthDay:_birthday];
+    }
     
     _latitude = [[data objectForKey:@"location_latitude"] doubleValue];
     _longitude = [[data objectForKey:@"location_longitude"] doubleValue];
+    
+    
+    _user_follow_count = [[data objectForKey:@"user_follow_count"] integerValue];
+    _user_fans_count = [[data objectForKey:@"user_fans_count"] integerValue];
+    
+    _follow_timestamp = [[data objectForKey:@"follow_timestamp"] integerValue];
     
 }
 

@@ -26,6 +26,10 @@
 #import "BlackListAction.h"
 #import "MasterSettingCtrl.h"
 #import "FeedBackCtrl.h"
+#import "LocDatabase.h"
+#import "FollowListAction.h"
+#import "FansListAction.h"
+
 
 //#import "ImageBrowseViewCtrl.h"
 //#import "VisitListCtrl.h"
@@ -82,8 +86,17 @@
     
     UIActionSheet* sheet;
     UIActionSheet* backgroundSheet;
+    UIActionSheet* genderSheet;
+    
+    UIDatePicker *datePicker;
+    
+    
     
     BOOL isInBlack;
+    BOOL isFollow;
+    
+    NSInteger lastUpdateGender;
+    NSString* lastBirthday;
     
     //UIImageView* lastVisitUserFace;
 }
@@ -130,6 +143,22 @@ static const int ageHeight = 18;
 static const int ageWidth = 30;
 
 
+
+typedef enum {
+    publish,
+    photo
+} publishDetail;
+
+
+typedef enum {
+    follow,
+    fans,
+    gender,
+    age,
+    start,
+    sign
+} userDetail;
+
 typedef enum  {
     publishAndPhoto,
     details,
@@ -169,7 +198,7 @@ typedef enum  {
     
     
     
-    settingTitleArray = [[NSMutableArray alloc] initWithArray:@[@"性别", @"年龄", @"星座", @"个人签名"]];
+    settingTitleArray = [[NSMutableArray alloc] initWithArray:@[@"关注", @"粉丝", @"性别", @"年龄", @"星座", @"个人签名"]];
     
     tableviewHeight = 0;
     _changedFlag = false;
@@ -180,19 +209,31 @@ typedef enum  {
 
 - (void)settingButtonAction:(id)sender
 {
-    //    TalkViewController* talk = [[TalkViewController alloc] init];
-    //    talk.counterInfo = _userInfo;
-    //    talk.hidesBottomBarWhenPushed = YES;
-    //    [self.navigationController pushViewController:talk animated:YES];
+
+    LocDatabase* loc = [AppDelegate getLocDatabase];
     
-    if (isInBlack == false) {
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"私信", @"加入黑名单", nil];
+    NSString* followStr = @"";
+    NSString* blackStr = @"";
+    
+    if(![loc followedUser:_userInfo.userID]){
+        //未关注
+        followStr = @"关注";
+        isFollow = false;
     }else{
-        sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles: @"私信", @"解除黑名单", nil];
+        //已关注
+        followStr = @"取消关注";
+        isFollow = true;
     }
     
-    [sheet showInView:self.view];
+    if(isInBlack == false){
+        blackStr = @"加入黑名单";
+    }else{
+        blackStr = @"解除黑名单";
+    }
     
+    sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:followStr, @"私信", blackStr, nil];
+    
+    [sheet showInView:self.view];
     
 }
 
@@ -205,13 +246,7 @@ typedef enum  {
     //    [self.navigationController popViewControllerAnimated:YES];
     
     
-    loadingView = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:loadingView];
-    loadingView.labelText = @"设置黑名单成功";
-    loadingView.mode = MBProgressHUDModeText;
-    loadingView.removeFromSuperViewOnHide = YES;
-    [loadingView show:YES];
-    [loadingView hide:YES afterDelay:2];
+    [Tools AlertBigMsg:@"设置黑名单成功"];
     
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -237,13 +272,9 @@ typedef enum  {
     //    [_parentCtrl.tableView reloadData];
     //    [self.navigationController popViewControllerAnimated:YES];
     
-    loadingView = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:loadingView];
-    loadingView.labelText = @"解除黑名单成功";
-    loadingView.mode = MBProgressHUDModeText;
-    loadingView.removeFromSuperViewOnHide = YES;
-    [loadingView show:YES];
-    [loadingView hide:YES afterDelay:2];
+    
+    [Tools AlertBigMsg:@"解除黑名单成功"];
+    
     
     //[self.navigationController popViewControllerAnimated:YES];
     
@@ -319,6 +350,20 @@ typedef enum  {
     [backgroundSheet showInView:self.view];
 }
 
+
+- (void)clickGender:(id)sender
+{
+    if ([[AppDelegate getMyUserInfo].userID isEqualToString:_userInfo.userID] == false){
+        return;
+    }
+    
+    
+    genderSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"女",@"男", nil];
+    
+    [genderSheet showInView:self.view];
+    
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     NSLog(@"%ld", buttonIndex);
@@ -335,8 +380,42 @@ typedef enum  {
         
     }
     
-    if (actionSheet == sheet) {
+    if (actionSheet == genderSheet) {
+        
+        UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+        
+        
         if (buttonIndex == 0) {
+            //女
+            cell.detailTextLabel.text = @"女";
+            lastUpdateGender = 0;
+            [self updateUserGender:lastUpdateGender];
+        }
+        
+        if (buttonIndex == 1) {
+            //男
+            cell.detailTextLabel.text = @"男";
+            lastUpdateGender = 1;
+            [self updateUserGender:lastUpdateGender];
+        }
+        
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+        
+    }
+    
+    if (actionSheet == sheet) {
+        
+        if (buttonIndex == 0) {
+            //关注
+            if (isFollow == true) {
+                [self cancelFollowedUser:nil];
+            }else{
+                [self followedUser:nil];
+            }
+            
+        }
+        
+        if (buttonIndex == 1) {
             //私信
             TalkViewController* talk = [[TalkViewController alloc] init];
             talk.counterInfo = _userInfo;
@@ -344,7 +423,7 @@ typedef enum  {
             [self.navigationController pushViewController:talk animated:YES];
         }
         
-        if (buttonIndex == 1) {
+        if (buttonIndex == 2) {
             //黑名单
             if (isInBlack == false) {
                 [self setToBlackList];
@@ -363,6 +442,50 @@ typedef enum  {
 //        self.navigationController.navigationBar.alpha =1;
 //    }
 //}
+
+- (void)followedUser:(id)sender
+{
+    NetWork* netWork = [[NetWork alloc] init];
+    
+    UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myInfo.userID, myInfo.nickName, _userInfo.userID, @"/followUser"] forKeys:@[@"user_id", @"user_name",  @"followed_user_id", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(followedUserSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
+        ;
+    } callObject:self];
+}
+
+- (void)cancelFollowedUser:(id)sender
+{
+    NetWork* netWork = [[NetWork alloc] init];
+    
+    UserInfoModel* myInfo = [AppDelegate getMyUserInfo];
+    
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[myInfo.userID, _userInfo.userID, @"/cancelFollowUser"] forKeys:@[@"user_id", @"followed_user_id", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(cancelFollowedUserSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
+        ;
+    } callObject:self];
+}
+
+- (void)cancelFollowedUserSuccess:(id)sender
+{
+    LocDatabase* loc = [AppDelegate getLocDatabase];
+    [loc delFollowInfo:_userInfo.userID];
+    [Tools AlertBigMsg:@"取消关注"];
+}
+
+- (void)followedUserSuccess:(id)sender
+{
+    LocDatabase* loc = [AppDelegate getLocDatabase];
+    [loc addFollowInfo:_userInfo.userID];
+    [Tools AlertBigMsg:@"关注成功"];
+}
+
 
 
 - (void)showSetting:(id)sender
@@ -466,6 +589,41 @@ typedef enum  {
     [backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewPress:)]];
     
     
+    datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, ScreenHeight-260, ScreenWidth, 220)];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+    datePicker.hidden = YES;
+    
+    [datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    
+    [self.navigationController.view addSubview:datePicker];
+
+    
+}
+
+- (void)dateChanged:(id)sender
+{
+    NSLog(@"date change");
+    NSDate* selectDate = datePicker.date;
+    
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:selectDate];
+    
+    NSInteger year= [components year];
+    
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString* dateDesc = [formatter stringFromDate:selectDate];
+    
+    NSLog(@"%@", dateDesc);
+    
+    NSDateComponents *curComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    
+    UITableViewCell* cell =  [self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    
+    cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:dateDesc]];
+    
+    lastBirthday = dateDesc;
 }
 
 
@@ -494,8 +652,36 @@ typedef enum  {
         faceBackgroundView.frame = f;
         
     }
+    
+
+    
+    
+    
+    if ([Tools getAgeFromBirthDay:lastBirthday]!=[Tools getAgeFromBirthDay:_userInfo.birthday]&&datePicker.hidden == NO) {
+        //更新年龄
+        
+        [self updateBirthDay:lastBirthday];
+        
+    }
+    
+    
+    datePicker.hidden = YES;
+    
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    
 }
 
+
+- (void)updateBirthDay:(NSString*)user_birth_day
+{
+    //update to server
+    NetWork* netWork = [[NetWork alloc] init];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID,user_birth_day, @"/updateBirthDay"] forKeys:@[@"user_id", @"user_birth_day", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(updateSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
+}
 
 
 - (void)startLoading
@@ -551,8 +737,10 @@ typedef enum  {
     
     if (_userInfo.gender == 0) {
         genderView.image = [UIImage imageNamed:@"womanSetting.png"];
-    }else{
+    }else if (_userInfo.gender == 1){
         genderView.image = [UIImage imageNamed:@"manSetting.png"];
+    }else{
+        genderView.image = nil;
     }
     
     //NSLog(@"")
@@ -573,13 +761,26 @@ typedef enum  {
     
     [settingStrArray removeAllObjects];
     
+    
+    
+    [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.user_follow_count]];
+    
+    [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.user_fans_count]];
+    
     if (_userInfo.gender == 1) {
         [settingStrArray addObject:@"男"];
-    }else{
+    }else if(_userInfo.gender == 0) {
         [settingStrArray addObject:@"女"];
+    }else{
+        [settingStrArray addObject:@""];
     }
     
-    [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.age]];
+    if ([_userInfo.birthday isEqual:@""]) {
+        [settingStrArray addObject:@""];
+    }else{
+        [settingStrArray addObject:[[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:_userInfo.birthday]]];
+    }
+    
     [settingStrArray addObject:[Tools getStarDesc:_userInfo.birthday]];
     [settingStrArray addObject:_userInfo.sign];
     
@@ -605,6 +806,11 @@ typedef enum  {
     }
     
     [self setNickNameLabel];
+    
+    
+    lastUpdateGender = _userInfo.gender;
+    lastBirthday = _userInfo.birthday;
+    
 }
 
 
@@ -644,14 +850,23 @@ typedef enum  {
     
     [ageAndGenderView addSubview: ageAndGenderLabel];
     
-    ageAndGenderLabel.text = [[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:_userInfo.birthday]];
+    
+    if (_userInfo.birthday == nil||_userInfo.birthday == [NSNull class]
+        ||[_userInfo.birthday isEqualToString:@""]) {
+        ageAndGenderLabel.text = @"未知";
+    }else{
+        ageAndGenderLabel.text = [[NSString alloc] initWithFormat:@"%ld", [Tools getAgeFromBirthDay:_userInfo.birthday]];
+    }
+    
     
     if (_userInfo.gender==0) {
         genderImage.image = [UIImage imageNamed:@"woman32white.png"];
         ageAndGenderView.backgroundColor = genderPink;
-    }else{
+    }else if(_userInfo.gender == 1){
         genderImage.image = [UIImage imageNamed:@"man32white.png"];
         ageAndGenderView.backgroundColor = subjectColor;
+    }else{
+        ageAndGenderView.hidden = YES;
     }
     
     [headerView addSubview:ageAndGenderView];
@@ -864,7 +1079,7 @@ typedef enum  {
     }else if (section == details){
         return [settingTitleArray count];
     }else if(section == support){
-        return 2;
+        return 3;
     }else if(section == logout){
         return 1;
     }
@@ -907,31 +1122,28 @@ typedef enum  {
 
 - (void)logout
 {
-    loadingView = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:loadingView];
     
-    [loadingView showAnimated:YES whileExecutingBlock:^{
-        
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        // Do something...
         //清理本地账户信息
         NSUserDefaults *mySettingData = [NSUserDefaults standardUserDefaults];
         [mySettingData removeObjectForKey:@"phone"];
         [mySettingData removeObjectForKey:@"password"];
         [mySettingData synchronize];
-        [NSThread sleepForTimeInterval:3.0];
         
-        //发送注销请求给服务器
-        
-    } completionBlock:^{
-        //self.parentViewController.view.hidden = NO;
-        [self dismissViewControllerAnimated:YES completion:nil];
-        AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        
-        [app backToStartView];
-        
-        //[self.navigationController popToRootViewControllerAnimated:YES];
-        
-        //self.view.hidden = NO;
-    }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
+            AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+            
+            [app backToStartView];
+
+            
+        });
+    });
+
 }
 
 
@@ -959,14 +1171,42 @@ typedef enum  {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    if ([app.myInfo.userID isEqualToString:_userInfo.userID] == false&&indexPath.section == details) {
-        //基本资料只能本用户点击修改
-        return;
-    }
+    
+    
+    
     
     if(indexPath.section ==details){
         
-        if(indexPath.row == 3){
+        //#183
+        if ([app.myInfo.userID isEqualToString:_userInfo.userID] == false&&indexPath.row != follow&&indexPath.row!=fans) {
+            //基本资料只能本用户点击修改
+            return;
+        }
+
+        
+        if(indexPath.row == follow){
+            
+            
+            FollowListAction* followAction = [[FollowListAction alloc] init];
+            followAction.userInfo = _userInfo;
+            ComTableViewCtrl* followUserTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:followAction];
+            followUserTable.hidesBottomBarWhenPushed = YES;
+
+            [self.navigationController pushViewController:followUserTable animated:YES];
+            
+        }
+        
+        if(indexPath.row == fans){
+            FansListAction* fansAction = [[FansListAction alloc] init];
+            fansAction.userInfo = _userInfo;
+            ComTableViewCtrl* fansUserTable = [[ComTableViewCtrl alloc] init:YES allowPullUp:YES initLoading:YES comDelegate:fansAction];
+            fansUserTable.hidesBottomBarWhenPushed = YES;
+            
+            [self.navigationController pushViewController:fansUserTable animated:YES];
+        }
+        
+        
+        if(indexPath.row == sign){
             _changedFlag = false;
             SettingChildViewController* settingChild = [[SettingChildViewController alloc] init];
             settingChild.settingStrArray = settingStrArray;
@@ -976,6 +1216,20 @@ typedef enum  {
             settingChild.index = indexPath.row;
             [self.navigationController pushViewController:settingChild animated:YES];
         }
+        
+        
+        if(indexPath.row == gender){
+            //性别
+            [self clickGender:nil];
+            
+        }
+        
+        if(indexPath.row == age){
+            //年龄
+            datePicker.hidden = NO;
+        }
+        
+        
     }
     
     if(indexPath.section == publishAndPhoto&&indexPath.row == 0){
@@ -1013,27 +1267,58 @@ typedef enum  {
             comTable.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:comTable animated:YES];
         }
+        
+        if(indexPath.row == 2){
+            //版本号
+            
+            
+        }
     }
+    
 }
 
 - (void)updateSuccess:(id)sender
 {
     NSLog(@"更新资料成功");
+    [Tools AlertBigMsg:@"更新资料成功"];
+    
+    _userInfo.gender = lastUpdateGender;
+    _userInfo.birthday = lastBirthday;
+    
+    if (_userInfo.gender == 0) {
+        [settingStrArray setObject:@"女" atIndexedSubscript:gender];
+
+    }
+    
+    if (_userInfo.gender == 1) {
+        [settingStrArray setObject:@"男" atIndexedSubscript:gender];
+    }
+    
+    _userInfo.age = [Tools getAgeFromBirthDay:_userInfo.birthday];
+    
+    [settingStrArray setObject:[[NSString alloc] initWithFormat:@"%ld", _userInfo.age]  atIndexedSubscript:age];
+    
 }
 
 - (void)updateError:(id)sender
 {
     alertMsg(@"更新资料失败");
+    [Tools AlertBigMsg:@"更新资料失败"];
+
 }
 
 - (void)updateException:(id)sender
 {
     alertMsg(@"未知问题");
+    [Tools AlertBigMsg:@"更新资料失败"];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    datePicker.hidden = YES;
+    
     //[self.navigationController.navigationBar lt_reset];
 }
 
@@ -1049,13 +1334,8 @@ typedef enum  {
         [self.tableView reloadData];
         NSLog(@"changed user info");
         
-        //update to server
-        NetWork* netWork = [[NetWork alloc] init];
-        NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, _userInfo.career, _userInfo.company, _userInfo.sign, _userInfo.interest, @"/updateUserInfo"] forKeys:@[@"user_id", @"user_career", @"user_company", @"user_sign", @"user_interest", @"childpath"]];
+        [self updateUserInfo];
         
-        NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(updateSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
-        
-        [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
         _changedFlag = false;
     }
     
@@ -1064,6 +1344,30 @@ typedef enum  {
     
 
     
+}
+
+
+- (void)updateUserGender:(NSInteger)user_gender
+{
+    //update to server
+    NetWork* netWork = [[NetWork alloc] init];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID,[[NSNumber alloc] initWithInteger:user_gender], @"/updateUserGender"] forKeys:@[@"user_id", @"user_gender", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(updateSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
+}
+
+- (void)updateUserInfo
+{
+    //update to server
+    NetWork* netWork = [[NetWork alloc] init];
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_userInfo.userID, _userInfo.career, _userInfo.company, _userInfo.sign, _userInfo.interest, @"/updateUserInfo"] forKeys:@[@"user_id", @"user_career", @"user_company", @"user_sign", @"user_interest", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(updateSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(updateException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
+
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1079,7 +1383,8 @@ typedef enum  {
         cell.textLabel.text = @"";
     }
     
-    
+    cell.textLabel.textColor = [UIColor blackColor];
+
     if (indexPath.section == logout) {
         cell.textLabel.text = @"退出账户";
         cell.textLabel.textColor = subjectColor;
@@ -1093,6 +1398,16 @@ typedef enum  {
         }
         if(indexPath.row == 0){
             cell.textLabel.text = @"黑名单";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        
+        if (indexPath.row == 2) {
+            cell.textLabel.text = @"当前版本";
+            NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+            NSString* app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+            
+            
+            cell.detailTextLabel.text = app_Version;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
        

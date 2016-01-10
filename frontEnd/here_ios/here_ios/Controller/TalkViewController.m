@@ -920,7 +920,10 @@ static const double textViewWidth = 250;
     timer = nil;
     timer =[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startConnectActiveView) userInfo:nil repeats:YES];
     
-    [mysocket connectToHost:SocketIP onPort:SocketPort withParams:nil withNamespace:nil withConnectionTimeout:3];
+    AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    mysocket.useSecure = YES;
+    
+    [mysocket connectToHost:app.socketIP onPort:app.socketPort withParams:nil withNamespace:nil withConnectionTimeout:3];
     
 }
 

@@ -72,13 +72,13 @@ static const int selectHeight = 44;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
     
     
-    cameraImageView = [[UIImageView alloc] initWithFrame:CGRectMake((ScreenWidth-camera_width)/2, camera_y, camera_width, camera_height)];
-    cameraImageView.image = [UIImage imageNamed:@"camera178*144.png"];
-    cameraImageView.userInteractionEnabled = YES;
-    cameraImageView.contentMode = UIViewContentModeScaleAspectFill;
-    
-    UITapGestureRecognizer *singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onClickFaceThumnail:)];
-    [cameraImageView addGestureRecognizer:singleTap];
+//    cameraImageView = [[UIImageView alloc] initWithFrame:CGRectMake((ScreenWidth-camera_width)/2, camera_y, camera_width, camera_height)];
+//    cameraImageView.image = [UIImage imageNamed:@"camera178*144.png"];
+//    cameraImageView.userInteractionEnabled = YES;
+//    cameraImageView.contentMode = UIViewContentModeScaleAspectFill;
+//    
+//    UITapGestureRecognizer *singleTap =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onClickFaceThumnail:)];
+//    [cameraImageView addGestureRecognizer:singleTap];
     
     
     UILabel* cameraLabel = [[UILabel alloc] init];

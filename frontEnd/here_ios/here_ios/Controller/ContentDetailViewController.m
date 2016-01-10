@@ -20,20 +20,13 @@
 #import <MBProgressHUD.h>
 #import "ContentTableViewCell.h"
 #import "CommentModel.h"
+#import "InputToolbar.h"
 
 
 @interface ContentDetailViewController ()
 {
     UserInfoModel* myUserInfo;
-    ContentTableViewCell* contentView;
     
-    
-    UIToolbar* bottomToolbar;
-    UITextView* commentInputView;
-    
-    
-    
-    CGRect curTextFrame;
     NSMutableArray* comments;
     UIActionSheet* feedbackComments;
     
@@ -43,20 +36,15 @@
     
     BOOL getContentCommentsListSuccessFlag;
     
-    UITextView* myTextField;
+    CommentModel* lastCommentModel;
     
-    NSString* commentStr;
+    ContentTableViewCell* contentCell;
+    InputToolbar* inputToolbar;
 }
 @end
 
 @implementation ContentDetailViewController
 
-
-static const double bottomToolbarHeight = 48;
-
-
-static const int inputfontSize = 16;
-static const double textViewHeight = 36;
 
 
 - (void)viewDidLoad {
@@ -80,11 +68,11 @@ static const double textViewHeight = 36;
     [self getContentCommentsList];
     //[self addSeeCount];
    
-    feedbackComments = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"回复评论", nil];
+    feedbackComments = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"赞", @"回复评论", nil];
     toCommentUser = [[UserInfoModel alloc] init];
     
     
-    [self initCommentInputView];
+    //[self initCommentInputView];
     
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]){
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
@@ -95,34 +83,22 @@ static const double textViewHeight = 36;
     
     self.tableView.tableFooterView=[[UIView alloc]init];
     
-    if ([_contentModel.userInfo.userID isEqualToString:myUserInfo.userID]) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonAction:)];
-
-    }
+//    if ([_contentModel.userInfo.userID isEqualToString:myUserInfo.userID]) {
+//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(deleteButtonAction:)];
+//
+//    }
 }
 
 
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    if (textView == commentInputView) {
-        if ([text isEqualToString:@"\n"]) {
-            
-            [textView resignFirstResponder];
-            
-            [self sendComment:nil];
-            
-            return NO;
-            
-        }
-        return YES;
-    }
-    return YES;
-}
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView == self.tableView) {
-        [myTextField resignFirstResponder];
+        //[myTextField resignFirstResponder];
+        [inputToolbar hideInput];
+        [inputToolbar removeFromSuperview];
+        inputToolbar = nil;
     }
 }
 
@@ -161,25 +137,7 @@ static const double textViewHeight = 36;
     [choose show];
 }
 
-- (void)deleteContent
-{
-    mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:mbProgress];
-    [mbProgress show:YES];
-    
-    NetWork* netWork = [[NetWork alloc] init];
-    
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[_contentModel.contentID, @"/deleteContent"] forKeys:@[@"content_id", @"childpath"]];
-    
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(deleteContentSuccess:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS]]];
-    
-    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
-//        [mbProgress hide:YES];
-//        [mbProgress removeFromSuperview];
-//        mbProgress = nil;
-    } callObject:self];
-    
-}
+
 
 
 - (void)hudWasHidden:(MBProgressHUD *)hud
@@ -199,12 +157,12 @@ static const double textViewHeight = 36;
     
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        [self deleteContent];
-    }
-}
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (buttonIndex == 1) {
+//        [self deleteContent];
+//    }
+//}
 
 - (void)getContentBaseInfo
 {
@@ -232,22 +190,65 @@ static const double textViewHeight = 36;
     
     if (actionSheet == feedbackComments) {
         NSLog(@"Button %ld", (long)buttonIndex);
-        if (buttonIndex == 0) {
+        if (buttonIndex == 1) {
             NSIndexPath* indexPath =  [self.tableView indexPathForSelectedRow];
             
+            NSLog(@"%ld", indexPath.row);
+            
+            CommentModel* commentModel = [comments objectAtIndex:indexPath.row];
+            
             toCommentUser = [[UserInfoModel alloc] init];
-            toCommentUser.userID = [[comments objectAtIndex:indexPath.row] objectForKey:@"comment_user_id"];
-            toCommentUser.nickName = [[comments objectAtIndex:indexPath.row] objectForKey:@"user_name"];
+            toCommentUser.userID = commentModel.sendUserInfo.userID;
+            toCommentUser.nickName = commentModel.sendUserInfo.nickName;
+            
             _contentModel.to_content = 0;
             [self commentButtonAction:nil];
+            [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+
+        }
+        
+        if (buttonIndex == 0) {
+            //赞评论
+            NSIndexPath* indexPath =  [self.tableView indexPathForSelectedRow];
+            CommentModel* commentModel = [comments objectAtIndex:indexPath.row];
+            [self commentGoodAction:commentModel];
         }
     }
     
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 
 }
 
-- (void)addCommentSuccess:(id)sender
+- (void)commentGoodActionSuccess:(id)sender
+{
+    
+    NSIndexPath* indexpath = [self.tableView indexPathForSelectedRow];
+    CommentModel* commentmodel = [comments objectAtIndex:indexpath.row];
+    commentmodel.comment_good_count++;
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    [self.tableView reloadData];
+
+}
+
+- (void)commentGoodActionRepeat:(id)sender
+{
+    [Tools AlertBigMsg:@"不能重复点赞"];
+}
+
+- (void)commentGoodAction:(CommentModel*)commentModel
+{
+    NetWork* netWork = [[NetWork alloc] init];
+    
+    NSLog(@"%@", commentModel.sendUserInfo.userID);
+    
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[commentModel.content_comment_id, myUserInfo.userID, commentModel.sendUserInfo.userID, myUserInfo.nickName,  @"/commentGood"] forKeys:@[@"content_comment_id", @"user_id", @"comment_user_id", @"user_name",  @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(commentGoodActionSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(commentGoodActionRepeat:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:COMMENT_GOOD_EXIST]]];
+    
+    [netWork message:message images:nil feedbackcall:feedbackcall complete:nil callObject:self];
+}
+
+
+- (void)addNewCommentCell:(CommentModel*)commentModel
 {
     mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
     mbProgress.mode = MBProgressHUDModeText;
@@ -263,25 +264,22 @@ static const double textViewHeight = 36;
     [indexPaths addObject:indexPath];
     
     
-    CommentModel* commentModel = [[CommentModel alloc] init];
-    commentModel.sendUserInfo = myUserInfo;
-    commentModel.contentModel = _contentModel;
     
-    
-    commentModel.counterUserInfo = toCommentUser;
-    if (commentModel.counterUserInfo == nil) {
-        commentModel.counterUserInfo = commentModel.contentModel.userInfo;
-    }
-    
-    
-    commentModel.commentStr = commentStr;
-    commentModel.publish_time = [[NSDate date] timeIntervalSince1970];
     
     [comments insertObject:commentModel atIndex:0];
     
     [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationLeft];
     [self.tableView endUpdates];
+    
     self.tableView.tableFooterView = nil;
+
+}
+
+- (void)addDetailCommentSuccess:(id)sender
+{
+    CommentModel* commentModel = lastCommentModel;
+    
+    [self addNewCommentCell:commentModel];
     
 }
 
@@ -290,91 +288,41 @@ static const double textViewHeight = 36;
 {
     [super viewWillAppear:YES];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
+}
+
+- (void)sendAction:(NSString *)msg
+{
+    [inputToolbar hideInput];
+    [inputToolbar removeFromSuperview];
+    inputToolbar = nil;
+    [self sendDetailComment:msg];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
     
-    if (commentInputView!=nil) {
-        [commentInputView resignFirstResponder];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"commentButtonHide" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"commentKeyboardHide" object:nil];
+    
+    if (inputToolbar!=nil) {
+        [inputToolbar hideInput];
+        [inputToolbar removeFromSuperview];
+        inputToolbar = nil;
     }
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
 
-- (void)keyboardWillHide:(NSNotification*)notification{
-    
-    CGRect keyboardBounds;
-    [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
-    NSNumber *duration = [notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
-    //keyboardHeight = 0;
-    
-    //CGRect btnFrame = talkTableView.frame;
-    CGRect bottomFrame = bottomToolbar.frame;
-    //btnFrame.origin.y = 0;
-    bottomFrame.origin.y = ScreenHeight;
-    // animations settings
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:[duration doubleValue]];
-    [UIView setAnimationCurve:[curve intValue]];
-    [UIView setAnimationDelegate:self];
-    
-    // set views with new info
-    bottomToolbar.frame = bottomFrame;
-    bottomToolbar.hidden = YES;
-    
-    // commit animations
-    [UIView commitAnimations];
-    
-}
 
 
-- (void)keyboardWillShow:(NSNotification*)notification{
-    
-    //tableview 滚动到最后
-    
-    //NSLog(@"%f", talkTableView.contentSize.height);
-    //NSLog(@"%f", talkTableView.bounds.size.height);
-    //[self scrollToBottom:NO addition:0];
-    
-    commentInputView.text = @"";
-    
-    NSLog(@"keyboardWillShow");
-    
-    CGRect keyboardBounds;
-    [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
-    
-    //CGFloat keyboardHeight = keyboardBounds.size.height;
-    NSNumber *duration = [notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
-    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
-    
-    CGRect bottomFrame = bottomToolbar.frame;
-    
-    
-    bottomFrame.origin.y =  ScreenHeight - keyboardBounds.size.height - bottomToolbarHeight;
-    
-    // animations settings
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:[duration doubleValue]];
-    [UIView setAnimationCurve:[curve intValue]];
-    [UIView setAnimationDelegate:self];
-    
-    // set views with new info
-    bottomToolbar.frame = bottomFrame;
-    bottomToolbar.hidden = NO;
-    // commit animations
-    [UIView commitAnimations];
-    
-}
+
+
 
 
 - (void)getContentCommentsListSuccess:(id)sender
@@ -456,7 +404,7 @@ static const double textViewHeight = 36;
     if (indexPath.section == 0) {
         
         
-        static NSString* cellIdentifier = @"ContentTableViewCell";
+        static NSString* cellIdentifier = @"DetailContentTableViewCell";
         ContentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         // Configure the cell...
@@ -468,67 +416,20 @@ static const double textViewHeight = 36;
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor whiteColor];
-        //cell.contentViewCtrl = self;
-        //cell.parentViewController = self.navigationController;
-        //cell.index = indexPath;
-        
-        //NSLog(@"set image");
         
         [cell setContentModel:_contentModel];
+        cell.contentDetail = self;
         
+        contentCell = cell;
         return cell;
     }
     
     return nil;
 }
 
-- (void)showCommentInputView
-{
-    NSLog(@"detail showCommentInputView");
-    
-    
-    toCommentUser = nil;
-    [commentInputView becomeFirstResponder];
-    
-    //[commentInputView becomeFirstResponder];
-}
 
 
-- (void)initCommentInputView
-{
-    bottomToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, ScreenHeight+bottomToolbarHeight, ScreenWidth, bottomToolbarHeight)];
-    [bottomToolbar setBackgroundImage:[UIImage new]forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-    [bottomToolbar setShadowImage:[UIImage new] forToolbarPosition:UIToolbarPositionAny];
-    bottomToolbar.backgroundColor = activeViewControllerbackgroundColor;
-    
-    
-    commentInputView = [[UITextView alloc] init];
-    commentInputView.delegate =self;
-    commentInputView.frame = CGRectMake(0, 0, ScreenWidth - 2*40, textViewHeight);
-    commentInputView.returnKeyType = UIReturnKeyDone;//设置返回按钮的样式
-    
-    
-    commentInputView.keyboardType = UIKeyboardTypeDefault;//设置键盘样式为默认
-    commentInputView.font = [UIFont fontWithName:@"Arial" size:inputfontSize];
-    commentInputView.scrollEnabled = YES;
-    commentInputView.autoresizingMask = UIViewAutoresizingFlexibleHeight;//自适应高度
-    commentInputView.layer.cornerRadius = 4.0;
-    commentInputView.layer.borderWidth = 0.5;
-    commentInputView.layer.borderColor = sepeartelineColor.CGColor;
-    commentInputView.delegate = self;
-    
-    
-    UIBarButtonItem* textfieldButtonItem =[[UIBarButtonItem alloc] initWithCustomView:commentInputView];
-    
-    UIBarButtonItem* sendButton = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(sendComment:)];
-    
-    NSArray *textfieldArray=[[NSArray alloc]initWithObjects:textfieldButtonItem, sendButton, nil];
-    [bottomToolbar setItems:textfieldArray animated:YES];
-    
-    bottomToolbar.hidden = YES;
-    
-    [self.navigationController.view addSubview:bottomToolbar];
-}
+
 
 
 
@@ -545,64 +446,48 @@ static const double textViewHeight = 36;
 }
 
 
-- (void)sendComment:(id)sender
+- (void)sendDetailComment:(id)sender
 {
-    if ([commentInputView.text isEqual:@""]||commentInputView.text == nil) {
-        return;
-    }
-    
-    NSLog(@"%@", commentInputView.text);
-    
-    [commentInputView resignFirstResponder];
+    NSString* msg = (NSString*)sender;
     
     NetWork* netWork = [[NetWork alloc] init];
     
     
-    CommentModel* commentModel = [[CommentModel alloc] init];
+    lastCommentModel = [[CommentModel alloc] init];
     
-    commentModel.sendUserInfo = myUserInfo;
-    commentModel.contentModel = _contentModel;
+    lastCommentModel.sendUserInfo = myUserInfo;
+    lastCommentModel.contentModel = _contentModel;
     
-    commentModel.counterUserInfo = toCommentUser;
-    if (commentModel.counterUserInfo == nil) {
-        commentModel.counterUserInfo = _contentModel.userInfo;
+    lastCommentModel.counterUserInfo = toCommentUser;
+    if (lastCommentModel.counterUserInfo == nil) {
+        lastCommentModel.counterUserInfo = _contentModel.userInfo;
     }
     
     
-    commentModel.commentStr = commentInputView.text;
-    commentStr = commentInputView.text;
-    
-    commentInputView.text = @"";
+    lastCommentModel.commentStr = msg;
     
     
-    //    if (toCommentUser.userID == nil) {
-    //        toCommentUser = contentModel.userInfo;
-    //    }
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[lastCommentModel.contentModel.contentID, lastCommentModel.sendUserInfo.userID, lastCommentModel.counterUserInfo.userID, lastCommentModel.commentStr, lastCommentModel.sendUserInfo.nickName, @"/addCommentToContent"] forKeys:@[@"content_id", @"user_id", @"to_user_id", @"comment", @"user_name", @"childpath"]];
+    
+    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(addDetailCommentSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(addCommentError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(addCommentException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
     
     
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[commentModel.contentModel.contentID, commentModel.sendUserInfo.userID, commentModel.counterUserInfo.userID, commentModel.commentStr, commentModel.sendUserInfo.nickName, @"/addCommentToContent"] forKeys:@[@"content_id", @"user_id", @"to_user_id", @"comment", @"user_name", @"childpath"]];
-    
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(addCommentSuccess:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(addCommentError:) objCType:@encode(SEL)], [NSValue valueWithBytes:&@selector(addCommentException:) objCType:@encode(SEL)]] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS], [[NSNumber alloc] initWithInt:ERROR], [[NSNumber alloc] initWithInt:EXCEPTION]]];
-    
-    
-    mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:mbProgress];
-    [mbProgress show:YES];
+//    mbProgress = [[MBProgressHUD alloc] initWithView:self.view];
+//    [self.view addSubview:mbProgress];
+//    [mbProgress show:YES];
     
     [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
-            [mbProgress hide:YES];
-            [mbProgress removeFromSuperview];
-            mbProgress = nil;
+            //[mbProgress hide:YES];
+            //[mbProgress removeFromSuperview];
+            //mbProgress = nil;
     } callObject:self];
-    
 }
 
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"commentButtonHide" object:nil];
-    
-    [commentInputView resignFirstResponder];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"commentKeyboardHide" object:nil];
 }
 
 
@@ -648,22 +533,12 @@ static const double textViewHeight = 36;
 
 - (void)commentButtonAction:(id)sender
 {
-//    if (getContentBaseInfoSuccessFlag == true&& getContentCommentsListSuccessFlag == true) {
-//        PublishCommentViewController* publisComment = [[PublishCommentViewController alloc] init];
-//        publisComment.contentDetail = self;
-//        publisComment.contentModel = contentModel;
-//        if(toCommentUser.userID == nil){
-//            toCommentUser.userID = contentModel.userInfo.userID;
-//        }
-//        publisComment.toCommentUser = toCommentUser;
-//        
-//        [self presentViewController:publisComment animated:YES completion:nil];
-//    }
+    inputToolbar = [[InputToolbar alloc] init];
+    inputToolbar.inputDelegate = self;
     
-    //弹出键盘
-    myTextField.hidden = NO;
-    [myTextField becomeFirstResponder];
+    [[Tools curNavigator].view addSubview:inputToolbar];
     
+    [inputToolbar showInput];
 }
 
 - (void)getContentCommentsList

@@ -13,6 +13,7 @@
 #import "Constant.h"
 #import <MBProgressHUD.h>
 #import "Tools.h"
+#import "AppDelegate.h"
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
@@ -25,7 +26,10 @@
     
     dispatch_queue_attr_t msgqueue = (dispatch_queue_attr_t)dispatch_queue_create("msgqueue", NULL);
     dispatch_async((dispatch_queue_t)msgqueue, ^{
-        NSString* urlStr = [[NSString alloc] initWithFormat:@"%@%@", ServerDomain, [message objectForKey:@"childpath"]];
+        
+        AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        NSString* urlStr = [[NSString alloc] initWithFormat:@"%@%@", app.serverDomain, [message objectForKey:@"childpath"]];
         NSURL* URL = [[NSURL alloc] initWithString:urlStr];
         
         NSMutableDictionary* feedback = [[NSMutableDictionary alloc] init];
@@ -83,6 +87,8 @@
 - (NSError*)sendImageAndMessageSyn:(NSURL*)url message:(NSDictionary*)message feedbackMessage:(NSMutableDictionary**)feedback images:(NSMutableDictionary*)images
 {
     ASIFormDataRequest* request = [ASIFormDataRequest requestWithURL:url];
+    [request setValidatesSecureCertificate:NO];//请求https的时候，就要设置这个属性
+    
     [request setRequestMethod:@"POST"];
     for (NSString* key in message) {
         [request setPostValue:[message objectForKey:key] forKey:key];
@@ -95,6 +101,8 @@
         [request setPostValue:key forKey:key];
         [request addData:imageData withFileName:key andContentType:@"image/jpeg" forKey:key];
     }
+    
+    
     
     [request startSynchronous];
     NSError* error = [request error];
@@ -116,6 +124,8 @@
     [request addRequestHeader:@"Content-Type" value:@"application/json; encoding=utf-8"];
     [request addRequestHeader:@"Accept" value:@"application/json"];
     [request setRequestMethod:@"POST"];
+    [request setValidatesSecureCertificate:NO];//请求https的时候，就要设置这个属性
+    
     NSError* error = nil;
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:message options:NSJSONWritingPrettyPrinted error:&error];
     
