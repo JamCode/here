@@ -78,12 +78,6 @@
 #define COCOAPODS_VERSION_MINOR_SDWebImage_Core 7
 #define COCOAPODS_VERSION_PATCH_SDWebImage_Core 3
 
-// Socket.IO-Client-Swift
-#define COCOAPODS_POD_AVAILABLE_Socket_IO_Client_Swift
-#define COCOAPODS_VERSION_MAJOR_Socket_IO_Client_Swift 4
-#define COCOAPODS_VERSION_MINOR_Socket_IO_Client_Swift 1
-#define COCOAPODS_VERSION_PATCH_Socket_IO_Client_Swift 2
-
 // SocketRocket
 #define COCOAPODS_POD_AVAILABLE_SocketRocket
 #define COCOAPODS_VERSION_MAJOR_SocketRocket 0
