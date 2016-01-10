@@ -113,12 +113,61 @@ NSString* const SocketIOException = @"SocketIOException";
     [self connectToHost:host onPort:port withParams:params withNamespace:endpoint withConnectionTimeout:defaultConnectionTimeout];
 }
 
+//- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+//{
+//    NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
+//    
+//    id<NSURLAuthenticationChallengeSender> sender = [challenge sender];
+//    
+//    if ([[protectionSpace authenticationMethod] isEqualToString:NSURLAuthenticationMethodServerTrust])
+//    {
+//        SecTrustRef trust = [[challenge protectionSpace] serverTrust];
+//        
+//        NSURLCredential *credential = [[NSURLCredential alloc] initWithTrust:trust];
+//        
+//        [sender useCredential:credential forAuthenticationChallenge:challenge];
+//    }
+//    else
+//    {
+//        [sender performDefaultHandlingForAuthenticationChallenge:challenge];
+//    }
+//}
+
+
+//hotfix1
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge{
+    //    if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
+    //        if (!(self.options & SDWebImageDownloaderAllowInvalidSSLCertificates) &&
+    //            [challenge.sender respondsToSelector:@selector(performDefaultHandlingForAuthenticationChallenge:)]) {
+    //            [challenge.sender performDefaultHandlingForAuthenticationChallenge:challenge];
+    //        } else {
+    //            NSURLCredential *credential = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+    //            [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
+    //        }
+    //    } else {
+    if ([challenge previousFailureCount] == 0) {
+        //NSURLCredential 这个类是表示身份验证凭据不可变对象。凭证的实际类型声明的类的构造函数来确定。
+        NSURLCredential* cre = [NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust];
+        //[challenge.sender useCredential:cre forAuthenticationChallenge:challenge];
+        
+        SecTrustRef trustRef = [[challenge protectionSpace] serverTrust];
+        CFIndex count = SecTrustGetCertificateCount(trustRef);
+        [challenge.sender useCredential:cre forAuthenticationChallenge:challenge];
+        
+    } else {
+        [[challenge sender] continueWithoutCredentialForAuthenticationChallenge:challenge];
+    }
+    //}
+}
+
+
 - (void) connectToHost:(NSString *)host
                 onPort:(NSInteger)port
             withParams:(NSDictionary *)params
          withNamespace:(NSString *)endpoint
  withConnectionTimeout:(NSTimeInterval)connectionTimeout
 {
+    
     if (!_isConnected && !_isConnecting) {
         _isConnecting = YES;
         
@@ -901,7 +950,8 @@ NSString* const SocketIOException = @"SocketIOException";
     
     if ([_delegate respondsToSelector:@selector(socketIO:onError:)]) {
         NSMutableDictionary *errorInfo = [[NSDictionary dictionaryWithObject:error
-                                                                      forKey:NSUnderlyingErrorKey] mutableCopy];
+                                                                      forKey:
+                                           NSUnderlyingErrorKey] mutableCopy];
         
         NSError *err = [NSError errorWithDomain:SocketIOError
                                            code:errorCode

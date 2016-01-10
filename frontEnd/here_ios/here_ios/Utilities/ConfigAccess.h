@@ -13,5 +13,5 @@
 + (NSString*)serverDomain;
 + (NSString*)socketIP;
 + (NSInteger)socketPort;
-
++ (NSString*)socketHost;
 @end
