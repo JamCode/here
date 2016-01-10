@@ -234,7 +234,15 @@ function startSocketServer () {
 
 
     var app = require('express')();
-    var server = require('https').createServer(options, app);
+
+    //#206
+    var server = null;
+    if(process.env.ENV === 'pro'){
+        server = require('http').createServer(app);
+    }else{
+        server = require('https').createServer(options, app);
+    }
+    
     //var server = require('http').createServer(app);
     var io = require('socket.io')(server);
     server.listen(socketPort);
