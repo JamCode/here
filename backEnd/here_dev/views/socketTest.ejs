@@ -3,32 +3,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>message</title>
-    <meta name="author" content="User" />
-    <!-- Date: 2014-09-12 -->
+<% include header.html %>
 
-
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="./socketTest.js"></script>
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://v3.bootcss.com/examples/signin/signin.css">
-
-	
-    <style type="text/css">
-    .childBody {
-        padding-top: 20px;
-        padding-bottom: 40px;
-    }
-    </style>
-	
-	
-	
-
-</head>
 
 <body>
     <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
@@ -41,23 +17,23 @@
 	<div class= "row childBody">
 		<div class = "container" >
 			<div class = "col-md-6">
-				
+
 					<div class="form-group">
 						<input name="message" type="text" class="form-control" id="msg" placeholder="Enter message">
 					</div>
-					
+
 					<button  class="btn btn-primary" id = "msgButton" >
 						登录
 					</button>
 
 				<div id = "chatArea">
-					
+
 				</div>
 			</div>
 		</div>
 	</div>
-	
-    
+
+
     <script>
 			// var socket = io.connect('111.206.45.12:30114');
 			// socket.on('connect', function(data){
@@ -66,33 +42,33 @@
 			// 	console.log('connect success');
 			// 	socket.emit('register',{userID:"8e4ab8ebd71a822a829ecca0d44ffc56"});//向服务器发送数据，实现双向数据传输
 			// 	$("#chatArea").append("<h3>registered</h3>");
-				
+
 			// 	$("#msgButton").click(function() {
 			// 		var msg = $("#msg").val();
 			// 		console.log(msg);
 			// 		socket.emit('msg', {from:'8e4ab8ebd71a822a829ecca0d44ffc56', to:'c186c03ba298bc3cc20490684010a353', message:msg});
-					
+
 			// 		$("#chatArea").append("<h4>"+msg+"</h4>");
 			// 		$("#msg").val('');
 			// 	});
-				
+
 			// 	socket.on('msg', function(data){
 			// 		console.log(data);
 			// 		//data = jQuery.parseJSON(data);
 			// 		console.log(data.from);
 			// 		console.log(data.to);
 			// 		console.log(data.message);
-					
+
 			// 		$("#chatArea").append("<h4>"+data.message+"</h4>");
-					
+
 			// 	});
 			// });
-			
+
 			// function sendMsg(){
 			// 	var msg = $("#msg").value();
 			// 	console.log(msg);
-				
-				
+
+
 			// }
 			var socket = io.connect('112.74.102.178:10666'); // TIP: io() with no args does auto-discovery
 			  socket.on('connect', function () { // TIP: you can avoid listening on `connect` and listen on events
@@ -102,7 +78,7 @@
 			    });
 			  });
 	</script>
-    
+
 </body>
 
 </html>
