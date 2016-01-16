@@ -79,6 +79,6 @@ global.app.use(express.static(__dirname + '/images'));
 
 var port = 10808;
 
-https.createServer(global.app).listen(port);
+http.createServer(global.app).listen(port);
 
 log.logPrint(config.logLevel.INFO, 'web server started on port ' + port);
