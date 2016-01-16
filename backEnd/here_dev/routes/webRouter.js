@@ -12,4 +12,8 @@ router.get('/test', function(req, res) {
 });
 
 
+router.get('/index', function(req, res){
+    res.sendfile('message.html');
+});
+
 module.exports = router;
