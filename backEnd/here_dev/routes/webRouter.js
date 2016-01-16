@@ -13,7 +13,7 @@ router.get('/test', function(req, res) {
 
 
 router.get('/index', function(req, res){
-    res.sendfile('message.html');
+    res.sendfile('./views/message.html');
 });
 
 module.exports = router;
