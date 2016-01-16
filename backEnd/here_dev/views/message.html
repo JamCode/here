@@ -17,35 +17,6 @@
     <link rel="stylesheet" href="http://v3.bootcss.com/examples/signin/signin.css">
 
     <script>
-    // $(function() {
-    //     console.log("client connect");
-    //     var iosocket = io.connect("http://localhost:10666/");
-
-    //     iosocket.on('connect', function() {
-    //         $('#incomingChatMessages').append($('<li>Connected</li>'));
-
-    //         iosocket.on('message', function(message) {
-    //             console.log(message);
-    //             $('#incomingChatMessages').append($('<li></li>').text(message));
-    //         });
-    //         iosocket.on('disconnect', function() {
-    //             $('#incomingChatMessages').append('<li>Disconnected</li>');
-    //         });
-    //     });
-
-    //     $('#outgoingChatMessage').keypress(function(event) {
-    //         console.log("keypress");
-    //         if (event.which == 13) {
-    //             event.preventDefault();
-    //             iosocket.send($('#outgoingChatMessage').val());
-    //             $('#incomingChatMessages').append($('<li></li>').text($('#outgoingChatMessage').val()));
-    //             $('#outgoingChatMessage').val('');
-    //         }
-    //     });
-    // });
-
-    
-    
     </script>
 
     <style type="text/css">
@@ -62,7 +33,7 @@
     <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
         <div class="container">
             <div class="navbar-header navFontSize">
-                <a class="navbar-brand" href="#"><b>chat test</b></a>
+                <a class="navbar-brand" href="#"><b>小马达后台管理</b></a>
             </div>
         </div>
     </div>
@@ -73,13 +44,13 @@
             <h2 class="form-signin-heading">Please sign in</h2>
             <input type="email" class="form-control" placeholder="phone" required="" autofocus="">
             <input type="password" class="form-control" placeholder="Password" required="">
-            
+
             <div class="checkbox">
                 <label>
                     <input type="checkbox" value="remember-me">Remember me
                 </label>
             </div>
-            
+
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
 
