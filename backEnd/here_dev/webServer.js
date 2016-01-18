@@ -44,12 +44,17 @@ global.app = express(); // 创建express实例
 global.app.set('views', path.join(__dirname, 'views'));
 global.app.set('view engine', 'ejs');
 global.app.set('imagePath', path.join(__dirname, 'images'));
-app.use(session({
+
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+
+global.app.use(cookieParser());
+global.app.use(session({
 	secret: '12345',
-    name: 'webserver',   //这里的name值得是cookie的name，默认cookie的name是：connect.sid
-    cookie: {maxAge: 80000 },  //设置maxAge是80000ms，即80s后session和相应的cookie失效过期
-    resave: false,
-    saveUninitialized: true,
+	name: 'testapp',   //这里的name值得是cookie的name，默认cookie的name是：connect.sid
+	cookie: {maxAge: 80000 },  //设置maxAge是80000ms，即80s后session和相应的cookie失效过期
+	resave: false,
+	saveUninitialized: true
 }));
 
 global.app.use(bodyParser.json());
