@@ -16,6 +16,12 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
+router.post('/login', function(req, res){
+	console.log(req.body.name);
+	console.log(req.body.password);
+});
+
+
 router.get('/index', function(req, res){
     res.render('socketTest');
 });
