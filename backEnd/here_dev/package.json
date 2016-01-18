@@ -12,6 +12,7 @@
     "apn": "*",
     "async": "*",
     "body-parser": "*",
+    "connect": "^3.4.0",
     "domain": "*",
     "ejs": "*",
     "express": "*",

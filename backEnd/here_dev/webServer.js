@@ -44,7 +44,6 @@ global.app = express(); // 创建express实例
 global.app.set('views', path.join(__dirname, 'views'));
 global.app.set('view engine', 'ejs');
 global.app.set('imagePath', path.join(__dirname, 'images'));
-global.app.use(express.cookieParser());
 app.use(session({
 	secret: '12345',
     name: 'webserver',   //这里的name值得是cookie的name，默认cookie的name是：connect.sid
