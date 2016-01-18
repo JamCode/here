@@ -16,23 +16,27 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
+router.get('/index', function(req, res){
+	if(!req.session.user){
+		res.redirect('/login');
+	}
+
+	res.render('index');
+});
+
 router.post('/login', function(req, res){
 	console.log(req.body.name);
 	console.log(req.body.password);
 	if(config.mgmtUserInfo.name === req.body.name&&config.mgmtUserInfo.password === req.body.password){
 		console.log('validate successful');
-		res.flash('success', '登入成功');
+		req.session.user = req.body.name;
+		res.redirect('/index');
 	}else{
 		console.log('validate not successful');
-		res.flash('error', '用户或密码错误');
 		res.redirect('/login');
 	}
 });
 
-
-router.get('/index', function(req, res){
-    res.render('socketTest');
-});
 
 
 
