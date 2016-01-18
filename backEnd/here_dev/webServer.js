@@ -63,17 +63,20 @@ global.app.use(bodyParser.urlencoded({
 }));
 
 // create a rotating write stream
-var accessLogStream = fileStreamRotator.getStream({
-    filename: path.join(global_config.env.homedir,
-        'logs', '/webServer_access_%DATE%.log'),
-    frequency: 'daily',
-    verbose: false,
-    date_format: "YYYY-MM-DD"
-});
+if(global_config != null){
+	var accessLogStream = fileStreamRotator.getStream({
+	    filename: path.join(global_config.env.homedir,
+	        'logs', '/webServer_access_%DATE%.log'),
+	    frequency: 'daily',
+	    verbose: false,
+	    date_format: "YYYY-MM-DD"
+	});
 
-global.app.use(morgan('short', {
-    stream: accessLogStream
-}));
+	global.app.use(morgan('short', {
+	    stream: accessLogStream
+	}));
+}
+
 
 // 消息生成唯一码
 global.app.use(function(req, res, next) {
