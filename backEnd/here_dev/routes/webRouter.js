@@ -13,7 +13,7 @@ router.get('/test', function(req, res) {
 
 
 router.get('/login', function(req, res){
-	res.render('message.html');
+	res.render('login');
 });
 
 router.get('/index', function(req, res){
