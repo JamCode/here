@@ -21,11 +21,11 @@ router.post('/login', function(req, res){
 	console.log(req.body.password);
 	if(config.mgmtUserInfo.name === req.body.name&&config.mgmtUserInfo.password === req.body.password){
 		console.log('validate successful');
-		req.flash('success', '登入成功');
+		res.flash('success', '登入成功');
 	}else{
 		console.log('validate not successful');
-		req.flash('error', '用户或密码错误');
-		req.redirect('/login');
+		res.flash('error', '用户或密码错误');
+		res.redirect('/login');
 	}
 });
 
