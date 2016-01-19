@@ -24,7 +24,8 @@ router.get('/index', function(req, res){
 	}
 
 	var page = req.body.page;
-
+	console.log(page);
+	
 	contentMgmt.getReportContent(page, function(flag, result){
 		if(flag){
 			res.render('index', result);
