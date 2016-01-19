@@ -24,6 +24,7 @@ router.get('/index', function(req, res){
 	}
 
 	var page = req.body.page;
+
 	contentMgmt.getReportContent(page, function(flag, result){
 		if(flag){
 			res.render('index', result);
@@ -39,7 +40,7 @@ router.post('/login', function(req, res){
 	if(config.mgmtUserInfo.name === req.body.name&&config.mgmtUserInfo.password === req.body.password){
 		console.log('validate successful');
 		req.session.user = req.body.name;
-		res.redirect('/index');
+		res.redirect('/index?page=1');
 	}else{
 		console.log('validate not successful');
 		res.redirect('/login');
