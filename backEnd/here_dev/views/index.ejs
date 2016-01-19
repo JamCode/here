@@ -22,7 +22,14 @@
 
     <div class="container">
         <h1>已举报内容</h1>
-        
+        <hr />
+        <% if(result.length>0){%>
+            <ul>
+                <% result.forEach(function(element){%>
+                    <li><h4><%= element.content %></h4></li>
+                <%})%>
+            </ul>
+        <%}%>
     </div>
 
 </body>
