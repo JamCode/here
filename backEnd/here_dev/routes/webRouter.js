@@ -25,6 +25,9 @@ router.get('/index', function(req, res){
 
 	var page = req.query.page;
 	console.log(page);
+	if(page == null){
+		page = 1;
+	}
 
 	contentMgmt.getReportContent(page, function(flag, result){
 		if(flag){
