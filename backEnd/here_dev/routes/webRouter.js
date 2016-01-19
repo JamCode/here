@@ -3,6 +3,8 @@
 var express = require('express');
 var router = express.Router();
 var config = require('../config/config');
+var contentMgmt = require('../database/contentMgmt.js');
+var log = global.log;
 
 
 //
@@ -21,7 +23,14 @@ router.get('/index', function(req, res){
 		res.redirect('/login');
 	}
 
-	res.render('index');
+	var page = req.body.page;
+	contentMgmt.getReportContent(page, function(flag, result){
+		if(flag){
+			res.render('index', result);
+		}else{
+			log.error(result, log.getFileNameAndLineNum(__filename));
+		}
+	});
 });
 
 router.post('/login', function(req, res){
