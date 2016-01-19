@@ -23,9 +23,9 @@ router.get('/index', function(req, res){
 		res.redirect('/login');
 	}
 
-	var page = req.body.page;
+	var page = req.query.page;
 	console.log(page);
-	
+
 	contentMgmt.getReportContent(page, function(flag, result){
 		if(flag){
 			res.render('index', result);
