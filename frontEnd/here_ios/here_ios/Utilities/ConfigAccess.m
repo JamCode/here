@@ -61,5 +61,16 @@
 #endif
 }
 
++ (NSString*)socketHost
+{
+    NSDictionary* parseJason = [ConfigAccess readConfig];
+    
+#ifdef DEBUG
+    return [[parseJason objectForKey:@"dev"] objectForKey:@"SocketHost"];
+#else
+    return [[parseJason objectForKey:@"pro"] objectForKey:@"SocketHost"];
+#endif
+}
+
 
 @end
