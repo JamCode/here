@@ -31,7 +31,7 @@ router.get('/index', function(req, res){
 
 	contentMgmt.getReportContent(page, function(flag, result){
 		if(flag){
-			res.render('index', result);
+			res.render('index', {'result':result});
 		}else{
 			log.error(result, log.getFileNameAndLineNum(__filename));
 		}
