@@ -49,11 +49,8 @@ router.post('/login', function(req, res){
 	if(config.mgmtUserInfo.name === req.body.name&&config.mgmtUserInfo.password === req.body.password){
 		console.log('validate successful');
 		req.session.user = req.body.name;
-<<<<<<< HEAD
-		res.redirect('/index?page=0');
-=======
+
 		res.redirect('/index?page=1');
->>>>>>> ad36c69cb1a5ef053783a49373130afa2ea469f0
 	}else{
 		console.log('validate not successful');
 		res.redirect('/login');
