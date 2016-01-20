@@ -29,14 +29,30 @@
                     <h4 class="col-md-4"><%= element.content %></h4>
                     <img  width="100" src="<%= element.content_image_url%>" class="col-md-4"></img>
                     <img width="40" src="<%= element.user_face_image%>" class="col-md-2" />
-                    <h5 class="col-md-2"><%= element.user_name%> </h5>
-                    <button class="btn btn-danger">删除</button>
+                    <h4 class="col-md-2"><%= element.user_name%> </h4>
+                    <button id="<%= element.content_id%>" onclick="deleteContent(\'<%= element.content_id%>\')" class="btn btn-danger">删除</button>
                 </div>
                 <hr />
             <%})%>
         <%}%>
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+        </ul>
     </div>
-
 </body>
 
 </html>
