@@ -8,8 +8,50 @@
     <div class="container">
         <h1>已举报内容</h1>
         <hr />
-        
+
     </div>
+<<<<<<< HEAD
+=======
+
+    <div class="container">
+        <h1>已举报内容</h1>
+        <hr />
+        <% if(result.length>0){%>
+            <% result.forEach(function(element){%>
+                <div class="row">
+                    <h4 class="col-md-4"><%= element.content %></h4>
+                    <img  width="100" src="<%= element.content_image_url%>" class="col-md-4"></img>
+                    <img width="40" src="<%= element.user_face_image%>" class="col-md-2" />
+                    <h4 class="col-md-2"><%= element.user_name%> </h4>
+                    <button id="<%= element.content_id%>" onclick="deleteContent('<%= element.content_id%>')" class="btn btn-danger">删除</button>
+                </div>
+                <hr />
+            <%})%>
+        <%}%>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                      <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+>>>>>>> ad36c69cb1a5ef053783a49373130afa2ea469f0
 </body>
 
 </html>
