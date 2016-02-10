@@ -5,6 +5,36 @@
 
 <% include header.html %>
 
-    <h1>test</h1>
+    <div class="container">
+        <h1>已举报内容</h1>
+        <hr />
+        <% if(result.length>0){%>
+            <% result.forEach(function(element){%>
+                <div class="row">
+                    <h4 class="col-md-4"><%= element.content %></h4>
+                    <img  width="100" src="<%= element.content_image_url%>" class="col-md-4"></img>
+                    <img width="40" src="<%= element.user_face_image%>" class="col-md-2" />
+                    <h4 class="col-md-2"><%= element.user_name%> </h4>
+                    <button id="<%= element.content_id%>" onclick="deleteContent('<%= element.content_id%>')" class="btn btn-danger">删除</button>
+                    <button id="<%= element.content_id%>" onclick="recoverContent('<%= element.content_id%>')" class="btn btn-success">审核通过</button>
+                </div>
+                <hr />
+            <%})%>
+        <%}%>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <ul class="pagination">
+                    <%for(var i=1;i<=5;++i){
+                        if(page == i)%{>
+                            <li><a href="#" class="active"><%=i%></a></li>
+                        <%}else{%>
+                            <li><a href="#"><%=i%></a></li>
+                        <%}
+                    }%>
+                </ul>
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>
