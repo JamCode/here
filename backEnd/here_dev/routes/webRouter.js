@@ -22,6 +22,7 @@ router.get('/login', function(req, res){
 router.get('/content', function(req, res){
 	if(!req.session.user){
 		res.redirect('/login');
+		return;
 	}
 
 	var page = req.query.page;
