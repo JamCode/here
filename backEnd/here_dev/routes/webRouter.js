@@ -34,7 +34,9 @@ router.get('/index', function(req, res){
 	contentMgmt.getReportContent(page, function(flag, result){
 		if(flag){
 			//res.send('test');
-			res.render('index', {'result':result, 'page':page});
+			//res.render('socketTest', {'result':result, 'page':page});
+			res.render('socketTest');
+
 		}else{
 			log.error(result, log.getFileNameAndLineNum(__filename));
 		}
