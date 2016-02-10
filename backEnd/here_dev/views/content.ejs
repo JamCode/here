@@ -8,8 +8,13 @@
     <script>
         function deleteContent(content_id){
             console.log(content_id);
-            $.get('deleteContent?content_id='+content_id, function(data, status){
-                console.log(status);
+            $.ajax({
+                url:'deleteContent',
+                data:{'content_id':content_id},
+                type:'GET',
+                success:function(data, status){
+                    console.log(data);
+                }
             });
         }
 
