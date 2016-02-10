@@ -82,9 +82,9 @@
 
     //#206
 #ifdef DEBUG
-    _mysocket.useSecure = YES;//use https
+    //_mysocket.useSecure = YES;//use https
 #else
-    _mysocket.useSecure = NO;//not use https
+    //_mysocket.useSecure = NO;//not use https
 #endif
     
     if (_myInfo.phoneNum == nil||_myInfo.password == nil
