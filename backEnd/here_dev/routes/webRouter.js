@@ -96,7 +96,7 @@ router.post('/login', function(req, res){
 });
 
 
-router.get('/deleteContent', function(req, res){
+router.post('/deleteContent', function(req, res){
 	console.log('enter delete content');
 	console.log(req.body.content_id);
 	contentMgmt.deleteContent(req.body.content_id, function(flag, result){

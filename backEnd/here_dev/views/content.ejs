@@ -10,8 +10,10 @@
             console.log(content_id);
             $.ajax({
                 url:'deleteContent',
-                data:{'content_id':content_id},
-                type:'GET',
+                data:{
+                    'content_id': content_id
+                },
+                type:'post',
                 dataType: 'json',
                 success:function(data, status){
                     console.log(data);
