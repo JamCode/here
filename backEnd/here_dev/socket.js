@@ -237,12 +237,8 @@ function startSocketServer () {
 
     //#206
     var server = null;
-    if(process.env.ENV === 'pro'){
-        server = require('http').createServer(app);
-    }else{
-        server = require('https').createServer(options, app);
-    }
-    
+    server = require('http').createServer(app);
+
     //var server = require('http').createServer(app);
     var io = require('socket.io')(server);
     server.listen(socketPort);
