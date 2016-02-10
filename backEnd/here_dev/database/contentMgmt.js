@@ -235,6 +235,13 @@ exports.deleteContent = function (content_id, callback) {
 
 };
 
+//审核后恢复的内容
+exports.recoverContent = function(content_id, callback){
+	var sql = 'update content_base_info set content_report = 0 where ' +
+	' content_id = ?';
+	conn.executeSql(sql, [content_id], callback);
+};
+
 exports.getAllContentImage = function (callback) {
 	var sql = 'select *from content_image_info';
 	conn.executeSql(sql, [], callback);

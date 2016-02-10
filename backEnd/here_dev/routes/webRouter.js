@@ -105,7 +105,22 @@ router.post('/deleteContent', function(req, res){
 			returnValue.code = config.returnCode.SUCCESS;
 		}else{
 			log.error(result, log.getFileNameAndLineNum(__filename));
+			returnValue.code = config.returnCode.ERROR;
+		}
+		res.send(returnValue);
+
+	});
+});
+
+
+router.post('/recoverContent', function(req, res){
+	contentMgmt.recoverContent(req.body.content_id, function(flag, result){
+		var returnValue = {};
+		if(flag){
 			returnValue.code = config.returnCode.SUCCESS;
+		}else{
+			log.error(result, log.getFileNameAndLineNum(__filename));
+			returnValue.code = config.returnCode.ERROR;
 		}
 		res.send(returnValue);
 

@@ -17,6 +17,11 @@
                 dataType: 'json',
                 success:function(data, status){
                     console.log(data);
+                    if(data.code == 1002){
+                        $('row'+content_id).remove();
+                    }else{
+                        alert('错误');
+                    }
                 },
                 error : function() {
                     alert('异常');
@@ -26,6 +31,20 @@
 
         function recoverContent(content_id){
             console.log(content_id);
+            $.ajax({
+                url:'recoverContent',
+                data:{
+                    'content_id': content_id
+                },
+                type:'post',
+                dataType: 'json',
+                success:function(data, status){
+                    console.log(data);
+                },
+                error : function() {
+                    alert('异常');
+                }
+            });
         }
 
     </script>
@@ -34,7 +53,7 @@
         <hr />
         <% if(result.length>0){%>
             <% result.forEach(function(element){%>
-                <div class="row">
+                <div class="row" id='row_<%=element.content_id%>'>
                     <h4 class="col-md-4"><%= element.content %></h4>
                     <img  width="100" src="<%= element.content_image_url%>" class="col-md-4"></img>
                     <img width="40" src="<%= element.user_face_image%>" class="col-md-2" />
