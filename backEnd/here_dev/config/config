@@ -104,3 +104,8 @@ exports.hashKey = {
 	commentGoodUnreadCount: 'here_commentGoodUnreadCount'
 
 };
+
+exports.mgmtUserInfo = {
+	name: 'jam',
+	password: 'jam'
+};
