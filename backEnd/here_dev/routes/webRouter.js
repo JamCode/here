@@ -18,10 +18,11 @@ router.get('/login', function(req, res){
 	res.render('login');
 });
 
-router.get('/index', function(req, res){
-	// if(!req.session.user){
-	// 	res.redirect('/login');
-	// }
+
+router.get('/content', function(req, res){
+	if(!req.session.user){
+		res.redirect('/login');
+	}
 
 	var page = req.query.page;
 	console.log(page);
@@ -35,7 +36,7 @@ router.get('/index', function(req, res){
 		if(flag){
 			//res.send('test');
 			//res.render('index', {'result':result, 'page':page});
-			res.render('index');
+			res.render('content', {'result':result, 'page':page});
 			//res.render('socketTest');
 
 		}else{
@@ -43,6 +44,32 @@ router.get('/index', function(req, res){
 		}
 	});
 });
+
+// router.get('/index', function(req, res){
+// 	if(!req.session.user){
+// 		res.redirect('/login');
+// 	}
+//
+// 	var page = req.query.page;
+// 	console.log(page);
+// 	if(page == null){
+// 		page = 1;
+// 	}
+//
+// 	//res.redirect('/login');
+//
+// 	contentMgmt.getReportContent(page, function(flag, result){
+// 		if(flag){
+// 			//res.send('test');
+// 			//res.render('index', {'result':result, 'page':page});
+// 			res.render('index');
+// 			//res.render('socketTest');
+//
+// 		}else{
+// 			log.error(result, log.getFileNameAndLineNum(__filename));
+// 		}
+// 	});
+// });
 
 router.get('/logout', function(req, res){
 	req.session.user = null;
@@ -56,7 +83,7 @@ router.post('/login', function(req, res){
 		console.log('validate successful');
 		req.session.user = req.body.name;
 
-		res.redirect('/index?page=1');
+		res.redirect('/content?page=1');
 	}else{
 		console.log('validate not successful');
 		res.redirect('/login');
