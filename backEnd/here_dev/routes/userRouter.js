@@ -20,7 +20,7 @@ var async = require('async');
 var os = require('os');
 var networkInterface = os.networkInterfaces();
 
-var imageHomeUrl = 'https://' + networkInterface.eth1[0].address + ':' +
+var imageHomeUrl = 'http://' + networkInterface.eth1[0].address + ':' +
 	global_config.httpServerInfo.listen_port + config.imageInfo.url;
 
 log.debug(imageHomeUrl, log.getFileNameAndLineNum(__filename));
@@ -206,17 +206,16 @@ router.post('/changeFace', function(req, res) {
 		log.logPrint(config.logLevel.DEBUG, fileName);
 
 		imageOper.updateImage(files.user_image.path,
-			path.join(global_config.env.homedir, config.imageInfo.imageRootDir,
-				fileName),
-			path.join(global_config.env.homedir, config.imageInfo.imageRootDir,
-				compressFileName), {
+			path.join(global_config.env.homedir, config.imageInfo.imageRootDir)+fileName,
+			path.join(global_config.env.homedir, config.imageInfo.imageRootDir)+compressFileName,
+			{
 				width: 44 * 4,
 				height: 44 * 4
 			});
 
 		userMgmt.updateUserFace(fields.user_id,
-			path.join(imageHomeUrl, compressFileName),
-			path.join(imageHomeUrl, fileName),
+			imageHomeUrl+compressFileName,
+			imageHomeUrl+fileName,
 			function(flag, result) {
 				var returnData = {};
 				if (flag) {

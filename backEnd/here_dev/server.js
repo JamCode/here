@@ -13,7 +13,7 @@ if (process.env.ENV === 'pro') {
 }
 
 global.global_config = global_config;
-var https = require('https');
+var http = require('http');
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -119,12 +119,12 @@ function startHTTPServer(port) {
 	global.app.use(express.static(__dirname + '/images'));
 
 
-	var options = {
-	  key: fs.readFileSync(__dirname + '/key/server.key'),
-	  cert: fs.readFileSync(__dirname + '/key/server.crt')
-	};
+	// var options = {
+	//   key: fs.readFileSync(__dirname + '/key/server.key'),
+	//   cert: fs.readFileSync(__dirname + '/key/server.crt')
+	// };
 
-	https.createServer(options, global.app).listen(port);
+	http.createServer(global.app).listen(port);
 
 	log.logPrint(config.logLevel.INFO, 'Express started on port ' + port);
 }

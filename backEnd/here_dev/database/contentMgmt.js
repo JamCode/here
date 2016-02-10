@@ -4,7 +4,7 @@ var log = global.log;
 
 exports.getReportContent = function(page, callback){
 	var pageIndex = (page-1)*30;
-	var sql = "select a.*, b.user_name, b.user_face_image from content_base_info a , user_base_info b " +
+	var sql = "select a.*, b.user_name, b.user_facethumbnail, b.user_face_image from content_base_info a , user_base_info b " +
 	" where b.user_id = a.user_id and a.content_report = 1 order by content_publish_timestamp desc limit ?, 30";
 	conn.executeSql(sql, pageIndex, callback);
 };
