@@ -32,6 +32,8 @@ router.get('/content', function(req, res){
 
 	//res.redirect('/login');
 
+	console.log('enter getReportContent');
+
 	contentMgmt.getReportContent(page, function(flag, result){
 		if(flag){
 			//res.send('test');
