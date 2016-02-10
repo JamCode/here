@@ -35,7 +35,7 @@ router.get('/index', function(req, res){
 		if(flag){
 			//res.send('test');
 			//res.render('index', {'result':result, 'page':page});
-			res.render('test');
+			res.render('index');
 			//res.render('socketTest');
 
 		}else{
