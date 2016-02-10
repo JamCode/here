@@ -206,17 +206,16 @@ router.post('/changeFace', function(req, res) {
 		log.logPrint(config.logLevel.DEBUG, fileName);
 
 		imageOper.updateImage(files.user_image.path,
-			path.join(global_config.env.homedir, config.imageInfo.imageRootDir,
-				fileName),
-			path.join(global_config.env.homedir, config.imageInfo.imageRootDir,
-				compressFileName), {
+			path.join(global_config.env.homedir, config.imageInfo.imageRootDir)+fileName,
+			path.join(global_config.env.homedir, config.imageInfo.imageRootDir)+compressFileName,
+			{
 				width: 44 * 4,
 				height: 44 * 4
 			});
 
 		userMgmt.updateUserFace(fields.user_id,
-			path.join(imageHomeUrl, compressFileName),
-			path.join(imageHomeUrl, fileName),
+			imageHomeUrl+compressFileName,
+			imageHomeUrl+fileName,
 			function(flag, result) {
 				var returnData = {};
 				if (flag) {
