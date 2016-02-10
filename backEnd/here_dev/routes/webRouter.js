@@ -19,9 +19,9 @@ router.get('/login', function(req, res){
 });
 
 router.get('/index', function(req, res){
-	if(!req.session.user){
-		res.redirect('/login');
-	}
+	// if(!req.session.user){
+	// 	res.redirect('/login');
+	// }
 
 	var page = req.query.page;
 	console.log(page);
