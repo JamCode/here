@@ -1,5 +1,5 @@
 var log = require('./utility/log');
-log.SetLogFileName('logServer_');
+log.SetLogFileName('logWebServer_');
 global.log = log; // 设置全局
 
 var global_config;

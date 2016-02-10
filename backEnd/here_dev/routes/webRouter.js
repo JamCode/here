@@ -29,13 +29,15 @@ router.get('/index', function(req, res){
 		page = 1;
 	}
 
-	contentMgmt.getReportContent(page, function(flag, result){
-		if(flag){
-			res.render('index', {'result':result, 'page':page});
-		}else{
-			log.error(result, log.getFileNameAndLineNum(__filename));
-		}
-	});
+	res.redirect('/login');
+
+	// contentMgmt.getReportContent(page, function(flag, result){
+	// 	if(flag){
+	// 		res.render('index', {'result':result, 'page':page});
+	// 	}else{
+	// 		log.error(result, log.getFileNameAndLineNum(__filename));
+	// 	}
+	// });
 });
 
 router.get('/logout', function(req, res){
