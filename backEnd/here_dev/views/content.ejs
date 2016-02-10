@@ -61,7 +61,7 @@
                 <div class="row" id='row_<%=element.content_id%>'>
                     <h4 class="col-md-4"><%= element.content %></h4>
                     <img  width="100" src="<%= element.content_image_url%>" class="col-md-4"></img>
-                    <img width="40" src="<%= element.user_face_image%>" class="col-md-2" />
+                    <img width="40" src="<%= element.user_facethumbnail%>" class="col-md-2" />
                     <h4 class="col-md-2"><%= element.user_name%> </h4>
                     <button id="<%= element.content_id%>" onclick="deleteContent('<%= element.content_id%>')" class="btn btn-danger">删除</button>
                     <button id="<%= element.content_id%>" onclick="recoverContent('<%= element.content_id%>')" class="btn btn-success">审核通过</button>
