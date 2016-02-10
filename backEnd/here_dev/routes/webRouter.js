@@ -96,6 +96,19 @@ router.post('/login', function(req, res){
 });
 
 
+router.get('/deleteContent', function(req, res){
+	console.log(req.body.content_id);
+	contentMgmt.deleteContent(req.body.content_id, function(flag, result){
+		var returnValue = {};
+		if(flag){
+			returnValue.code = config.returnCode.SUCCESS;
+		}else{
+			log.error(result, log.getFileNameAndLineNum(__filename));
+			returnValue.code = config.returnCode.SUCCESS;
+		}
+		res.send(returnValue);
 
+	});
+});
 
 module.exports = router;
