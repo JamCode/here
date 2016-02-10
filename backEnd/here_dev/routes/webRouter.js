@@ -24,7 +24,8 @@ router.get('/content', function(req, res){
 		res.redirect('/login');
 		return;
 	}
-
+	
+	global.user = req.session.user;
 	var page = req.query.page;
 	console.log(page);
 	if(page == null){
