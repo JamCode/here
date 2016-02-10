@@ -18,7 +18,7 @@
                 success:function(data, status){
                     console.log(data);
                     if(data.code == 1002){
-                        $('row'+content_id).remove();
+                        $('row'+content_id).hide();
                     }else{
                         alert('错误');
                     }
@@ -40,6 +40,11 @@
                 dataType: 'json',
                 success:function(data, status){
                     console.log(data);
+                    if(data.code == 1002){
+                        $('row'+content_id).hide();
+                    }else{
+                        alert('错误');
+                    }
                 },
                 error : function() {
                     alert('异常');
