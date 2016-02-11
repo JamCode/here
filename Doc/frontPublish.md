@@ -2,6 +2,7 @@
 ----
 
 >* 修改Info.plist中Bundle identifier为com.wanghan.herePro
+>* 修改InfoPlist.strings中的app名字
 >* 修改TARGETS中版本号
 >* 修改TARGETS中Bundle Identifier
 >* product ->scheme->edit scheme 中，build configuration修改
