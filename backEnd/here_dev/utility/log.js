@@ -14,14 +14,23 @@ var log4js = require('log4js');
 var logger;
 
 exports.SetLogFileName = function(fileName) {
+
+    var fullpath = fileName;
+    if(global_config==null){
+
+    }else{
+        fullpath = path.join(global_config.env.homedir,
+            'logs', fileName);
+    }
+
+
     log4js.configure({
         appenders: [{
             type: 'console'
         }, {
             type: 'dateFile',
             absolute: true,
-            filename: path.join(global_config.env.homedir,
-                'logs', fileName),
+            filename: fullpath,
             maxLogSize: 1024 * 1024,
             backups: 4,
             pattern: 'yyyy-MM-dd.log',

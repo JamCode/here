@@ -25,6 +25,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "CocoaSecurity.h"
 #import "Mp3Recorder.h"
+#import "ConfigAccess.h"
 
 @interface TalkViewController ()
 {
@@ -921,7 +922,7 @@ static const double textViewWidth = 250;
     timer =[NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(startConnectActiveView) userInfo:nil repeats:YES];
     
     AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    mysocket.useSecure = YES;
+    //mysocket.useSecure = YES;
     
     [mysocket connectToHost:app.socketIP onPort:app.socketPort withParams:nil withNamespace:nil withConnectionTimeout:3];
     
@@ -945,7 +946,12 @@ static const double textViewWidth = 250;
             priMsgModel.msg_id = [feedback objectForKey:@"msg_id"];
             priMsgModel.sender_user_id = [feedback objectForKey:@"from"];
             priMsgModel.receive_user_id = [feedback objectForKey:@"to"];
-            priMsgModel.message_content = [feedback objectForKey:@"message"];
+            
+            
+            //decrypt
+            CocoaSecurityResult* aesDefault = [CocoaSecurity aesDecryptWithBase64:[feedback objectForKey:@"message"] key:[ConfigAccess msgKey]];
+            
+            priMsgModel.message_content = aesDefault.utf8String;
             priMsgModel.msg_type = [[feedback objectForKey:@"msg_type"] intValue];
             priMsgModel.send_timestamp = [[feedback objectForKey:@"timestamp"] intValue];
             priMsgModel.voiceTime = [[feedback objectForKey:@"voice_time"] intValue];
@@ -976,7 +982,13 @@ static const double textViewWidth = 250;
             for (long i=[msgList count]-1; i>=0; --i) {
                 NSDictionary* element = [msgList objectAtIndex:i];
                 PriMsgModel* priMsg = [[PriMsgModel alloc] init];
-                priMsg.message_content = [element objectForKey:@"message_content"];
+                
+                //decrypt
+                CocoaSecurityResult* aesDefault = [CocoaSecurity aesDecryptWithBase64:[element objectForKey:@"message_content"] key:[ConfigAccess msgKey]];
+                
+                priMsg.message_content = aesDefault.utf8String;
+                
+                
                 priMsg.send_timestamp = [[element objectForKey:@"send_timestamp"] integerValue];
                 priMsg.sender_user_id = [element objectForKey:@"sender_user_id"];
                 priMsg.receive_user_id = [element objectForKey:@"receive_user_id"];
@@ -1087,7 +1099,13 @@ static const double textViewWidth = 250;
 - (void)sendDataToServer:(PriMsgModel*)priMsg
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setObject:priMsg.message_content forKey:@"message"];
+    
+    
+    CocoaSecurityResult *aesDefault = [CocoaSecurity aesEncrypt:priMsg.message_content key:[ConfigAccess msgKey]];
+    
+    NSLog(@"%@", aesDefault.base64);
+    
+    [dict setObject:aesDefault.base64 forKey:@"message"];
     [dict setObject:myInfo.userID forKey:@"from"];
     [dict setObject:_counterInfo.userID forKey:@"to"];
     
@@ -1158,6 +1176,8 @@ static const double textViewWidth = 250;
         
         CocoaSecurityResult *md5 = [CocoaSecurity md5:[[NSString alloc] initWithFormat:@"%@%@%ld", priMsgModel.sender_user_id, priMsgModel.receive_user_id, (long)priMsgModel.send_timestamp]];
         priMsgModel.msg_srno = md5.hex;
+        
+        
         
         [self writePriMsgToLocalDatabase:priMsgModel];
         [self updateChatList];

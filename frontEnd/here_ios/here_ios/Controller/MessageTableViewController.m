@@ -24,7 +24,7 @@
 #import "Tools.h"
 #import <MBProgressHUD.h>
 #import "ConfigAccess.h"
-
+#import "CocoaSecurity.h"
 
 
 @interface MessageTableViewController ()
@@ -211,7 +211,13 @@ static const int noticeLabelHeight = 20;
         for (long i=[msgList count]-1; i>=0; --i) {
             NSDictionary* element = [msgList objectAtIndex:i];
             PriMsgModel* priMsg = [[PriMsgModel alloc] init];
-            priMsg.message_content = [element objectForKey:@"message_content"];
+            
+            
+            //decrypt
+            CocoaSecurityResult* aesDefault = [CocoaSecurity aesDecryptWithBase64:[element objectForKey:@"message_content"] key:[ConfigAccess msgKey]];
+            
+            
+            priMsg.message_content = aesDefault.utf8String;
             priMsg.send_timestamp = [[element objectForKey:@"send_timestamp"] integerValue];
             priMsg.sender_user_id = [element objectForKey:@"sender_user_id"];
             priMsg.receive_user_id = [element objectForKey:@"receive_user_id"];
@@ -306,7 +312,14 @@ static const int noticeLabelHeight = 20;
     NSString* from_name = [feedback objectForKey:@"from_name"];
     NSString* from_face_url = [feedback objectForKey:@"from_face_url"];
     NSInteger timestamp = [[feedback objectForKey:@"timestamp"] intValue];
-    NSString* msg = [feedback objectForKey:@"message"];
+    
+    //decrypt
+    CocoaSecurityResult* aesDefault = [CocoaSecurity aesDecryptWithBase64:[feedback objectForKey:@"message"] key:[ConfigAccess msgKey]];
+    
+    NSString* msg = aesDefault.utf8String;
+    
+    
+    
     
     if([to_id isEqual:myInfo.userID] == false){
         NSLog(@"error pri msg");

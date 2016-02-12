@@ -14,4 +14,6 @@
 + (NSString*)socketIP;
 + (NSInteger)socketPort;
 + (NSString*)socketHost;
++ (NSString*)msgKey;
+
 @end
