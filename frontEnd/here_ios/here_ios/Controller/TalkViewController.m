@@ -946,7 +946,12 @@ static const double textViewWidth = 250;
             priMsgModel.msg_id = [feedback objectForKey:@"msg_id"];
             priMsgModel.sender_user_id = [feedback objectForKey:@"from"];
             priMsgModel.receive_user_id = [feedback objectForKey:@"to"];
-            priMsgModel.message_content = [feedback objectForKey:@"message"];
+            
+            
+            //decrypt
+            CocoaSecurityResult* aesDefault = [CocoaSecurity aesDecryptWithBase64:[feedback objectForKey:@"message"] key:[ConfigAccess msgKey]];
+            
+            priMsgModel.message_content = aesDefault.utf8String;
             priMsgModel.msg_type = [[feedback objectForKey:@"msg_type"] intValue];
             priMsgModel.send_timestamp = [[feedback objectForKey:@"timestamp"] intValue];
             priMsgModel.voiceTime = [[feedback objectForKey:@"voice_time"] intValue];
@@ -977,7 +982,13 @@ static const double textViewWidth = 250;
             for (long i=[msgList count]-1; i>=0; --i) {
                 NSDictionary* element = [msgList objectAtIndex:i];
                 PriMsgModel* priMsg = [[PriMsgModel alloc] init];
-                priMsg.message_content = [element objectForKey:@"message_content"];
+                
+                //decrypt
+                CocoaSecurityResult* aesDefault = [CocoaSecurity aesDecryptWithBase64:[element objectForKey:@"message_content"] key:[ConfigAccess msgKey]];
+                
+                priMsg.message_content = aesDefault.utf8String;
+                
+                
                 priMsg.send_timestamp = [[element objectForKey:@"send_timestamp"] integerValue];
                 priMsg.sender_user_id = [element objectForKey:@"sender_user_id"];
                 priMsg.receive_user_id = [element objectForKey:@"receive_user_id"];
