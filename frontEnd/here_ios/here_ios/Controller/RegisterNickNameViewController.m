@@ -17,6 +17,7 @@
 #import "macro.h"
 #import "RegisterPhoneNumViewController.h"
 #import <Masonry.h>
+#import "EULAViewController.h"
 
 @interface RegisterNickNameViewController ()
 {
@@ -93,6 +94,11 @@ static const int textview_height = 44;
 - (void)clickNotice:(id)sender
 {
     NSLog(@"clickNotice");
+    
+    
+    EULAViewController* eula = [[EULAViewController alloc] init];
+    
+    [self.navigationController pushViewController:eula animated:YES];
 }
 
 - (void)nextStep:(id)sender

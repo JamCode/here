@@ -16,6 +16,11 @@ PODS:
   - LBBlurredImage (0.2.2)
   - Masonry (0.6.3)
   - MBProgressHUD (0.9.1)
+  - NJKWebViewProgress (0.2.3):
+    - NJKWebViewProgress/Core
+    - NJKWebViewProgress/ProgressView
+  - NJKWebViewProgress/Core (0.2.3)
+  - NJKWebViewProgress/ProgressView (0.2.3)
   - Reachability (3.2)
   - SDWebImage (3.7.3):
     - SDWebImage/Core
@@ -30,6 +35,7 @@ DEPENDENCIES:
   - LBBlurredImage
   - Masonry
   - MBProgressHUD
+  - NJKWebViewProgress
   - SDWebImage (~> 3.7)
   - SocketRocket
   - YYModel
@@ -41,6 +47,7 @@ SPEC CHECKSUMS:
   LBBlurredImage: 700634c17922bc2d22343118e7deb6a3ca12db43
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  NJKWebViewProgress: f481fd424cb5ecc27eacae11b5397db92fba9a4d
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SocketRocket: ffe08119b00ef982f6c37052a4705a057c8494ad
