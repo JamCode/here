@@ -127,4 +127,9 @@ router.post('/recoverContent', function(req, res){
 	});
 });
 
+
+router.get('/eula', function(req, res){
+	res.render('eula');
+});
+
 module.exports = router;

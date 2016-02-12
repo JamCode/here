@@ -15,6 +15,7 @@
 		B2050CE41BB7AAD500074E92 /* HotContentAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B2050CE31BB7AAD500074E92 /* HotContentAction.m */; };
 		B208D2301BE1043600AFAE39 /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = B208D22F1BE1043600AFAE39 /* dot.png */; };
 		B208D2321BE104E600AFAE39 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = B208D2311BE104E600AFAE39 /* down.png */; };
+		B215F0171C6D9F2A006BFF2C /* EULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B215F0161C6D9F2A006BFF2C /* EULAViewController.m */; };
 		B2392B441BABF183009FE00C /* BlackListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B2392B431BABF183009FE00C /* BlackListAction.m */; };
 		B249BEBC1BD7DCAB00A892E0 /* waitPage6p.png in Resources */ = {isa = PBXBuildFile; fileRef = B249BEBB1BD7DCAB00A892E0 /* waitPage6p.png */; };
 		B249BEBE1BD7DCB300A892E0 /* waitPage5.png in Resources */ = {isa = PBXBuildFile; fileRef = B249BEBD1BD7DCB300A892E0 /* waitPage5.png */; };
@@ -223,6 +224,8 @@
 		B2050CE31BB7AAD500074E92 /* HotContentAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotContentAction.m; sourceTree = "<group>"; };
 		B208D22F1BE1043600AFAE39 /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
 		B208D2311BE104E600AFAE39 /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
+		B215F0151C6D9F2A006BFF2C /* EULAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EULAViewController.h; sourceTree = "<group>"; };
+		B215F0161C6D9F2A006BFF2C /* EULAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EULAViewController.m; sourceTree = "<group>"; };
 		B2392B421BABF183009FE00C /* BlackListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackListAction.h; sourceTree = "<group>"; };
 		B2392B431BABF183009FE00C /* BlackListAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackListAction.m; sourceTree = "<group>"; };
 		B249BEBB1BD7DCAB00A892E0 /* waitPage6p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waitPage6p.png; sourceTree = "<group>"; };
@@ -842,6 +845,8 @@
 		B24D68181BA6C21C00F33A96 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B215F0151C6D9F2A006BFF2C /* EULAViewController.h */,
+				B215F0161C6D9F2A006BFF2C /* EULAViewController.m */,
 				B24D686B1BA6C46900F33A96 /* Property List.plist */,
 				B2550A2D1C267D6200812D41 /* FansListAction.h */,
 				B2550A2E1C267D6200812D41 /* FansListAction.m */,
@@ -1319,6 +1324,7 @@
 				B2392B441BABF183009FE00C /* BlackListAction.m in Sources */,
 				B24D693C1BA6C8A400F33A96 /* TWTSideMenuViewController.m in Sources */,
 				B24D68B01BA6C46900F33A96 /* CommentDetailAction.m in Sources */,
+				B215F0171C6D9F2A006BFF2C /* EULAViewController.m in Sources */,
 				B2550A2C1C26695000812D41 /* FollowListAction.m in Sources */,
 				B24D68601BA6C3F200F33A96 /* UserInfoModel.m in Sources */,
 				B2BFEB051BE897FE000296EF /* ConfigAccess.m in Sources */,
