@@ -87,4 +87,7 @@
 #define SENDED_FAILED 2
 #define SENDING 3
 
+
+#define minSpace 8
+
 #endif

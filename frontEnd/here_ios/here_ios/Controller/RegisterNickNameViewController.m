@@ -16,10 +16,12 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "macro.h"
 #import "RegisterPhoneNumViewController.h"
+#import <Masonry.h>
 
 @interface RegisterNickNameViewController ()
 {
     TextFieldView* textField;
+    UILabel* noticeLabel;
 }
 @end
 
@@ -70,6 +72,27 @@ static const int textview_height = 44;
     [textfieldBack addSubview:nickNameIcon];
     
     [self.view addSubview:textfieldBack];
+    
+    
+    noticeLabel = [[UILabel alloc] init];
+    
+    
+    [self.view addSubview:noticeLabel];
+    noticeLabel.textColor = subjectColor;
+    noticeLabel.text = @"注册即表示同意《小马达用户协议》";
+    noticeLabel.font = [UIFont fontWithName:@"Arial" size:12];
+    noticeLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    noticeLabel.numberOfLines = 0;
+    noticeLabel.textAlignment = NSTextAlignmentCenter;
+    noticeLabel.userInteractionEnabled = YES;
+    [noticeLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickNotice:)]];
+    
+    
+}
+
+- (void)clickNotice:(id)sender
+{
+    NSLog(@"clickNotice");
 }
 
 - (void)nextStep:(id)sender
@@ -125,6 +148,13 @@ static const int textview_height = 44;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];//状态栏白色
+    
+    
+    [noticeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(textField.mas_bottom).offset(2*minSpace);
+        make.centerX.mas_equalTo(self.view.mas_centerX);
+        make.size.mas_equalTo(CGSizeMake(ScreenWidth - 2*minSpace, 2*minSpace));
+    }];
 }
 
 - (void)didReceiveMemoryWarning
