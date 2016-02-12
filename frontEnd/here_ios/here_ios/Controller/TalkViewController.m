@@ -25,6 +25,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "CocoaSecurity.h"
 #import "Mp3Recorder.h"
+#import "ConfigAccess.h"
 
 @interface TalkViewController ()
 {
@@ -1087,7 +1088,13 @@ static const double textViewWidth = 250;
 - (void)sendDataToServer:(PriMsgModel*)priMsg
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setObject:priMsg.message_content forKey:@"message"];
+    
+    
+    CocoaSecurityResult *aesDefault = [CocoaSecurity aesEncrypt:priMsg.message_content key:[ConfigAccess msgKey]];
+    
+    NSLog(@"%@", aesDefault.base64);
+    
+    [dict setObject:aesDefault.base64 forKey:@"message"];
     [dict setObject:myInfo.userID forKey:@"from"];
     [dict setObject:_counterInfo.userID forKey:@"to"];
     
@@ -1158,6 +1165,8 @@ static const double textViewWidth = 250;
         
         CocoaSecurityResult *md5 = [CocoaSecurity md5:[[NSString alloc] initWithFormat:@"%@%@%ld", priMsgModel.sender_user_id, priMsgModel.receive_user_id, (long)priMsgModel.send_timestamp]];
         priMsgModel.msg_srno = md5.hex;
+        
+        
         
         [self writePriMsgToLocalDatabase:priMsgModel];
         [self updateChatList];

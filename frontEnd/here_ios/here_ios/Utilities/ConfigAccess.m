@@ -73,4 +73,9 @@
 }
 
 
++ (NSString*)msgKey
+{
+    return @"madaxiao";
+}
+
 @end
