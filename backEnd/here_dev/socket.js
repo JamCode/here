@@ -148,6 +148,10 @@ function insertPrivateMsgAndPushToFront (msg, io) {
                         msg.message = '[图片]';
                     }
 
+                    if(msg.msg_type === config.msgType.USERMSG){
+                        msg.message = '[消息]';
+                    }
+
                     log.info('push msg ' + msg.message, log.getFileNameAndLineNum(__filename));
 
                     var pushMsg = {
