@@ -140,22 +140,23 @@ function insertPrivateMsgAndPushToFront (msg, io) {
 
                     var item = result[0];
 
+                    var pushmsg = '';
                     if (msg.msg_type === config.msgType.VOICEMSG) {
-                        msg.message = '[语音]';
+                        pushmsg = '[语音]';
                     }
 
                     if (msg.msg_type === config.msgType.IMAGEMSG) {
-                        msg.message = '[图片]';
+                        pushmsg = '[图片]';
                     }
 
                     if(msg.msg_type === config.msgType.USERMSG){
-                        msg.message = '[消息]';
+                        pushmsg = '[消息]';
                     }
 
                     log.info('push msg ' + msg.message, log.getFileNameAndLineNum(__filename));
 
                     var pushMsg = {
-                        content: msg.from_name + ':' + msg.message,
+                        content: msg.from_name + ':' + pushMsg,
                         msgtype: 'msg',
                         badge: item.count
                     };
