@@ -153,10 +153,10 @@ function insertPrivateMsgAndPushToFront (msg, io) {
                         pushmsg = '[消息]';
                     }
 
-                    log.info('push msg ' + msg.message, log.getFileNameAndLineNum(__filename));
+                    log.info('push msg ' + pushmsg, log.getFileNameAndLineNum(__filename));
 
                     var pushMsg = {
-                        content: msg.from_name + ':' + pushMsg,
+                        content: msg.from_name + ':' + pushmsg,
                         msgtype: 'msg',
                         badge: item.count
                     };
