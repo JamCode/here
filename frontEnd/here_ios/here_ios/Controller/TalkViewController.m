@@ -950,6 +950,7 @@ static const double textViewWidth = 250;
             
             //decrypt
             CocoaSecurityResult* aesDefault = [CocoaSecurity aesDecryptWithBase64:[feedback objectForKey:@"message"] key:[ConfigAccess msgKey]];
+            NSLog(@"%@", aesDefault.utf8String);
             
             priMsgModel.message_content = aesDefault.utf8String;
             priMsgModel.msg_type = [[feedback objectForKey:@"msg_type"] intValue];
