@@ -79,3 +79,10 @@ telnet gateway.sandbox.push.apple.com 2195
 ```
 openssl s_client -connect gateway.sandbox.push.apple.com:2195-cert PushChatCert.pem -key PushChatKey.pem
 ```
+
+
+## FTP
+
+>* service vsftpd restart重启vsftpd服务
+>* service vsftpd stop停止vsftpd服务
+>* service vsftpd start启动vsftpd服务
