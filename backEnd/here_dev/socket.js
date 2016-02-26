@@ -158,7 +158,7 @@ function insertPrivateMsgAndPushToFront (msg, io) {
                     var pushMsg = {
                         content: msg.from_name + ':' + pushmsg,
                         msgtype: 'msg',
-                        badge: item.count
+                        badge: 1 //#220
                     };
 
                     // apn to user
