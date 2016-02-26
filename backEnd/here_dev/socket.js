@@ -162,13 +162,16 @@ function insertPrivateMsgAndPushToFront (msg, io) {
                     };
 
                     // apn to user
-                    conn.pushMsgToUsers(item.device_token, pushMsg);
-                    userMgmt.updateDeviceNotifyCount(item.device_token, item.count + 1,
-                    function (flag, result) {
-                        if (!flag) {
-                            log.error(result, log.getFileNameAndLineNum(__filename));
-                        }
-                    });
+                    if(item != null){
+                        conn.pushMsgToUsers(item.device_token, pushMsg);
+                        userMgmt.updateDeviceNotifyCount(item.device_token, item.count + 1,
+                        function (flag, result) {
+                            if (!flag) {
+                                log.error(result, log.getFileNameAndLineNum(__filename));
+                            }
+                        });
+                    }
+
                 } else {
                     log.error(result, log.getFileNameAndLineNum(__filename));
                 }
