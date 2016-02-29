@@ -25,6 +25,7 @@
 
 - (BOOL)connectToDatabase:(NSString*)fileName
 {
+    NSLog(@"%@", fileName);
     model = [NSManagedObjectModel mergedModelFromBundles:nil];
     //NSManagedObjectModel* model = [[NSManagedObjectModel alloc] init];
 

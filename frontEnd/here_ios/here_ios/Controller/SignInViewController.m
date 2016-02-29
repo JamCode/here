@@ -233,7 +233,7 @@ static const int tableview_cell_height = 44;
         
         NSInteger code = [[response objectForKey:@"code"] integerValue];
         if (code == LOGIN_SUCCESS) {
-            [self loginSuccess:nil];
+            [self loginSuccess:response];
         }
         
         if (code == LOGIN_FAIL) {
