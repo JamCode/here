@@ -54,3 +54,35 @@ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 >* 去除证书文件的password
 cp server.key server.key.orig
 openssl rsa -in server.key.orig -out server.key
+
+
+
+## 苹果推送pem生成
+
+准备三个文件
+>* 认证签名申请文件（CSR）
+>* 私钥文件（PushChatKey.p12）
+>* SSL证书文件（aps_developer_identity.cer）
+
+生成pem
+```
+openssl x509 -in aps_developer_identity.cer -inform der -out PushChatCert.pem
+openssl pkcs12 -nocerts -out PushChatKey.pem -in PushChatKey.p12
+
+```
+
+验证
+```
+telnet gateway.sandbox.push.apple.com 2195
+```
+
+```
+openssl s_client -connect gateway.sandbox.push.apple.com:2195-cert PushChatCert.pem -key PushChatKey.pem
+```
+
+
+## FTP
+
+>* service vsftpd restart重启vsftpd服务
+>* service vsftpd stop停止vsftpd服务
+>* service vsftpd start启动vsftpd服务
