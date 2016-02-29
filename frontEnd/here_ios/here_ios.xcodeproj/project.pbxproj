@@ -190,6 +190,7 @@
 		B290F5CB1C1DC66B0023079C /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B290F5CA1C1DC66A0023079C /* UserCell.m */; };
 		B29B5ED21BA9499D00D62757 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29B5ED11BA9499D00D62757 /* InfoPlist.strings */; };
 		B2A33D081BDDFF5F00D8F18D /* Last_pri_msg.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A33D071BDDFF5F00D8F18D /* Last_pri_msg.m */; };
+		B2ABA5C01C83F09500552C27 /* NetworkAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = B2ABA5BF1C83F09500552C27 /* NetworkAPI.m */; };
 		B2BFEB021BE893E3000296EF /* config.geojson in Resources */ = {isa = PBXBuildFile; fileRef = B2BFEB011BE893E3000296EF /* config.geojson */; };
 		B2BFEB051BE897FE000296EF /* ConfigAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BFEB041BE897FE000296EF /* ConfigAccess.m */; };
 		B2C9445C1C3EB49A00D06B61 /* server.crt in Resources */ = {isa = PBXBuildFile; fileRef = B2C9445B1C3EB49A00D06B61 /* server.crt */; };
@@ -495,6 +496,8 @@
 		B29B5ED11BA9499D00D62757 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		B2A33D061BDDFF5F00D8F18D /* Last_pri_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Last_pri_msg.h; sourceTree = "<group>"; };
 		B2A33D071BDDFF5F00D8F18D /* Last_pri_msg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Last_pri_msg.m; sourceTree = "<group>"; };
+		B2ABA5BE1C83F09500552C27 /* NetworkAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkAPI.h; sourceTree = "<group>"; };
+		B2ABA5BF1C83F09500552C27 /* NetworkAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkAPI.m; sourceTree = "<group>"; };
 		B2BFEB011BE893E3000296EF /* config.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config.geojson; sourceTree = "<group>"; };
 		B2BFEB031BE897FE000296EF /* ConfigAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigAccess.h; sourceTree = "<group>"; };
 		B2BFEB041BE897FE000296EF /* ConfigAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigAccess.m; sourceTree = "<group>"; };
@@ -1003,6 +1006,8 @@
 				B24D68C91BA6C8A300F33A96 /* Mp3Recorder.h */,
 				B24D68CA1BA6C8A300F33A96 /* Mp3Recorder.m */,
 				B24D68CB1BA6C8A300F33A96 /* NetWork.h */,
+				B2ABA5BE1C83F09500552C27 /* NetworkAPI.h */,
+				B2ABA5BF1C83F09500552C27 /* NetworkAPI.m */,
 				B24D68CC1BA6C8A300F33A96 /* NetWork.m */,
 				B24D68CD1BA6C8A300F33A96 /* NSString+Emojize.h */,
 				B24D68CE1BA6C8A300F33A96 /* NSString+Emojize.m */,
@@ -1315,6 +1320,7 @@
 				B20447501C1BFEB5007DFE14 /* Follow_base_info+CoreDataProperties.m in Sources */,
 				B24D68061BA6C06800F33A96 /* CommentDetailCell.m in Sources */,
 				B24D69381BA6C8A400F33A96 /* SocketIOTransportXHR.m in Sources */,
+				B2ABA5C01C83F09500552C27 /* NetworkAPI.m in Sources */,
 				B24D68B41BA6C46900F33A96 /* ImageBrowseAction.m in Sources */,
 				B24D680C1BA6C06800F33A96 /* NearByTableViewCell.m in Sources */,
 				B24D691D1BA6C8A400F33A96 /* NetWork.m in Sources */,
