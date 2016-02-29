@@ -14,6 +14,7 @@
 #import <MBProgressHUD.h>
 #import "Tools.h"
 #import "AppDelegate.h"
+#import "NetworkAPI.h"
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 
@@ -24,47 +25,66 @@
 - (void)message:(NSDictionary*)message images:(NSMutableDictionary*)images feedbackcall:(NSDictionary*)feedbackcall complete:(messageComplete)complete callObject:(id)callObject
 {
     
-    dispatch_queue_attr_t msgqueue = (dispatch_queue_attr_t)dispatch_queue_create("msgqueue", NULL);
-    dispatch_async((dispatch_queue_t)msgqueue, ^{
-        
-        AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        
-        NSString* urlStr = [[NSString alloc] initWithFormat:@"%@%@", app.serverDomain, [message objectForKey:@"childpath"]];
-        NSURL* URL = [[NSURL alloc] initWithString:urlStr];
-        
-        NSMutableDictionary* feedback = [[NSMutableDictionary alloc] init];
-        NSError* netError = nil;
-        if (images == nil) {
-            netError = [self sendMessageSyn:URL message:message feedbackMessage:&feedback];
-        }else{
-            netError = [self sendImageAndMessageSyn:URL message:message feedbackMessage:&feedback images:images];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-
-            SEL outSelector = nil;
+    
+    if (images == nil) {
+        [NetworkAPI callApiWithParam:message childpath:[message objectForKey:@"childpath"] successed:^(NSDictionary *response) {
             
-            if (netError) {
-                //回包不在期望格式范围内,json转换失败
-                [self msgException:netError path:[message objectForKey:@"childpath"]];
-                
-            }else{
-                if(feedbackcall != nil){
-                    [[feedbackcall objectForKey:[feedback objectForKey:@"code"]] getValue:&outSelector];
-                    if(outSelector == nil){
-                        NSLog(@"outSelect is nil");
-                        [self msgError:feedback path:[message objectForKey:@"childpath"]];
-                    }else{
-                        [callObject performSelector:outSelector withObject:feedback];
-                    }
+            SEL outSelector = nil;
+            if(feedbackcall != nil){
+                [[feedbackcall objectForKey:[response objectForKey:@"code"]] getValue:&outSelector];
+                if(outSelector == nil){
+                    NSLog(@"outSelect is nil");
+                    [self msgError:response path:[message objectForKey:@"childpath"]];
+                }else{
+                    [callObject performSelector:outSelector withObject:response];
                 }
             }
+
             
             if (complete!=nil) {
                 complete();
             }
-        });
-    });
+
+            
+            
+        } failed:^(NSError *error) {
+            
+            [self msgException:error path:[message objectForKey:@"childpath"]];
+            if (complete!=nil) {
+                complete();
+            }
+            
+        }];
+        
+        
+    }else{
+        
+        [NetworkAPI callApiWithParamForImage:message imageDatas:images childpath:[message objectForKey:@"childpath"] successed:^(NSDictionary *response) {
+            SEL outSelector = nil;
+            if(feedbackcall != nil){
+                [[feedbackcall objectForKey:[response objectForKey:@"code"]] getValue:&outSelector];
+                if(outSelector == nil){
+                    NSLog(@"outSelect is nil");
+                    [self msgError:response path:[message objectForKey:@"childpath"]];
+                }else{
+                    [callObject performSelector:outSelector withObject:response];
+                }
+            }
+            
+            
+            if (complete!=nil) {
+                complete();
+            }
+            
+        } failed:^(NSError *error) {
+            
+            [self msgException:error path:[message objectForKey:@"childpath"]];
+            if (complete!=nil) {
+                complete();
+            }
+        }];
+        
+    }
 }
 
 - (void)msgException:(id)sender path:(NSString*)path
@@ -129,10 +149,15 @@
     NSError* error = nil;
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:message options:NSJSONWritingPrettyPrinted error:&error];
     
+    NSLog(@"%@", [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding]);
+    
     [request setPostBody:[NSMutableData dataWithData:jsonData]];
     
     [request startSynchronous];
     error = [request error];
+    NSLog(@"%@", error.domain);
+    NSLog(@"%ld", error.code);
+    
     if (!error) {
         NSData *response = [request responseData];
         NSString* responseStr = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
