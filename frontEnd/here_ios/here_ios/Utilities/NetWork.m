@@ -30,6 +30,9 @@
         AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
         
         NSString* urlStr = [[NSString alloc] initWithFormat:@"%@%@", app.serverDomain, [message objectForKey:@"childpath"]];
+        
+        NSLog(@"%@", urlStr);
+        
         NSURL* URL = [[NSURL alloc] initWithString:urlStr];
         
         NSMutableDictionary* feedback = [[NSMutableDictionary alloc] init];
@@ -129,10 +132,15 @@
     NSError* error = nil;
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:message options:NSJSONWritingPrettyPrinted error:&error];
     
+    NSLog(@"%@", [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding]);
+    
     [request setPostBody:[NSMutableData dataWithData:jsonData]];
     
     [request startSynchronous];
     error = [request error];
+    NSLog(@"%@", error.domain);
+    NSLog(@"%ld", error.code);
+    
     if (!error) {
         NSData *response = [request responseData];
         NSString* responseStr = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];

@@ -19,6 +19,7 @@
 #import "TWTSideMenuViewController.h"
 #import "MenuViewCtrl.h"
 #import "Tools.h"
+#import "NetworkAPI.h"
 
 @interface SignInViewController ()
 {
@@ -228,24 +229,53 @@ static const int tableview_cell_height = 44;
                              forKeys:@[@"user_phone", @"password", @"childpath"]];
     
 
-    
-    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:
-                                  @[[NSValue valueWithBytes:&@selector(loginSuccess:) objCType:@encode(SEL)],
-                                    [NSValue valueWithBytes:&@selector(loginFail:) objCType:@encode(SEL)],
-                                    [NSValue valueWithBytes:&@selector(loginError:) objCType:@encode(SEL)],
-                                    [NSValue valueWithBytes:&@selector(loginException:) objCType:@encode(SEL)] ]
-                                                               forKeys:@[[[NSNumber alloc] initWithInt:LOGIN_SUCCESS],
-                                                                         [[NSNumber alloc] initWithInt:LOGIN_FAIL],
-                                                                         [[NSNumber alloc] initWithInt:ERROR],
-                                                                         [[NSNumber alloc] initWithInt:EXCEPTION]]];
-    
-    
-    NetWork* netWork = [[NetWork alloc] init];
-    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
+    [NetworkAPI callApiWithParam:message childpath:@"/login" successed:^(NSDictionary *response) {
+        
+        NSInteger code = [[response objectForKey:@"code"] integerValue];
+        if (code == LOGIN_SUCCESS) {
+            [self loginSuccess:nil];
+        }
+        
+        if (code == LOGIN_FAIL) {
+            [self loginFail:nil];
+        }
+        
+        if (code == ERROR) {
+            [self loginError:nil];
+        }
+        
         [loadingView hide:YES];
         [loadingView removeFromSuperview];
         loadingView = nil;
-    } callObject:self];
+
+        
+        
+    } failed:^(NSError *error) {
+        [self loginException:nil];
+        [loadingView hide:YES];
+        [loadingView removeFromSuperview];
+        loadingView = nil;
+
+    }];
+    
+    
+//    NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:
+//                                  @[[NSValue valueWithBytes:&@selector(loginSuccess:) objCType:@encode(SEL)],
+//                                    [NSValue valueWithBytes:&@selector(loginFail:) objCType:@encode(SEL)],
+//                                    [NSValue valueWithBytes:&@selector(loginError:) objCType:@encode(SEL)],
+//                                    [NSValue valueWithBytes:&@selector(loginException:) objCType:@encode(SEL)] ]
+//                                                               forKeys:@[[[NSNumber alloc] initWithInt:LOGIN_SUCCESS],
+//                                                                         [[NSNumber alloc] initWithInt:LOGIN_FAIL],
+//                                                                         [[NSNumber alloc] initWithInt:ERROR],
+//                                                                         [[NSNumber alloc] initWithInt:EXCEPTION]]];
+//    
+//    
+//    NetWork* netWork = [[NetWork alloc] init];
+//    [netWork message:message images:nil feedbackcall:feedbackcall complete:^{
+//        [loadingView hide:YES];
+//        [loadingView removeFromSuperview];
+//        loadingView = nil;
+//    } callObject:self];
 }
 
 - (void)nextStep:(id)sender

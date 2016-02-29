@@ -27,6 +27,7 @@ tar –xvf file.tar //解压 tar包
 ## pod 更新
 pod install --verbose --no-repo-update
 pod update --verbose --no-repo-update
+pod update XXX --verbose --no-repo-update
 
 
 ## cul测试
