@@ -16,7 +16,8 @@
 #import "macro.h"
 #import "ContentTableViewCell.h"
 #import "ContentDetailViewController.h"
-
+#import "SettingViewController.h"
+#import "UserSearchTableViewController.h"
 
 @implementation FollowedContentAction
 {
@@ -175,6 +176,8 @@
     navTitle.font = [UIFont boldSystemFontOfSize:20];
     comTable.navigationItem.titleView = navTitle;
     
+    comTableViewCtrl.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"找人" style:UIBarButtonItemStylePlain target:self action:@selector(searchPeopleAction:)];
+
     
     //    UIButton* rightBar = [UIButton buttonWithType:UIButtonTypeCustom];
     //    rightBar.frame = CGRectMake(0, 0, 24, 24);
@@ -204,6 +207,13 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pullDown) name:@"pullDown" object:nil];
     
+}
+
+- (void)searchPeopleAction:(id)sender
+{
+    UserSearchTableViewController* userSearch = [[UserSearchTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    userSearch.hidesBottomBarWhenPushed = YES;
+    [comTable.navigationController pushViewController:userSearch animated:YES];
 }
 
 

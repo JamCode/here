@@ -1079,7 +1079,7 @@ typedef enum  {
     }else if (section == details){
         return [settingTitleArray count];
     }else if(section == support){
-        return 3;
+        return 2;
     }else if(section == logout){
         return 1;
     }
