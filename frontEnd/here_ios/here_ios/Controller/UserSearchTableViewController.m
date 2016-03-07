@@ -16,6 +16,7 @@
 #import "Constant.h"
 #import "Tools.h"
 #import "NearByTableViewCell.h"
+#import "FollowUserCell.h"
 
 
 @interface UserSearchTableViewController ()
@@ -36,7 +37,6 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.view.backgroundColor = [UIColor whiteColor];
     
     UILabel *navTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     navTitle.textColor = [UIColor whiteColor];
@@ -54,8 +54,11 @@
     userSearchTextField.returnKeyType = UIReturnKeySearch;
     
     userlist = [[NSMutableArray alloc] init];
+    self.tableView.userInteractionEnabled = YES;
     self.tableView.delegate = self;
     [self.tableView setDataSource:self];
+    [self.tableView setDelegate:self];
+    
     [self.tableView reloadData];
 
     
@@ -133,43 +136,6 @@
     [userSearchTextField resignFirstResponder];
 }
 
-- (void)textFieldDidChange:(UITextField*)textField
-{
-//    if(textField.text.length == 6){
-//        NSLog(@"search stock code: %@", textField.text);
-//        NSString* stockCode = textField.text;
-//        
-//        
-//        //发送搜索消息
-//        NSDictionary* message = [[NSDictionary alloc]
-//                                 initWithObjects:@[stockCode]
-//                                 forKeys:@[@"stock_code"]];
-//        
-//        [NetworkAPI callApiWithParam:message childpath:@"/stock/getStock" successed:^(NSDictionary *response) {
-//            
-//            NSInteger code = [[response objectForKey:@"code"] integerValue];
-//            
-//            if(code == SUCCESS){
-//                
-//                [self loadStockInfo:[response objectForKey:@"data"]];
-//                
-//            }else if(code == STOCK_NOT_EXIST){
-//                [stockList removeAllObjects];
-//                [self.tableView reloadData];
-//                
-//            }else{
-//                alertMsg(@"未知错误");
-//            }
-//            
-//            
-//        } failed:^(NSError *error) {
-//            alertMsg(@"网络问题");
-//        }];
-//        
-//        
-//    }
-}
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -178,7 +144,7 @@
     }
     
     if(indexPath.section == 1){
-        //return [FaceCellViewTableViewCell cellHeight];
+        return [FollowUserCell followUserCellHeight];
     }
     
     return 0;
@@ -229,6 +195,12 @@
 }
 
 
+
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return indexPath;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
@@ -264,20 +236,38 @@
     
     if(indexPath.section == 1){
         
-        NearByTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"NearByTableViewCell"];
+//        NearByTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"NearByTableViewCell"];
+//        
+//        if (cell==nil) {
+//            cell = [[NearByTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NearByTableViewCell"];
+//            NSLog(@"new cell");
+//        }
+//        
+//        UserInfoModel* userInfo = (UserInfoModel*)[userlist objectAtIndex:indexPath.row];
+//        
+//        [cell setUserInfo:userInfo];
+//        
+//        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+//        return cell;
+        
+        static NSString* cellIdentifier = @"FollowUserCell";
+
+        FollowUserCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         
         if (cell==nil) {
-            cell = [[NearByTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NearByTableViewCell"];
+            cell = [[FollowUserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             NSLog(@"new cell");
         }
         
         
         UserInfoModel* userInfo = (UserInfoModel*)[userlist objectAtIndex:indexPath.row];
         
+        [cell configureCell:userInfo];
         
-        [cell setUserInfo:userInfo];
+        cell.userInteractionEnabled = YES;
         
         return cell;
+
     }
     
     return nil;

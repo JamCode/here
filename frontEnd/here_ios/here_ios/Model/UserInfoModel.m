@@ -72,8 +72,9 @@
         _age = [Tools getAgeFromBirthDay:_birthday];
     }
     
-    _latitude = [[data objectForKey:@"location_latitude"] doubleValue];
-    _longitude = [[data objectForKey:@"location_longitude"] doubleValue];
+    
+    _latitude = [data objectForKey:@"location_latitude"] == [NSNull null]?0:[[data objectForKey:@"location_latitude"] doubleValue];
+    _longitude = [data objectForKey:@"location_longitude"] == [NSNull null]?0:[[data objectForKey:@"location_longitude"] doubleValue];
     
     
     _user_follow_count = [[data objectForKey:@"user_follow_count"] integerValue];
