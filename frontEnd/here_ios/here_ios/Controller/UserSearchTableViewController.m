@@ -15,6 +15,7 @@
 #import "SettingViewController.h"
 #import "Constant.h"
 #import "Tools.h"
+#import "NearByTableViewCell.h"
 
 
 @interface UserSearchTableViewController ()
@@ -82,7 +83,8 @@
             
             if(templist!=nil){
                 for (NSDictionary* element in templist) {
-                    UserInfoModel* temp = [UserInfoModel yy_modelWithDictionary:element];
+                    UserInfoModel* temp = [[UserInfoModel alloc] init];
+                    [temp fillWithData:element];
                     [userlist addObject:temp];
                 }
                 
@@ -261,16 +263,21 @@
     
     
     if(indexPath.section == 1){
-        static NSString* cellIdentifier = @"usercell";
-//        FaceCellViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-//        if (cell==nil) {
-//            cell = [[FaceCellViewTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
-//            NSLog(@"new cell");
-//        }
-//        
-//        UserInfoModel* userInfo = [userlist objectAtIndex:indexPath.row];
-//        [cell configureCell:userInfo];
-//        return cell;
+        
+        NearByTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"NearByTableViewCell"];
+        
+        if (cell==nil) {
+            cell = [[NearByTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NearByTableViewCell"];
+            NSLog(@"new cell");
+        }
+        
+        
+        UserInfoModel* userInfo = (UserInfoModel*)[userlist objectAtIndex:indexPath.row];
+        
+        
+        [cell setUserInfo:userInfo];
+        
+        return cell;
     }
     
     return nil;
