@@ -203,6 +203,15 @@ static const int updateTimeWidth = 100;
     
     ageAndGenderLabel.text = [[NSString alloc] initWithFormat:@"%ld", userInfo.age];
     
+    if(userInfo.age == 0){
+        ageAndGenderLabel.hidden = YES;
+        ageAndGenderView.hidden = YES;
+    }else{
+        ageAndGenderLabel.hidden = NO;
+        ageAndGenderView.hidden = NO;
+    }
+    
+    
     
     CLLocation* userLocation = [[CLLocation alloc] initWithLatitude:userInfo.latitude longitude:userInfo.longitude];
     
@@ -211,6 +220,10 @@ static const int updateTimeWidth = 100;
     
     NSLog(@"%f, %f", userInfo.latitude, app.myInfo.latitude);
     updateTimeAndDistance.text = [[NSString alloc] initWithFormat:@"%@ | %@", [self showTime:userInfo.refresh_timestamp], [Tools showDistance:userLocation otherLocation:myLocation]];
+    
+    if (userInfo.refresh_timestamp == 0) {
+        updateTimeAndDistance.hidden = YES;
+    }
 }
 
 - (void)awakeFromNib

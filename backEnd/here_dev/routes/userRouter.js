@@ -966,6 +966,22 @@ router.post('/getfollowInfo', function(req, res){
 });
 
 
+//search user
+router.post('/searchUser', function(req, res){
+	userMgmt.searchUser(req.body.user_id, req.body.user_name, function(flag, result){
+		var returnData = {};
+		if(flag){
+			returnData.code = config.returnCode.SUCCESS;
+			returnData.data = result;
+		}else{
+			log.error(result, log.getFileNameAndLineNum(__filename));
+			returnData.code = config.returnCode.ERROR;
+		}
+		res.send(returnData);
+	});
+});
+
+
 router.get('/testfile', function(req, res) {
 	res.send('testfile');
 });

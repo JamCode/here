@@ -20,6 +20,13 @@ exports.updateBirthDay = function(reqBody, callback) {
 };
 
 
+exports.searchUser = function(user_id, user_name, callback){
+	user_name = '%'+user_name+'%';
+	var sql = 'select user_id, user_name, user_facethumbnail, user_sign ' +
+	' from user_base_info where user_id<>? and user_name like ? ';
+	conn.executeSql(sql, [user_id, user_name], callback);
+};
+
 exports.submitFeedback = function(reqBody, callback) {
 
 	var sql =
