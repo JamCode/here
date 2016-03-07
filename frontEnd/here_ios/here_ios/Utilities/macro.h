@@ -90,4 +90,13 @@
 
 #define minSpace 8
 
+#define fontName @"Arial"
+
+#define bigbigFont 46
+#define bigFont 32
+#define middleFont 24
+#define minMiddleFont 20
+#define minFont 16
+#define microFont 12
+
 #endif

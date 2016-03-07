@@ -14,6 +14,7 @@
 #import "macro.h"
 #import "Constant.h"
 #import "AppDelegate.h"
+#import "UserSearchTableViewController.h"
 
 @implementation FollowListAction
 {
@@ -138,12 +139,18 @@
     dataList = [[NSMutableArray alloc] init];
     UILabel *navTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
     [navTitle setTextColor:[UIColor whiteColor]];
-    [navTitle setText:@"关注"];
+    [navTitle setText:@"关注的人"];
     navTitle.textAlignment = NSTextAlignmentCenter;
     navTitle.font = [UIFont boldSystemFontOfSize:20];
     comTableViewCtrl.navigationItem.titleView = navTitle;
     comtable = comTableViewCtrl;
+    
+    
+    
 }
+
+
+
 
 - (CGFloat)cellHeight:(UITableView*)tableView indexPath:(NSIndexPath *)indexPath
 {

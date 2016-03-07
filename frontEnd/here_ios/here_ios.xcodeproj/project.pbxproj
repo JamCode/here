@@ -191,6 +191,7 @@
 		B29B5ED21BA9499D00D62757 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B29B5ED11BA9499D00D62757 /* InfoPlist.strings */; };
 		B2A33D081BDDFF5F00D8F18D /* Last_pri_msg.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A33D071BDDFF5F00D8F18D /* Last_pri_msg.m */; };
 		B2ABA5C01C83F09500552C27 /* NetworkAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = B2ABA5BF1C83F09500552C27 /* NetworkAPI.m */; };
+		B2ABA5C31C8DA89800552C27 /* UserSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2ABA5C21C8DA89800552C27 /* UserSearchTableViewController.m */; };
 		B2BFEB021BE893E3000296EF /* config.geojson in Resources */ = {isa = PBXBuildFile; fileRef = B2BFEB011BE893E3000296EF /* config.geojson */; };
 		B2BFEB051BE897FE000296EF /* ConfigAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BFEB041BE897FE000296EF /* ConfigAccess.m */; };
 		B2C9445C1C3EB49A00D06B61 /* server.crt in Resources */ = {isa = PBXBuildFile; fileRef = B2C9445B1C3EB49A00D06B61 /* server.crt */; };
@@ -498,6 +499,8 @@
 		B2A33D071BDDFF5F00D8F18D /* Last_pri_msg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Last_pri_msg.m; sourceTree = "<group>"; };
 		B2ABA5BE1C83F09500552C27 /* NetworkAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkAPI.h; sourceTree = "<group>"; };
 		B2ABA5BF1C83F09500552C27 /* NetworkAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkAPI.m; sourceTree = "<group>"; };
+		B2ABA5C11C8DA89800552C27 /* UserSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSearchTableViewController.h; sourceTree = "<group>"; };
+		B2ABA5C21C8DA89800552C27 /* UserSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSearchTableViewController.m; sourceTree = "<group>"; };
 		B2BFEB011BE893E3000296EF /* config.geojson */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config.geojson; sourceTree = "<group>"; };
 		B2BFEB031BE897FE000296EF /* ConfigAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigAccess.h; sourceTree = "<group>"; };
 		B2BFEB041BE897FE000296EF /* ConfigAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigAccess.m; sourceTree = "<group>"; };
@@ -855,6 +858,8 @@
 				B2550A2E1C267D6200812D41 /* FansListAction.m */,
 				B2550A2A1C26695000812D41 /* FollowListAction.h */,
 				B2550A2B1C26695000812D41 /* FollowListAction.m */,
+				B2ABA5C11C8DA89800552C27 /* UserSearchTableViewController.h */,
+				B2ABA5C21C8DA89800552C27 /* UserSearchTableViewController.m */,
 				B2392B421BABF183009FE00C /* BlackListAction.h */,
 				B2392B431BABF183009FE00C /* BlackListAction.m */,
 				B2689B3A1BBCD753008B8AF0 /* MasterSettingCtrl.h */,
@@ -1269,6 +1274,7 @@
 				B2050CE41BB7AAD500074E92 /* HotContentAction.m in Sources */,
 				B24D68101BA6C06800F33A96 /* TalkTimeTableViewCell.m in Sources */,
 				B24D68B71BA6C46900F33A96 /* UserImageViewController.m in Sources */,
+				B2ABA5C31C8DA89800552C27 /* UserSearchTableViewController.m in Sources */,
 				B24D68121BA6C06800F33A96 /* CommentTableViewCell.m in Sources */,
 				B24D68B21BA6C46900F33A96 /* LocationViewCtrlViewController.m in Sources */,
 				B24D680E1BA6C06800F33A96 /* SettingTableViewCell.m in Sources */,
