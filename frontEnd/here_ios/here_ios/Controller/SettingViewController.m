@@ -805,7 +805,7 @@ typedef enum  {
         [userImageArray addObject:[element objectForKey:@"user_image_url"]];
     }
     
-    [self setNickNameLabel];
+    //[self setNickNameLabel];
     
     
     lastUpdateGender = _userInfo.gender;
