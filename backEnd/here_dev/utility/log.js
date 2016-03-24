@@ -75,10 +75,12 @@ exports.info = function(info, fileNameLineNum, sq) {
 };
 
 exports.debug = function(info, fileNameLineNum, sq) {
-    if (sq != null) {
-        logger.debug('[' + sq + '] - ' + fileNameLineNum + ' ' + info);
-    } else {
-        logger.debug(fileNameLineNum + ' ' + info);
+    if(process.env.ENV === 'dev'){
+        if (sq != null) {
+            logger.debug('[' + sq + '] - ' + fileNameLineNum + ' ' + info);
+        } else {
+            logger.debug(fileNameLineNum + ' ' + info);
+        }
     }
 };
 
