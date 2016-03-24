@@ -16,6 +16,13 @@
 		B208D2301BE1043600AFAE39 /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = B208D22F1BE1043600AFAE39 /* dot.png */; };
 		B208D2321BE104E600AFAE39 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = B208D2311BE104E600AFAE39 /* down.png */; };
 		B215F0171C6D9F2A006BFF2C /* EULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B215F0161C6D9F2A006BFF2C /* EULAViewController.m */; };
+		B2258A1C1CA3DE3F0034A7F8 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = B2258A111CA3DE3F0034A7F8 /* .gitignore */; };
+		B2258A1D1CA3DE3F0034A7F8 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = B2258A131CA3DE3F0034A7F8 /* AESCrypt.m */; };
+		B2258A1E1CA3DE3F0034A7F8 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B2258A141CA3DE3F0034A7F8 /* LICENSE */; };
+		B2258A1F1CA3DE3F0034A7F8 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B2258A161CA3DE3F0034A7F8 /* NSData+Base64.m */; };
+		B2258A201CA3DE3F0034A7F8 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = B2258A181CA3DE3F0034A7F8 /* NSData+CommonCrypto.m */; };
+		B2258A211CA3DE3F0034A7F8 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B2258A1A1CA3DE3F0034A7F8 /* NSString+Base64.m */; };
+		B2258A221CA3DE3F0034A7F8 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = B2258A1B1CA3DE3F0034A7F8 /* README.md */; };
 		B2392B441BABF183009FE00C /* BlackListAction.m in Sources */ = {isa = PBXBuildFile; fileRef = B2392B431BABF183009FE00C /* BlackListAction.m */; };
 		B249BEBC1BD7DCAB00A892E0 /* waitPage6p.png in Resources */ = {isa = PBXBuildFile; fileRef = B249BEBB1BD7DCAB00A892E0 /* waitPage6p.png */; };
 		B249BEBE1BD7DCB300A892E0 /* waitPage5.png in Resources */ = {isa = PBXBuildFile; fileRef = B249BEBD1BD7DCB300A892E0 /* waitPage5.png */; };
@@ -228,6 +235,17 @@
 		B208D2311BE104E600AFAE39 /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
 		B215F0151C6D9F2A006BFF2C /* EULAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EULAViewController.h; sourceTree = "<group>"; };
 		B215F0161C6D9F2A006BFF2C /* EULAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EULAViewController.m; sourceTree = "<group>"; };
+		B2258A111CA3DE3F0034A7F8 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		B2258A121CA3DE3F0034A7F8 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
+		B2258A131CA3DE3F0034A7F8 /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
+		B2258A141CA3DE3F0034A7F8 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		B2258A151CA3DE3F0034A7F8 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		B2258A161CA3DE3F0034A7F8 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		B2258A171CA3DE3F0034A7F8 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		B2258A181CA3DE3F0034A7F8 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
+		B2258A191CA3DE3F0034A7F8 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		B2258A1A1CA3DE3F0034A7F8 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		B2258A1B1CA3DE3F0034A7F8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B2392B421BABF183009FE00C /* BlackListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackListAction.h; sourceTree = "<group>"; };
 		B2392B431BABF183009FE00C /* BlackListAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackListAction.m; sourceTree = "<group>"; };
 		B249BEBB1BD7DCAB00A892E0 /* waitPage6p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waitPage6p.png; sourceTree = "<group>"; };
@@ -544,6 +562,24 @@
 				636B860494494DAFB67B35FB /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		B2258A101CA3DE3F0034A7F8 /* AESCrypt-ObjC-master */ = {
+			isa = PBXGroup;
+			children = (
+				B2258A111CA3DE3F0034A7F8 /* .gitignore */,
+				B2258A121CA3DE3F0034A7F8 /* AESCrypt.h */,
+				B2258A131CA3DE3F0034A7F8 /* AESCrypt.m */,
+				B2258A141CA3DE3F0034A7F8 /* LICENSE */,
+				B2258A151CA3DE3F0034A7F8 /* NSData+Base64.h */,
+				B2258A161CA3DE3F0034A7F8 /* NSData+Base64.m */,
+				B2258A171CA3DE3F0034A7F8 /* NSData+CommonCrypto.h */,
+				B2258A181CA3DE3F0034A7F8 /* NSData+CommonCrypto.m */,
+				B2258A191CA3DE3F0034A7F8 /* NSString+Base64.h */,
+				B2258A1A1CA3DE3F0034A7F8 /* NSString+Base64.m */,
+				B2258A1B1CA3DE3F0034A7F8 /* README.md */,
+			);
+			path = "AESCrypt-ObjC-master";
 			sourceTree = "<group>";
 		};
 		B24D65A41BA6AC5800F33A96 = {
@@ -995,6 +1031,7 @@
 				B2BFEB011BE893E3000296EF /* config.geojson */,
 				B2C9445B1C3EB49A00D06B61 /* server.crt */,
 				B2BFEB031BE897FE000296EF /* ConfigAccess.h */,
+				B2258A101CA3DE3F0034A7F8 /* AESCrypt-ObjC-master */,
 				B2BFEB041BE897FE000296EF /* ConfigAccess.m */,
 				B24D68BB1BA6C8A300F33A96 /* BarItem.h */,
 				B24D68BC1BA6C8A300F33A96 /* BarItem.m */,
@@ -1120,6 +1157,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2258A1E1CA3DE3F0034A7F8 /* LICENSE in Resources */,
 				B24D66F11BA6BB1F00F33A96 /* speech_bubble-32.png in Resources */,
 				B24D67CA1BA6BB1F00F33A96 /* hot@2x.png in Resources */,
 				B24D67B01BA6BB1F00F33A96 /* nickname64px.png in Resources */,
@@ -1175,6 +1213,7 @@
 				B24D66F21BA6BB1F00F33A96 /* star.png in Resources */,
 				B24D67BE1BA6BB1F00F33A96 /* active.png in Resources */,
 				B24D67D61BA6BB1F00F33A96 /* nocomment.png in Resources */,
+				B2258A1C1CA3DE3F0034A7F8 /* .gitignore in Resources */,
 				B24D67D91BA6BB1F00F33A96 /* setting@2x.png in Resources */,
 				B24D67CF1BA6BB1F00F33A96 /* manlocation.png in Resources */,
 				B24D67A91BA6BB1F00F33A96 /* IMG_3462.JPG in Resources */,
@@ -1266,10 +1305,12 @@
 				B2550A2F1C267D6200812D41 /* FansListAction.m in Sources */,
 				B2A33D081BDDFF5F00D8F18D /* Last_pri_msg.m in Sources */,
 				B24D68641BA6C3F200F33A96 /* ImageModel.m in Sources */,
+				B2258A221CA3DE3F0034A7F8 /* README.md in Sources */,
 				B24D68B31BA6C46900F33A96 /* SettingViewController.m in Sources */,
 				B24D69171BA6C8A300F33A96 /* BarItem.m in Sources */,
 				B24D65B61BA6AC5800F33A96 /* AppDelegate.m in Sources */,
 				B24D68651BA6C3F200F33A96 /* ContentModel.m in Sources */,
+				B2258A201CA3DE3F0034A7F8 /* NSData+CommonCrypto.m in Sources */,
 				B24D68A71BA6C46900F33A96 /* MenuViewCtrl.m in Sources */,
 				B2050CE41BB7AAD500074E92 /* HotContentAction.m in Sources */,
 				B24D68101BA6C06800F33A96 /* TalkTimeTableViewCell.m in Sources */,
@@ -1322,6 +1363,7 @@
 				B24D693B1BA6C8A400F33A96 /* Tools.m in Sources */,
 				B24D68AD1BA6C46900F33A96 /* RegisterPhoneNumViewController.m in Sources */,
 				B24D691F1BA6C8A400F33A96 /* pinyin.c in Sources */,
+				B2258A211CA3DE3F0034A7F8 /* NSString+Base64.m in Sources */,
 				B24D68A31BA6C46900F33A96 /* TalkViewController.m in Sources */,
 				B20447501C1BFEB5007DFE14 /* Follow_base_info+CoreDataProperties.m in Sources */,
 				B24D68061BA6C06800F33A96 /* CommentDetailCell.m in Sources */,
@@ -1343,11 +1385,13 @@
 				B24D68B91BA6C46900F33A96 /* ContentDetailViewController.m in Sources */,
 				B24D65E11BA6B9D300F33A96 /* Pri_msg.m in Sources */,
 				B24D68AB1BA6C46900F33A96 /* RegisterNickNameViewController.m in Sources */,
+				B2258A1F1CA3DE3F0034A7F8 /* NSData+Base64.m in Sources */,
 				B24D69311BA6C8A400F33A96 /* CONTRIBUTORS.md in Sources */,
 				B24D680B1BA6C06800F33A96 /* TalkTableViewCell.m in Sources */,
 				B24D68611BA6C3F200F33A96 /* MapPointModel.m in Sources */,
 				B24D68661BA6C3F200F33A96 /* PriMsgModel.m in Sources */,
 				B24D691E1BA6C8A400F33A96 /* NSString+Emojize.m in Sources */,
+				B2258A1D1CA3DE3F0034A7F8 /* AESCrypt.m in Sources */,
 				B24D69301BA6C8A400F33A96 /* CHANGELOG.md in Sources */,
 				B2689B3F1BBD0F7E008B8AF0 /* FeedBackCtrl.m in Sources */,
 				B24D68071BA6C06800F33A96 /* ContentTableViewCell.m in Sources */,

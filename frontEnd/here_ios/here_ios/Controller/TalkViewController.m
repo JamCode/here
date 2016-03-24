@@ -26,6 +26,8 @@
 #import "CocoaSecurity.h"
 #import "Mp3Recorder.h"
 #import "ConfigAccess.h"
+#import "AESCrypt.h"
+
 
 @interface TalkViewController ()
 {
@@ -1103,7 +1105,8 @@ static const double textViewWidth = 250;
     
     
     
-    
+    NSString *encryptedData = [AESCrypt encrypt:priMsg.message_content password:[ConfigAccess msgKey]];
+    NSLog(@"%@", encryptedData);
     
     CocoaSecurityResult *aesDefault = [CocoaSecurity aesEncrypt:priMsg.message_content key:[ConfigAccess msgKey]];
     
