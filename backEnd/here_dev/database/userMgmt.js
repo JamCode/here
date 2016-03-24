@@ -169,7 +169,7 @@ exports.insertUserImageInfo = function(userId, userImageURL, timeStamp,
 exports.getUserImage = function(userId, timestamp, count, callback) {
 	var sql =
 		'select * from image_url_v a where a.user_id = ? and a.timestamp<? order by timestamp desc limit ?';
-	conn.executeSql(sql, [userId, timestamp, count], callback);
+	conn.executeSql(sql, [userId, parseInt(timestamp), parseInt(count)], callback);
 };
 
 // end by wanghan for get user image
