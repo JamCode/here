@@ -151,8 +151,8 @@ function insertPrivateMsgAndPushToFront (msg, io) {
 
                     if(msg.msg_type === config.msgType.USERMSG){
 
-                        msg.message
-                        pushmsg = '[消息]';
+                        //msg.message
+                        pushmsg = '[私信]';
                     }
 
                     log.info('push msg ' + pushmsg, log.getFileNameAndLineNum(__filename));
