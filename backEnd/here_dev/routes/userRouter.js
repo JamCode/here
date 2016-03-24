@@ -440,7 +440,7 @@ router.post('/register', function(req, res) {
 			if (certificateInfo.certificate_code === fields.user_certificate_code) {
 				var user_info = {};
 				var md5 = require('MD5');
-				user_info.id = md5(fields.user_phone);
+				user_info.id = md5(fields.user_phone+Date.now());
 
 				// var fileName = conn.sha1Cryp(user_info.id + 'facethumbnail');
 				// var imageCompressName = fileName + '_compress';
