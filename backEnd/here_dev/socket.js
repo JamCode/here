@@ -150,6 +150,8 @@ function insertPrivateMsgAndPushToFront (msg, io) {
                     }
 
                     if(msg.msg_type === config.msgType.USERMSG){
+
+                        msg.message
                         pushmsg = '[消息]';
                     }
 

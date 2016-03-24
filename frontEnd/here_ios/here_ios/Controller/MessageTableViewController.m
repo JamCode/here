@@ -317,7 +317,7 @@ static const int noticeLabelHeight = 20;
     CocoaSecurityResult* aesDefault = [CocoaSecurity aesDecryptWithBase64:[feedback objectForKey:@"message"] key:[ConfigAccess msgKey]];
     
     NSString* msg = aesDefault.utf8String;
-    
+    NSLog(@"%@", msg);
     
     
     

@@ -1102,6 +1102,9 @@ static const double textViewWidth = 250;
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
     
+    
+    
+    
     CocoaSecurityResult *aesDefault = [CocoaSecurity aesEncrypt:priMsg.message_content key:[ConfigAccess msgKey]];
     
     NSLog(@"%@", aesDefault.base64);
