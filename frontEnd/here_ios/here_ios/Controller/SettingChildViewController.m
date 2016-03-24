@@ -75,7 +75,7 @@
     //update userInfo
     if (_parent.changedFlag == true) {
         AppDelegate* app = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-        if (_index == 3) {
+        if (_index == 5) {
             app.myInfo.sign = editView.text;
         }
     }
