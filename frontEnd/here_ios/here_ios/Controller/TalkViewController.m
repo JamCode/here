@@ -503,7 +503,7 @@ static const double textViewWidth = 250;
     //tableview 滚动到最后
     NSLog(@"%f", talkTableView.contentSize.height);
     NSLog(@"%f", talkTableView.bounds.size.height);
-    [self scrollToBottom:NO addition:0];
+    //[self scrollToBottom:NO addition:0];
     
     
     
@@ -1132,7 +1132,9 @@ static const double textViewWidth = 250;
         [self socketConnect];
         priMsg.sendStatus = SENDED_FAILED;
         [locDatabase updatePriMsg:priMsg];
-        [talkTableView reloadData];
+        
+        NSIndexPath *indexPath=[NSIndexPath indexPathForRow:[priMsgList count] - 1 inSection:0];
+        [talkTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
         return;
     }
     
@@ -1151,8 +1153,18 @@ static const double textViewWidth = 250;
             priMsg.sendStatus = SENDED_SUCCESS;
         }
         [locDatabase updatePriMsg:priMsg];
-        [talkTableView reloadData];
+        
+        [self performSelector:@selector(updateLastCell) withObject:nil afterDelay:0.5f];
+        
+        
+        //[talkTableView reloadData];
     }];
+}
+
+- (void)updateLastCell
+{
+    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:[priMsgList count] - 1 inSection:0];
+    [talkTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)sendMessage:(id)sender
@@ -1256,8 +1268,13 @@ static const double textViewWidth = 250;
 - (void)updateChatList
 {
     [talkTableView reloadData];
+    
+//    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:[priMsgList count] - 1 inSection:0];
+//    [talkTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+    
     NSIndexPath* curIndex = [NSIndexPath indexPathForRow:[priMsgList count]-1 inSection:0];
     [talkTableView selectRowAtIndexPath:curIndex animated:YES scrollPosition:UITableViewScrollPositionBottom];
+    
 }
 
 - (void) DoneButtonAction:(id)sender {
@@ -1419,15 +1436,7 @@ static const double textViewWidth = 250;
 }
 
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    PriMsgModel* priMsg = [priMsgList objectAtIndex:indexPath.row];
-//    if (priMsg.msg_type == USERMSG&&priMsg.sendStatus == SENDED_FAILED&&[priMsg.sender_user_id isEqualToString:myInfo.userID]){
-//        priMsg.sendStatus = SENDING;
-//        [talkTableView reloadData];
-//        [self sendDataToServer:priMsg];
-//    }
-//}
+
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
