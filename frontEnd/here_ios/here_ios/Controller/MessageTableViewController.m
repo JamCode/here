@@ -85,7 +85,7 @@ static const int noticeLabelHeight = 20;
 - (void)getPriMsgFriendList
 {
     priMsgFriendArray = [locDatabase getLastMsgFromDatabase];
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
     
 }
 
