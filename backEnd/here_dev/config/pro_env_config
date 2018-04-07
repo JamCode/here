@@ -21,6 +21,7 @@ exports.mysql_dev = {
 };
 
 exports.redis_pass = {
-    pass: 'here_dev'
+    pass: 'here_dev',
+    port: 6279
 };
 
