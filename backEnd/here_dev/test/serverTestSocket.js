@@ -74,7 +74,7 @@ if (cluster.isMaster) {
 
     io.adapter(sio_redis({
         host: 'localhost',
-        port: 6379
+        port: 6279
     }));
 
     io.sockets.on('connection', function(socket) {
