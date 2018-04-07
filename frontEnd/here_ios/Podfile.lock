@@ -1,24 +1,24 @@
 PODS:
-  - AFNetworking (3.0.0-beta.2):
-    - AFNetworking/NSURLSession
+  - AFNetworking (3.2.0):
+    - AFNetworking/NSURLSession (= 3.2.0)
+    - AFNetworking/Reachability (= 3.2.0)
+    - AFNetworking/Security (= 3.2.0)
+    - AFNetworking/Serialization (= 3.2.0)
+    - AFNetworking/UIKit (= 3.2.0)
+  - AFNetworking/NSURLSession (3.2.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-    - AFNetworking/UIKit
-  - AFNetworking/NSURLSession (3.0.0-beta.2):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.0.0-beta.2)
-  - AFNetworking/Security (3.0.0-beta.2)
-  - AFNetworking/Serialization (3.0.0-beta.2)
-  - AFNetworking/UIKit (3.0.0-beta.2):
+  - AFNetworking/Reachability (3.2.0)
+  - AFNetworking/Security (3.2.0)
+  - AFNetworking/Serialization (3.2.0)
+  - AFNetworking/UIKit (3.2.0):
     - AFNetworking/NSURLSession
   - ASIHTTPRequest (1.8.2):
-    - ASIHTTPRequest/ASIWebPageRequest
-    - ASIHTTPRequest/CloudFiles
-    - ASIHTTPRequest/Core
-    - ASIHTTPRequest/S3
+    - ASIHTTPRequest/ASIWebPageRequest (= 1.8.2)
+    - ASIHTTPRequest/CloudFiles (= 1.8.2)
+    - ASIHTTPRequest/Core (= 1.8.2)
+    - ASIHTTPRequest/S3 (= 1.8.2)
   - ASIHTTPRequest/ASIWebPageRequest (1.8.2):
     - ASIHTTPRequest/Core
   - ASIHTTPRequest/CloudFiles (1.8.2):
@@ -32,13 +32,13 @@ PODS:
   - Masonry (0.6.3)
   - MBProgressHUD (0.9.1)
   - NJKWebViewProgress (0.2.3):
-    - NJKWebViewProgress/Core
-    - NJKWebViewProgress/ProgressView
+    - NJKWebViewProgress/Core (= 0.2.3)
+    - NJKWebViewProgress/ProgressView (= 0.2.3)
   - NJKWebViewProgress/Core (0.2.3)
   - NJKWebViewProgress/ProgressView (0.2.3)
   - Reachability (3.2)
   - SDWebImage (3.7.3):
-    - SDWebImage/Core
+    - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
   - SocketRocket (0.4.2)
   - YYModel (0.9.5)
@@ -58,7 +58,7 @@ DEPENDENCIES:
   - YYWebImage
 
 SPEC CHECKSUMS:
-  AFNetworking: e3639f8310904c9888ddf03a2fa585633594a6e3
+  AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
   ASIHTTPRequest: ec013992946676b7978dcbde6396d57312d21db4
   EGOTableViewPullRefresh: d4c15be51914f4168d6fd7529b6ad3a4ab01e5f4
   LBBlurredImage: 700634c17922bc2d22343118e7deb6a3ca12db43
@@ -71,4 +71,6 @@ SPEC CHECKSUMS:
   YYModel: dd2bdc9097f8a90c53512a87d55d28340ade1371
   YYWebImage: 23e7f2bc8c5d0f61fd690d32a3c5dc0f3542a233
 
-COCOAPODS: 0.34.4
+PODFILE CHECKSUM: aa7088b0dcb5a62dd39bfcf0ab9759d227694718
+
+COCOAPODS: 1.4.0

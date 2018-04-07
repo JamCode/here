@@ -1,5 +1,5 @@
 // UIImageView+AFNetworking.m
-// Copyright (c) 2011–2015 Alamofire Software Foundation (http://alamofire.org/)
+// Copyright (c) 2011–2016 Alamofire Software Foundation ( http://alamofire.org/ )
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -48,11 +48,7 @@
 @implementation UIImageView (AFNetworking)
 
 + (AFImageDownloader *)sharedImageDownloader {
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu"
     return objc_getAssociatedObject(self, @selector(sharedImageDownloader)) ?: [AFImageDownloader defaultInstance];
-#pragma clang diagnostic pop
 }
 
 + (void)setSharedImageDownloader:(AFImageDownloader *)imageDownloader {
@@ -103,35 +99,37 @@
         } else {
             self.image = cachedImage;
         }
-        self.af_activeImageDownloadReceipt = nil;
+        [self clearActiveDownloadInformation];
     } else {
         if (placeholderImage) {
             self.image = placeholderImage;
         }
 
         __weak __typeof(self)weakSelf = self;
+        NSUUID *downloadID = [NSUUID UUID];
         AFImageDownloadReceipt *receipt;
         receipt = [downloader
                    downloadImageForURLRequest:urlRequest
+                   withReceiptID:downloadID
                    success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull responseObject) {
                        __strong __typeof(weakSelf)strongSelf = weakSelf;
-                       if ([strongSelf isActiveTaskURLEqualToURLRequest:request]) {
+                       if ([strongSelf.af_activeImageDownloadReceipt.receiptID isEqual:downloadID]) {
                            if (success) {
                                success(request, response, responseObject);
                            } else if(responseObject) {
                                strongSelf.image = responseObject;
                            }
-                           strongSelf.af_activeImageDownloadReceipt = nil;
+                           [strongSelf clearActiveDownloadInformation];
                        }
 
                    }
                    failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
                        __strong __typeof(weakSelf)strongSelf = weakSelf;
-                        if ([strongSelf isActiveTaskURLEqualToURLRequest:request]) {
+                        if ([strongSelf.af_activeImageDownloadReceipt.receiptID isEqual:downloadID]) {
                             if (failure) {
                                 failure(request, response, error);
                             }
-                            strongSelf.af_activeImageDownloadReceipt = nil;
+                            [strongSelf clearActiveDownloadInformation];
                         }
                    }];
 
@@ -142,8 +140,12 @@
 - (void)cancelImageDownloadTask {
     if (self.af_activeImageDownloadReceipt != nil) {
         [[self.class sharedImageDownloader] cancelTaskForImageDownloadReceipt:self.af_activeImageDownloadReceipt];
-        self.af_activeImageDownloadReceipt = nil;
+        [self clearActiveDownloadInformation];
      }
+}
+
+- (void)clearActiveDownloadInformation {
+    self.af_activeImageDownloadReceipt = nil;
 }
 
 - (BOOL)isActiveTaskURLEqualToURLRequest:(NSURLRequest *)urlRequest {
