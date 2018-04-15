@@ -164,6 +164,9 @@ function insertPrivateMsgAndPushToFront (msg, io) {
                     };
 
                     // apn to user
+
+                    
+
                     if(item != null){
                         conn.pushMsgToUsers(item.device_token, pushMsg);
                         userMgmt.updateDeviceNotifyCount(item.device_token, item.count + 1,
