@@ -65,7 +65,7 @@ static const int tableview_cell_height = 44;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextStep:)];
     
-    tableview = [[UITableView alloc] initWithFrame:CGRectMake(tableview_x, tableview_y, ScreenWidth, tableview_cell_height*2-1)];
+    tableview = [[UITableView alloc] initWithFrame:CGRectMake(tableview_x, tableview_y, ScreenWidth, tableview_cell_height*2+8)];
     [tableview setDelegate:self];
     [tableview setDataSource:self];
     [self.view addSubview: tableview];

@@ -202,6 +202,8 @@
 		B2BFEB021BE893E3000296EF /* config.geojson in Resources */ = {isa = PBXBuildFile; fileRef = B2BFEB011BE893E3000296EF /* config.geojson */; };
 		B2BFEB051BE897FE000296EF /* ConfigAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BFEB041BE897FE000296EF /* ConfigAccess.m */; };
 		B2C9445C1C3EB49A00D06B61 /* server.crt in Resources */ = {isa = PBXBuildFile; fileRef = B2C9445B1C3EB49A00D06B61 /* server.crt */; };
+		B2F2866220791BD300A60730 /* info-icon_meitu_1.png in Resources */ = {isa = PBXBuildFile; fileRef = B2F2866120791BD200A60730 /* info-icon_meitu_1.png */; };
+		B2F2866420791C7700A60730 /* info-icon_meitu_2.png in Resources */ = {isa = PBXBuildFile; fileRef = B2F2866320791C7700A60730 /* info-icon_meitu_2.png */; };
 		CFC8820D6393345881E180B0 /* libPods-here_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4578F81D2F3877DC37E41455 /* libPods-here_ios.a */; };
 /* End PBXBuildFile section */
 
@@ -522,6 +524,8 @@
 		B2BFEB031BE897FE000296EF /* ConfigAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigAccess.h; sourceTree = "<group>"; };
 		B2BFEB041BE897FE000296EF /* ConfigAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigAccess.m; sourceTree = "<group>"; };
 		B2C9445B1C3EB49A00D06B61 /* server.crt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = server.crt; sourceTree = "<group>"; };
+		B2F2866120791BD200A60730 /* info-icon_meitu_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-icon_meitu_1.png"; sourceTree = "<group>"; };
+		B2F2866320791C7700A60730 /* info-icon_meitu_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-icon_meitu_2.png"; sourceTree = "<group>"; };
 		E999ED1DA886EFEBB36CF04A /* Pods-here_ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-here_ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-here_ios/Pods-here_ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -755,6 +759,8 @@
 		B24D66C41BA6BB1F00F33A96 /* userIcons */ = {
 			isa = PBXGroup;
 			children = (
+				B2F2866320791C7700A60730 /* info-icon_meitu_2.png */,
+				B2F2866120791BD200A60730 /* info-icon_meitu_1.png */,
 				B208D22F1BE1043600AFAE39 /* dot.png */,
 				B24D66C51BA6BB1F00F33A96 /* active.png */,
 				B24D66C61BA6BB1F00F33A96 /* active@2x.png */,
@@ -1188,6 +1194,7 @@
 				B24D67C61BA6BB1F00F33A96 /* chat_animation_white2.png in Resources */,
 				B249BEC01BD7DCBC00A892E0 /* waitPage6.png in Resources */,
 				B24D67A71BA6BB1F00F33A96 /* full.jpg in Resources */,
+				B2F2866220791BD300A60730 /* info-icon_meitu_1.png in Resources */,
 				B24D67D01BA6BB1F00F33A96 /* manSetting.png in Resources */,
 				B24D65C11BA6AC5800F33A96 /* Images.xcassets in Resources */,
 				B24D67AE1BA6BB1F00F33A96 /* cellphone64px.png in Resources */,
@@ -1196,6 +1203,7 @@
 				B24D67BC1BA6BB1F00F33A96 /* setting.png in Resources */,
 				B24D67B91BA6BB1F00F33A96 /* message@2x.png in Resources */,
 				B24D67BD1BA6BB1F00F33A96 /* setting@2x.png in Resources */,
+				B2F2866420791C7700A60730 /* info-icon_meitu_2.png in Resources */,
 				B24D66EC1BA6BB1F00F33A96 /* location.png in Resources */,
 				B24D67C11BA6BB1F00F33A96 /* addImage49px.png in Resources */,
 				B24D66EB1BA6BB1F00F33A96 /* description.png in Resources */,

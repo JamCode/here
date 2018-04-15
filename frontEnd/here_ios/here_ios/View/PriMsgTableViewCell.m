@@ -52,7 +52,13 @@ static const int noticeLabelHeight = 20;
     [self.imageView setFrame:CGRectMake(10, 10, 45, 45)];
     [self.textLabel setFrame:CGRectMake(70, 10, 160, 20)];
     [self.detailTextLabel setFrame:CGRectMake(70, 10+20+10, 220, 15)];
-    [_lastTime setFrame:CGRectMake(250, 10, 66, 22)];
+    
+    
+    
+    [_lastTime setFrame:CGRectMake(300, 10, 66, 22)];
+    
+    
+    
     [_noticeCount setFrame:CGRectMake(self.imageView.frame.origin.x+self.imageView.frame.size.width - noticeLabelHeight/2, self.imageView.frame.origin.y - noticeLabelHeight/2, noticeLabelHeight, noticeLabelHeight)];
     
     [self setSeparatorInset:UIEdgeInsetsMake(0,0,0,0)];

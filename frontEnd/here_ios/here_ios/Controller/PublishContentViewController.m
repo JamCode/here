@@ -61,7 +61,10 @@
     
     self.view.backgroundColor = activeViewControllerbackgroundColor;
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    
     UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 64)];
+    
     UIBarButtonItem *leftitem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(navigationBackButton:)];
     
     UIBarButtonItem *rightitem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publishContentButton:)];
@@ -399,6 +402,13 @@
 - (void)publishContentButton:(id)sender
 {
     NSString* content = contentTextView.text;
+    
+    if(addImage == false){
+        alertMsg(@"请添加图片");
+        return;
+    }
+    
+    
     if (([content isEqualToString: @""]||content == nil)&&addImage == false) {
         return;
     }
@@ -419,8 +429,22 @@
     for (int i=0; i<[imageArray count]; ++i) {
         [images setObject:[imageArray objectAtIndex:i] forKey:[[NSString alloc] initWithFormat:@"content_image_%d", i]];
     }
-        
-    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[app.myInfo.userID, content, [[NSNumber alloc] initWithDouble:app.myInfo.latitude], [[NSNumber alloc] initWithDouble:app.myInfo.longitude], [[NSNumber alloc] initWithInt:anonymous], [[NSNumber alloc] initWithInt:addImageCount], _address, cityDesc, @"/publishContent"] forKeys:@[@"user_id", @"content", @"publish_latitude", @"publish_longitude", @"anonymous", @"imageCount", @"address", @"cityDesc", @"childpath"]];
+    
+    if(cityDesc == nil){
+        cityDesc = @"";
+    }
+    
+    NSDictionary* message = [[NSDictionary alloc] initWithObjects:@[
+                                                                    app.myInfo.userID,
+                                                                    content,
+                                                                    [[NSNumber alloc] initWithDouble:app.myInfo.latitude],
+                                                                    [[NSNumber alloc] initWithDouble:app.myInfo.longitude],
+                                                                    [[NSNumber alloc] initWithInt:anonymous],
+                                                                    [[NSNumber alloc] initWithInt:addImageCount],
+                                                                    _address,
+                                                                    cityDesc,
+                                                                    @"/publishContent"]
+                                                          forKeys:@[@"user_id", @"content", @"publish_latitude", @"publish_longitude", @"anonymous", @"imageCount", @"address", @"cityDesc", @"childpath"]];
     
     NSDictionary* feedbackcall = [[NSDictionary alloc] initWithObjects:@[[NSValue valueWithBytes:&@selector(publishActiveSuccess:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(publishActiveError:) objCType:@encode(SEL)],[NSValue valueWithBytes:&@selector(publishException:) objCType:@encode(SEL)] ] forKeys:@[[[NSNumber alloc] initWithInt:SUCCESS],[[NSNumber alloc] initWithInt:ERROR],[[NSNumber alloc] initWithInt:EXCEPTION]]];
     

@@ -1521,6 +1521,7 @@ static const double textViewWidth = 250;
         
         [cell setTalkCell:myInfo counter:_counterInfo msg:priMsg];
         return cell;
+    
     }
     
 }

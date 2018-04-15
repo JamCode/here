@@ -85,7 +85,7 @@ static const int notice_height = 18;
     //重发验证码
     resendButton = [UIButton buttonWithType:UIButtonTypeCustom];
     resendButton.frame = CGRectMake(10, textFieldBack.frame.origin.y+textFieldBack.frame.size.height+20, ScreenWidth - 2*10, 44);
-    resendButton.backgroundColor = sepeartelineColor;
+    //resendButton.backgroundColor = sepeartelineColor;
     resendButton.layer.cornerRadius = 6;
     [resendButton setEnabled:NO];
     

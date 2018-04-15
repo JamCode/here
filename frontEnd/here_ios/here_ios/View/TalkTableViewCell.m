@@ -193,7 +193,11 @@ static const int maxImageButtonHeight = 160;
         charImage = [UIImage imageNamed:@"mychat_normal.png"];
         insets = UIEdgeInsetsMake(topMargin, mychatLeftMargin, bottomMargin, mychatRightMargin);//设置文本的内边框
         [self.msgButton setContentEdgeInsets:insets];//设置缩进
+        
+        
+        
         [self.msgButton setFrame:CGRectMake(self.frame.size.width-msgButtonWidth-faceImageWidth-5, 10,msgButtonWidth, msgButtonHeight)];
+        
         [self.msgButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
         [self.activeLoadingView setFrame:CGRectMake(self.msgButton.frame.origin.x - 25, self.msgButton.frame.origin.y+(self.msgButton.frame.size.height-24)/2, 24, 24)];

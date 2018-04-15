@@ -47,5 +47,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSContactsUsageDescription</key>
+	<string>NSCameraUsageDescription</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>此 App 需要您的同意才能读取媒体资料库</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>microphoneDesciption</string>
 </dict>
 </plist>

@@ -21,7 +21,9 @@
 
 
 static const int noticeLabelHeight = 10;
-static const int leftbarWidth = 20;
+static const int leftbarWidth = 15;
+static const int leftbarHeight = 15;
+
 
 @implementation NearByContentAction
 {
@@ -293,19 +295,28 @@ static const int leftbarWidth = 20;
     comTable.navigationItem.titleView = navTitle;
     
     
-    UIButton* rightBar = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightBar.frame = CGRectMake(0, 0, 24, 24);
-    [rightBar setBackgroundImage:[UIImage imageNamed:@"publishActivity48.png"] forState:UIControlStateNormal];
-    [rightBar addTarget:self action:@selector(publishActivity:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* rightitem = [[UIBarButtonItem alloc] initWithCustomView:rightBar];
-    comTable.navigationItem.rightBarButtonItem = rightitem;
+
+    
+    comTable.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publishActivity:)];
+    
+    
     
     
     leftBar = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftBar.frame = CGRectMake(0, 0, leftbarWidth, leftbarWidth);
-    [leftBar setBackgroundImage:[UIImage imageNamed:@"info-icon.png"] forState:UIControlStateNormal];
+    leftBar.frame = CGRectMake(0, 0, leftbarWidth, leftbarHeight);
+    [leftBar setImage:[UIImage imageNamed:@"info-icon_meitu_2.png"] forState:UIControlStateNormal];
+    leftBar.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    
+    
+    leftBar.contentMode = UIViewContentModeScaleAspectFill;
+    leftBar.clipsToBounds = YES;
     
     [leftBar addTarget:self action:@selector(sideMenuOpen) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+//    comTable.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"我的" style:UIBarButtonItemStylePlain target:self action:@selector(sideMenuOpen:)];
+    
     comTable.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBar];
     
     

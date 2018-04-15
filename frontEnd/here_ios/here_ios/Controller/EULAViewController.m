@@ -40,7 +40,7 @@
     webView.backgroundColor = [UIColor whiteColor];
     webView.scalesPageToFit = YES;
     
-    NSURL* url = [NSURL URLWithString:@"http://112.74.102.178:10808/eula"];//创建URL
+    NSURL* url = [NSURL URLWithString:@"http://123.57.229.67:10808/eula"];//创建URL
     NSURLRequest* request = [NSURLRequest requestWithURL:url];//创建NSURLRequest
     [webView loadRequest:request];//加载
     
