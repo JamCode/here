@@ -140,6 +140,8 @@ exports.pushMsgToUsers = function (userToken, msg) {
 		return;
 	}
 
+	log.info("pushMsgToUsers", log.getFileNameAndLineNum(__filename))
+
 	var pemName = null;
 	var pemkeyName = null;
 
