@@ -91,14 +91,14 @@ global.app.use(function(req, res, next) {
 
 
 
-global.app.use('/', webRouter);
+global.app.use('/xiaomada', webRouter);
 global.app.use(express.static(__dirname + '/css'));
 global.app.use(express.static(__dirname + '/js'));
 global.app.use(express.static(__dirname + '/images'));
 
 
 global.app.use('/*', (req, res) =>{
-    res.render('login');
+    res.render('小马达');
 })
 
 
