@@ -80,11 +80,16 @@ if(global_config != null){
 
 // 消息生成唯一码
 global.app.use(function(req, res, next) {
+
+	log.info(req.url)
     req.body.sq = Date.now();
     log.info(JSON.stringify(req.body), log.getFileNameAndLineNum(__filename),
         req.body.sq);
     next();
 });
+
+
+
 
 global.app.use('/', webRouter);
 global.app.use(express.static(__dirname + '/css'));
