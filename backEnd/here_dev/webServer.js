@@ -93,7 +93,7 @@ global.app.use(express.static(__dirname + '/images'));
 
 
 global.app.use('/*', (req, res) =>{
-    res.send('小马达')
+    res.render('login');
 })
 
 
