@@ -21,7 +21,7 @@ router.get('/login', function(req, res){
 
 router.get('/content', function(req, res){
 	if(!req.session.user){
-		res.redirect('/login');
+		res.redirect('/xiaomada/login');
 		return;
 	}
 
@@ -78,7 +78,7 @@ router.get('/content', function(req, res){
 router.get('/logout', function(req, res){
 	req.session.user = null;
 	global.user = null;
-	res.redirect('/login');
+	res.redirect('/xiaomada/login');
 });
 
 router.post('/login', function(req, res){
@@ -88,10 +88,10 @@ router.post('/login', function(req, res){
 		console.log('validate successful');
 		req.session.user = req.body.name;
 
-		res.redirect('/content?page=1');
+		res.redirect('/xiaomada/content?page=1');
 	}else{
 		console.log('validate not successful');
-		res.redirect('/login');
+		res.redirect('/xiaomada/login');
 	}
 });
 
