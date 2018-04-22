@@ -92,6 +92,11 @@ global.app.use(express.static(__dirname + '/js'));
 global.app.use(express.static(__dirname + '/images'));
 
 
+global.app.use('/*', (req, res) =>{
+    res.send('小马达')
+})
+
+
 var port = 10808;
 
 http.createServer(global.app).listen(port);

@@ -247,6 +247,7 @@
 		B2258A191CA3DE3F0034A7F8 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		B2258A1A1CA3DE3F0034A7F8 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		B2258A1B1CA3DE3F0034A7F8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B2365E7520839A8A0042DE2C /* here_ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = here_ios.entitlements; sourceTree = "<group>"; };
 		B2392B421BABF183009FE00C /* BlackListAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlackListAction.h; sourceTree = "<group>"; };
 		B2392B431BABF183009FE00C /* BlackListAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlackListAction.m; sourceTree = "<group>"; };
 		B249BEBB1BD7DCAB00A892E0 /* waitPage6p.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waitPage6p.png; sourceTree = "<group>"; };
@@ -613,6 +614,7 @@
 		B24D65AF1BA6AC5800F33A96 /* here_ios */ = {
 			isa = PBXGroup;
 			children = (
+				B2365E7520839A8A0042DE2C /* here_ios.entitlements */,
 				B24D69161BA6C8A300F33A96 /* Utilities */,
 				B24D68181BA6C21C00F33A96 /* Controller */,
 				B24D68171BA6C16700F33A96 /* Model */,
@@ -1134,6 +1136,11 @@
 					B24D65AC1BA6AC5800F33A96 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 7R8RS88G2M;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					B24D65C81BA6AC5800F33A96 = {
 						CreatedOnToolsVersion = 6.4;
@@ -1533,6 +1540,7 @@
 			baseConfigurationReference = E999ED1DA886EFEBB36CF04A /* Pods-here_ios.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = here_ios/here_ios.entitlements;
 				DEVELOPMENT_TEAM = 7R8RS88G2M;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1616,6 +1624,7 @@
 			baseConfigurationReference = 11EF0B827DC8AFA7B73CBBF5 /* Pods-here_ios.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = here_ios/here_ios.entitlements;
 				DEVELOPMENT_TEAM = 7R8RS88G2M;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
